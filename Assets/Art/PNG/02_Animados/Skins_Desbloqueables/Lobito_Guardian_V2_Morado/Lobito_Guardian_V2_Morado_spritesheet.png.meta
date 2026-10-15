@@ -1,0 +1,598 @@
+fileFormatVersion: 2
+guid: 736925a3132bd574d81848cd553949a9
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 3339699589472270923
+    second: Lobito_Guardian_V2_Morado_spritesheet_0
+  - first:
+      213: 1723039093404960437
+    second: Lobito_Guardian_V2_Morado_spritesheet_1
+  - first:
+      213: 5155776945873954333
+    second: Lobito_Guardian_V2_Morado_spritesheet_2
+  - first:
+      213: 196332038642500077
+    second: Lobito_Guardian_V2_Morado_spritesheet_3
+  - first:
+      213: -1175469626952622993
+    second: Lobito_Guardian_V2_Morado_spritesheet_4
+  - first:
+      213: 3473100036883035785
+    second: Lobito_Guardian_V2_Morado_spritesheet_5
+  - first:
+      213: 7408108567774603779
+    second: Lobito_Guardian_V2_Morado_spritesheet_6
+  - first:
+      213: 446456285614506238
+    second: Lobito_Guardian_V2_Morado_spritesheet_7
+  - first:
+      213: -7805965843631827829
+    second: Lobito_Guardian_V2_Morado_spritesheet_8
+  - first:
+      213: 5746072978302916080
+    second: Lobito_Guardian_V2_Morado_spritesheet_9
+  - first:
+      213: -9966358064387391
+    second: Lobito_Guardian_V2_Morado_spritesheet_10
+  - first:
+      213: -342953717363673639
+    second: Lobito_Guardian_V2_Morado_spritesheet_11
+  - first:
+      213: -850721589016586017
+    second: Lobito_Guardian_V2_Morado_spritesheet_12
+  - first:
+      213: 3494871968458796399
+    second: Lobito_Guardian_V2_Morado_spritesheet_13
+  - first:
+      213: -4866065334434589838
+    second: Lobito_Guardian_V2_Morado_spritesheet_14
+  - first:
+      213: 5857168858819239713
+    second: Lobito_Guardian_V2_Morado_spritesheet_15
+  - first:
+      213: 393810989606387660
+    second: Lobito_Guardian_V2_Morado_spritesheet_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_Morado_spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b4a3307051ff85e20800000000000000
+      internalID: 3339699589472270923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_Morado_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 1
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5b683882de679e710800000000000000
+      internalID: 1723039093404960437
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_Morado_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 2
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d1627f7d0dffc8740800000000000000
+      internalID: 5155776945873954333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_Morado_spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 1
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: de1805de2f289b200800000000000000
+      internalID: 196332038642500077
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_Morado_spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 2
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6c5a392a94efafe0800000000000000
+      internalID: -1175469626952622993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_Morado_spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 1
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9863fcf051ee23030800000000000000
+      internalID: 3473100036883035785
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_Morado_spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 2
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 30aabb71e73eec660800000000000000
+      internalID: 7408108567774603779
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_Morado_spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 3
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ef00bc750a1223600800000000000000
+      internalID: 446456285614506238
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_Morado_spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 2
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b841e794c63aba390800000000000000
+      internalID: -7805965843631827829
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_Morado_spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 3
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0f557350ee62ebf40800000000000000
+      internalID: 5746072978302916080
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_Morado_spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 5
+        width: 27
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1ca2edf66a79cdff0800000000000000
+      internalID: -9966358064387391
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_Morado_spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 9
+        width: 27
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9d5732e39659d3bf0800000000000000
+      internalID: -342953717363673639
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_Morado_spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 4
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fd819ebd831a134f0800000000000000
+      internalID: -850721589016586017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_Morado_spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 2
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6de477e987408030800000000000000
+      internalID: 3494871968458796399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_Morado_spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 1
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2731f2f1c53487cb0800000000000000
+      internalID: -4866065334434589838
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_Morado_spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 2
+        width: 32
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 12f96636b08d84150800000000000000
+      internalID: 5857168858819239713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_Morado_spritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 2
+        width: 31
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ccf32203209177500800000000000000
+      internalID: 393810989606387660
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Lobito_Guardian_V2_Morado_spritesheet_0: 3339699589472270923
+      Lobito_Guardian_V2_Morado_spritesheet_1: 1723039093404960437
+      Lobito_Guardian_V2_Morado_spritesheet_10: -9966358064387391
+      Lobito_Guardian_V2_Morado_spritesheet_11: -342953717363673639
+      Lobito_Guardian_V2_Morado_spritesheet_12: -850721589016586017
+      Lobito_Guardian_V2_Morado_spritesheet_13: 3494871968458796399
+      Lobito_Guardian_V2_Morado_spritesheet_14: -4866065334434589838
+      Lobito_Guardian_V2_Morado_spritesheet_15: 5857168858819239713
+      Lobito_Guardian_V2_Morado_spritesheet_16: 393810989606387660
+      Lobito_Guardian_V2_Morado_spritesheet_2: 5155776945873954333
+      Lobito_Guardian_V2_Morado_spritesheet_3: 196332038642500077
+      Lobito_Guardian_V2_Morado_spritesheet_4: -1175469626952622993
+      Lobito_Guardian_V2_Morado_spritesheet_5: 3473100036883035785
+      Lobito_Guardian_V2_Morado_spritesheet_6: 7408108567774603779
+      Lobito_Guardian_V2_Morado_spritesheet_7: 446456285614506238
+      Lobito_Guardian_V2_Morado_spritesheet_8: -7805965843631827829
+      Lobito_Guardian_V2_Morado_spritesheet_9: 5746072978302916080
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

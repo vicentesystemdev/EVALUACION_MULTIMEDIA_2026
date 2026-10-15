@@ -27,3 +27,9 @@
 .DS_Store
 Thumbs.db
 Desktop.ini
+# Configuracion local de Codex
+/.codex/
+
+# Configuraciones locales
+/.codex/
+/.vsconfig
