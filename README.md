@@ -69,8 +69,8 @@ Los métodos están definidos en `Assets/Scripts/Core/GestorEscenas.cs` de la ra
 
 Cada integrante trabaja en su parte; la integración final une los resultados sin reemplazar el trabajo de los demás.
 
-<details open>
-<summary><strong>🎨 Víctor — Recursos gráficos y estilo visual</strong></summary>
+<details>
+<summary><strong>🎨 Víctor Grover Asturizaga Plata -Developer-vic1- — Recursos gráficos y estilo visual</strong></summary>
 
 - Prepara sprites de **botones, fondos y paneles** a partir de CAMPUS_GLITCH.
 - Revisa su importación en Unity y conserva los archivos `.meta`.
@@ -82,7 +82,7 @@ Cada integrante trabaja en su parte; la integración final une los resultados si
 </details>
 
 <details>
-<summary><strong>🏠 Carla — Menú principal</strong></summary>
+<summary><strong>🏠 Carla Valeria Encinas Cano -VarlaCdev20- — Menú principal</strong></summary>
 
 - Construye `MenuPrincipal.unity` con **Canvas**, título, fondo y botones **Jugar** y **Salir**.
 - Utiliza **TextMeshPro**, el Inspector y los eventos **OnClick**.
@@ -93,7 +93,7 @@ Cada integrante trabaja en su parte; la integración final une los resultados si
 </details>
 
 <details>
-<summary><strong>💥 Marcelo — Pantalla Game Over</strong></summary>
+<summary><strong>💥 Marcelo Josue Escobar Chipana -Josue-EC16- — Pantalla Game Over</strong></summary>
 
 - Construye `GameOver.unity` con el mensaje de fin de partida.
 - Agrega los botones **Reintentar** y **Volver al menú**.
@@ -104,7 +104,7 @@ Cada integrante trabaja en su parte; la integración final une los resultados si
 </details>
 
 <details>
-<summary><strong>🔗 Vicente — Navegación, integración y entrega</strong></summary>
+<summary><strong>🔗 Vicente Oscar Claros Mamani -vicentesystemdev- — Navegación, integración y entrega</strong></summary>
 
 - Mantiene `GestorEscenas.cs` y revisa `Nivel01.unity`.
 - Integra las transiciones, coordina los **Pull Requests** y ejecuta pruebas.
