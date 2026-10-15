@@ -1,0 +1,11 @@
+ENTRADAS=930
+ARCHIVOS ASEPRITE VALIDOS EN INVENTARIO=930
+biblioteca_previa=625
+nuevo_modular=270
+original_usuario=3
+animacion_nueva=13
+skin_animada=2
+interactivo_animado=15
+avatar_bipedo_opcional=2
+
+Cada PNG abre con PIL y dimensiones acordes a manifiesto. Cabecera, fotogramas y celdas zlib de cada Aseprite validados. Unity no probado aquí.
