@@ -1,0 +1,598 @@
+fileFormatVersion: 2
+guid: 999ea617965130e44a49de32949420f1
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -709912299442500091
+    second: Lobito_Guardian_V2_spritesheet_0
+  - first:
+      213: 4586903544487552983
+    second: Lobito_Guardian_V2_spritesheet_1
+  - first:
+      213: -4333602154024754975
+    second: Lobito_Guardian_V2_spritesheet_2
+  - first:
+      213: -654609501316194066
+    second: Lobito_Guardian_V2_spritesheet_3
+  - first:
+      213: -3338892358672306010
+    second: Lobito_Guardian_V2_spritesheet_4
+  - first:
+      213: 3460687699061891261
+    second: Lobito_Guardian_V2_spritesheet_5
+  - first:
+      213: 5619609769336823682
+    second: Lobito_Guardian_V2_spritesheet_6
+  - first:
+      213: -5931744266948050058
+    second: Lobito_Guardian_V2_spritesheet_7
+  - first:
+      213: 1781927458503777441
+    second: Lobito_Guardian_V2_spritesheet_8
+  - first:
+      213: 7001611321959172633
+    second: Lobito_Guardian_V2_spritesheet_9
+  - first:
+      213: -1905417725103943875
+    second: Lobito_Guardian_V2_spritesheet_10
+  - first:
+      213: -5901106038031205035
+    second: Lobito_Guardian_V2_spritesheet_11
+  - first:
+      213: 8876580522441230399
+    second: Lobito_Guardian_V2_spritesheet_12
+  - first:
+      213: 6204745886836122884
+    second: Lobito_Guardian_V2_spritesheet_13
+  - first:
+      213: 4430227942740613026
+    second: Lobito_Guardian_V2_spritesheet_14
+  - first:
+      213: -2360641590181156738
+    second: Lobito_Guardian_V2_spritesheet_15
+  - first:
+      213: 6656158121338452227
+    second: Lobito_Guardian_V2_spritesheet_16
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 2
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 50e8c026682e526f0800000000000000
+      internalID: -709912299442500091
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 33
+        y: 1
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 7d72924a874f7af30800000000000000
+      internalID: 4586903544487552983
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 65
+        y: 2
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1e0ac732dc3fbd3c0800000000000000
+      internalID: -4333602154024754975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 97
+        y: 1
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ee0e377702c5ae6f0800000000000000
+      internalID: -654609501316194066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 129
+        y: 2
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6a0321a071fd9a1d0800000000000000
+      internalID: -3338892358672306010
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 161
+        y: 1
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: db0e5257025d60030800000000000000
+      internalID: 3460687699061891261
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 193
+        y: 2
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 28fd2adaf4ddcfd40800000000000000
+      internalID: 5619609769336823682
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 225
+        y: 3
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6730a1654063eada0800000000000000
+      internalID: -5931744266948050058
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 257
+        y: 2
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1acd1ab159daab810800000000000000
+      internalID: 1781927458503777441
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 289
+        y: 3
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 91acab4b668ba2160800000000000000
+      internalID: 7001611321959172633
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 321
+        y: 5
+        width: 27
+        height: 24
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: d3f4272aca89e85e0800000000000000
+      internalID: -1905417725103943875
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 353
+        y: 9
+        width: 27
+        height: 23
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 55dbc35e25f0b1ea0800000000000000
+      internalID: -5901106038031205035
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 385
+        y: 4
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f38c24c74f2ff2b70800000000000000
+      internalID: 8876580522441230399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 417
+        y: 2
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 405ee6a828fab1650800000000000000
+      internalID: 6204745886836122884
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 449
+        y: 1
+        width: 27
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2a7501177d45b7d30800000000000000
+      internalID: 4430227942740613026
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 481
+        y: 2
+        width: 32
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: e782d3f1bf05d3fd0800000000000000
+      internalID: -2360641590181156738
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobito_Guardian_V2_spritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 513
+        y: 2
+        width: 31
+        height: 27
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 309b537ab8c6f5c50800000000000000
+      internalID: 6656158121338452227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Lobito_Guardian_V2_spritesheet_0: -709912299442500091
+      Lobito_Guardian_V2_spritesheet_1: 4586903544487552983
+      Lobito_Guardian_V2_spritesheet_10: -1905417725103943875
+      Lobito_Guardian_V2_spritesheet_11: -5901106038031205035
+      Lobito_Guardian_V2_spritesheet_12: 8876580522441230399
+      Lobito_Guardian_V2_spritesheet_13: 6204745886836122884
+      Lobito_Guardian_V2_spritesheet_14: 4430227942740613026
+      Lobito_Guardian_V2_spritesheet_15: -2360641590181156738
+      Lobito_Guardian_V2_spritesheet_16: 6656158121338452227
+      Lobito_Guardian_V2_spritesheet_2: -4333602154024754975
+      Lobito_Guardian_V2_spritesheet_3: -654609501316194066
+      Lobito_Guardian_V2_spritesheet_4: -3338892358672306010
+      Lobito_Guardian_V2_spritesheet_5: 3460687699061891261
+      Lobito_Guardian_V2_spritesheet_6: 5619609769336823682
+      Lobito_Guardian_V2_spritesheet_7: -5931744266948050058
+      Lobito_Guardian_V2_spritesheet_8: 1781927458503777441
+      Lobito_Guardian_V2_spritesheet_9: 7001611321959172633
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
