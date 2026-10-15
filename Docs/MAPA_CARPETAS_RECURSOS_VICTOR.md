@@ -5,9 +5,10 @@
 Víctor prepara gráficos, importación y ejemplos visuales. Carla integra el menú;
 Marcelo integra Game Over; Vicente integra el nivel, HUD y mecánicas.
 
-**Estado de esta primera entrega:** estructura y orientación de carpetas.
-Los prefabs y las escenas de referencia indicados como pendientes todavía no existen.
-No se han movido, renombrado ni duplicado imágenes existentes.
+**Estado actual:** estructura organizada e importación UI corregida en `40a5f1e`.
+Esta entrega recupera `MenuBackdrop.png`, los tres neones y prepara `FondoCampus.prefab`.
+Los paneles, botones, HUD y las escenas de referencia siguen pendientes.
+No se han movido, renombrado ni duplicado imágenes que ya existían en esta copia.
 
 ## Qué contiene cada carpeta y para qué sirve
 
@@ -21,9 +22,9 @@ No se han movido, renombrado ni duplicado imágenes existentes.
 | `Assets/Art/PNG/02_Animados/` | PNG por fotograma y hojas de personajes | Buscar sprites decorativos; una hoja completa no equivale a un fotograma. |
 | `Assets/Art/PNG/03_Interactivos_Animados/` | Hojas y fotogramas de objetos interactivos | Consulta visual; no implican que exista comportamiento programado. |
 | `Assets/Art/Animaciones/` | PNG organizados por personaje y acción | Elegir fotogramas para referencias. No ejecutar el generador de clips sin revisar: el script local existente reemplaza clips. |
-| `Assets/Art/PNG/04_Compartidos/Fondos/` | Ubicación preparada para fondos recuperados del original | Pendiente: comprobar e incorporar `MenuBackdrop.png` con su `.meta`, sin duplicados. |
-| `Assets/Art/PNG/04_Compartidos/Efectos/` | Ubicación preparada para acentos visuales | Pendiente: evaluar `NeonBlue.png`, `NeonOrange.png`, `NeonPurple.png` del original. |
-| `Assets/Prefabs/UI/Compartidos/` | Ubicación preparada para composiciones UI reutilizables | Pendiente: paneles, botones y HUD gráficos, sin navegación ni mecánicas. |
+| `Assets/Art/PNG/04_Compartidos/Fondos/` | `MenuBackdrop.png`, recuperado con `.meta` original | Fondo compartido para menú y Game Over. |
+| `Assets/Art/PNG/04_Compartidos/Efectos/` | `NeonBlue.png`, `NeonOrange.png`, `NeonPurple.png` | Acentos pixel art para las composiciones del equipo. |
+| `Assets/Prefabs/UI/Compartidos/` | `FondoCampus.prefab`; paneles, botones y HUD pendientes | Arrastrar el fondo bajo un Canvas. Las futuras composiciones seguirán sin navegación ni mecánicas. |
 | `Assets/Scenes/Referencias/` | Ubicación preparada para tres escenas de muestra | Carla, Marcelo y Vicente consultan y trasladan composiciones a sus propias escenas. No agregar referencias a Build Settings. |
 | `Assets/Editor/` | Herramientas de importación/preparación del editor | Víctor mantiene las herramientas; no se adjuntan a objetos de juego. |
 | `Assets/Scripts/` | Código de juego | Fuera de la entrega visual. Conservar los cambios locales de otros trabajos. |
@@ -39,12 +40,13 @@ No se han movido, renombrado ni duplicado imágenes existentes.
 | `Global_UI/PauseIcon.png`, `SettingGear.png`, `MapIcon.png` | Iconos disponibles; no implican funcionalidades | Según la composición | El responsable de cada pantalla decide su integración funcional. |
 | Fotograma en `Assets/Art/Animaciones/Originales_Usuario/` | Personaje decorativo sin controlador de movimiento | Menú y HUD | Carla/Vicente toman la representación visual que corresponda. |
 | `Global_Gameplay/DamageSpikes.png` | Señal visual rotulada como ejemplo; no asumir que el dibujo sea un pincho | HUD y muertes | Vicente define peligros, colisiones y muerte dentro de `Nivel01`. |
-| `CAMPUS_GLITCH: Assets/CampusGlitch/Resources/CG/UI/MenuBackdrop.png` | Recuperación pendiente hacia `04_Compartidos/Fondos/` | Menú y Game Over | Carla y Marcelo reutilizarán el mismo fondo, con composición distinta. |
-| `CAMPUS_GLITCH: Assets/CampusGlitch/Resources/CG/UI/NeonBlue.png`, `NeonOrange.png`, `NeonPurple.png` | Evaluación pendiente hacia `04_Compartidos/Efectos/` | Detalles de identidad | Compartidos; no copiar imágenes ya presentes. |
+| `CAMPUS_GLITCH: Assets/CampusGlitch/Resources/CG/UI/MenuBackdrop.png` | `04_Compartidos/Fondos/MenuBackdrop.png` → `Assets/Prefabs/UI/Compartidos/FondoCampus.prefab` | Menú y Game Over, pendientes | Carla y Marcelo reutilizan el mismo fondo bajo su Canvas, detrás del contenido. |
+| `CAMPUS_GLITCH: Assets/CampusGlitch/Resources/CG/UI/NeonBlue.png`, `NeonOrange.png`, `NeonPurple.png` | Recuperados en `04_Compartidos/Efectos/` | Detalles de identidad, composiciones pendientes | Compartidos; Image con proporción conservada y Raycast Target desactivado para decoración. |
 
 En las filas abreviadas, `Global_UI/` y `Global_Gameplay/` parten de
-`Assets/Art/PNG/01_Nuevos_Modulares/`. Los nombres de los futuros prefabs se
-documentarán cuando se creen y comprueben en Unity.
+`Assets/Art/PNG/01_Nuevos_Modulares/`. Las rutas `04_Compartidos/` parten de
+`Assets/Art/PNG/`. La guía de uso del fondo está en
+`Assets/Prefabs/UI/Compartidos/LEEME.md`.
 
 ## Escenas: quién abre qué
 
@@ -61,7 +63,9 @@ cargan otras escenas y no implementan colisiones, pérdida de vidas ni navegaci�
 
 - Unity inspeccionado mediante MCP: `6000.3.16f1`, proyecto correcto.
 - La rama de trabajo es `feature/victor-integracion`.
-- Hay 1.286 PNG y 930 archivos Aseprite. El análisis de bytes detectó 828
+- El inventario inicial tenía 1.286 PNG y 930 archivos Aseprite. Se agregaron
+  cuatro PNG del original, sin coincidencias de contenido ni GUID previos.
+  El análisis inicial de bytes detectó 828
   repeticiones PNG respecto de los archivos únicos: no eliminarlas, pueden tener
   rutas y referencias diferentes.
 - Los tres PNG `ButtonOrange*` tienen contenido idéntico. No prometer estados
@@ -71,9 +75,21 @@ cargan otras escenas y no implementan colisiones, pérdida de vidas ni navegaci�
   Hay que componer los ejemplos con el arte real, sin atribuirles detalle inexistente.
 - Los 28 sprites de `Global_UI` tienen recortes Multiple existentes. Conservar sus
   identificadores internos además de los GUID; cambiar a Single sin revisar puede
-  romper referencias.
-- La revisión inicial encontró un error de compilación del importador por
-  `textureWrapMode`; su corrección y verificación pertenecen a la parte de importación.
+  romper referencias. Verificados mediante MCP: Point, 32 PPU, Uncompressed,
+  sin mipmaps; recortes e identificadores conservados respecto de `3c4604f`.
+- El error del importador por `textureWrapMode` está corregido con `wrapMode`
+  en `40a5f1e`. Unity ya no indica compilación fallida. Se conserva el historial
+  de consola con el error anterior y timeouts de MCP; no se ha limpiado para ocultarlos.
+- `FondoCampus.prefab` fue instanciado y renderizado mediante MCP en una escena
+  de previsualización aislada, en 1280 × 720 y 1024 × 768. Fondo visible, sin
+  componentes perdidos, con proporción conservada y recorte lateral en 4:3.
+  Los tres neones también se renderizaron en Unity. Las capturas de comprobación
+  quedan en `.codex/`, excluidas de Git.
+- La primera captura de esta parte falló por ausencia de la cámara temporal:
+  Unity impidió abrir una escena aditiva mientras la escena Untitled seguía
+  sin guardar. Se mantuvo intacta y se repitió la comprobación con cámara propia
+  en una escena de previsualización aislada; esas capturas sí se comprobaron.
+  El mensaje del intento fallido permanece en consola.
 - Al empezar, Build Settings solo incluía `Assets/Scenes/SampleScene.unity`.
   Se conserva esa configuración. El equipo debe integrar las escenas oficiales
   en un avance posterior, fuera de esta organización visual.

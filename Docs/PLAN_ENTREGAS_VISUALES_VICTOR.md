@@ -9,13 +9,18 @@ ese commit.** No hacer push hasta recibir su indicación correspondiente.
 | --- | --- | --- | --- |
 | 1 | Estructura de carpetas y mapa origen → preparación → integrante | Carpetas reconocidas en Unity, rutas reales, ninguna imagen movida, GUID y escenas oficiales conservados | `Organizar carpetas y mapa de recursos visuales` |
 | 2 | Corrección del importador y ajustes UI compatibles | Compilación, Point, PPU, compresión, recortes e identificadores conservados, vista de sprites | `Corregir importacion de recursos graficos de interfaz` |
-| 3 | Fondos/efectos necesarios y prefabs compartidos | Ausencia de duplicados nuevos, `.meta` originales al recuperar, referencias y aspecto en Unity | `Preparar fondos y composiciones visuales compartidas` |
+| 3a | Recuperación de fondo/neones y prefab FondoCampus | Sin duplicados nuevos, `.meta` originales, aspecto en Unity en 16:9 y 4:3 | `Recuperar fondo y acentos visuales compartidos` |
+| 3b | Prefabs gráficos de paneles, botones, mensajes y HUD | Referencias conservadas, estados distinguibles y sin acciones de navegación | `Preparar paneles y controles visuales compartidos` |
 | 4 | Referencia del menú para Carla | Abrir/renderizar en Unity, sin eventos de navegación ni cambios a la escena oficial | `Agregar referencia visual del menu para Carla` |
 | 5 | Referencia Game Over para Marcelo | Abrir/renderizar, sprites válidos, botones sin acciones conectadas | `Agregar referencia visual de Game Over para Marcelo` |
 | 6 | Referencia de HUD/daño/muerte para Vicente | Abrir/renderizar, señales claras, sin lógica de vida, colisiones o transición | `Preparar referencia visual del HUD y las muertes` |
 | 7 | `Docs/GUIA_RECURSOS_VISUALES_VICTOR.md` y evidencia de comprobaciones | Rutas y métodos reales, responsabilidades claras y pendientes honestos | `Documentar integracion de recursos visuales para el equipo` |
 
 ## Preparación de cada commit
+
+Las partes 1 y 2 ya están incluidas en el commit del usuario `40a5f1e`
+(`Corregir recursos graficos`). La parte 3a se entrega para que el usuario
+ejecute los comandos de commit y push. No repetir los cambios ya publicados.
 
 - Revisar `git status --short --branch` antes y después de cada parte.
 - Seleccionar rutas explícitas; no usar `git add .` ni incluir cambios locales de otros trabajos.
