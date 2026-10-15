@@ -1,15 +1,15 @@
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement; // <-- 1. Añadido
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance;
 
-
     public GameObject gameOverPanel;
     public TextMeshProUGUI gameOverText;
-    public Button reinciarButton;
+    public Button reiniciarButton;
     public Button menuButton;
 
     private bool gameOverActivo = false;
@@ -26,27 +26,25 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
         if (gameOverPanel != null)
             gameOverPanel.SetActive(false);
         
-        if (reinciarButton != null)
-            reinciarButton.onClick.AddListener(ReiniciarEscena);
+        if (reiniciarButton != null)
+            reiniciarButton.onClick.AddListener(ReiniciarEscena);
 
         if (menuButton != null)
             menuButton.onClick.AddListener(IrAlMenu);
     }
 
-    // Update is called once per frame
     void Update()
     {
         if (gameOverActivo)
         {
             if (Input.GetKeyDown(KeyCode.R))
             {
-                ReinciarEscena();
+                ReiniciarEscena();
             }
 
             if (Input.GetKeyDown(KeyCode.Escape) || Input.GetKeyDown(KeyCode.M))
@@ -54,14 +52,16 @@ public class GameManager : MonoBehaviour
                 IrAlMenu();
             }
         }
-        
     }
 
     public void GameOver()
     {
-        If (gameOverActivo) return;
+        if (gameOverActivo) return; // <-- 2. 'if' en minúscula
 
         gameOverActivo = true;
+
+        // Opcional: pausar el juego al perder
+        Time.timeScale = 0f;
 
         if (gameOverPanel != null)
         {
@@ -70,21 +70,19 @@ public class GameManager : MonoBehaviour
 
         if (gameOverText != null)
         {
-            gameOverText.text = "GAME OVER\n\nR - REINCIAR\nESC - MENÚ PRINCIPAL";
+            gameOverText.text = "GAME OVER\n\nR - REINICIAR\nESC - MENÚ PRINCIPAL";
         }
-        
     }
 
-    public void ReinciarEscena()
+    public void ReiniciarEscena() // <-- 5. Nombre corregido a 'ReiniciarEscena'
     {
-        Time.timeScale = 1f
-        ScenaManager.LoadScene(SceneManager.GetActiveScene().name);
+        Time.timeScale = 1f; // <-- 3. Punto y coma añadido
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name); // <-- 4. SceneManager corregido
     }
 
     public void IrAlMenu()
     {
-        Time.timeScale = 1f
-        ScenaManager.LoadScene("MENU");
+        Time.timeScale = 1f; // <-- 3. Punto y coma añadido
+        SceneManager.LoadScene("MENU"); // <-- 4. SceneManager corregido
     }
-
 }
