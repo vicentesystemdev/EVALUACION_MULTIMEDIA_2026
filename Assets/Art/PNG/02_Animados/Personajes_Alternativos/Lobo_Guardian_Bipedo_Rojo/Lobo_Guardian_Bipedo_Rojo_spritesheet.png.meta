@@ -1,0 +1,702 @@
+fileFormatVersion: 2
+guid: 55fb9524eb237c0449913489dbc56b7c
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 1330008345012016597
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_0
+  - first:
+      213: 3932471210489724519
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_1
+  - first:
+      213: 2882060322350779595
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_2
+  - first:
+      213: -1193023025238938655
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_3
+  - first:
+      213: -9213205072153883616
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_4
+  - first:
+      213: -7404651841482196113
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_5
+  - first:
+      213: -4113839209032365079
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_6
+  - first:
+      213: 4521516732208700834
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_7
+  - first:
+      213: 8505226240325609816
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_8
+  - first:
+      213: -4866068476379202650
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_9
+  - first:
+      213: 4816184845711807878
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_10
+  - first:
+      213: -765826558881562640
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_11
+  - first:
+      213: 3274293059639525252
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_12
+  - first:
+      213: -6039778402462118554
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_13
+  - first:
+      213: -4074300193797451537
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_14
+  - first:
+      213: -234512937295814192
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_15
+  - first:
+      213: 3478252727402487151
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_16
+  - first:
+      213: -5049346670218181542
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_17
+  - first:
+      213: 662714864691452117
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_18
+  - first:
+      213: -1166655778131119284
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_19
+  - first:
+      213: 299747999930637789
+    second: Lobo_Guardian_Bipedo_Rojo_spritesheet_20
+  externalObjects: {}
+  serializedVersion: 13
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 4
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: iOS
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 4
+    buildTarget: WindowsStoreApps
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    ignorePlatformSupport: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 33
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d51fb80b83257210800000000000000
+      internalID: 1330008345012016597
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_1
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 0
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 76eb0b61bb1f29630800000000000000
+      internalID: 3932471210489724519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_2
+      rect:
+        serializedVersion: 2
+        x: 63
+        y: 0
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: bcc47f6e7922ff720800000000000000
+      internalID: 2882060322350779595
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_3
+      rect:
+        serializedVersion: 2
+        x: 95
+        y: 0
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 1eb65c321e7817fe0800000000000000
+      internalID: -1193023025238938655
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_4
+      rect:
+        serializedVersion: 2
+        x: 127
+        y: 0
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 02cc07fecce142080800000000000000
+      internalID: -9213205072153883616
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_5
+      rect:
+        serializedVersion: 2
+        x: 159
+        y: 0
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6bf207b1646d3990800000000000000
+      internalID: -7404651841482196113
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_6
+      rect:
+        serializedVersion: 2
+        x: 191
+        y: 0
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 9eb4d821905b8e6c0800000000000000
+      internalID: -4113839209032365079
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_7
+      rect:
+        serializedVersion: 2
+        x: 223
+        y: 0
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 2add84d0387afbe30800000000000000
+      internalID: 4521516732208700834
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_8
+      rect:
+        serializedVersion: 2
+        x: 255
+        y: 0
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 85960f4f332a80670800000000000000
+      internalID: 8505226240325609816
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_9
+      rect:
+        serializedVersion: 2
+        x: 287
+        y: 0
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6abf0b49080487cb0800000000000000
+      internalID: -4866068476379202650
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_10
+      rect:
+        serializedVersion: 2
+        x: 319
+        y: 7
+        width: 34
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 6859545999686d240800000000000000
+      internalID: 4816184845711807878
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_11
+      rect:
+        serializedVersion: 2
+        x: 351
+        y: 7
+        width: 34
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0fffd4e5dcc3f55f0800000000000000
+      internalID: -765826558881562640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_12
+      rect:
+        serializedVersion: 2
+        x: 383
+        y: 7
+        width: 34
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 48f37569030a07d20800000000000000
+      internalID: 3274293059639525252
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_13
+      rect:
+        serializedVersion: 2
+        x: 415
+        y: 7
+        width: 34
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 66d4b270b856e2ca0800000000000000
+      internalID: -6039778402462118554
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_14
+      rect:
+        serializedVersion: 2
+        x: 447
+        y: 7
+        width: 34
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: fe0d5607f8d2577c0800000000000000
+      internalID: -4074300193797451537
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_15
+      rect:
+        serializedVersion: 2
+        x: 479
+        y: 0
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 0d1ef3dd9b7debcf0800000000000000
+      internalID: -234512937295814192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_16
+      rect:
+        serializedVersion: 2
+        x: 511
+        y: 0
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: f6ddbdf4d6c354030800000000000000
+      internalID: 3478252727402487151
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_17
+      rect:
+        serializedVersion: 2
+        x: 543
+        y: 0
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: a5408ddb4fd1de9b0800000000000000
+      internalID: -5049346670218181542
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_18
+      rect:
+        serializedVersion: 2
+        x: 575
+        y: 0
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 5d81e4188af623900800000000000000
+      internalID: 662714864691452117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_19
+      rect:
+        serializedVersion: 2
+        x: 607
+        y: 0
+        width: 34
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: c43765140c43fcfe0800000000000000
+      internalID: -1166655778131119284
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Lobo_Guardian_Bipedo_Rojo_spritesheet_20
+      rect:
+        serializedVersion: 2
+        x: 639
+        y: 0
+        width: 33
+        height: 48
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: ddddff1c73be82400800000000000000
+      internalID: 299747999930637789
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    customData: 
+    physicsShape: []
+    bones: []
+    spriteID: 
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    spriteCustomMetadata:
+      entries: []
+    nameFileIdTable:
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_0: 1330008345012016597
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_1: 3932471210489724519
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_10: 4816184845711807878
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_11: -765826558881562640
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_12: 3274293059639525252
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_13: -6039778402462118554
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_14: -4074300193797451537
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_15: -234512937295814192
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_16: 3478252727402487151
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_17: -5049346670218181542
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_18: 662714864691452117
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_19: -1166655778131119284
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_2: 2882060322350779595
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_20: 299747999930637789
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_3: -1193023025238938655
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_4: -9213205072153883616
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_5: -7404651841482196113
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_6: -4113839209032365079
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_7: 4521516732208700834
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_8: 8505226240325609816
+      Lobo_Guardian_Bipedo_Rojo_spritesheet_9: -4866068476379202650
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
