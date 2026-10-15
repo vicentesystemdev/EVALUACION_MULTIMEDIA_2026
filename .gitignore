@@ -1,0 +1,29 @@
+# Unity - archivos generados
+/[Ll]ibrary/
+/[Tt]emp/
+/[Oo]bj/
+/[Ll]ogs/
+/[Uu]ser[Ss]ettings/
+/[Bb]uild/
+/[Bb]uilds/
+/[Mm]emoryCaptures/
+/[Rr]ecordings/
+
+# Visual Studio y VS Code
+.vs/
+.vscode/
+.idea/
+*.csproj
+*.unityproj
+*.sln
+*.slnx
+*.suo
+*.user
+*.userprefs
+
+# Temporales
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
+Desktop.ini
