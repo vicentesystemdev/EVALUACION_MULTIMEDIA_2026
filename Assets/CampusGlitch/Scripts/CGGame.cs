@@ -34,12 +34,13 @@ public class CGGame:MonoBehaviour {
       GameObject root=new GameObject("LEVEL_"+(sceneLevel+1));world=root.AddComponent<CGWorld>();world.Setup(this,sceneLevel);Hint(CGLevels.All[sceneLevel].objective);
     }
     void Update(){if(rebinding>=0){
+        if(CGTouch.AnyTap()){rebinding=-1;return;} // no physical keyboard on touch devices
         if(padMode){string b=CGControl.NextGamepadButton();if(!string.IsNullOrEmpty(b)){CGStore.Data.padBindings[rebinding]=b;CGStore.Save();rebinding=-1;Hint("Botón de mando actualizado");}}
         else{Key? k=CGControl.NextKeyboardKey();if(k.HasValue){if(k.Value!=Key.Escape){CGStore.Data.actionKeys[rebinding]=k.Value.ToString();CGStore.Save();Hint("Control actualizado");}rebinding=-1;}}
         return;}
       if(page==Page.Loading)return;
       if(page==Page.Playing){if(CGControl.Pause()){page=Page.Paused;Time.timeScale=0;selection=0;}return;}
-      if(page==Page.Splash){if(CGControl.Confirm()){page=Page.Main;selection=0;}return;}
+      if(page==Page.Splash){if(CGControl.Confirm()||CGTouch.AnyTap()){page=Page.Main;selection=0;}return;}
       if(page==Page.Quiz){if(CGControl.Back()){page=Page.Playing;Time.timeScale=1;}return;}
       if(CGControl.Down())selection++; if(CGControl.Up())selection--;
       int n=page==Page.Main?mainItems.Length:page==Page.Controls?8:page==Page.Paused?3:page==Page.Settings?4:page==Page.Customization?4:page==Page.Map?10:3;
@@ -136,9 +137,17 @@ public class CGGame:MonoBehaviour {
       GUI.Label(new Rect(45,70,520,21),"UNIFRANZ LA PAZ  |  INNOVACIÓN  ·  APRENDE HACIENDO",tinyStyle);
       GUI.Label(new Rect(650,25,590,47),t,textStyle);
     }
-    void OnGUI(){CGStore.Load();Styles();var old=GUI.matrix;GUI.matrix=Matrix4x4.TRS(Vector3.zero,Quaternion.identity,new Vector3(Screen.width/1280f,Screen.height/720f,1));
-      if(page==Page.Playing){DrawHUD();if(Time.unscaledTime<toastUntil){Panel(new Rect(280,630,720,55),new Color(.96f,.5f,.15f,1));GUI.Label(new Rect(305,634,670,43),toast,textStyle);}GUI.matrix=old;return;}
-      if(page==Page.Paused||page==Page.Quiz){RectColor(new Rect(0,0,1280,720),new Color(.005f,.012f,.037f,.84f));}
+    void OnGUI(){CGStore.Load();Styles();var old=GUI.matrix;
+      Vector3 guiScale=new Vector3(Screen.width/1280f,Screen.height/720f,1),guiOffset=Vector3.zero;
+      if(CGTouch.Enabled){
+        // Mobile: uniform scale centered on screen so wide phones (19.5:9, 20:9) do not stretch the UI.
+        float u=CGTouch.Unit;guiScale=new Vector3(u,u,1);guiOffset=new Vector3((Screen.width-1280*u)*.5f,(Screen.height-720*u)*.5f,0);
+        if(page==Page.Paused||page==Page.Quiz)RectColor(new Rect(0,0,Screen.width,Screen.height),new Color(.005f,.012f,.037f,.84f));
+        else if(page!=Page.Playing)RectColor(new Rect(0,0,Screen.width,Screen.height),new Color(.02f,.045f,.08f,1));
+      }
+      GUI.matrix=Matrix4x4.TRS(guiOffset,Quaternion.identity,guiScale);
+      if(page==Page.Playing){DrawHUD();if(Time.unscaledTime<toastUntil){float ty=CGTouch.Enabled?160:630;Panel(new Rect(280,ty,720,55),new Color(.96f,.5f,.15f,1));GUI.Label(new Rect(305,ty+4,670,43),toast,textStyle);}GUI.matrix=old;CGTouch.Draw();return;}
+      if((page==Page.Paused||page==Page.Quiz)&&!CGTouch.Enabled){RectColor(new Rect(0,0,1280,720),new Color(.005f,.012f,.037f,.84f));}
       else{
         var image=Resources.Load<Texture2D>("CG/UI/MenuBackdrop");
         if(image!=null)GUI.DrawTexture(new Rect(0,0,1280,720),image,ScaleMode.StretchToFill);
@@ -167,7 +176,7 @@ public class CGGame:MonoBehaviour {
         GUI.Label(new Rect(735,230,443,75),"LOBO GUARDIÁN",titleStyle);
         GUI.Label(new Rect(747,332,416,80),"Recupera el campus, supera los bugs y descubre sus laboratorios.",textStyle);
         Panel(new Rect(738,535,432,73),new Color(1,.61f,.13f,1));
-        GUI.Label(new Rect(753,547,402,45),"PULSA ENTER / A PARA JUGAR",textStyle);
+        GUI.Label(new Rect(753,547,402,45),CGTouch.Enabled?"TOCA LA PANTALLA PARA JUGAR":"PULSA ENTER / A PARA JUGAR",textStyle);
       }
       if(page==Page.Main){
         Header("MENÚ PRINCIPAL");
@@ -208,7 +217,8 @@ public class CGGame:MonoBehaviour {
       if(page==Page.Controls){Header("CONTROLES - TECLADO / MANDO");
        if(GUI.Button(new Rect(400,171,480,32),padMode?"EDITANDO MANDO - CAMBIAR A TECLADO":"EDITANDO TECLADO - CAMBIAR A MANDO",buttonStyle)){padMode=!padMode;rebinding=-1;}
        for(int i=0;i<8;i++)if(Button(CGControl.Names[i]+":  "+(rebinding==i?"PULSA UN BOTÓN":padMode?CGStore.Data.padBindings[i]:CGStore.Data.actionKeys[i]),i,375,215+i*51,530,43))rebinding=i;
-       GUI.Label(new Rect(70,645,1140,40),"Mando: Stick mover · A saltar · X atacar · Y interactuar · RB habilidad · START pausa",tinyStyle);}
+       GUI.Label(new Rect(70,645,1140,40),"Mando: Stick mover · A saltar · X atacar · Y interactuar · RB habilidad · START pausa",tinyStyle);
+       if(CGTouch.Enabled&&GUI.Button(new Rect(40,171,200,32),"< VOLVER",buttonStyle))ToMain();}
       if(page==Page.Help){Header("GUÍA DEL JUGADOR");Label("Corre, salta, recupera 3 fragmentos y resuelve una terminal por nivel.",249);
        Label("E / Y: hablar con NPC, activar checkpoint, terminal y portal de salida.",306);
        Label("J / X: mordida; evita enemigos y derrota a los jefes de fase.",363);

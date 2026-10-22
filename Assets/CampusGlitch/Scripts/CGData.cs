@@ -70,13 +70,14 @@ public static class CGControl {
       default:return null;}}
     public static string NextGamepadButton(){string[] names={"buttonSouth","buttonWest","buttonNorth","buttonEast","leftShoulder","rightShoulder","startButton","selectButton","dpadLeft","dpadRight","dpadUp","dpadDown","leftStickButton","rightStickButton"};
       foreach(string n in names){ButtonControl b=PadButton(n);if(b!=null&&b.wasPressedThisFrame)return n;}return null;}
-    public static float Axis(){float x=(KeyHeld(1)?1:0)-(KeyHeld(0)?1:0);if(Gamepad.current!=null){float v=Gamepad.current.leftStick.ReadValue().x;if(Mathf.Abs(v)>0.22f)x=v; if(PadHeld(0))x=-1; if(PadHeld(1))x=1;}return x;}
+    public static float Axis(){float x=(KeyHeld(1)?1:0)-(KeyHeld(0)?1:0);if(Gamepad.current!=null){float v=Gamepad.current.leftStick.ReadValue().x;if(Mathf.Abs(v)>0.22f)x=v; if(PadHeld(0))x=-1; if(PadHeld(1))x=1;}
+      if(CGTouch.Held(CGTouch.Left))x=-1; if(CGTouch.Held(CGTouch.Right))x=1;return x;}
     public static bool HoldRun(){return KeyHeld(3) || PadHeld(3);}
-    public static bool Jump(){return KeyTap(2) || PadTapped(2);}
-    public static bool Attack(){return KeyTap(4) || PadTapped(4);}
-    public static bool Interact(){return KeyTap(5) || PadTapped(5);}
+    public static bool Jump(){return KeyTap(2) || PadTapped(2) || CGTouch.Tapped(CGTouch.Jump);}
+    public static bool Attack(){return KeyTap(4) || PadTapped(4) || CGTouch.Tapped(CGTouch.Attack);}
+    public static bool Interact(){return KeyTap(5) || PadTapped(5) || CGTouch.Tapped(CGTouch.Interact);}
     public static bool Ability(){return KeyTap(6) || PadTapped(6);}
-    public static bool Pause(){return KeyTap(7) || (Keyboard.current!=null&&Keyboard.current.escapeKey.wasPressedThisFrame) ||PadTapped(7);}
+    public static bool Pause(){return KeyTap(7) || (Keyboard.current!=null&&Keyboard.current.escapeKey.wasPressedThisFrame) ||PadTapped(7) || CGTouch.Tapped(CGTouch.Pause);}
     public static bool Confirm(){return (Keyboard.current!=null&&(Keyboard.current.enterKey.wasPressedThisFrame||Keyboard.current.spaceKey.wasPressedThisFrame)) || (Gamepad.current!=null&&Gamepad.current.buttonSouth.wasPressedThisFrame);}
     public static bool Back(){return (Keyboard.current!=null&&Keyboard.current.escapeKey.wasPressedThisFrame)||(Gamepad.current!=null&&Gamepad.current.buttonEast.wasPressedThisFrame);}
     public static bool Down(){return (Keyboard.current!=null&&(Keyboard.current.downArrowKey.wasPressedThisFrame||Keyboard.current.sKey.wasPressedThisFrame))||(Gamepad.current!=null&&Gamepad.current.dpad.down.wasPressedThisFrame);}
