@@ -43,12 +43,12 @@ public class CGGame:MonoBehaviour {
       if(page==Page.Splash){if(CGControl.Confirm()||CGTouch.AnyTap()){page=Page.Main;selection=0;}return;}
       if(page==Page.Quiz){if(CGControl.Back()){page=Page.Playing;Time.timeScale=1;}return;}
       if(CGControl.Down())selection++; if(CGControl.Up())selection--;
-      int n=page==Page.Main?mainItems.Length:page==Page.Controls?8:page==Page.Paused?3:page==Page.Settings?4:page==Page.Customization?4:page==Page.Map?10:3;
+      int n=page==Page.ConfirmReset?2:page==Page.Main?mainItems.Length:page==Page.Controls?8:page==Page.Paused?3:page==Page.Settings?4:page==Page.Customization?4:page==Page.Map?10:3;
       selection=(selection%n+n)%n;
       if(page==Page.Map){mapSelection=selection;}
       if(CGControl.Confirm()){
        switch(page){case Page.Main:MainSelect(selection);break;case Page.Map:ChooseLevel(mapSelection);break;case Page.Paused:PauseChoice(selection);break;
-         case Page.Victory:AfterVictory();break;case Page.Ending:ToMain();break;case Page.ConfirmReset:CGStore.Reset();ToMain();break;
+         case Page.Victory:AfterVictory();break;case Page.Ending:ToMain();break;case Page.ConfirmReset:ConfirmResetChoice(selection);break;
          case Page.Customization:if(selection==0)EquipPurple(false);else if(selection==1)EquipPurple(true);
            else if(selection==2){CGStore.Data.useOriginalWolf=!CGStore.Data.useOriginalWolf;CGStore.Save();Hint(CGStore.Data.useOriginalWolf?"Usando el lobo oficial original":"Usando el lobo alternativo erguido");}
            else ToMain();break;
@@ -62,7 +62,13 @@ public class CGGame:MonoBehaviour {
     public void Hint(string msg){toast=msg;toastUntil=Time.unscaledTime+4f;}
     void MainSelect(int i){switch(i){case 0: ChooseLevel(Mathf.Min(CGStore.Data.latestUnlocked,8));break;case 1:OpenUIScreen("SC_LevelMap",Page.Map);break;
       case 2:OpenUIScreen("SC_Customization",Page.Customization);break;case 3:OpenUIScreen("SC_Settings",Page.Settings);break;case 4:OpenUIScreen("SC_Controls",Page.Controls);break;
-      case 5:OpenUIScreen("SC_Help",Page.Help);break;case 6:OpenUIScreen("SC_Credits",Page.Credits);break;case 7:page=Page.ConfirmReset;break;case 8:Application.Quit();break;}}
+      case 5:OpenUIScreen("SC_Help",Page.Help);break;case 6:OpenUIScreen("SC_Credits",Page.Credits);break;case 7:page=Page.ConfirmReset;selection=0;break;case 8:Application.Quit();break;}}
+    // Shared decision for keyboard, gamepad and pointer input.
+    public static void HandleResetSelection(int selected,Action resetProgress,Action returnToMenu){
+      if(selected==0)resetProgress();
+      returnToMenu();
+    }
+    void ConfirmResetChoice(int selected){HandleResetSelection(selected,CGStore.Reset,ToMain);}
     void ToMain(){Time.timeScale=1;
        if(Application.CanStreamedLevelBeLoaded("SC_MainMenu"))SceneManager.LoadScene("SC_MainMenu");
        else if(sceneLevel>=0)SceneManager.LoadScene("SC_Bootstrap");
@@ -244,7 +250,7 @@ public class CGGame:MonoBehaviour {
        if(Button("VER CRÉDITOS",0,390,501,500,65)){ShowCreditsOnBoot=true;SceneManager.LoadScene("SC_Bootstrap");}
        if(Button("VOLVER AL MENÚ",1,390,583,500,55))ToMain();}
       if(page==Page.ConfirmReset){Header("¿BORRAR PROGRESO?");Label("Se eliminarán los niveles completados y las skins desbloqueadas.",311);
-       if(Button("SÍ, BORRAR",0,320,431,300,58)){CGStore.Reset();ToMain();}if(Button("CANCELAR",1,660,431,300,58))ToMain();}
+       if(Button("SÍ, BORRAR",0,320,431,300,58))ConfirmResetChoice(0);if(Button("CANCELAR",1,660,431,300,58))ConfirmResetChoice(1);}
       if(Time.unscaledTime<toastUntil && page!=Page.Playing){GUI.Label(new Rect(180,628,920,35),toast,tinyStyle);}
       GUI.matrix=old;
     }
