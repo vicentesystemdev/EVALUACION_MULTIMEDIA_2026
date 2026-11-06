@@ -1,278 +1,224 @@
 <a id="inicio"></a>
 <div align="center">
   <h1>🎮 CAMPUS GLITCH</h1>
-  <h3>Evaluación práctica de Multimedia y Videojuegos · Unity 2D</h3>
-  <p><strong>Un pequeño prototipo universitario, cuatro responsabilidades y un mismo objetivo:</strong><br>
-  conectar el menú principal, un nivel de juego y una pantalla de fin de partida, reutilizando el arte de <strong>CAMPUS_GLITCH</strong>.</p>
+  <h3>Plataformas 2D de orientación universitaria · Unity 6000.3.16f1</h3>
+  <p><strong>Un lobo recorre un campus alterado por una anomalía digital, recupera fragmentos de información y resuelve desafíos breves de orientación para estudiantes de primer semestre.</strong></p>
   <p>
     <a href="https://unity.com/"><img alt="Unity 6000.3.16f1" src="https://img.shields.io/badge/Unity-6000.3.16f1-222222?style=for-the-badge&amp;logo=unity&amp;logoColor=white"></a>
     <a href="https://learn.microsoft.com/dotnet/csharp/"><img alt="C#" src="https://img.shields.io/badge/C%23-Scripts-7A37A5?style=for-the-badge&amp;logo=csharp&amp;logoColor=white"></a>
-    <a href="https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026"><img alt="En desarrollo" src="https://img.shields.io/badge/Proyecto-En%20desarrollo-F58A36?style=for-the-badge"></a>
-    <a href="https://git-scm.com/"><img alt="GitFlow" src="https://img.shields.io/badge/Equipo-GitFlow-8F65D6?style=for-the-badge&amp;logo=git&amp;logoColor=white"></a>
+    <a href="#estado"><img alt="MVP en corrección" src="https://img.shields.io/badge/MVP-En%20corrección-F58A36?style=for-the-badge"></a>
+    <a href="Docs/GITFLOW_EQUIPO.md"><img alt="GitFlow" src="https://img.shields.io/badge/Equipo-GitFlow-8F65D6?style=for-the-badge&amp;logo=git&amp;logoColor=white"></a>
   </p>
-  <p><a href="#abrir-proyecto">🚀 Empezar</a> · <a href="#flujo">🗺️ Flujo del juego</a> · <a href="#equipo">👥 Equipo</a> · <a href="#gitflow">🌿 Ramas</a> · <a href="#recursos">📁 Recursos</a></p>
+  <p><a href="#estado">📊 Estado</a> · <a href="#mvp">🎯 MVP</a> · <a href="#escenas">🗺️ Escenas</a> · <a href="#funcionalidades">🧩 Funcionalidades</a> · <a href="#controles">🎮 Controles</a> · <a href="#equipo">👥 Equipo</a> · <a href="#abrir-proyecto">🚀 Abrir</a> · <a href="#gitflow">🌿 Gitflow</a></p>
 </div>
 
 ---
 
-<a id="vision"></a>
-## ✨ ¿De qué trata este proyecto?
+> **Rama de referencia:** `develop`. La rama `main` todavía contiene el **prototipo anterior de tres escenas** (`MenuPrincipal`, `Nivel01`, `GameOver`) y se actualizará solo mediante una release revisada.
+>
+> **Corte de este README:** 2026-11-06, `develop` @ `4b729e3`. El código de juego (`Assets/`, `ProjectSettings/`, `Packages/`) es idéntico al auditado en `9257b4e`, por lo que los resultados de la auditoría siguen vigentes **hasta que se integren los PR de los Issues #13, #18, #20 y siguientes**.
 
-**EVALUACION_MULTIMEDIA_2026** es un trabajo colaborativo desarrollado en **Unity 2D**. El objetivo de la práctica es integrar tres escenas, utilizar controles de interfaz y comprobar la navegación con `SceneManager`.
+<a id="estado"></a>
+## 📊 Estado actual en una frase
 
-Tomamos como punto de partida los sprites, fondos, paneles y personajes del proyecto [CAMPUS_GLITCH original](https://github.com/vicentesystemdev/CAMPUS_GLITCH/tree/feature/develop_victor_asturizaga). **No pretendemos reconstruir el juego original completo:** esta entrega se concentra en una versión pequeña, clara y verificable para el examen.
+El juego tiene **18 escenas, 9 niveles + 1 extra, menús, guardado y controles de teclado, mando y táctiles**, pero **el MVP todavía no se puede completar**: el fragmento 2 del Nivel 1 es inalcanzable (E6), no existe Game Over (E4), el quiz no responde a teclado/mando (E3) y «Cancelar» borra el progreso (E1). Estos defectos están asignados en Issues y se están corrigiendo.
 
-<table>
-<tr>
-<td align="center" width="33%"><strong>🏠 Menú principal</strong><br><sub>Jugar · Salir</sub></td>
-<td align="center" width="34%"><strong>🐺 Nivel 01</strong><br><sub>Escena de juego y condición de derrota</sub></td>
-<td align="center" width="33%"><strong>💥 Game Over</strong><br><sub>Reintentar · Volver al menú</sub></td>
-</tr>
-</table>
+Fuentes: [`Docs/AUDITORIA_CLAUDE_INFORME.md`](Docs/AUDITORIA_CLAUDE_INFORME.md) (auditoría técnica del 5–6/11, histórica) y [`Docs/ESTADO_MVP_Y_PRIORIDADES.md`](Docs/ESTADO_MVP_Y_PRIORIDADES.md).
 
-<a id="flujo"></a>
-## 🗺️ Flujo del juego
+### Cómo leer los estados de este documento
+
+| Estado | Significado |
+|---|---|
+| ✅ **Verificado** | Comprobado **ejecutando** el juego o pruebas PlayMode en la auditoría (indicado en la fuente). |
+| 🟡 **Implementado** | El código existe y se revisó estáticamente; **falta una prueba ejecutada** que lo confirme. |
+| ❌ **Defectuoso** | Existe, pero se reprodujo un error (código E*n* de la auditoría). |
+| ⏳ **Pendiente** | No existe todavía o no pudo probarse (p. ej., Android sin APK). |
+
+<a id="mvp"></a>
+## 🎯 MVP obligatorio según el GDD
+
+El documento entregado al docente ([`Docs/GDD/Guia_JARVIS_v1.0_PRESENTADA.xlsx`](Docs/GDD/Guia_JARVIS_v1.0_PRESENTADA.xlsx), preguntas 10 y 59 — celdas **C17** y **C76**) compromete **2 niveles cortos y completamente funcionales** (5–7 min cada uno) con:
+
+- 1 personaje jugable (lobo); movimiento, salto y mordida; vida/daño básico.
+- 1–2 tipos de enemigos; interacción con información universitaria; al menos 1 checkpoint por nivel.
+- Un desafío final sencillo por nivel; HUD básico; menú principal, pausa y audio esencial.
+- Flujo (C42): inicio → menú → **Nivel 1** → checkpoint → desafío → **Nivel 2** → checkpoint → desafío → finalización/créditos.
+
+| Nivel MVP | Escena | Tema en el juego actual | Tema prometido en el GDD (C63/C82) | Estado |
+|---|---|---|---|---|
+| **Nivel 1** | `SC_Level01` | Exterior / acceso principal (NPC Guardia U; quiz «¿Qué necesitas para entrar?») | Campus y orientación: controles + reconocer espacios | ❌ No completable: fragmento 2 inalcanzable ([#18](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/18)) |
+| **Nivel 2** | `SC_Level02` | Planta baja / lobby (NPC Recepcionista; quiz sobre orientación) | Vida universitaria: organización y recursos de apoyo | 🟡 Lógica de nivel ✅; recorrido físico completo sin verificar manualmente |
+
+Los niveles 3–9 y el extra son **ampliación**: no sustituyen al MVP. El detalle requisito por requisito está en la [matriz de cumplimiento del GDD](Docs/GDD/MATRIZ_CUMPLIMIENTO_GDD.md); las propuestas de ajuste pendientes de aprobación docente están en [`PROPUESTAS_AJUSTE_v1.1.md`](Docs/GDD/PROPUESTAS_AJUSTE_v1.1.md).
+
+<a id="escenas"></a>
+## 🗺️ Las 18 escenas del build
+
+Registradas en `ProjectSettings/EditorBuildSettings.asset`, todas en `Assets/CampusGlitch/Scenes/`. Las 18 **cargan sin errores** en la prueba Smoke PlayMode de la auditoría (✅).
+
+| # | Escena | Contenido |
+|---|---|---|
+| 0 | `SC_Bootstrap` | Arranque / splash |
+| 1 | `SC_MainMenu` | Menú principal |
+| 2 | `SC_LevelMap` | Mapa de niveles con bloqueo/desbloqueo |
+| 3 | `SC_Customization` | Personalización del lobo |
+| 4 | `SC_Settings` | Ajustes (volumen, reducir destellos, subtítulos) |
+| 5 | `SC_Controls` | Controles y reasignación de teclas/botones |
+| 6 | `SC_Credits` | Créditos |
+| 7 | `SC_Help` | Guía del jugador |
+| 8 | `SC_Level01` | Nivel 1 — Exterior / acceso principal (**MVP**) |
+| 9 | `SC_Level02` | Nivel 2 — Planta baja / lobby (**MVP**) |
+| 10 | `SC_Level03` | Nivel 3 — Mezanine / conexión |
+| 11 | `SC_Level04` | Nivel 4 — Piso 1 / laboratorios de salud |
+| 12 | `SC_Level05` | Nivel 5 — Piso 2 / Ingeniería de Sistemas |
+| 13 | `SC_Level06` | Nivel 6 — Piso 4 / aulas (jefe *Secuencias*) |
+| 14 | `SC_Level07` | Nivel 7 — Piso 5 / Biblioteca e Innova |
+| 15 | `SC_Level08` | Nivel 8 — Terraza / lounge (jefe *IF_ELSE*) |
+| 16 | `SC_Level09` | Nivel 9 — Clínica odontológica (jefe *Core Glitch*) |
+| 17 | `SC_Extra_Subsuelo` | Nivel EXTRA — Subsuelo de anatomía |
+
+> **Importante para quien edite escenas:** cada escena contiene un componente `CGGame` configurado por página/nivel. **El nivel jugable se genera por código** (`CGWorld.cs`); la vista previa `CG_EDITOR_PREVIEW_2D` que se ve en el editor se destruye al iniciar. Mover objetos en la escena **no** cambia el nivel real. No usar `Campus Glitch/Reparar escenas…` ni generadores de escenas sin acordarlo: reescriben las 18 escenas.
 
 ```mermaid
 flowchart TD
-    A([🎮 Iniciar]) --> B[🏠 MenuPrincipal]
-    B -->|Jugar| C[🐺 Nivel01]
-    B -->|Salir| F([Cerrar el juego])
-    C -->|Fin de partida| D[💥 GameOver]
-    D -->|Reintentar| C
-    D -->|Volver al menú| B
-    classDef principal fill:#302239,color:#ffffff,stroke:#EF923C,stroke-width:2px;
-    classDef pantalla fill:#493156,color:#ffffff,stroke:#AE83E2,stroke-width:1px;
-    class A,F principal;
-    class B,C,D pantalla;
+    A([SC_Bootstrap]) --> B[SC_MainMenu]
+    B --> M[SC_LevelMap]
+    B --> S[Ajustes · Controles · Personalización · Ayuda · Créditos]
+    M --> L1[SC_Level01]
+    L1 -->|3 fragmentos + terminal + portal| V1{Victoria}
+    V1 -->|Siguiente nivel| L2[SC_Level02]
+    V1 -->|Menú principal ⚠️ E2| B
+    L2 --> V2{Victoria}
+    V2 --> L3[Niveles 3–9 y EXTRA · ampliación]
+    L1 -. 0 corazones: no hay Game Over ⚠️ E4 .-> L1
 ```
 
-> **Nota:** este diagrama representa el **flujo esperado de la entrega**. La existencia de un método o una escena no confirma, por sí sola, que todos los botones y eventos estén conectados y probados.
+<a id="funcionalidades"></a>
+## 🧩 Funcionalidades: implementadas, verificadas y pendientes
 
-<details>
-<summary><strong>🔎 Ver las acciones previstas por pantalla</strong></summary>
+Estado según la auditoría (`develop` @ `9257b4e`; código sin cambios hasta `4b729e3`). Las celdas se actualizarán al integrar cada PR, **solo con pruebas ejecutadas**.
 
-| Pantalla | Elemento | Acción esperada |
-|---|---|---|
-| `MenuPrincipal.unity` | **Jugar** | `GestorEscenas.IniciarJuego()` |
-| `MenuPrincipal.unity` | **Salir** | `GestorEscenas.SalirDelJuego()` |
-| `Nivel01.unity` | **Fin de partida** | `GestorEscenas.MostrarGameOver()` |
-| `GameOver.unity` | **Reintentar** | `GestorEscenas.ReiniciarNivel()` |
-| `GameOver.unity` | **Volver al menú** | `GestorEscenas.VolverAlMenu()` |
+| Funcionalidad | Dónde | Estado | Issue |
+|---|---|---|---|
+| Carga de las 18 escenas | `EditorBuildSettings.asset` | ✅ Verificado (Smoke ×18) | — |
+| Lógica de misión: 3 fragmentos + terminal + (jefe) + portal → victoria, 10 niveles | `CGGame.cs` | ✅ Verificado por lógica (sin recorrido físico) | — |
+| Caída al vacío → reaparición | `CGEntities.cs`, `CGGame.cs` | ✅ Verificado | — |
+| Guardado JSON y recarga (`campus_glitch_save_v1.json`) | `CGData.cs` | ✅ Verificado (ida y vuelta) | — |
+| Pausa con Esc | `CGGame.cs` | ✅ Verificado | — |
+| Build Windows x64 | `CGBuildScenes.cs` | ✅ Compila (0 errores) y arranca sin gráficos 25 s · ⏳ prueba con render | [#16](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/16) |
+| Movimiento, carrera, salto con *coyote time* | `CGEntities.cs` | ❌ Salto de 1,37 u no alcanza plataformas desde 1,86 u (E5) | [#19](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/19) |
+| Fragmentos alcanzables en N1 y N8 | `CGWorld.cs` | ❌ Fragmento 2 inalcanzable (E6) | [#18](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/18) |
+| Vida/daño y Game Over | `CGGame.cs`, `CGEntities.cs` | ❌ Al llegar a 0 corazones se restauran 3; no hay Game Over (E4) | [#13](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/13) |
+| «Borrar progreso» → CANCELAR | `CGGame.cs` | ❌ Cancelar con Enter/A borra el progreso (E1) | [#20](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/20) |
+| Terminal / quiz (desafío final) | `CGGame.cs` | ❌ Solo ratón o toque (E3) | [#21](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/21) |
+| Pantalla de victoria / final | `CGGame.cs` | ❌ Ignora la opción elegida con teclado/mando (E2) | [#22](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/22) |
+| Volumen general | `CGGame.cs` | ❌ Puede llegar al 105 % (E8) | — (sin Issue propio) |
+| Mordida | `CGEntities.cs` | 🟡 Implementado | [#14](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/14) |
+| Enemigos Bug_Terrestre, Bug_Saltador, Centinela | `CGEntities.cs` | 🟡 Patrulla y daño por distancia, sin física | [#14](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/14) |
+| Jefes (Secuencias, IF_ELSE, Core Glitch; niveles 6, 8, 9) | `CGEntities.cs` | 🟡 Parcial: estáticos, el «pulso» solo muestra un texto | [#14](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/14) |
+| Checkpoint (pulsar E) | `CGGame.cs` | 🟡 Implementado; manual, no automático como dice el GDD (C48) | — |
+| Menú, mapa, personalización, ajustes, controles, ayuda, créditos | `CGGame.cs` (IMGUI) | 🟡 Implementado | [#11](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/11) |
+| Reasignación de teclas y mando | `CGData.cs`, `CGGame.cs` | 🟡 Implementado; admite duplicados | — |
+| Audio: música + SFX (salto, mordida, daño, recogida, checkpoint, denegado, victoria) | `CGAudio.cs` | 🟡 Implementado | [#12](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/12) |
+| Animación del lobo por fotogramas | `CGEntities.cs` | 🟡 Implementado (sin Animator en tiempo de ejecución) | [#12](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/12) |
+| Opción «Subtítulos» | `CGGame.cs` | ❌ Sin efecto (E12) | — (sin Issue propio) |
+| Controles táctiles Android | `CGTouch.cs` | 🟡 Parcial: faltan Correr y Habilidad (E10) · ⏳ sin APK probado | [#10](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/10) |
+| Build Android (IL2CPP, ARM64) | `CGAndroidBuild.cs` | ⏳ No verificado: falta Android Build Support en el equipo auditado | [#10](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/10) |
+| Agacharse (GDD C10/C33) | — | ⏳ No implementado (propuesto como opcional, pendiente de aprobación) | — |
+| Evaluación con estudiantes de primer semestre (GDD C144) | Externa al juego | ⏳ Pendiente | — |
 
-Los métodos están definidos en `Assets/Scripts/Core/GestorEscenas.cs` de la rama `develop`; su conexión final y las pruebas corresponden a la integración del equipo.
+<a id="controles"></a>
+## 🎮 Controles por defecto
 
-</details>
+Valores iniciales de `CGData.cs` (reasignables en **Controles**). Comprobado por ejecución con teclado simulado: Esc (pausa), Espacio (salto) y navegación de menús con flechas/Enter. Mando y táctil: 🟡 sin prueba ejecutada.
+
+| Acción | Teclado | Mando | Táctil (`CGTouch.cs`) |
+|---|---|---|---|
+| Mover | A / D | D-pad / stick izquierdo | ◀ ▶ |
+| Saltar | Espacio | A (*South*) | Botón saltar |
+| Correr | Shift izq. | Gatillo derecho | ⏳ falta (E10) |
+| Morder | J | X (*West*) | Botón atacar |
+| Interactuar | E | Y (*North*) | Botón interactuar |
+| Habilidad | Q | Bumper derecho | ⏳ falta (E10) |
+| Pausa | Esc | Start | Botón pausa |
+| Menús | ↑/↓ o W/S, Enter/Espacio, Esc | D-pad, A, B | Toque |
 
 <a id="equipo"></a>
 ## 👥 Equipo y responsabilidades
 
-Cada integrante trabaja en su parte; la integración final une los resultados sin reemplazar el trabajo de los demás.
+Cada fila resume **responsabilidades asignadas** y **aportes registrados en Git**. La autoría real de cada cambio está en el historial (`git log --author`), no en este README.
 
-<details>
-<summary><strong>🎨 Víctor Grover Asturizaga Plata -Developer-vic1- — Recursos gráficos y estilo visual</strong></summary>
+| Integrante | GitHub | Responsabilidad actual (Issues) | Aportes registrados en este repositorio |
+|---|---|---|---|
+| **Vicente Oscar Claros Mamani** | `vicentesystemdev` | Líder, administrador e integrador de PR. Documentación y Gitflow (#9), controles táctiles/Android (#10), QA del MVP y release | Proyecto base, gestor de escenas y UI de Nivel01 del prototipo (15/10); commit de integración `8c48d0a` (PR #8), que **importó** el juego desde el repositorio `CAMPUS_GLITCH`; controles táctiles `3619026` y exportación APK `9257b4e` (22/10); auditoría, Gitflow y plantillas (PR #17, #23, #24) |
+| **Carla Valeria Encinas Cano** | `VarlaCdev20` | Menús y desafíos: cancelar borrado (#20), quiz con teclado/mando (#21), navegación de victoria (#22), menús y UX móvil (#11), animaciones/audio/feedback (#12) | Menú principal del prototipo (Canvas, panel, título, botones, botón Jugar) — 9 commits del 15/10 |
+| **Marcelo Josue Escobar Chipana** | `Josue-EC16` | Derrota y combate: Game Over (#13), enemigos y combate (#14) | Escena y script Game Over del prototipo — 4 commits del 15/10 (PR #4) |
+| **Víctor Grover Asturizaga Plata** | `Developer-vic1` | Mundo y arte: fragmento inalcanzable (#18), salto/plataformas (#19), inventario de arte (#15), QA visual Windows (#16) | Sprites, fondos y recursos gráficos del prototipo; README del prototipo — 5 commits del 15/10 |
 
-- Prepara sprites de **botones, fondos y paneles** a partir de CAMPUS_GLITCH.
-- Revisa su importación en Unity y conserva los archivos `.meta`.
-- Organiza recursos compartidos y prepara referencias visuales para las otras escenas.
-- **No** implementa los menús funcionales ni las mecánicas de juego.
-
-**Rama:** [`feature/victor-integracion`](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/tree/feature/victor-integracion)
-
-</details>
-
-<details>
-<summary><strong>🏠 Carla Valeria Encinas Cano -VarlaCdev20- — Menú principal</strong></summary>
-
-- Construye `MenuPrincipal.unity` con **Canvas**, título, fondo y botones **Jugar** y **Salir**.
-- Utiliza **TextMeshPro**, el Inspector y los eventos **OnClick**.
-- Conecta las acciones públicas del gestor de escenas.
-
-**Rama:** [`feature-carla-integracion`](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/tree/feature-carla-integracion)
-
-</details>
-
-<details>
-<summary><strong>💥 Marcelo Josue Escobar Chipana -Josue-EC16- — Pantalla Game Over</strong></summary>
-
-- Construye `GameOver.unity` con el mensaje de fin de partida.
-- Agrega los botones **Reintentar** y **Volver al menú**.
-- Adapta los recursos visuales compartidos por Víctor.
-
-**Rama:** [`feature/gameover`](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/tree/feature/gameover)
-
-</details>
-
-<details>
-<summary><strong>🔗 Vicente Oscar Claros Mamani -vicentesystemdev- — Navegación, integración y entrega</strong></summary>
-
-- Mantiene `GestorEscenas.cs` y revisa `Nivel01.unity`.
-- Integra las transiciones, coordina los **Pull Requests** y ejecuta pruebas.
-- Organiza las capturas y el **PDF de entrega de 1–2 páginas**.
-
-**Rama:** [`feature/vicente-integracion`](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/tree/feature/vicente-integracion)
-
-</details>
+> **Trazabilidad:** el juego actual llegó a este repositorio en **un único commit** (`8c48d0a`) que además eliminó escenas y scripts previos de Carla, Marcelo y Vicente. Ese commit **no** acredita autoría individual del código importado; el origen está en el repositorio [`CAMPUS_GLITCH`](https://github.com/vicentesystemdev/CAMPUS_GLITCH). Desde el 5/11 todo cambio entra por rama propia y PR para que cada aporte sea atribuible (ver auditoría §1 y §8).
 
 <a id="tecnologias"></a>
-## 🧰 Tecnologías y conceptos
+## 🧰 Tecnologías
 
-| Tecnología | Uso en el proyecto |
+| Tecnología | Uso real en el proyecto |
 |---|---|
-| **Unity 6000.3.16f1** | Editor y escenas 2D |
-| **C#** | Gestor de escenas y scripts |
-| **Canvas / Button / Image** | Construcción de interfaces |
-| **TextMeshPro** | Textos de los menús |
-| **SceneManager** | Transición entre pantallas |
-| **PNG / Aseprite** | Recursos y fuentes de pixel art |
-| **Git y GitHub** | Ramas, commits, revisiones y Pull Requests |
+| **Unity 6000.3.16f1**, URP 2D | Motor y render 2D (luces 2D en escenas) |
+| **C#** | 8 scripts de juego en `Assets/CampusGlitch/Scripts` + 8 herramientas de editor |
+| **Input System 1.19** | Lectura directa de teclado, mando y táctil (el asset `InputSystem_Actions` no se usa) |
+| **IMGUI (`OnGUI`)** | Todas las pantallas de menú y HUD |
+| **`Resources.Load`** | Carga de sprites, sonidos y temas por ruta |
+| **JsonUtility** | Guardado en `Application.persistentDataPath` |
+| **Git / GitHub** | Issues, ramas por tarea, PR a `develop`, ruleset en `main`/`develop` |
 
-<a id="estructura"></a>
-## 📁 Estructura del proyecto
-
-La estructura puede variar entre ramas hasta completar la integración:
+## 📁 Estructura principal
 
 ```text
 EVALUACION_MULTIMEDIA_2026/
-├── Assets/
-│   ├── Scenes/
-│   │   ├── MenuPrincipal.unity
-│   │   ├── Nivel01.unity
-│   │   └── GameOver.unity
-│   ├── Scripts/
-│   │   └── Core/
-│   │       └── GestorEscenas.cs         # En develop
-│   ├── Prefabs/
-│   ├── Art/                           # En la rama gráfica
-│   │   ├── PNG/
-│   │   ├── Aseprite/
-│   │   └── Animaciones/
-│   └── Editor/
-├── Packages/
-├── ProjectSettings/
-├── Docs/                                # Documentación por ramas
-└── README.md
+├── Assets/CampusGlitch/
+│   ├── Scenes/            # 18 escenas del build (SC_*)
+│   ├── Scripts/           # CGGame, CGData, CGWorld, CGEntities, CGTouch, CGAudio, CGCamera2DRuntime, CGAnimatedProp
+│   ├── Editor/            # Builds Windows/Android, validadores, generador de escenas (¡reescribe escenas!)
+│   └── Resources/CG/      # Sprites, fondos, temas, sonidos y efectos cargados por código
+├── Docs/
+│   ├── AUDITORIA_CLAUDE_INFORME.md     # Auditoría técnica histórica (5–6/11)
+│   ├── ESTADO_MVP_Y_PRIORIDADES.md     # Bloqueantes e Issues
+│   ├── GITFLOW_EQUIPO.md               # Protocolo de ramas, PR y liderazgo
+│   ├── Equipo/                         # Instrucciones por integrante y aviso de PR
+│   ├── GDD/                            # GDD original (no editar), propuestas y matriz de cumplimiento
+│   └── QA/                             # Plantilla MVP y matrices de QA de PR
+└── .github/PULL_REQUEST_TEMPLATE.md
 ```
 
-> En la rama `main` puede aparecer únicamente la **base inicial** mientras el equipo trabaja en sus ramas y fusiona los cambios. Consulta [`develop`](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/tree/develop) para la integración y las ramas individuales para cada entrega.
-
-<a id="recursos"></a>
-## 🎨 Recursos gráficos
-
-La identidad visual reutiliza el pixel art y los elementos del juego original. Estos sprites están en la rama de Víctor:
-
-`Assets/Art/PNG/01_Nuevos_Modulares/Global_UI/`
-
-| Recurso | Aplicación prevista |
-|---|---|
-| `ButtonOrangeNormal.png` | Botón en reposo |
-| `ButtonOrangeHover.png` | Botón con el cursor encima |
-| `ButtonOrangePressed.png` | Botón pulsado |
-| `MenuPanel.png` | Panel de menú |
-| `DialogueFrame.png` | Marco de mensajes |
-| `HeartFull.png` y `HeartEmpty.png` | Indicador gráfico de vidas |
-| `EnergyBarFill.png` y `EnergyBarEmpty.png` | Indicador gráfico de energía |
-
-<details>
-<summary><strong>🖼️ ¿Cómo se usan los tres estados de un botón?</strong></summary>
-
-En el componente `Button` del Inspector de Unity:
-
-1. Asigna `ButtonOrangeNormal.png` al componente **Image**.
-2. Elige **Transition → Sprite Swap**.
-3. Asigna `ButtonOrangeHover.png` como **Highlighted Sprite**.
-4. Asigna `ButtonOrangePressed.png` como **Pressed Sprite**.
-5. Agrega el texto usando **TextMeshPro** y conecta **OnClick** desde la escena del integrante responsable.
-
-Antes de la integración se deben revisar **Filter Mode**, **Sprite Mode**, escalado y referencias `.meta` para evitar imágenes borrosas o deformadas.
-
-</details>
-
-<details>
-<summary><strong>🧩 Ver el plan de entrega visual de Víctor</strong></summary>
-
-- [Mapa de carpetas y destinatarios](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/blob/feature/victor-integracion/Docs/MAPA_CARPETAS_RECURSOS_VICTOR.md)
-- [Plan de entregas visuales](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/blob/feature/victor-integracion/Docs/PLAN_ENTREGAS_VISUALES_VICTOR.md)
-
-**Importante:** las referencias `Referencia_Menu_Victor.unity`, `Referencia_GameOver_Victor.unity` y `Referencia_HUD_Muerte_Victor.unity` están **planificadas**, pero no deben considerarse entregadas hasta crearse y verificarse en Unity. No sustituirán las escenas oficiales.
-
-</details>
-
 <a id="abrir-proyecto"></a>
-## 🚀 Cómo abrir el proyecto
+## 🚀 Cómo abrir y probar
 
-**Requisitos:** Unity Hub, **Unity Editor 6000.3.16f1** y Git.
+**Requisitos:** Unity Hub, **Unity 6000.3.16f1** (con *Windows Build Support*; *Android Build Support* para APK) y Git.
 
 ```bash
 git clone https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026.git
 cd EVALUACION_MULTIMEDIA_2026
-# Para consultar la integración disponible:
 git switch develop
 ```
 
-1. Abre **Unity Hub → Add project from disk**.
-2. Selecciona la carpeta `EVALUACION_MULTIMEDIA_2026` (la que contiene `Assets`, `Packages` y `ProjectSettings`).
-3. Ábrela con la versión indicada y espera a que Unity importe los recursos.
-4. Desde **Project → Assets → Scenes**, abre la escena que deseas revisar.
-5. Comprueba las escenas incluidas en **File → Build Profiles → Scene List** (o la sección equivalente de tu versión del editor).
-6. Ejecuta **Play** para probar la parte ya integrada. Si una interfaz todavía está vacía, revisa su rama: puede seguir en desarrollo.
+1. **Unity Hub → Add project from disk** → carpeta que contiene `Assets`, `Packages` y `ProjectSettings`.
+2. Abrir `Assets/CampusGlitch/Scenes/SC_Bootstrap.unity` y pulsar **Play**.
+3. Menú → **Jugar** → mapa → **Nivel 1**.
+4. Para QA del MVP, usar [`Docs/QA/PLANTILLA_MVP_NIVELES_1_2.md`](Docs/QA/PLANTILLA_MVP_NIVELES_1_2.md) y registrar solo resultados ejecutados.
 
-<details>
-<summary><strong>🛠️ Solución rápida de dudas frecuentes</strong></summary>
-
-**¿Por qué veo pantallas vacías?**  
-Las escenas oficiales se crearon inicialmente como base. El contenido visual se integra progresivamente desde las ramas del equipo.
-
-**¿Por qué no encuentro los sprites al usar `main`?**  
-El trabajo gráfico está disponible en `feature/victor-integracion` mientras se revisa su integración.
-
-**¿Debo subir `Library/`, `Temp/` o `.codex/`?**  
-No. Son archivos generados o configuraciones locales. Utiliza el `.gitignore` del proyecto.
-
-**¿Debo borrar los `.meta` de Unity?**  
-No. Ayudan a conservar los identificadores y las referencias de los recursos entre equipos.
-
-</details>
+> El guardado se escribe en `%USERPROFILE%\AppData\LocalLow\DefaultCompany\CAMPUS_GLITCH_TEMP\campus_glitch_save_v1.json` (según `companyName`/`productName` actuales). Bórralo (o usa «Borrar progreso» cuando #20 esté integrado) para probar desde cero.
 
 <a id="gitflow"></a>
-## 🌿 Trabajo con GitFlow
+## 🌿 Gitflow
 
-Cada integrante realiza sus cambios en su rama y solicita revisión antes de integrar:
+- `main` y `develop` están protegidas por un ruleset: **PR obligatorio, 1 aprobación, conversaciones resueltas, sin force push ni borrado**.
+- Cada tarea se trabaja en `feature|fix|docs|test/<persona>/<Issue>-<tema>` desde `origin/develop` y se integra con **Create a merge commit**.
+- Vicente revisa e integra los PR de los compañeros; sus propios PR se rigen por la excepción documentada en [`Docs/GITFLOW_EQUIPO.md` §0](Docs/GITFLOW_EQUIPO.md).
+- Tras publicar o actualizar un PR, avisar a Vicente con [`Docs/Equipo/05_PLANTILLA_AVISO_PR.md`](Docs/Equipo/05_PLANTILLA_AVISO_PR.md).
 
-```mermaid
-flowchart LR
-    V[🎨 Víctor] --> D[develop]
-    C[🏠 Carla] --> D
-    M[💥 Marcelo] --> D
-    I[🔗 Vicente] --> D
-    D -->|Revisión y entrega| MAIN[main]
-    classDef trabajo fill:#493156,color:#fff,stroke:#BE9BEE;
-    classDef fusion fill:#EF923C,color:#231426,stroke:#CD7C24;
-    class V,C,M,I trabajo;
-    class D,MAIN fusion;
-```
-
-[**🔀 Comparar la rama de Víctor con `develop`**](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/compare/develop...feature/victor-integracion) · [**🌿 Ver todas las ramas**](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/branches) · [**📋 Revisar Pull Requests**](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/pulls)
-
-<details>
-<summary><strong>📋 Lista de verificación previa a la entrega</strong></summary>
-
-- [ ] `MenuPrincipal.unity` muestra título, fondo y botones correctamente.
-- [ ] **Jugar** carga `Nivel01` y **Salir** responde correctamente.
-- [ ] La condición de derrota conduce a `GameOver`.
-- [ ] **Reintentar** vuelve al nivel y **Volver al menú** regresa al inicio.
-- [ ] Los recursos gráficos se visualizan sin referencias faltantes.
-- [ ] Las escenas finales están registradas en Build Profiles.
-- [ ] No hay errores de compilación pendientes atribuibles a la integración.
-- [ ] Los Pull Requests necesarios están revisados e integrados.
-- [ ] Se prepararon las **dos capturas** y el **PDF de 1–2 páginas**.
-
-*Esta lista es una guía de revisión; no cambia automáticamente al hacer commits.*
-
-</details>
+Más detalle: [`Docs/GITFLOW_EQUIPO.md`](Docs/GITFLOW_EQUIPO.md) y [`Docs/Equipo/00_PROTOCOLO_COMUN_IA_GITFLOW.md`](Docs/Equipo/00_PROTOCOLO_COMUN_IA_GITFLOW.md).
 
 ---
 
-<p align="center"><strong>🐺 Un campus. Tres escenas. Un equipo.</strong><br>
+<p align="center"><strong>🐺 Un campus. Dos niveles obligatorios. Un equipo.</strong><br>
 <sub>Proyecto académico de Multimedia y Videojuegos · Unity 2D</sub><br>
 <a href="#inicio">⬆️ Volver al inicio</a></p>
