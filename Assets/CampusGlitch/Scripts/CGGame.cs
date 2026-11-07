@@ -118,6 +118,8 @@ public class CGGame:MonoBehaviour {
       CGStore.Save();page=sceneLevel==8?Page.Ending:Page.Victory;selection=0;
     }
     public static void HandleVictorySelection(int selected,Action nextLevel,Action menu){if(selected==0)nextLevel();else menu();}
+    public static void HandleEndingSelection(int selected,Action credits,Action menu){if(selected==0)credits();else menu();}
+    void OpenEndingCredits(){OpenUIScreen("SC_Credits",Page.Credits);}
     void AfterVictory(){int next=sceneLevel==9?0:sceneLevel+1;if(next==9){ToMain();return;}ChooseLevel(next);}
     public static int MoveQuizSelection(int current,int direction){return (current+direction%3+3)%3;}
     void CloseQuiz(){page=Page.Playing;Time.timeScale=1;}
@@ -257,8 +259,8 @@ public class CGGame:MonoBehaviour {
        if(Button("SIGUIENTE NIVEL",0,375,453,530,66))HandleVictorySelection(0,AfterVictory,ToMain);if(Button("MENÚ PRINCIPAL",1,375,535,530,60))HandleVictorySelection(1,AfterVictory,ToMain);}
       if(page==Page.Ending){Header("¡CAMPUS RESTAURADO!");Label("CORE GLITCH HA SIDO DERROTADO",260);Label("INNOVACIÓN · APRENDE HACIENDO",349,48);
        Label("UNIFRANZ LA PAZ — FIN DE LA AVENTURA",415);
-       if(Button("VER CRÉDITOS",0,390,501,500,65)){ShowCreditsOnBoot=true;SceneManager.LoadScene("SC_Bootstrap");}
-       if(Button("VOLVER AL MENÚ",1,390,583,500,55))ToMain();}
+       if(Button("VER CRÉDITOS",0,390,501,500,65))HandleEndingSelection(0,OpenEndingCredits,ToMain);
+       if(Button("VOLVER AL MENÚ",1,390,583,500,55))HandleEndingSelection(1,OpenEndingCredits,ToMain);}
       if(page==Page.ConfirmReset){Header("¿BORRAR PROGRESO?");Label("Se eliminarán los niveles completados y las skins desbloqueadas.",311);
        if(Button("SÍ, BORRAR",0,320,431,300,58))ConfirmResetChoice(0);if(Button("CANCELAR",1,660,431,300,58))ConfirmResetChoice(1);}
       if(Time.unscaledTime<toastUntil && page!=Page.Playing){GUI.Label(new Rect(180,page==Page.Quiz?132:628,920,35),toast,tinyStyle);}
