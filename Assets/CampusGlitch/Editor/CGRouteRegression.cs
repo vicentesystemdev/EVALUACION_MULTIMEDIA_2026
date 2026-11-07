@@ -93,7 +93,10 @@ public static class CGRouteRegression {
         CGWorld world = Get<CGWorld>(game, "world");
         float now = Time.unscaledTime, x = hero.transform.position.x;
         int chips = Get<int>(game, "chips");
-        if (chips != lastChips) { Log("DATOS " + chips + "/3 t=" + (now - started) + " posicion=" + hero.transform.position); lastChips = chips; }
+        if (chips != lastChips) {
+            Log("DATOS " + chips + "/3 t=" + (now - started) + " posicion=" + hero.transform.position); lastChips = chips;
+            if (chips == 2) ScreenCapture.CaptureScreenshot(Path.Combine(output, "plataformas.png"));
+        }
         string page = Get<object>(game, "page").ToString();
         if (page == "Victory" || page == "Ending") {
             SetKeys();
