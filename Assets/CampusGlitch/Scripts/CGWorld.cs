@@ -71,6 +71,13 @@ public class CGWorld : MonoBehaviour {
     else {sr.sprite=MakeSolid(raised?new Color(.35f,.4f,.46f):new Color(.45f,.47f,.52f));visual.transform.localScale=new Vector3(w,h,1);}
     // Collider dimensions must be world units, never derived from sprite pixel size.
     BoxCollider2D col=obj.AddComponent<BoxCollider2D>();col.size=new Vector2(w,h);obj.AddComponent<CGSurface>();
+    if(raised){
+      // Raised routes are jump-through platforms, so low undersides cannot trap the hero over a gap.
+      col.usedByEffector=true;
+      var effector=obj.AddComponent<PlatformEffector2D>();
+      effector.useOneWay=true;effector.useOneWayGrouping=true;effector.surfaceArc=160f;
+      effector.useSideFriction=false;effector.useSideBounce=false;
+    }
   }
   // All elements are real SpriteRenderers in side view; objects and collision geometry remain separate.
   void Piece(Transform parent,string id,string asset,float x,float y,float width,float height,int sorting) {

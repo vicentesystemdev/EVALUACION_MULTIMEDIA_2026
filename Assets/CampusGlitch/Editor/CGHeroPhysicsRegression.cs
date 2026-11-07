@@ -49,6 +49,8 @@ public static class CGHeroPhysicsRegression {
             GroundStop();
             foreach (float top in new[] { 1.86f, 2.03f, 2.20f }) foreach (float speed in new[] { 3.5f, 5.8f }) Landing(0, top, speed);
             foreach (float speed in new[] { 3.5f, 5.8f }) { Landing(1.86f, 3.26f, speed); Landing(3.26f, 4.56f, speed); }
+            foreach (float top in new[] { 1.86f, 2.03f, 2.20f }) JumpThrough(top, false);
+            JumpThrough(2.03f, true);
         } catch (Exception ex) { Record(false, "EXCEPCION " + ex); }
         finally {
             CGStore.Data = original;
@@ -76,6 +78,11 @@ public static class CGHeroPhysicsRegression {
         public void Box(Vector2 position, Vector2 size) {
             var obstacle = new GameObject("Obstacle"); obstacle.transform.SetParent(root.transform); obstacle.transform.position = position;
             obstacle.AddComponent<BoxCollider2D>().size = size; obstacle.AddComponent<CGSurface>();
+        }
+        public void Platform(float top) {
+            CGWorld world = root.GetComponent<CGWorld>();
+            if (world == null) { world = root.AddComponent<CGWorld>(); world.root = root.transform; }
+            typeof(CGWorld).GetMethod("Platform", Private).Invoke(world, new object[] { 0f, top - .16f, 2.6f, .32f, true });
         }
         public void Step(float move, float speed) {
             hero.moveInput = move; hero.running = speed > 4;
@@ -109,6 +116,22 @@ public static class CGHeroPhysicsRegression {
             float x = fixture.hero.Body.position.x;
             for (int i = 0; i < 20; i++) fixture.Step(0, 5.8f);
             Record(Mathf.Abs(fixture.hero.Body.position.x - x) < .01f && Mathf.Abs(fixture.hero.Body.position.y) < .05f, "se detiene sobre suelo al soltar direccion, sin deslizar ni rebotar");
+        }
+    }
+
+    static void JumpThrough(float top, bool stacked) {
+        using (var fixture = new Fixture(new Vector2(0, .03f))) {
+            fixture.Box(new Vector2(0, -.5f), new Vector2(20, 1));
+            fixture.Platform(top);
+            if (stacked) fixture.Platform(3.26f);
+            for (int i = 0; i < 10; i++) fixture.Step(0, 3.5f);
+            fixture.Jump();
+            float peak = 0; bool landed = false;
+            for (int i = 0; i < 85; i++) {
+                fixture.Step(0, 3.5f); peak = Mathf.Max(peak, fixture.hero.Body.position.y);
+                if (peak > top + .05f && Mathf.Abs(fixture.hero.Body.position.y - top) < .06f && Mathf.Abs(fixture.hero.Body.linearVelocity.y) < .1f) { landed = true; break; }
+            }
+            Record(landed, "atraviesa desde abajo y aterriza encima=" + top + " techo_superior=" + stacked + " pico=" + peak);
         }
     }
 
