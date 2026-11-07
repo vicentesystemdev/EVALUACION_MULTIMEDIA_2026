@@ -34,3 +34,6 @@ Desktop.ini
 # Configuraciones locales
 /.codex/
 /.vsconfig
+
+# Instrucciones personales de Marcelo (no versionar)
+/AGENTS.md
