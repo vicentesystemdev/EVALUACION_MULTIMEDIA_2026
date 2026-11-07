@@ -5,6 +5,18 @@ using UnityEngine;
 namespace CampusGlitch.EditorQA {
 public static class CGMenuRegression {
     // Runs without touching the player's real JSON save.
+    [MenuItem("Campus Glitch/QA/Comprobar victoria y creditos")]
+    public static void CheckVictoryAndEnding() {
+        int next = 0, menu = 0, credits = 0;
+        CGGame.HandleVictorySelection(0, () => next++, () => menu++);
+        CGGame.HandleVictorySelection(1, () => next++, () => menu++);
+        CGGame.HandleEndingSelection(0, () => credits++, () => menu++);
+        CGGame.HandleEndingSelection(1, () => credits++, () => menu++);
+        if (next != 1 || credits != 1 || menu != 2)
+            throw new Exception("Victoria o final ejecutó la opción equivocada.");
+        Debug.Log("[Campus Glitch QA] OK: siguiente nivel, menu y creditos respetan seleccion.");
+    }
+
     [MenuItem("Campus Glitch/QA/Comprobar navegacion de terminal")]
     public static void CheckQuizNavigation() {
         if (CGGame.MoveQuizSelection(0, 1) != 1 ||
