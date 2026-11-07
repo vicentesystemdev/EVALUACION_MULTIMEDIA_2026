@@ -1,0 +1,2466 @@
+[
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "Brillo_Digital_15",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "Fondo_Parallax_0",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "Brillo_Digital_6",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "PROP_TerminalHacking",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "PROP_CheckpointPillar",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "Fragmento_Datos_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "Fondo_Parallax_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGHero",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "Fragmento_Datos_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "Brillo_Digital_60",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGAssistantFollow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "Fragmento_Datos_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "Fondo_Parallax_4",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "ENEMY_Bug_Saltador",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "ENEMY_Bug_Saltador",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "Brillo_Digital_24",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "NPC_Docente",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "NPC_Docente",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "Fondo_Parallax_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "Brillo_Digital_42",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "PROP_PortalTransition",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "Brillo_Digital_51",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "Brillo_Digital_33",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "Brillo_Digital_69",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "ENEMY_Centinela",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "ENEMY_Centinela",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Extra_Subsuelo.unity",
+    "object": "Fondo_Parallax_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "PROP_TerminalHacking",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "Brillo_Digital_69",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "PROP_CheckpointPillar",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "Fondo_Parallax_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "Brillo_Digital_51",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "Fragmento_Datos_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "Brillo_Digital_24",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "Fondo_Parallax_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGAssistantFollow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "Brillo_Digital_33",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "Fragmento_Datos_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "Brillo_Digital_60",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "Fragmento_Datos_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "Fondo_Parallax_0",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "Brillo_Digital_42",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "Brillo_Digital_15",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "NPC_Guardia_U",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "NPC_Guardia_U",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGHero",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "Fondo_Parallax_4",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "Brillo_Digital_6",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "PROP_PortalTransition",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level01.unity",
+    "object": "Fondo_Parallax_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "Brillo_Digital_51",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "Brillo_Digital_6",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "PROP_TerminalHacking",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "Fondo_Parallax_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "NPC_Recepcionista",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "NPC_Recepcionista",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "Brillo_Digital_42",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGAssistantFollow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "Fragmento_Datos_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "Brillo_Digital_15",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "Fondo_Parallax_4",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "Fondo_Parallax_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "Fragmento_Datos_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "Fragmento_Datos_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "Brillo_Digital_60",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "Fondo_Parallax_0",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "PROP_PortalTransition",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "Fondo_Parallax_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "Brillo_Digital_33",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "Brillo_Digital_24",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "PROP_CheckpointPillar",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "Brillo_Digital_69",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGHero",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level02.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "Brillo_Digital_6",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "PROP_TerminalHacking",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "Brillo_Digital_51",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "Fondo_Parallax_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "Brillo_Digital_15",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "Brillo_Digital_24",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGAssistantFollow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "Fondo_Parallax_4",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "Brillo_Digital_60",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "PROP_PortalTransition",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "Brillo_Digital_33",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "Fondo_Parallax_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "Fragmento_Datos_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "ENEMY_Bug_Saltador",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "ENEMY_Bug_Saltador",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "Fondo_Parallax_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "PROP_CheckpointPillar",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "Brillo_Digital_69",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "Fondo_Parallax_0",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "Brillo_Digital_42",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "NPC_Director",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "NPC_Director",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGHero",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "Fragmento_Datos_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level03.unity",
+    "object": "Fragmento_Datos_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "Fondo_Parallax_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "Fragmento_Datos_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "Fragmento_Datos_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "Fondo_Parallax_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "PROP_TerminalHacking",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "PROP_CheckpointPillar",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "Brillo_Digital_42",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "Fondo_Parallax_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "Brillo_Digital_69",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "Brillo_Digital_60",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "Fondo_Parallax_0",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGAssistantFollow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "Fondo_Parallax_4",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "ENEMY_Bug_Saltador",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "ENEMY_Bug_Saltador",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "Brillo_Digital_6",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "Brillo_Digital_15",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "PROP_PortalTransition",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "Fragmento_Datos_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGHero",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "Brillo_Digital_24",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "Brillo_Digital_51",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "NPC_Docente",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "NPC_Docente",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "Brillo_Digital_33",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Level04.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "Fragmento_Datos_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "PROP_PortalTransition",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "Brillo_Digital_51",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "Fondo_Parallax_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "Fondo_Parallax_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "Fondo_Parallax_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "Fragmento_Datos_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "Brillo_Digital_42",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGAssistantFollow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "ENEMY_Bug_Saltador",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "ENEMY_Bug_Saltador",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "PROP_CheckpointPillar",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "Brillo_Digital_6",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "Brillo_Digital_33",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "PROP_TerminalHacking",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "Brillo_Digital_15",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "Brillo_Digital_60",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "Fragmento_Datos_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "ENEMY_Centinela",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "ENEMY_Centinela",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "Fondo_Parallax_4",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "NPC_Noemi_Moller",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "NPC_Noemi_Moller",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "Brillo_Digital_69",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "Brillo_Digital_24",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "Fondo_Parallax_0",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGHero",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level05.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "Brillo_Digital_60",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "Brillo_Digital_42",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "Brillo_Digital_69",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "ENEMY_Boss_Secuencias",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "ENEMY_Boss_Secuencias",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGHero",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "Fragmento_Datos_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "NPC_Director",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "NPC_Director",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "PROP_TerminalHacking",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "Brillo_Digital_24",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "Brillo_Digital_33",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "Fondo_Parallax_4",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "Brillo_Digital_15",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "ENEMY_Centinela",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "ENEMY_Centinela",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "Fondo_Parallax_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "Brillo_Digital_6",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "PROP_CheckpointPillar",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "Fragmento_Datos_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGAssistantFollow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "Brillo_Digital_51",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "ENEMY_Bug_Saltador",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "ENEMY_Bug_Saltador",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "Fondo_Parallax_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "Fondo_Parallax_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "Fragmento_Datos_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "PROP_PortalTransition",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level06.unity",
+    "object": "Fondo_Parallax_0",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "Brillo_Digital_6",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "Brillo_Digital_60",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "Fragmento_Datos_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "NPC_Unifranzito",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "NPC_Unifranzito",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "Brillo_Digital_42",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "Brillo_Digital_69",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "ENEMY_Centinela",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "ENEMY_Centinela",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "ENEMY_Bug_Saltador",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "ENEMY_Bug_Saltador",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "PROP_TerminalHacking",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "Fragmento_Datos_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "Fragmento_Datos_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "Fondo_Parallax_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "Brillo_Digital_33",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "Fondo_Parallax_4",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "Fondo_Parallax_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "Fondo_Parallax_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "Brillo_Digital_15",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGHero",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "Brillo_Digital_24",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "Fondo_Parallax_0",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "Brillo_Digital_51",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "PROP_CheckpointPillar",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "PROP_PortalTransition",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGAssistantFollow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level07.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "Fondo_Parallax_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "Fragmento_Datos_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "PROP_CheckpointPillar",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGAssistantFollow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "Brillo_Digital_42",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "Fondo_Parallax_0",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "Fondo_Parallax_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "Fondo_Parallax_4",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "Brillo_Digital_15",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "ENEMY_Bug_Saltador",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "ENEMY_Bug_Saltador",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGHero",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "Brillo_Digital_51",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "Brillo_Digital_69",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "Fragmento_Datos_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "PROP_PortalTransition",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "Brillo_Digital_6",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "Brillo_Digital_24",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "ENEMY_Boss_IF_ELSE",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "ENEMY_Boss_IF_ELSE",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "Fondo_Parallax_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "NPC_Estudiante",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "NPC_Estudiante",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "PROP_TerminalHacking",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "Fragmento_Datos_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "ENEMY_Centinela",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "ENEMY_Centinela",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "Brillo_Digital_33",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level08.unity",
+    "object": "Brillo_Digital_60",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "Brillo_Digital_51",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "Brillo_Digital_69",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "PROP_TerminalHacking",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "Fondo_Parallax_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "Brillo_Digital_42",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "Brillo_Digital_24",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "Fondo_Parallax_4",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "Brillo_Digital_6",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "ENEMY_Core_Glitch",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "ENEMY_Core_Glitch",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "Brillo_Digital_15",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "ENEMY_Centinela",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "ENEMY_Centinela",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "Brillo_Digital_60",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "\"Main Camera (2D ortogr\\xE1fica)\"",
+    "class": "Assembly-CSharp::CampusGlitch.CGCamera",
+    "embedded": true,
+    "preview": false
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "Fragmento_Datos_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "Fondo_Parallax_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "Fondo_Parallax_0",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "ENEMY_Bug_Saltador",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "ENEMY_Bug_Saltador",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGAssistantFollow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "Asistente_Digital",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "Fragmento_Datos_3",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "NPC_Noemi_Moller",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "NPC_Noemi_Moller",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGHero",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "PLAYER_Lobo_Guardian",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "Brillo_Digital_33",
+    "class": "Assembly-CSharp::CampusGlitch.CGAmbientGlow",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "PROP_CheckpointPillar",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "Fondo_Parallax_2",
+    "class": "Assembly-CSharp::CampusGlitch.CGParallax",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGFrameAnimator",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "ENEMY_Bug_Terrestre",
+    "class": "Assembly-CSharp::CampusGlitch.CGEnemy",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "PROP_PortalTransition",
+    "class": "Assembly-CSharp::CampusGlitch.CGMarker",
+    "embedded": true,
+    "preview": true
+  },
+  {
+    "scene": "SC_Level09.unity",
+    "object": "Fragmento_Datos_1",
+    "class": "Assembly-CSharp::CampusGlitch.CGPickup",
+    "embedded": true,
+    "preview": true
+  }
+]
