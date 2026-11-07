@@ -45,3 +45,17 @@ Captura real de SC_Level01 en Play Mode: [nivel y HUD](CarlaCapturas/20261106-21
 ## Reproducir
 
 Abrir CAMPUS_GLITCH_CARLA_QA en Unity. Ejecutar Campus Glitch > QA > Comprobar entradas y persistencia aislada fuera de Play Mode. La prueba restaura las escenas registradas, escala temporal, datos en memoria y modo de actualizacion de entrada; elimina exclusivamente su directorio temporal. Usa mecanismos internos del Input System fijados a la version del proyecto.
+
+## Cierre adicional en PC
+
+Se ejecutaron cinco escenarios funcionales en Play Mode (N1, N8, N6, final N9 y subsuelo EXTRA, identificado N10 en los archivos). Cada escenario comprobo checkpoint y reaparicion, tres fragmentos mediante colisiones reales, bloqueo del portal, terminal incorrecta/correcta, victoria, persistencia en JSON temporal y transicion de salida. N1 avanza a N2; N9 abre creditos; los demas regresan al menu. La prueba coloca al personaje y libera el jefe por callback: no certifica habilidad de combate ni recorrido manual de plataformas.
+
+Se limpio el aviso anterior al ganar y se agregaron paneles de contraste en pausa, terminal, victoria y final. La prueba verifica que la victoria no conserve el aviso previo.
+
+Evidencias finales: [resultados Play Mode](CarlaPlayMode/resultados.txt), [victoria N8](CarlaPlayMode/N8_final.png), [final N9](CarlaPlayMode/N9_final.png), [subsuelo](CarlaPlayMode/N10_final.png). Reproducir fuera de Play Mode con Campus Glitch > QA > Recorrer escenarios funcionales en Play Mode (Ctrl+Shift+F9). Restaura la escena anterior y elimina solo el guardado temporal creado por la prueba.
+
+Auditoria de advertencia: [referencias locales de scripts](CARLA_SCRIPTS_PREVIEW.json). Se encontraron 352 referencias locales a MonoScript incrustados en escenas: 332 en la jerarquia decorativa CG_EDITOR_PREVIEW_2D y 20 en camaras. Es una auditoria estatica de referencias, no un conteo de 352 errores en ejecucion. El juego destruye la vista previa y reconfigura la camara al arrancar; se comprobo el funcionamiento en Play Mode. La limpieza de estas escenas compartidas debe coordinarse con el integrador y no se mezcla con esta entrega de interfaz.
+
+La instalacion local de Unity tiene soporte Windows y carece del modulo AndroidPlayer. No se declara validacion fisica Android ni mando fisico.
+
+La integracion pendiente del prototipo local se resolvio aparte en feature-carla-integracion, conservando GUID y con respaldo previo del indice/metadatos/README. Commit local 52d2066; no se subio ni se mezclo con feature/carla. Las animaciones y demas archivos locales sin registrar se conservaron.

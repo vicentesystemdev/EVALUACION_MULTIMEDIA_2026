@@ -121,7 +121,7 @@ public class CGGame:MonoBehaviour {
          CompleteLevel();return;}
       Hint("Acércate a un NPC, terminal, checkpoint o portal para interactuar.");
     }
-    void CompleteLevel(){CGStore.Data.completed[sceneLevel]=true;CGStore.Data.stars[sceneLevel]=3; if(sceneLevel<8)CGStore.Data.latestUnlocked=Mathf.Max(CGStore.Data.latestUnlocked,sceneLevel+1);
+    void CompleteLevel(){toast="";toastUntil=0;CGStore.Data.completed[sceneLevel]=true;CGStore.Data.stars[sceneLevel]=3; if(sceneLevel<8)CGStore.Data.latestUnlocked=Mathf.Max(CGStore.Data.latestUnlocked,sceneLevel+1);
       if(sceneLevel==1)CGStore.Data.purpleUnlocked=true;if(sceneLevel==4)CGStore.Data.extraUnlocked=true;CGAudio.Play("Win");
       CGStore.Save();page=sceneLevel==8?Page.Ending:Page.Victory;selection=0;
     }
@@ -266,17 +266,17 @@ public class CGGame:MonoBehaviour {
        Label("MARCELO JOSUE ESCOBAR CHIPANA",492);Label("Villanos, enemigos, jefes y apoyo visual",521,31);
        Label("Agradecimiento: Noemi Moller Chuquimia",573,29);
        if(Button("VOLVER",0,470,629,340,45))ToMain();}
-      if(page==Page.Paused){Header("JUEGO EN PAUSA");if(Button("CONTINUAR",0,375,260,530,65))PauseChoice(0);
+      if(page==Page.Paused){Panel(new Rect(330,220,620,300));Header("JUEGO EN PAUSA");if(Button("CONTINUAR",0,375,260,530,65))PauseChoice(0);
        if(Button("REINICIAR DESDE CHECKPOINT",1,375,342,530,65))PauseChoice(1);
        if(Button("SALIR AL MENÚ",2,375,425,530,65))PauseChoice(2);}
-      if(page==Page.Quiz){Header("TERMINAL / MISIÓN DE APRENDIZAJE");Label(world.spec.quiz,230,75);
+      if(page==Page.Quiz){Panel(new Rect(240,200,800,440));Header("TERMINAL / MISIÓN DE APRENDIZAJE");Label(world.spec.quiz,230,75);
        string[] options={world.spec.option1,world.spec.option2,world.spec.option3};for(int i=0;i<3;i++)if(Button(options[i],i,340,333+i*80,600,67))QuizAnswer(i);
        if(Button("CERRAR TERMINAL",3,420,581,440,48))CloseQuiz();
        Label("ESC / B para cerrar la terminal",646,29);}
-      if(page==Page.Victory){Header("¡NIVEL RESTAURADO!");Label("Recuperaste los tres fragmentos y activaste la conexión.",265);
+      if(page==Page.Victory){Panel(new Rect(180,220,920,410));Header("¡NIVEL RESTAURADO!");Label("Recuperaste los tres fragmentos y activaste la conexión.",265);
        if(sceneLevel==1)Label("¡PERSONALIZACIÓN MORADA DESBLOQUEADA!",352,57);
        if(Button("SIGUIENTE NIVEL",0,375,453,530,66))HandleVictorySelection(0,AfterVictory,ToMain);if(Button("MENÚ PRINCIPAL",1,375,535,530,60))HandleVictorySelection(1,AfterVictory,ToMain);}
-      if(page==Page.Ending){Header("¡CAMPUS RESTAURADO!");Label("CORE GLITCH HA SIDO DERROTADO",260);Label("INNOVACIÓN · APRENDE HACIENDO",349,48);
+      if(page==Page.Ending){Panel(new Rect(180,220,920,440));Header("¡CAMPUS RESTAURADO!");Label("CORE GLITCH HA SIDO DERROTADO",260);Label("INNOVACIÓN · APRENDE HACIENDO",349,48);
        Label("UNIFRANZ LA PAZ — FIN DE LA AVENTURA",415);
        if(Button("VER CRÉDITOS",0,390,501,500,65))HandleEndingSelection(0,OpenEndingCredits,ToMain);
        if(Button("VOLVER AL MENÚ",1,390,583,500,55))HandleEndingSelection(1,OpenEndingCredits,ToMain);}
