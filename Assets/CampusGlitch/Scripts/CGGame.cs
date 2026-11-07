@@ -157,10 +157,13 @@ public class CGGame:MonoBehaviour {
       GUI.Label(new Rect(650,25,590,47),t,textStyle);
     }
     void OnGUI(){CGStore.Load();Styles();var old=GUI.matrix;
-      Vector3 guiScale=new Vector3(Screen.width/1280f,Screen.height/720f,1),guiOffset=Vector3.zero;
+      // Keep the 16:9 menu readable without stretching buttons on 4:3 or ultrawide screens.
+      float u=Mathf.Min(Screen.width/1280f,Screen.height/720f);
+      Vector3 guiScale=new Vector3(u,u,1);
+      Vector3 guiOffset=new Vector3((Screen.width-1280*u)*.5f,(Screen.height-720*u)*.5f,0);
+      if(!CGTouch.Enabled)RectColor(new Rect(0,0,Screen.width,Screen.height),new Color(.02f,.045f,.08f,1));
       if(CGTouch.Enabled){
         // Mobile: uniform scale centered on screen so wide phones (19.5:9, 20:9) do not stretch the UI.
-        float u=CGTouch.Unit;guiScale=new Vector3(u,u,1);guiOffset=new Vector3((Screen.width-1280*u)*.5f,(Screen.height-720*u)*.5f,0);
         if(page==Page.Paused||page==Page.Quiz)RectColor(new Rect(0,0,Screen.width,Screen.height),new Color(.005f,.012f,.037f,.84f));
         else if(page!=Page.Playing)RectColor(new Rect(0,0,Screen.width,Screen.height),new Color(.02f,.045f,.08f,1));
       }
