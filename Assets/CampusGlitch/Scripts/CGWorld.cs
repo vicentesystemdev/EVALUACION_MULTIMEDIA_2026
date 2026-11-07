@@ -45,7 +45,13 @@ public class CGWorld : MonoBehaviour {
     }
     Prop("UNIFRANZ_Sign",2,3.8f,1.8f,false);
     PlaceSign("NIVEL "+(index==9?"EXTRA":(index+1).ToString())+" / "+spec.name, 3.7f,3.8f);
-    for(int n=0;n<3;n++){int x=14+n*17;var item=new GameObject("Fragmento_Datos_"+(n+1));item.transform.SetParent(root);item.transform.position=new Vector3(x,n==1?3.35f:1.1f,0);item.AddComponent<CGPickup>().Setup(game,n);}
+    for(int n=0;n<3;n++){
+      int x=14+n*17;
+      // In N1 and N8 a solid platform covers the second fragment's jump approach.
+      // Keep the mandatory pickup on the ground route, independently of optional elevated paths.
+      float y=n==1 && index!=0 && index!=7 ? 3.35f : 1.1f;
+      var item=new GameObject("Fragmento_Datos_"+(n+1));item.transform.SetParent(root);item.transform.position=new Vector3(x,y,0);item.AddComponent<CGPickup>().Setup(game,n);
+    }
     SpawnNPC(8,spec.npc);
     SpawnAssistant();
     foreach(float x in new[]{18f,30f,51f})SpawnEnemy(x,index>=4 && x==51?"Centinela":"Bug_Terrestre",false);
