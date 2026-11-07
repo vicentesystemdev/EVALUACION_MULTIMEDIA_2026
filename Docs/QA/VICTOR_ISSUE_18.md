@@ -30,10 +30,12 @@ El segundo fragmento se generaba en `(31, 3.35)`. En N1 la plataforma de x=32 ti
 
 Las 289 comprobaciones **no equivalen a recorridos completos**: el arnés recoloca al personaje antes de cada aproximación y desactiva el daño de enemigos para aislar la alcanzabilidad. La terminal usa su manejador de respuesta existente y el jefe recibe llamadas reales de ataque; no se fuerza `taken`, `terminalSolved` ni `bossDead` para aprobar una condición.
 
-El recorrido continuo, la caída lateral natural solicitada durante la revisión y las rutas elevadas requieren completar #19. El primer intento de automatizar un recorrido no llegó a mover al personaje con su arnés; se descartó como evidencia de jugabilidad. El PR se presenta como **Draft**, pendiente de aceptación completa y revisión de Vicente. Android, mando físico, build y recorrido gráfico de Windows quedan pendientes de #16.
+La corrección de física y alturas se prepara por separado en [PR #30](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/pull/30). En la copia local de QA, este commit de #18 (`a882b8d`) más el código de #19 (`7effef4`) superaron **los diez recorridos principales desde el spawn hasta victoria/final**, con 3/3 fragmentos y progreso, mediante el teclado del juego. La terminal usa su manejador existente de respuesta correcta. No se recolocó al personaje ni se concedieron objetivos en esos recorridos.
+
+El primer intento de automatizar el recorrido se descartó porque su entrada no llegó al controlador; el arnés final usa eventos del teclado en la actualización del juego. Los [resultados conjuntos y capturas](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/blob/fix/victor/19-salto-plataformas/Docs/QA/VICTOR_ISSUE_19.md) se publican en #30. Esta evidencia no fusiona las ramas ni sustituye la revisión de Vicente. Android, mando físico, build y recorrido gráfico de Windows quedan pendientes de #16.
 
 La escena original genera advertencias de componentes sin script, ya observadas antes de la corrección. Se conservan para revisión del integrador; esta rama no regenera escenas. No se realizó merge ni se cerró el Issue.
 
 ## Revisión para Vicente
 
-Revisar `CGWorld.cs`, ejecutar el menú de QA y comprobar manualmente N1/N2/N8 después de integrar los cambios de física correspondientes. Mantener el PR en borrador hasta completar esa aceptación. Los commits conservan la identidad Git existente de Víctor.
+Revisar `CGWorld.cs`, ejecutar el menú de QA y comprobar manualmente N1/N2/N8 con los cambios de física correspondientes. Integrar primero este PR y después #30, tras la revisión y aprobación. Los commits conservan la identidad Git existente de Víctor.
