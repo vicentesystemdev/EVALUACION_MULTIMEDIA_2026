@@ -252,7 +252,8 @@ public class CGGame:MonoBehaviour {
     }
     void DrawHUD(){
       if(world==null||Hero==null)return;
-      if(CGGuardianArt.Available){CGCampusHUD.Draw(world,Hero,chips,taken,terminalSolved,bossDead);return;}
+      // Touch controls reserve the original x=690..820 gap for the pause button.
+      if(CGGuardianArt.Available&&!CGTouch.Enabled){CGCampusHUD.Draw(world,Hero,chips,taken,terminalSolved,bossDead);return;}
       Rect r=new Rect(12,12,625,72);Panel(r,new Color(.97f,.43f,.12f,1));
       GUI.Label(new Rect(24,18,595,24),world.spec.name,tinyStyle);
       GUI.Label(new Rect(24,44,600,27),"VIDAS "+new string('♥',Mathf.Max(0,Hero.hearts))+"   ·   DATOS "+chips+"/3   ·   "+(terminalSolved?"TERMINAL OK":"TERMINAL PENDIENTE"),tinyStyle);

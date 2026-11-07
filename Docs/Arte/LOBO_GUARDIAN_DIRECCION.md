@@ -33,6 +33,6 @@ Importación: Point, sin mipmaps ni compresión, alfa transparente, máximo 2048
 
 ## Lectura y límites
 
-El HUD muestra vidas, fragmentos, terminal, checkpoint y posición reales. No muestra poderes inexistentes. Los fondos y retratos se dibujan por separado del escenario físico. Las plataformas elevadas conservan sus colliders sólidos y pasamanos unidos; se excluyen los props llamados Floor/Rail del mobiliario decorativo. El panorama no añade superficies físicas. Las especialidades interiores siguen diferenciadas por mobiliario y nombre del nivel; no hay diez fondos exclusivos nuevos.
+El HUD de escritorio muestra vidas, fragmentos, terminal, checkpoint y posición reales. No muestra poderes inexistentes. En dispositivos táctiles se conservan los paneles anteriores para respetar el espacio reservado al botón de pausa. Los fondos y retratos se dibujan por separado del escenario físico. Las plataformas elevadas conservan sus colliders sólidos y pasamanos unidos; se excluyen los props llamados Floor/Rail y la entrada decorativa duplicada del mobiliario. El panorama no añade superficies físicas. Las especialidades interiores siguen diferenciadas por mobiliario y nombre del nivel; no hay diez fondos exclusivos nuevos.
 
 La opción de reducir destellos conserva su efecto sobre las partículas existentes; las animaciones nuevas no añaden parpadeo de pantalla. La validación y capturas de ejecución se registran en el informe de QA de esta revisión.
