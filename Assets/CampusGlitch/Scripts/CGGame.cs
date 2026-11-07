@@ -50,7 +50,7 @@ public class CGGame:MonoBehaviour {
        switch(page){case Page.Main:MainSelect(selection);break;case Page.Map:ChooseLevel(mapSelection);break;case Page.Paused:PauseChoice(selection);break;
          case Page.Victory:AfterVictory();break;case Page.Ending:ToMain();break;case Page.ConfirmReset:CGStore.Reset();ToMain();break;
          case Page.Customization:if(selection==0)EquipPurple(false);else if(selection==1)EquipPurple(true);
-           else if(selection==2){CGStore.Data.useOriginalWolf=!CGStore.Data.useOriginalWolf;CGStore.Save();Hint(CGStore.Data.useOriginalWolf?"Usando el lobo oficial original":"Usando el lobo alternativo erguido");}
+           else if(selection==2){CGStore.Data.useOriginalWolf=!CGStore.Data.useOriginalWolf;CGStore.Save();Hint(CGStore.Data.useOriginalWolf?"Usando el lobo clásico":"Usando el Guardián acorazado");}
            else ToMain();break;
          case Page.Settings:if(selection==0)AdjustVolume(.1f);else if(selection==1){CGStore.Data.reduceFlash=!CGStore.Data.reduceFlash;CGStore.Save();}else if(selection==2){CGStore.Data.subtitles=!CGStore.Data.subtitles;CGStore.Save();}else ToMain();break;
          case Page.Controls:rebinding=selection;break;
@@ -103,7 +103,7 @@ public class CGGame:MonoBehaviour {
     }
     void CompleteLevel(){CGStore.Data.completed[sceneLevel]=true;CGStore.Data.stars[sceneLevel]=3; if(sceneLevel<8)CGStore.Data.latestUnlocked=Mathf.Max(CGStore.Data.latestUnlocked,sceneLevel+1);
       if(sceneLevel==1)CGStore.Data.purpleUnlocked=true;if(sceneLevel==4)CGStore.Data.extraUnlocked=true;CGAudio.Play("Win");
-      CGStore.Save();page=sceneLevel==8?Page.Ending:Page.Victory;selection=0;
+      CGStore.Save();Hero.GetComponent<CGGuardianVisual>()?.Celebrate();page=sceneLevel==8?Page.Ending:Page.Victory;selection=0;
     }
     void AfterVictory(){int next=sceneLevel==9?0:sceneLevel+1;if(next==9){ToMain();return;}ChooseLevel(next);}
     void QuizAnswer(int selected){if(selected==world.spec.right){CGAudio.Play("Checkpoint");terminalSolved=true;Hint("¡Respuesta correcta! Terminal restaurada.");page=Page.Playing;Time.timeScale=1;}else{CGAudio.Play("Denied");Hint("Esa opción no recupera los datos. Intenta otra vez.");}}
@@ -111,6 +111,7 @@ public class CGGame:MonoBehaviour {
     void Outline(Rect r,Color color,int b=3){RectColor(new Rect(r.x,r.y,r.width,b),color);RectColor(new Rect(r.x,r.yMax-b,r.width,b),color);RectColor(new Rect(r.x,r.y,b,r.height),color);RectColor(new Rect(r.xMax-b,r.y,b,r.height),color);}
     void Panel(Rect r,Color? accent=null){RectColor(r,new Color(.022f,.035f,.075f,.94f));Outline(r,accent??new Color(.92f,.34f,.11f,.96f),2);}
     void Styles(){
+      if(buttonStyle!=null)return;
       buttonStyle=new GUIStyle(GUIStyle.none){fontSize=19,fontStyle=FontStyle.Bold,alignment=TextAnchor.MiddleCenter,wordWrap=true};
       buttonStyle.normal.textColor=Color.white;buttonStyle.hover.textColor=new Color(1f,.75f,.34f);
       titleStyle=new GUIStyle(GUI.skin.label){fontSize=48,fontStyle=FontStyle.Bold,alignment=TextAnchor.MiddleCenter,wordWrap=true};titleStyle.normal.textColor=new Color(1f,.52f,.10f);
@@ -119,11 +120,11 @@ public class CGGame:MonoBehaviour {
     }
     void HeroPortrait(float x,float y,float w,float h,bool purple=false){
       Sprite sprite=CGArt.Player(purple,(int)(Time.unscaledTime*5)%2,CGStore.Data.useOriginalWolf);
-      if(sprite!=null)GUI.DrawTexture(new Rect(x,y,w,h),sprite.texture,ScaleMode.ScaleToFit,true);
+      CGGuardianArt.DrawFit(new Rect(x,y,w,h),sprite);
     }
     bool Button(string label,int order,float x,float y,float w=520,float h=42){
       Rect rect=new Rect(x,y,w,h);bool active=selection==order;
-      float pulse=.5f+.5f*Mathf.Sin(Time.unscaledTime*5f);
+      float pulse=CGStore.Data.reduceFlash ? .5f : .5f+.5f*Mathf.Sin(Time.unscaledTime*5f);
       RectColor(rect,active?new Color(.18f+.13f*pulse,.073f+.04f*pulse,.06f,.99f):new Color(.025f,.045f,.085f,.96f));
       Outline(rect,active?new Color(1,.52f,.14f,1):new Color(.28f,.42f,.57f,.83f),active?3:2);
       if(active){RectColor(new Rect(x+7,y+8,5,h-16),new Color(1,.58f,.17f,1));RectColor(new Rect(x+w-11,y+8,5,h-16),new Color(1,.58f,.17f,1));}
@@ -149,7 +150,7 @@ public class CGGame:MonoBehaviour {
       if(page==Page.Playing){DrawHUD();if(Time.unscaledTime<toastUntil){float ty=CGTouch.Enabled?160:630;Panel(new Rect(280,ty,720,55),new Color(.96f,.5f,.15f,1));GUI.Label(new Rect(305,ty+4,670,43),toast,textStyle);}GUI.matrix=old;CGTouch.Draw();return;}
       if((page==Page.Paused||page==Page.Quiz)&&!CGTouch.Enabled){RectColor(new Rect(0,0,1280,720),new Color(.005f,.012f,.037f,.84f));}
       else{
-        var image=Resources.Load<Texture2D>("CG/UI/MenuBackdrop");
+        var image=CGCampusVisual.Background(0)??Resources.Load<Texture2D>("CG/UI/MenuBackdrop");
         if(image!=null)GUI.DrawTexture(new Rect(0,0,1280,720),image,ScaleMode.StretchToFill);
         else RectColor(new Rect(0,0,1280,720),new Color(.02f,.045f,.08f,1));
         // Lightweight animated energy motes: entirely 2D UI, independent of camera.
@@ -193,7 +194,7 @@ public class CGGame:MonoBehaviour {
           string status=CGStore.Data.completed[i]?"★★★":unlocked?"DISPONIBLE":"BLOQUEADO";
           string name=(i==9?"EXTRA":("NIVEL "+(i+1)))+"  ·  "+CGLevels.All[i].name;
           Rect card=new Rect(x,y,511,70);
-          var thumbnail=Resources.Load<Texture2D>("CG/Themes/Level"+i.ToString("00")+"_Panel0");
+          var thumbnail=CGCampusVisual.Background(i)??Resources.Load<Texture2D>("CG/Themes/Level"+i.ToString("00")+"_Panel0");
           if(thumbnail!=null){
              GUI.color=unlocked?Color.white:new Color(.36f,.42f,.54f,1f);
              GUI.DrawTexture(new Rect(x+4,y+4,119,62),thumbnail,ScaleMode.StretchToFill);
@@ -202,13 +203,14 @@ public class CGGame:MonoBehaviour {
           if(Button(name+"\n"+status,i,x+123,y,388,70)){mapSelection=i;ChooseLevel(i);}
         }
       }
-      if(page==Page.Customization){Header("PERSONALIZACIÓN DEL LOBO");Label("Lobo Guardián oficial de tus archivos .aseprite (animado).",215);
+      if(page==Page.Customization){Header("PERSONALIZACIÓN DEL LOBO");Label("Lobo Guardián: armadura digital, identidad del campus y dos variantes.",215);
+       HeroPortrait(70,278,230,290,false);HeroPortrait(980,278,230,290,true);
        if(Button("LOBO ROJO",0,355,310,570,58))EquipPurple(false);
        if(Button(CGStore.Data.purpleUnlocked?"LOBO MORADO - DESBLOQUEADO":"LOBO MORADO - COMPLETA NIVEL 2",1,355,380,570,58))EquipPurple(true);
-       if(Button("MODELO: "+(CGStore.Data.useOriginalWolf?"ORIGINAL 32x32":"ALTERNATIVO 64x80"),2,355,452,570,58)){
+       if(Button("MODELO: "+(CGStore.Data.useOriginalWolf?"CLÁSICO":"GUARDIÁN ACORAZADO"),2,355,452,570,58)){
          CGStore.Data.useOriginalWolf=!CGStore.Data.useOriginalWolf;CGStore.Save();}
        if(Button("VOLVER",3,355,520,570,55))ToMain();
-       Label("Equipado: "+(CGStore.Data.purpleEquipped?"MORADO":"ROJO")+"  |  "+(CGStore.Data.useOriginalWolf?"OFICIAL ORIGINAL":"BÍPEDO ALTERNATIVO"),600);}
+       Label("Equipado: "+(CGStore.Data.purpleEquipped?"MORADO":"ROJO")+"  |  "+(CGStore.Data.useOriginalWolf?"CLÁSICO":"GUARDIÁN ACORAZADO"),600);}
       if(page==Page.Settings){Header("AJUSTES");
        if(Button("VOLUMEN GENERAL: "+Mathf.RoundToInt(CGStore.Data.masterVolume*100)+" %",0,340,242,600,65))AdjustVolume(.1f);
        if(Button("REDUCIR DESTELLOS: "+(CGStore.Data.reduceFlash?"SÍ":"NO"),1,340,321,600,65)){CGStore.Data.reduceFlash=!CGStore.Data.reduceFlash;CGStore.Save();}
@@ -250,6 +252,7 @@ public class CGGame:MonoBehaviour {
     }
     void DrawHUD(){
       if(world==null||Hero==null)return;
+      if(CGGuardianArt.Available){CGCampusHUD.Draw(world,Hero,chips,taken,terminalSolved,bossDead);return;}
       Rect r=new Rect(12,12,625,72);Panel(r,new Color(.97f,.43f,.12f,1));
       GUI.Label(new Rect(24,18,595,24),world.spec.name,tinyStyle);
       GUI.Label(new Rect(24,44,600,27),"VIDAS "+new string('♥',Mathf.Max(0,Hero.hearts))+"   ·   DATOS "+chips+"/3   ·   "+(terminalSolved?"TERMINAL OK":"TERMINAL PENDIENTE"),tinyStyle);

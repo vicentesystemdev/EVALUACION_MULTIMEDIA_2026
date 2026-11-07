@@ -45,10 +45,18 @@ public static class CGGuardianArt {
     }
     public static void DrawFit(Rect area, Sprite sprite) {
         if (sprite == null) return;
-        Rect uv = sprite.textureRect;
+        DrawRegion(area,sprite.texture,sprite.textureRect);
+    }
+    public static void DrawPortrait(Rect area, Sprite sprite) {
+        if(sprite==null)return;
+        Rect region=sprite.textureRect;
+        if(sprite.name.StartsWith("Guardian_"))region=new Rect(region.x+region.width*.42f,region.y+region.height*.55f,region.width*.58f,region.height*.45f);
+        DrawRegion(area,sprite.texture,region);
+    }
+    static void DrawRegion(Rect area,Texture2D texture,Rect uv) {
         float scale = Mathf.Min(area.width / uv.width, area.height / uv.height);
         Rect target = new Rect(area.center.x - uv.width * scale * .5f, area.center.y - uv.height * scale * .5f, uv.width * scale, uv.height * scale);
-        GUI.DrawTextureWithTexCoords(target, sprite.texture, new Rect(uv.x / sprite.texture.width, uv.y / sprite.texture.height, uv.width / sprite.texture.width, uv.height / sprite.texture.height), true);
+        GUI.DrawTextureWithTexCoords(target, texture, new Rect(uv.x / texture.width, uv.y / texture.height, uv.width / texture.width, uv.height / texture.height), true);
     }
 }
 }
