@@ -34,6 +34,7 @@ public class CGGame:MonoBehaviour {
       GameObject root=new GameObject("LEVEL_"+(sceneLevel+1));world=root.AddComponent<CGWorld>();world.Setup(this,sceneLevel);Hint(CGLevels.All[sceneLevel].objective);
     }
     void Update(){if(rebinding>=0){
+        if(CGControl.Back()){rebinding=-1;Hint("Reasignación cancelada");return;}
         if(CGTouch.AnyTap()){rebinding=-1;return;} // no physical keyboard on touch devices
         if(padMode){string b=CGControl.NextGamepadButton();if(!string.IsNullOrEmpty(b)){CGStore.Data.padBindings[rebinding]=b;CGStore.Save();rebinding=-1;Hint("Botón de mando actualizado");}}
         else{Key? k=CGControl.NextKeyboardKey();if(k.HasValue){if(k.Value!=Key.Escape){CGStore.Data.actionKeys[rebinding]=k.Value.ToString();CGStore.Save();Hint("Control actualizado");}rebinding=-1;}}
@@ -49,7 +50,7 @@ public class CGGame:MonoBehaviour {
         return;
       }
       if(CGControl.Down())selection++; if(CGControl.Up())selection--;
-      int n=page==Page.Main?mainItems.Length:page==Page.Controls?9:page==Page.Paused?3:page==Page.Settings?4:page==Page.Customization?4:page==Page.Map?10:(page==Page.ConfirmReset||page==Page.Victory||page==Page.Ending)?2:1;
+      int n=page==Page.Main?mainItems.Length:page==Page.Controls?10:page==Page.Paused?3:page==Page.Settings?4:page==Page.Customization?4:page==Page.Map?11:(page==Page.ConfirmReset||page==Page.Victory||page==Page.Ending)?2:1;
       selection=(selection%n+n)%n;
       if(page==Page.Map){mapSelection=selection;}
       if(page==Page.Settings&&selection==0){
@@ -59,13 +60,13 @@ public class CGGame:MonoBehaviour {
       }
       if(CGControl.Confirm()){
        CGAudio.Play("Click");
-       switch(page){case Page.Main:MainSelect(selection);break;case Page.Map:ChooseLevel(mapSelection);break;case Page.Paused:PauseChoice(selection);break;
+       switch(page){case Page.Main:MainSelect(selection);break;case Page.Map:if(selection==10)ToMain();else ChooseLevel(mapSelection);break;case Page.Paused:PauseChoice(selection);break;
          case Page.Victory:HandleVictorySelection(selection,AfterVictory,ToMain);break;case Page.Ending:HandleEndingSelection(selection,OpenEndingCredits,ToMain);break;case Page.ConfirmReset:ConfirmResetChoice(selection);break;
          case Page.Customization:if(selection==0)EquipPurple(false);else if(selection==1)EquipPurple(true);
            else if(selection==2){CGStore.Data.useOriginalWolf=!CGStore.Data.useOriginalWolf;CGStore.Save();Hint(CGStore.Data.useOriginalWolf?"Usando el lobo oficial original":"Usando el lobo alternativo erguido");}
            else ToMain();break;
          case Page.Settings:if(selection==0)AdjustVolume(.1f);else if(selection==1){CGStore.Data.reduceFlash=!CGStore.Data.reduceFlash;CGStore.Save();}else if(selection==2){CGStore.Data.subtitles=!CGStore.Data.subtitles;CGStore.Save();}else ToMain();break;
-         case Page.Controls:if(selection==8){padMode=!padMode;rebinding=-1;}else rebinding=selection;break;
+         case Page.Controls:if(selection==9){ToMain();}else if(selection==8){padMode=!padMode;rebinding=-1;}else rebinding=selection;break;
          default:ToMain();break;
        }
       }
@@ -165,10 +166,11 @@ public class CGGame:MonoBehaviour {
     }
     void OnGUI(){CGStore.Load();Styles();var old=GUI.matrix;
       // Keep the 16:9 menu readable without stretching buttons on 4:3 or ultrawide screens.
-      float u=Mathf.Min(Screen.width/1280f,Screen.height/720f);
+      Rect safe=Screen.safeArea;
+      float u=Mathf.Min(safe.width/1280f,safe.height/720f);
       Vector3 guiScale=new Vector3(u,u,1);
-      Vector3 guiOffset=new Vector3((Screen.width-1280*u)*.5f,(Screen.height-720*u)*.5f,0);
-      if(!CGTouch.Enabled)RectColor(new Rect(0,0,Screen.width,Screen.height),new Color(.02f,.045f,.08f,1));
+      Vector3 guiOffset=new Vector3(safe.x+(safe.width-1280*u)*.5f,Screen.height-safe.yMax+(safe.height-720*u)*.5f,0);
+      if(!CGTouch.Enabled&&page!=Page.Playing&&page!=Page.Paused&&page!=Page.Quiz)RectColor(new Rect(0,0,Screen.width,Screen.height),new Color(.02f,.045f,.08f,1));
       if(CGTouch.Enabled){
         // Mobile: uniform scale centered on screen so wide phones (19.5:9, 20:9) do not stretch the UI.
         if(page==Page.Paused||page==Page.Quiz)RectColor(new Rect(0,0,Screen.width,Screen.height),new Color(.005f,.012f,.037f,.84f));
@@ -176,7 +178,7 @@ public class CGGame:MonoBehaviour {
       }
       GUI.matrix=Matrix4x4.TRS(guiOffset,Quaternion.identity,guiScale);
       if(page==Page.Playing){DrawHUD();if(Time.unscaledTime<toastUntil){float ty=CGTouch.Enabled?160:630;Panel(new Rect(280,ty,720,55),new Color(.96f,.5f,.15f,1));GUI.Label(new Rect(305,ty+4,670,43),toast,textStyle);}GUI.matrix=old;CGTouch.Draw();return;}
-      if((page==Page.Paused||page==Page.Quiz)&&!CGTouch.Enabled){RectColor(new Rect(0,0,1280,720),new Color(.005f,.012f,.037f,.84f));}
+      if(page==Page.Paused||page==Page.Quiz){if(!CGTouch.Enabled)RectColor(new Rect(0,0,1280,720),new Color(.005f,.012f,.037f,.84f));}
       else{
         var image=Resources.Load<Texture2D>("CG/UI/MenuBackdrop");
         if(image!=null)GUI.DrawTexture(new Rect(0,0,1280,720),image,ScaleMode.StretchToFill);
@@ -202,10 +204,10 @@ public class CGGame:MonoBehaviour {
         Header("EL CAMPUS TE NECESITA");
         HeroPortrait(195,232,270,385);
         Panel(new Rect(708,205,493,294));
-        GUI.Label(new Rect(735,230,443,75),"LOBO GUARDIÁN",titleStyle);
+        GUI.Label(new Rect(735,230,443,75),"LOBO GUARDIÁN",new GUIStyle(titleStyle){fontSize=36});
         GUI.Label(new Rect(747,332,416,80),"Recupera el campus, supera los bugs y descubre sus laboratorios.",textStyle);
         Panel(new Rect(738,535,432,73),new Color(1,.61f,.13f,1));
-        GUI.Label(new Rect(753,547,402,45),CGTouch.Enabled?"TOCA LA PANTALLA PARA JUGAR":"PULSA ENTER / A PARA JUGAR",textStyle);
+        if(GUI.Button(new Rect(753,547,402,45),CGTouch.Enabled?"TOCA LA PANTALLA PARA JUGAR":"PULSA ENTER / A PARA JUGAR",textStyle)){page=Page.Main;selection=0;}
       }
       if(page==Page.Main){
         Header("MENÚ PRINCIPAL");
@@ -231,6 +233,7 @@ public class CGGame:MonoBehaviour {
           if(Button(name+"\n"+status,i,x+123,y,388,70)){mapSelection=i;ChooseLevel(i);}
         }
       }
+      if(page==Page.Map&&Button("VOLVER AL MENÚ",10,420,628,440,42))ToMain();
       if(page==Page.Customization){Header("PERSONALIZACIÓN DEL LOBO");Label("Lobo Guardián oficial de tus archivos .aseprite (animado).",215);
        if(Button("LOBO ROJO",0,355,310,570,58))EquipPurple(false);
        if(Button(CGStore.Data.purpleUnlocked?"LOBO MORADO - DESBLOQUEADO":"LOBO MORADO - COMPLETA NIVEL 2",1,355,380,570,58))EquipPurple(true);
@@ -248,10 +251,10 @@ public class CGGame:MonoBehaviour {
        if(GUI.Button(new Rect(650,570,290,45),"SUBIR VOLUMEN +",buttonStyle))AdjustVolume(.1f);
        if(Button("VOLVER",3,340,500,600,65))ToMain();}
       if(page==Page.Controls){Header("CONTROLES - TECLADO / MANDO");
-       if(Button(padMode?"EDITANDO MANDO - CAMBIAR A TECLADO":"EDITANDO TECLADO - CAMBIAR A MANDO",8,400,171,480,32)){padMode=!padMode;rebinding=-1;}
+       if(Button(padMode?"EDITANDO MANDO - CAMBIAR A TECLADO":"EDITANDO TECLADO - CAMBIAR A MANDO",8,400,171,480,40)){padMode=!padMode;rebinding=-1;}
        for(int i=0;i<8;i++)if(Button(CGControl.Names[i]+":  "+(rebinding==i?"PULSA UN BOTÓN":padMode?CGStore.Data.padBindings[i]:CGStore.Data.actionKeys[i]),i,375,215+i*51,530,43))rebinding=i;
        GUI.Label(new Rect(70,645,1140,40),"Mando: Stick mover · A saltar · X atacar · Y interactuar · RB habilidad · START pausa",tinyStyle);
-       if(CGTouch.Enabled&&GUI.Button(new Rect(40,171,200,32),"< VOLVER",buttonStyle))ToMain();}
+       if(Button("< VOLVER",9,40,171,200,40))ToMain();}
       if(page==Page.Help){Header("GUÍA DEL JUGADOR");Label("Corre, salta, recupera 3 fragmentos y resuelve una terminal por nivel.",249);
        Label("E / Y: hablar con NPC, activar checkpoint, terminal y portal de salida.",306);
        Label("J / X: mordida; evita enemigos y derrota a los jefes de fase.",363);
@@ -283,6 +286,7 @@ public class CGGame:MonoBehaviour {
       GUI.matrix=old;
     }
     void DrawHUD(){
+      if(CGStore.Data.subtitles&&Time.unscaledTime<CGAudio.CaptionUntil){Panel(new Rect(390,570,500,46));GUI.Label(new Rect(402,575,476,36),CGAudio.Caption,tinyStyle);}
       if(world==null||Hero==null)return;
       Rect r=new Rect(12,12,625,72);Panel(r,new Color(.97f,.43f,.12f,1));
       GUI.Label(new Rect(24,18,595,24),world.spec.name,tinyStyle);
