@@ -42,6 +42,7 @@ public class CGFrameAnimator:MonoBehaviour {
  }
 }
 public class CGHero:MonoBehaviour {
+ const float JumpSpeed=12.4f; // Clears the 2.20-unit first tier with the existing gravity and fixed step.
  static PhysicsMaterial2D movementMaterial;
  public Rigidbody2D Body {get;private set;}
  public float moveInput;public bool facesRight=true,running,Grounded;
@@ -62,7 +63,7 @@ public class CGHero:MonoBehaviour {
    moveInput=CGControl.Axis(); running=CGControl.HoldRun();if(Mathf.Abs(moveInput)>0.07f)facesRight=moveInput>0;
    if(Grounded)lastGrounded=Time.time;
    if(CGControl.Jump())queuedJump=Time.time;
-   if(Time.time-queuedJump<0.15f&&Time.time-lastGrounded<0.14f){Body.linearVelocity=new Vector2(Body.linearVelocity.x,9.6f);queuedJump=-999;lastGrounded=-999;CGAudio.Play("Jump");}
+   if(Time.time-queuedJump<0.15f&&Time.time-lastGrounded<0.14f){Body.linearVelocity=new Vector2(Body.linearVelocity.x,JumpSpeed);queuedJump=-999;lastGrounded=-999;CGAudio.Play("Jump");}
    if(CGControl.Attack() && Time.time-lastAttack>0.48f){lastAttack=Time.time;attackUntil=Time.time+0.23f;CGAudio.Play("Attack");game.Attack(transform.position+new Vector3(facesRight?0.85f:-0.85f,0.7f,0));}
    if(CGControl.Ability()&&CGStore.Data.purpleUnlocked){abilityUntil=Time.time+0.8f;game.Hint("Impulso glitch activado");}
    if(CGControl.Interact())game.InteractNearPlayer();

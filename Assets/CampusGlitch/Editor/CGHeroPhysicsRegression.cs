@@ -46,6 +46,7 @@ public static class CGHeroPhysicsRegression {
         CGStore.Data = new CGProgress();
         try {
             foreach (float speed in new[] { 3.5f, 5.8f }) foreach (int direction in new[] { -1, 1 }) Edge(speed, direction);
+            GroundStop();
             foreach (float top in new[] { 1.86f, 2.03f, 2.20f }) foreach (float speed in new[] { 3.5f, 5.8f }) Landing(0, top, speed);
             foreach (float speed in new[] { 3.5f, 5.8f }) { Landing(1.86f, 3.26f, speed); Landing(3.26f, 4.56f, speed); }
         } catch (Exception ex) { Record(false, "EXCEPCION " + ex); }
@@ -97,6 +98,17 @@ public static class CGHeroPhysicsRegression {
             for (int i = 0; i < 60 && fixture.hero.Body.position.y > -.5f; i++) fixture.Step(direction, speed);
             float end = fixture.hero.Body.position.y;
             Record(end < start - .8f, "cae manteniendo direccion=" + direction + " velocidad=" + speed + " y=" + start + " -> " + end);
+            Record(direction * fixture.hero.Body.position.x < -1f, "conserva colision lateral direccion=" + direction + " velocidad=" + speed);
+        }
+    }
+
+    static void GroundStop() {
+        using (var fixture = new Fixture(new Vector2(-3, .03f))) {
+            fixture.Box(new Vector2(0, -.5f), new Vector2(20, 1));
+            for (int i = 0; i < 20; i++) fixture.Step(1, 5.8f);
+            float x = fixture.hero.Body.position.x;
+            for (int i = 0; i < 20; i++) fixture.Step(0, 5.8f);
+            Record(Mathf.Abs(fixture.hero.Body.position.x - x) < .01f && Mathf.Abs(fixture.hero.Body.position.y) < .05f, "se detiene sobre suelo al soltar direccion, sin deslizar ni rebotar");
         }
     }
 
