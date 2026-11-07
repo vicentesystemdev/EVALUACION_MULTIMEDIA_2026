@@ -25,6 +25,8 @@ public static class CGFragmentRegression {
     static string output;
     static int passed, failed;
     static bool collected;
+    static CGHero measuredHero;
+    static float peak;
 
     static CGFragmentRegression() { EditorApplication.playModeStateChanged += OnPlayMode; }
 
@@ -33,7 +35,7 @@ public static class CGFragmentRegression {
         Run(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "CampusGlitchQA", "Issue18_" + DateTime.Now.ToString("yyyyMMdd_HHmmss")));
     }
 
-    public static void Run(string directory) {
+    public static void Run(string directory, int onlyLevel = -1) {
         if (EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling)
             throw new InvalidOperationException("Detener Play y esperar la compilacion antes de ejecutar la prueba.");
         if (Enumerable.Range(0, SceneManager.sceneCount).Any(i => SceneManager.GetSceneAt(i).isDirty))
@@ -49,6 +51,9 @@ public static class CGFragmentRegression {
         }
         SessionState.SetString(PreviousScene, SceneManager.GetActiveScene().path);
         SessionState.SetString(Pending, output);
+        SessionState.SetInt(Pending + ".Level", onlyLevel);
+        SessionState.SetInt(Pending + ".InputBackground", (int)InputSystem.settings.backgroundBehavior);
+        SessionState.SetBool(Pending + ".RunBackground", Application.runInBackground);
         File.WriteAllText(Path.Combine(output, "results.txt"), "Issue #18 | Unity " + Application.unityVersion + " | " + DateTime.Now.ToString("O") + "\n");
         EditorSceneManager.OpenScene("Assets/CampusGlitch/Scenes/SC_Level01.unity");
         EditorApplication.isPlaying = true;
@@ -64,7 +69,12 @@ public static class CGFragmentRegression {
                 if (game == null) { Record(false, "CGGame presente en SC_Level01"); EditorApplication.isPlaying = false; return; }
                 game.StartCoroutine(Guard(Suite(game)));
             };
+        } else if (state == PlayModeStateChange.ExitingPlayMode) {
+            if (keyboard != null) { InputSystem.RemoveDevice(keyboard); keyboard = null; }
+            InputSystem.settings.backgroundBehavior = (InputSettings.BackgroundBehavior)SessionState.GetInt(Pending + ".InputBackground", 0);
         } else if (state == PlayModeStateChange.EnteredEditMode) {
+            InputSystem.settings.backgroundBehavior = (InputSettings.BackgroundBehavior)SessionState.GetInt(Pending + ".InputBackground", 0);
+            Application.runInBackground = SessionState.GetBool(Pending + ".RunBackground", false);
             // Restore exact bytes, including absence, even when Play was interrupted.
             foreach (string name in SaveNames) {
                 string saved = Path.Combine(output, name), target = Path.Combine(Application.persistentDataPath, name);
@@ -83,6 +93,7 @@ public static class CGFragmentRegression {
         passed = failed = 0;
         background = InputSystem.settings.backgroundBehavior;
         InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
+        Application.runInBackground = true;
         keyboard = InputSystem.AddDevice<Keyboard>();
         var stack = new Stack<IEnumerator>(); stack.Push(suite);
         bool broken = false;
@@ -111,6 +122,7 @@ public static class CGFragmentRegression {
         Record(CGControl.Axis() > .9f, "Control del arnes: entrada D reconocida");
         yield return Wait(.05f);
         for (int level = 0; level < 10; level++) {
+            if (SessionState.GetInt(Pending + ".Level", -1) >= 0 && level != SessionState.GetInt(Pending + ".Level", -1)) continue;
             for (int mode = 0; mode < 2; mode++) {
                 CGWorld old = Get<CGWorld>(game, "world");
                 if (old != null) UnityEngine.Object.Destroy(old.gameObject);
@@ -138,13 +150,16 @@ public static class CGFragmentRegression {
                         Log(label + " fragmento2=" + position + " | plataformas=" + string.Join(";", world.root.GetComponentsInChildren<BoxCollider2D>().Where(c => c.GetComponent<CGSurface>() != null && c.bounds.min.y > 0 && Mathf.Abs(c.bounds.center.x - position.x) < 2.5f).Select(c => c.bounds.ToString())));
                     }
                     collected = false;
-                    float[] approaches = mode == 0 ? new[] { 0f, -.3f, .3f, -.6f, .6f, -.9f, .9f, -1.2f, 1.2f } : new[] { -1.8f, 1.8f, -2.1f, 2.1f, -1.5f, 1.5f };
+                    float[] approaches = mode == 0 ? new[] { 0f, -.3f, .3f, -.6f, .6f, -.9f, .9f, -1.2f, 1.2f } : new[] { -1.8f, 1.8f, -2.1f, 2.1f, -1.5f, 1.5f, -1.2f, 1.2f, -.9f, .9f };
                     foreach (float approach in approaches) {
                         Place(game.Hero, position.x + approach);
                         yield return Wait(.16f);
+                        bool grounded = game.Hero.Grounded;
+                        peak = game.Hero.transform.position.y;
                         Key direction = approach > 0 ? Key.A : Key.D;
                         yield return Wait(.04f, mode == 0 ? new[] { Key.Space } : new[] { direction, Key.LeftShift, Key.Space });
-                        yield return Wait(.8f, mode == 0 ? Array.Empty<Key>() : new[] { direction, Key.LeftShift });
+                        yield return Wait(1.1f, mode == 0 ? Array.Empty<Key>() : new[] { direction, Key.LeftShift });
+                        Log(label + " intento " + approach + " grounded=" + grounded + " pico=" + peak + " final=" + game.Hero.transform.position);
                         if (Get<bool[]>(game, "taken")[id]) { collected = true; break; }
                     }
                     yield return Wait(.04f);
@@ -178,8 +193,10 @@ public static class CGFragmentRegression {
         }
     }
 
+
     static void Place(CGHero hero, float x) {
         hero.transform.position = new Vector3(x, .03f, 0);
+        measuredHero = hero;
         hero.Body.position = new Vector2(x, .03f);
         hero.Body.linearVelocity = Vector2.zero;
         typeof(CGHero).GetField("queuedJump", Private).SetValue(hero, -999f);
@@ -189,17 +206,17 @@ public static class CGFragmentRegression {
 
     static IEnumerator Wait(float seconds, params Key[] keys) {
         float end = Time.unscaledTime + seconds;
-        do { InputSystem.QueueStateEvent(keyboard, new KeyboardState(keys)); yield return null; } while (Time.unscaledTime < end);
+        do { keyboard.MakeCurrent(); InputSystem.QueueStateEvent(keyboard, new KeyboardState(keys)); yield return null; if (measuredHero != null) peak = Mathf.Max(peak, measuredHero.transform.position.y); } while (Time.unscaledTime < end);
     }
 
-    static void Capture(string name) {
+    static void Capture(string name, float center = 31) {
         Camera camera = Camera.main;
         if (camera == null) return;
         RenderTexture target = RenderTexture.GetTemporary(1280, 720, 24);
         RenderTexture previous = RenderTexture.active, previousTarget = camera.targetTexture;
         var texture = new Texture2D(1280, 720, TextureFormat.RGB24, false);
         try {
-            camera.transform.position = new Vector3(31, 2.2f, -10);
+            camera.transform.position = new Vector3(Mathf.Clamp(center, 8, 65), 2.2f, -10);
             camera.targetTexture = target; camera.Render(); RenderTexture.active = target;
             texture.ReadPixels(new Rect(0, 0, 1280, 720), 0, 0); texture.Apply();
             File.WriteAllBytes(Path.Combine(output, name + ".png"), texture.EncodeToPNG());
