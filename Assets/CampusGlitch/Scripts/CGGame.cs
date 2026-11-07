@@ -41,7 +41,13 @@ public class CGGame:MonoBehaviour {
       if(page==Page.Loading)return;
       if(page==Page.Playing){if(CGControl.Pause()){page=Page.Paused;Time.timeScale=0;selection=0;}return;}
       if(page==Page.Splash){if(CGControl.Confirm()||CGTouch.AnyTap()){page=Page.Main;selection=0;}return;}
-      if(page==Page.Quiz){if(CGControl.Back()){page=Page.Playing;Time.timeScale=1;}return;}
+      if(page==Page.Quiz){
+        if(CGControl.Back()){CloseQuiz();return;}
+        if(CGControl.Down())selection=MoveQuizSelection(selection,1);
+        if(CGControl.Up())selection=MoveQuizSelection(selection,-1);
+        if(CGControl.Confirm())QuizAnswer(selection);
+        return;
+      }
       if(CGControl.Down())selection++; if(CGControl.Up())selection--;
       int n=page==Page.ConfirmReset?2:page==Page.Main?mainItems.Length:page==Page.Controls?8:page==Page.Paused?3:page==Page.Settings?4:page==Page.Customization?4:page==Page.Map?10:3;
       selection=(selection%n+n)%n;
@@ -112,7 +118,9 @@ public class CGGame:MonoBehaviour {
       CGStore.Save();page=sceneLevel==8?Page.Ending:Page.Victory;selection=0;
     }
     void AfterVictory(){int next=sceneLevel==9?0:sceneLevel+1;if(next==9){ToMain();return;}ChooseLevel(next);}
-    void QuizAnswer(int selected){if(selected==world.spec.right){CGAudio.Play("Checkpoint");terminalSolved=true;Hint("¡Respuesta correcta! Terminal restaurada.");page=Page.Playing;Time.timeScale=1;}else{CGAudio.Play("Denied");Hint("Esa opción no recupera los datos. Intenta otra vez.");}}
+    public static int MoveQuizSelection(int current,int direction){return (current+direction%3+3)%3;}
+    void CloseQuiz(){page=Page.Playing;Time.timeScale=1;}
+    void QuizAnswer(int selected){if(selected==world.spec.right){CGAudio.Play("Checkpoint");terminalSolved=true;Hint("¡Respuesta correcta! Terminal restaurada.");CloseQuiz();}else{CGAudio.Play("Denied");Hint("Esa opción no recupera los datos. Intenta otra vez.");}}
     void RectColor(Rect r,Color color){Color old=GUI.color;GUI.color=color;GUI.DrawTexture(r,Texture2D.whiteTexture);GUI.color=old;}
     void Outline(Rect r,Color color,int b=3){RectColor(new Rect(r.x,r.y,r.width,b),color);RectColor(new Rect(r.x,r.yMax-b,r.width,b),color);RectColor(new Rect(r.x,r.y,b,r.height),color);RectColor(new Rect(r.xMax-b,r.y,b,r.height),color);}
     void Panel(Rect r,Color? accent=null){RectColor(r,new Color(.022f,.035f,.075f,.94f));Outline(r,accent??new Color(.92f,.34f,.11f,.96f),2);}
