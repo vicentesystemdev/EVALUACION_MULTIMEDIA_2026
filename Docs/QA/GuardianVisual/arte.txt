@@ -1,0 +1,24 @@
+PASS Rojo: 64 frames independientes, retratos limitados a su rectángulo
+PASS Pivotes de pies sin desplazamiento vertical entre los 64 recortes
+PASS Altura de espera 1.88; escala uniforme por variante
+PASS Morado: 64 frames independientes, retratos limitados a su rectángulo
+PASS Pivotes de pies sin desplazamiento vertical entre los 64 recortes
+PASS Altura de espera 1.88; escala uniforme por variante
+PASS 16 objetos del campus independientes, incluidos suelo y plataforma
+PASS Importación pixel art: GuardianV2/Guardian_Rojo
+PASS Importación pixel art: GuardianV2/Guardian_Morado
+PASS Importación pixel art: VisualV2/CampusExterior
+PASS Importación pixel art: VisualV2/CampusInterior
+PASS Importación pixel art: VisualV2/CampusObjects
+PASS Espera: pies en el origen del controlador
+PASS Movimiento parado a caminar
+PASS Caminar a correr
+PASS Ascenso del salto real
+PASS Caída del salto real
+PASS Respuesta visual al ataque
+PASS Daño tiene prioridad sobre ataque
+PASS Victoria
+PASS Cambio de dirección y variante morada
+PASS Modelo clásico continúa disponible
+PASS Cambiar arte no altera cápsula, fricción, gravedad ni escala física
+TOTAL PASS=23 FAIL=0
