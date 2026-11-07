@@ -49,7 +49,7 @@ public class CGGame:MonoBehaviour {
         return;
       }
       if(CGControl.Down())selection++; if(CGControl.Up())selection--;
-      int n=(page==Page.ConfirmReset||page==Page.Victory||page==Page.Ending)?2:page==Page.Main?mainItems.Length:page==Page.Controls?8:page==Page.Paused?3:page==Page.Settings?4:page==Page.Customization?4:page==Page.Map?10:3;
+      int n=page==Page.Main?mainItems.Length:page==Page.Controls?9:page==Page.Paused?3:page==Page.Settings?4:page==Page.Customization?4:page==Page.Map?10:(page==Page.ConfirmReset||page==Page.Victory||page==Page.Ending)?2:1;
       selection=(selection%n+n)%n;
       if(page==Page.Map){mapSelection=selection;}
       if(CGControl.Confirm()){
@@ -59,7 +59,7 @@ public class CGGame:MonoBehaviour {
            else if(selection==2){CGStore.Data.useOriginalWolf=!CGStore.Data.useOriginalWolf;CGStore.Save();Hint(CGStore.Data.useOriginalWolf?"Usando el lobo oficial original":"Usando el lobo alternativo erguido");}
            else ToMain();break;
          case Page.Settings:if(selection==0)AdjustVolume(.1f);else if(selection==1){CGStore.Data.reduceFlash=!CGStore.Data.reduceFlash;CGStore.Save();}else if(selection==2){CGStore.Data.subtitles=!CGStore.Data.subtitles;CGStore.Save();}else ToMain();break;
-         case Page.Controls:rebinding=selection;break;
+         case Page.Controls:if(selection==8){padMode=!padMode;rebinding=-1;}else rebinding=selection;break;
          default:ToMain();break;
        }
       }
@@ -144,7 +144,9 @@ public class CGGame:MonoBehaviour {
       RectColor(rect,active?new Color(.18f+.13f*pulse,.073f+.04f*pulse,.06f,.99f):new Color(.025f,.045f,.085f,.96f));
       Outline(rect,active?new Color(1,.52f,.14f,1):new Color(.28f,.42f,.57f,.83f),active?3:2);
       if(active){RectColor(new Rect(x+7,y+8,5,h-16),new Color(1,.58f,.17f,1));RectColor(new Rect(x+w-11,y+8,5,h-16),new Color(1,.58f,.17f,1));}
-      return GUI.Button(rect,label,buttonStyle);
+      bool pressed=GUI.Button(rect,label,buttonStyle);
+      if(pressed)selection=order;
+      return pressed;
     }
     void Label(string t,float y,float height=43,bool head=false){GUI.Label(new Rect(190,y,900,height),t,head?titleStyle:textStyle);}
     void Header(string t){
@@ -232,7 +234,7 @@ public class CGGame:MonoBehaviour {
        if(Button("SUBTÍTULOS: "+(CGStore.Data.subtitles?"SÍ":"NO"),2,340,400,600,65)){CGStore.Data.subtitles=!CGStore.Data.subtitles;CGStore.Save();}
        if(Button("VOLVER",3,340,500,600,65))ToMain();}
       if(page==Page.Controls){Header("CONTROLES - TECLADO / MANDO");
-       if(GUI.Button(new Rect(400,171,480,32),padMode?"EDITANDO MANDO - CAMBIAR A TECLADO":"EDITANDO TECLADO - CAMBIAR A MANDO",buttonStyle)){padMode=!padMode;rebinding=-1;}
+       if(Button(padMode?"EDITANDO MANDO - CAMBIAR A TECLADO":"EDITANDO TECLADO - CAMBIAR A MANDO",8,400,171,480,32)){padMode=!padMode;rebinding=-1;}
        for(int i=0;i<8;i++)if(Button(CGControl.Names[i]+":  "+(rebinding==i?"PULSA UN BOTÓN":padMode?CGStore.Data.padBindings[i]:CGStore.Data.actionKeys[i]),i,375,215+i*51,530,43))rebinding=i;
        GUI.Label(new Rect(70,645,1140,40),"Mando: Stick mover · A saltar · X atacar · Y interactuar · RB habilidad · START pausa",tinyStyle);
        if(CGTouch.Enabled&&GUI.Button(new Rect(40,171,200,32),"< VOLVER",buttonStyle))ToMain();}
