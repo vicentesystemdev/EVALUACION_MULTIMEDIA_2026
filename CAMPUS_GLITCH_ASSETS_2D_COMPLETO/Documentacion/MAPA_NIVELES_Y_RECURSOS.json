@@ -1,0 +1,56 @@
+{
+  "01_Exterior": [
+    "00_Biblioteca_Previa_625/01_Common",
+    "00_Biblioteca_Previa_625/02_Exterior",
+    "01_Nuevos_Modulares/00_Global",
+    "01_Nuevos_Modulares/01_Exterior"
+  ],
+  "02_PlantaBaja": [
+    "00_Biblioteca_Previa_625/01_Common",
+    "00_Biblioteca_Previa_625/03_Hallway",
+    "00_Biblioteca_Previa_625/16_Admin",
+    "00_Biblioteca_Previa_625/17_CommonAreas",
+    "01_Nuevos_Modulares/02_PlantaBaja"
+  ],
+  "03_Mezanine": [
+    "00_Biblioteca_Previa_625/03_Hallway",
+    "00_Biblioteca_Previa_625/16_Admin",
+    "01_Nuevos_Modulares/03_Mezanine"
+  ],
+  "04_Piso1_Salud": [
+    "00_Biblioteca_Previa_625/07_Health",
+    "00_Biblioteca_Previa_625/09_Biochemistry",
+    "00_Biblioteca_Previa_625/15_Gastronomy",
+    "01_Nuevos_Modulares/04_Piso1_Salud"
+  ],
+  "05_Piso2_Sistemas": [
+    "00_Biblioteca_Previa_625/06_Systems",
+    "00_Biblioteca_Previa_625/14_Design",
+    "00_Biblioteca_Previa_625/12_Business",
+    "01_Nuevos_Modulares/05_Piso2_Sistemas"
+  ],
+  "06_Piso4": [
+    "00_Biblioteca_Previa_625/04_Classroom",
+    "00_Biblioteca_Previa_625/10_Law",
+    "00_Biblioteca_Previa_625/11_Psychology",
+    "01_Nuevos_Modulares/06_Piso4"
+  ],
+  "07_Piso5_Biblioteca": [
+    "00_Biblioteca_Previa_625/05_Library",
+    "01_Nuevos_Modulares/07_Piso5_Biblioteca"
+  ],
+  "08_Terraza_Lounge": [
+    "00_Biblioteca_Previa_625/17_CommonAreas",
+    "00_Biblioteca_Previa_625/02_Exterior",
+    "01_Nuevos_Modulares/08_Terraza_Lounge"
+  ],
+  "09_Odontologia": [
+    "00_Biblioteca_Previa_625/08_Dentistry",
+    "00_Biblioteca_Previa_625/07_Health",
+    "01_Nuevos_Modulares/09_Odontologia"
+  ],
+  "EXTRA_Subsuelo": [
+    "00_Biblioteca_Previa_625/07_Health",
+    "01_Nuevos_Modulares/EXTRA_Subsuelo"
+  ]
+}

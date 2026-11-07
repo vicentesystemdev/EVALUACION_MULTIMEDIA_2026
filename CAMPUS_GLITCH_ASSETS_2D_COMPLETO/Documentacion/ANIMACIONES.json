@@ -1,0 +1,1017 @@
+{
+  "Guardia_U": {
+    "frame_size": [
+      32,
+      48
+    ],
+    "total_frames": 12,
+    "tags": [
+      {
+        "name": "IDLE",
+        "first": 0,
+        "last": 3
+      },
+      {
+        "name": "HABLAR",
+        "first": 4,
+        "last": 7
+      },
+      {
+        "name": "CAMINAR",
+        "first": 8,
+        "last": 11
+      }
+    ],
+    "duration_ms": [
+      180,
+      180,
+      180,
+      180,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ]
+  },
+  "Director": {
+    "frame_size": [
+      32,
+      48
+    ],
+    "total_frames": 12,
+    "tags": [
+      {
+        "name": "IDLE",
+        "first": 0,
+        "last": 3
+      },
+      {
+        "name": "HABLAR",
+        "first": 4,
+        "last": 7
+      },
+      {
+        "name": "CAMINAR",
+        "first": 8,
+        "last": 11
+      }
+    ],
+    "duration_ms": [
+      180,
+      180,
+      180,
+      180,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ]
+  },
+  "Noemi_Moller": {
+    "frame_size": [
+      40,
+      48
+    ],
+    "total_frames": 12,
+    "tags": [
+      {
+        "name": "IDLE",
+        "first": 0,
+        "last": 3
+      },
+      {
+        "name": "HABLAR",
+        "first": 4,
+        "last": 7
+      },
+      {
+        "name": "CAMINAR",
+        "first": 8,
+        "last": 11
+      }
+    ],
+    "duration_ms": [
+      180,
+      180,
+      180,
+      180,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ]
+  },
+  "Unifranzito": {
+    "frame_size": [
+      32,
+      48
+    ],
+    "total_frames": 12,
+    "tags": [
+      {
+        "name": "IDLE",
+        "first": 0,
+        "last": 3
+      },
+      {
+        "name": "HABLAR",
+        "first": 4,
+        "last": 7
+      },
+      {
+        "name": "CAMINAR",
+        "first": 8,
+        "last": 11
+      }
+    ],
+    "duration_ms": [
+      180,
+      180,
+      180,
+      180,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ]
+  },
+  "Estudiante": {
+    "frame_size": [
+      32,
+      48
+    ],
+    "total_frames": 12,
+    "tags": [
+      {
+        "name": "IDLE",
+        "first": 0,
+        "last": 3
+      },
+      {
+        "name": "HABLAR",
+        "first": 4,
+        "last": 7
+      },
+      {
+        "name": "CAMINAR",
+        "first": 8,
+        "last": 11
+      }
+    ],
+    "duration_ms": [
+      180,
+      180,
+      180,
+      180,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ]
+  },
+  "Docente": {
+    "frame_size": [
+      32,
+      48
+    ],
+    "total_frames": 12,
+    "tags": [
+      {
+        "name": "IDLE",
+        "first": 0,
+        "last": 3
+      },
+      {
+        "name": "HABLAR",
+        "first": 4,
+        "last": 7
+      },
+      {
+        "name": "CAMINAR",
+        "first": 8,
+        "last": 11
+      }
+    ],
+    "duration_ms": [
+      180,
+      180,
+      180,
+      180,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ]
+  },
+  "Recepcionista": {
+    "frame_size": [
+      32,
+      48
+    ],
+    "total_frames": 12,
+    "tags": [
+      {
+        "name": "IDLE",
+        "first": 0,
+        "last": 3
+      },
+      {
+        "name": "HABLAR",
+        "first": 4,
+        "last": 7
+      },
+      {
+        "name": "CAMINAR",
+        "first": 8,
+        "last": 11
+      }
+    ],
+    "duration_ms": [
+      180,
+      180,
+      180,
+      180,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ]
+  },
+  "Bug_Terrestre": {
+    "frame_size": [
+      48,
+      48
+    ],
+    "total_frames": 14,
+    "tags": [
+      {
+        "name": "IDLE",
+        "first": 0,
+        "last": 3
+      },
+      {
+        "name": "PATRULLAR",
+        "first": 4,
+        "last": 7
+      },
+      {
+        "name": "ATAQUE",
+        "first": 8,
+        "last": 11
+      },
+      {
+        "name": "DANO",
+        "first": 12,
+        "last": 13
+      }
+    ],
+    "duration_ms": [
+      180,
+      180,
+      180,
+      180,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ]
+  },
+  "Bug_Saltador": {
+    "frame_size": [
+      48,
+      48
+    ],
+    "total_frames": 14,
+    "tags": [
+      {
+        "name": "IDLE",
+        "first": 0,
+        "last": 3
+      },
+      {
+        "name": "PATRULLAR",
+        "first": 4,
+        "last": 7
+      },
+      {
+        "name": "ATAQUE",
+        "first": 8,
+        "last": 11
+      },
+      {
+        "name": "DANO",
+        "first": 12,
+        "last": 13
+      }
+    ],
+    "duration_ms": [
+      180,
+      180,
+      180,
+      180,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ]
+  },
+  "Centinela": {
+    "frame_size": [
+      48,
+      48
+    ],
+    "total_frames": 14,
+    "tags": [
+      {
+        "name": "IDLE",
+        "first": 0,
+        "last": 3
+      },
+      {
+        "name": "FLOTAR",
+        "first": 4,
+        "last": 7
+      },
+      {
+        "name": "DISPARAR",
+        "first": 8,
+        "last": 11
+      },
+      {
+        "name": "ALERTA",
+        "first": 12,
+        "last": 13
+      }
+    ],
+    "duration_ms": [
+      180,
+      180,
+      180,
+      180,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ]
+  },
+  "Boss_Secuencias": {
+    "frame_size": [
+      64,
+      64
+    ],
+    "total_frames": 10,
+    "tags": [
+      {
+        "name": "IDLE",
+        "first": 0,
+        "last": 3
+      },
+      {
+        "name": "ATAQUE",
+        "first": 4,
+        "last": 7
+      },
+      {
+        "name": "DANO",
+        "first": 8,
+        "last": 9
+      }
+    ],
+    "duration_ms": [
+      180,
+      180,
+      180,
+      180,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ]
+  },
+  "Boss_IF_ELSE": {
+    "frame_size": [
+      64,
+      64
+    ],
+    "total_frames": 10,
+    "tags": [
+      {
+        "name": "IDLE",
+        "first": 0,
+        "last": 3
+      },
+      {
+        "name": "ATAQUE",
+        "first": 4,
+        "last": 7
+      },
+      {
+        "name": "DANO",
+        "first": 8,
+        "last": 9
+      }
+    ],
+    "duration_ms": [
+      180,
+      180,
+      180,
+      180,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ]
+  },
+  "Core_Glitch": {
+    "frame_size": [
+      64,
+      64
+    ],
+    "total_frames": 10,
+    "tags": [
+      {
+        "name": "IDLE",
+        "first": 0,
+        "last": 3
+      },
+      {
+        "name": "ATAQUE",
+        "first": 4,
+        "last": 7
+      },
+      {
+        "name": "DANO",
+        "first": 8,
+        "last": 9
+      }
+    ],
+    "duration_ms": [
+      180,
+      180,
+      180,
+      180,
+      120,
+      120,
+      120,
+      120,
+      120,
+      120
+    ]
+  },
+  "Lobo_Guardian_Morado": {
+    "frame_size": [
+      32,
+      32
+    ],
+    "total_frames": 17,
+    "tags": [
+      {
+        "name": "PARADO",
+        "first": 0,
+        "last": 1
+      },
+      {
+        "name": "CAMINAR",
+        "first": 2,
+        "last": 5
+      },
+      {
+        "name": "CORRER",
+        "first": 6,
+        "last": 9
+      },
+      {
+        "name": "SALTAR",
+        "first": 10,
+        "last": 12
+      },
+      {
+        "name": "PODER",
+        "first": 13,
+        "last": 16
+      }
+    ],
+    "duration_ms": [
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145
+    ],
+    "unlock": "Complete_Level_2"
+  },
+  "Lobito_Guardian_V2_Morado": {
+    "frame_size": [
+      32,
+      32
+    ],
+    "total_frames": 17,
+    "tags": [
+      {
+        "name": "PARADO",
+        "first": 0,
+        "last": 1
+      },
+      {
+        "name": "CAMINAR",
+        "first": 2,
+        "last": 5
+      },
+      {
+        "name": "CORRER",
+        "first": 6,
+        "last": 9
+      },
+      {
+        "name": "SALTAR",
+        "first": 10,
+        "last": 12
+      },
+      {
+        "name": "PODER",
+        "first": 13,
+        "last": 16
+      }
+    ],
+    "duration_ms": [
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145,
+      145
+    ],
+    "unlock": "Complete_Level_2"
+  },
+  "Door_Opening": {
+    "frame_size": [
+      64,
+      64
+    ],
+    "total_frames": 5,
+    "tags": [
+      {
+        "name": "OPEN",
+        "first": 0,
+        "last": 4
+      }
+    ],
+    "duration_ms": [
+      140,
+      140,
+      140,
+      140,
+      140
+    ]
+  },
+  "Checkpoint_Active": {
+    "frame_size": [
+      64,
+      96
+    ],
+    "total_frames": 5,
+    "tags": [
+      {
+        "name": "ACTIVATE",
+        "first": 0,
+        "last": 4
+      }
+    ],
+    "duration_ms": [
+      140,
+      140,
+      140,
+      140,
+      140
+    ]
+  },
+  "Terminal_Screen": {
+    "frame_size": [
+      64,
+      64
+    ],
+    "total_frames": 4,
+    "tags": [
+      {
+        "name": "SCREEN",
+        "first": 0,
+        "last": 3
+      }
+    ],
+    "duration_ms": [
+      140,
+      140,
+      140,
+      140
+    ]
+  },
+  "DataChip_Spin": {
+    "frame_size": [
+      64,
+      64
+    ],
+    "total_frames": 6,
+    "tags": [
+      {
+        "name": "SPIN",
+        "first": 0,
+        "last": 5
+      }
+    ],
+    "duration_ms": [
+      140,
+      140,
+      140,
+      140,
+      140,
+      140
+    ]
+  },
+  "Keycard_Flash": {
+    "frame_size": [
+      64,
+      64
+    ],
+    "total_frames": 4,
+    "tags": [
+      {
+        "name": "PULSE",
+        "first": 0,
+        "last": 3
+      }
+    ],
+    "duration_ms": [
+      140,
+      140,
+      140,
+      140
+    ]
+  },
+  "Glitch_Wall": {
+    "frame_size": [
+      64,
+      64
+    ],
+    "total_frames": 5,
+    "tags": [
+      {
+        "name": "DISTORT",
+        "first": 0,
+        "last": 4
+      }
+    ],
+    "duration_ms": [
+      140,
+      140,
+      140,
+      140,
+      140
+    ]
+  },
+  "BossBarrier_Energy": {
+    "frame_size": [
+      64,
+      64
+    ],
+    "total_frames": 4,
+    "tags": [
+      {
+        "name": "PULSE",
+        "first": 0,
+        "last": 3
+      }
+    ],
+    "duration_ms": [
+      140,
+      140,
+      140,
+      140
+    ]
+  },
+  "AlertLamp": {
+    "frame_size": [
+      64,
+      64
+    ],
+    "total_frames": 4,
+    "tags": [
+      {
+        "name": "BLINK",
+        "first": 0,
+        "last": 3
+      }
+    ],
+    "duration_ms": [
+      140,
+      140,
+      140,
+      140
+    ]
+  },
+  "Portal_Transition": {
+    "frame_size": [
+      64,
+      64
+    ],
+    "total_frames": 5,
+    "tags": [
+      {
+        "name": "PORTAL",
+        "first": 0,
+        "last": 4
+      }
+    ],
+    "duration_ms": [
+      140,
+      140,
+      140,
+      140,
+      140
+    ]
+  },
+  "MissionAlert": {
+    "frame_size": [
+      64,
+      64
+    ],
+    "total_frames": 4,
+    "tags": [
+      {
+        "name": "WARNING",
+        "first": 0,
+        "last": 3
+      }
+    ],
+    "duration_ms": [
+      140,
+      140,
+      140,
+      140
+    ]
+  },
+  "LibraryTerminal": {
+    "frame_size": [
+      64,
+      64
+    ],
+    "total_frames": 4,
+    "tags": [
+      {
+        "name": "ACTIVE",
+        "first": 0,
+        "last": 3
+      }
+    ],
+    "duration_ms": [
+      140,
+      140,
+      140,
+      140
+    ]
+  },
+  "SystemsTerminal": {
+    "frame_size": [
+      64,
+      64
+    ],
+    "total_frames": 5,
+    "tags": [
+      {
+        "name": "CODE",
+        "first": 0,
+        "last": 4
+      }
+    ],
+    "duration_ms": [
+      140,
+      140,
+      140,
+      140,
+      140
+    ]
+  },
+  "DentalXRayScan": {
+    "frame_size": [
+      64,
+      64
+    ],
+    "total_frames": 5,
+    "tags": [
+      {
+        "name": "SCAN",
+        "first": 0,
+        "last": 4
+      }
+    ],
+    "duration_ms": [
+      140,
+      140,
+      140,
+      140,
+      140
+    ]
+  },
+  "LabWarning": {
+    "frame_size": [
+      64,
+      64
+    ],
+    "total_frames": 4,
+    "tags": [
+      {
+        "name": "WARNING",
+        "first": 0,
+        "last": 3
+      }
+    ],
+    "duration_ms": [
+      140,
+      140,
+      140,
+      140
+    ]
+  },
+  "RoofSunGlare": {
+    "frame_size": [
+      64,
+      64
+    ],
+    "total_frames": 4,
+    "tags": [
+      {
+        "name": "SHIMMER",
+        "first": 0,
+        "last": 3
+      }
+    ],
+    "duration_ms": [
+      140,
+      140,
+      140,
+      140
+    ]
+  },
+  "Lobo_Guardian_Bipedo_Rojo": {
+    "frame_size": [
+      32,
+      48
+    ],
+    "total_frames": 21,
+    "tags": [
+      {
+        "name": "PARADO",
+        "first": 0,
+        "last": 1
+      },
+      {
+        "name": "CAMINAR",
+        "first": 2,
+        "last": 5
+      },
+      {
+        "name": "CORRER",
+        "first": 6,
+        "last": 9
+      },
+      {
+        "name": "SALTAR",
+        "first": 10,
+        "last": 12
+      },
+      {
+        "name": "CAER",
+        "first": 13,
+        "last": 14
+      },
+      {
+        "name": "ATAQUE",
+        "first": 15,
+        "last": 18
+      },
+      {
+        "name": "DANO",
+        "first": 19,
+        "last": 20
+      }
+    ],
+    "note": "Propuesta bípeda alterna; no sustituye al original."
+  },
+  "Lobo_Guardian_Bipedo_Morado": {
+    "frame_size": [
+      32,
+      48
+    ],
+    "total_frames": 21,
+    "tags": [
+      {
+        "name": "PARADO",
+        "first": 0,
+        "last": 1
+      },
+      {
+        "name": "CAMINAR",
+        "first": 2,
+        "last": 5
+      },
+      {
+        "name": "CORRER",
+        "first": 6,
+        "last": 9
+      },
+      {
+        "name": "SALTAR",
+        "first": 10,
+        "last": 12
+      },
+      {
+        "name": "CAER",
+        "first": 13,
+        "last": 14
+      },
+      {
+        "name": "ATAQUE",
+        "first": 15,
+        "last": 18
+      },
+      {
+        "name": "DANO",
+        "first": 19,
+        "last": 20
+      }
+    ],
+    "note": "Propuesta bípeda alterna; no sustituye al original."
+  }
+}
