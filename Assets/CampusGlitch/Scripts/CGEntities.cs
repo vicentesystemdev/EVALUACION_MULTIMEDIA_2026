@@ -16,6 +16,8 @@ public class CGFrameAnimator:MonoBehaviour {
        bool hurt=h.hurtUntil>Time.time;
        bool attacking=h.attackUntil>Time.time;
        bool ascending=h.Body!=null&&h.Body.linearVelocity.y>0f;
+       string state=hurt?"damage":attacking?"attack":!h.Grounded?(ascending?"jump":"fall"):Mathf.Abs(h.moveInput)>.15f?(h.running?"run":"walk"):"idle";
+       if(state!=lastState){lastState=state;timer=0f;frame=0;}
        if(official){
          if(hurt||attacking){startFrame=13;count=4;}
          else if(!h.Grounded){startFrame=10;count=3;}
@@ -28,6 +30,7 @@ public class CGFrameAnimator:MonoBehaviour {
        }
        Sprite next=CGArt.Player(CGStore.Data.purpleEquipped,startFrame+frame%count,official);
        if(next!=null)view.sprite=next;
+       view.color=hurt&&!CGStore.Data.reduceFlash?new Color(1f,.72f,.72f,1f):Color.white;
        view.flipX=!h.facesRight;
        // Light body bounce: active when running, idle breathing. Discrete pixel art stays crisp.
        float bob=h.Grounded?(Mathf.Abs(h.moveInput)>.1f?Mathf.Round(Mathf.Sin(Time.time*(h.running?19:13)))*.023f:Mathf.Round(Mathf.Sin(Time.time*3f))*.012f):0f;
