@@ -42,7 +42,7 @@ public class CGFrameAnimator:MonoBehaviour {
  }
 }
 public class CGHero:MonoBehaviour {
- const float JumpSpeed=12.4f; // Clears the 2.20-unit first tier with the existing gravity and fixed step.
+ const float JumpSpeed=14.4f; // Clears the raised first tier (up to 3.00 units) with the existing gravity.
  static PhysicsMaterial2D movementMaterial;
  public Rigidbody2D Body {get;private set;}
  public float moveInput;public bool facesRight=true,running,Grounded;
@@ -116,6 +116,6 @@ public class CGParallax:MonoBehaviour {
 }
 public class CGCamera:MonoBehaviour {
  public Transform follow; public float levelWidth=73;
- void LateUpdate(){if(follow==null)return;Vector3 target=new Vector3(Mathf.Clamp(follow.position.x+3,8,levelWidth-8),2.2f,-10);transform.position=Vector3.Lerp(transform.position,target,Time.deltaTime*4f);}
+ void LateUpdate(){if(follow==null)return;float y=Mathf.Max(2.2f,follow.position.y-1f);Vector3 target=new Vector3(Mathf.Clamp(follow.position.x+3,8,levelWidth-8),y,-10);transform.position=Vector3.Lerp(transform.position,target,Time.deltaTime*4f);}
 }
 }

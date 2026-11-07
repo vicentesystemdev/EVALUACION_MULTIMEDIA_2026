@@ -1,6 +1,7 @@
 #if UNITY_EDITOR
 using System;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 using UnityEditor;
 using UnityEngine;
@@ -47,10 +48,9 @@ public static class CGHeroPhysicsRegression {
         try {
             foreach (float speed in new[] { 3.5f, 5.8f }) foreach (int direction in new[] { -1, 1 }) Edge(speed, direction);
             GroundStop();
-            foreach (float top in new[] { 1.86f, 2.03f, 2.20f }) foreach (float speed in new[] { 3.5f, 5.8f }) Landing(0, top, speed);
-            foreach (float speed in new[] { 3.5f, 5.8f }) { Landing(1.86f, 3.26f, speed); Landing(3.26f, 4.56f, speed); }
-            foreach (float top in new[] { 1.86f, 2.03f, 2.20f }) JumpThrough(top, false);
-            JumpThrough(2.03f, true);
+            foreach (float speed in new[] { 3.5f, 5.8f }) { Landing(0, 2.96f, speed); Landing(2.96f, 5.48f, speed); Landing(5.48f, 8.34f, speed); }
+            SolidUnderside(2.96f);
+            for (int level = 0; level < 10; level++) Geometry(level);
         } catch (Exception ex) { Record(false, "EXCEPCION " + ex); }
         finally {
             CGStore.Data = original;
@@ -119,19 +119,39 @@ public static class CGHeroPhysicsRegression {
         }
     }
 
-    static void JumpThrough(float top, bool stacked) {
+    static void SolidUnderside(float top) {
         using (var fixture = new Fixture(new Vector2(0, .03f))) {
             fixture.Box(new Vector2(0, -.5f), new Vector2(20, 1));
             fixture.Platform(top);
-            if (stacked) fixture.Platform(3.26f);
             for (int i = 0; i < 10; i++) fixture.Step(0, 3.5f);
             fixture.Jump();
-            float peak = 0; bool landed = false;
+            float peak = 0;
             for (int i = 0; i < 85; i++) {
                 fixture.Step(0, 3.5f); peak = Mathf.Max(peak, fixture.hero.Body.position.y);
-                if (peak > top + .05f && Mathf.Abs(fixture.hero.Body.position.y - top) < .06f && Mathf.Abs(fixture.hero.Body.linearVelocity.y) < .1f) { landed = true; break; }
             }
-            Record(landed, "atraviesa desde abajo y aterriza encima=" + top + " techo_superior=" + stacked + " pico=" + peak);
+            Record(peak + 1.64f < top - .32f + .03f && Mathf.Abs(fixture.hero.Body.position.y) < .05f, "plataforma solida por debajo=" + top + ", golpea y vuelve al suelo sin quedarse pegado, pico=" + peak);
+        }
+    }
+
+    static void Geometry(int level) {
+        using (var fixture = new Fixture(new Vector2(-100, 0))) {
+            var world = fixture.root.AddComponent<CGWorld>();
+            world.Setup(fixture.root.GetComponent<CGGame>(), level);
+            fixture.physics.Simulate(.02f);
+            var platforms = world.root.GetComponentsInChildren<BoxCollider2D>().Where(c => c.name == "Plataforma_Elevada").ToArray();
+            Record(platforms.Length >= 10 && platforms.All(c => c.enabled && !c.isTrigger && !c.usedByEffector && c.GetComponent<PlatformEffector2D>() == null), "N" + (level + 1) + " todas las plataformas elevadas tienen colision solida (" + platforms.Length + ")");
+            Record(platforms.All(c => {
+                var renderer = c.GetComponentInChildren<SpriteRenderer>();
+                return renderer != null && Vector2.Distance(c.bounds.center, renderer.bounds.center) < .002f && Vector2.Distance(c.bounds.size, renderer.bounds.size) < .002f;
+            }), "N" + (level + 1) + " collider coincide con superficie visible");
+            var rails = world.root.GetComponentsInChildren<SpriteRenderer>().Where(r => r.name == "Pasamanos_Elevado").ToArray();
+            Record(rails.All(r => r.transform.parent.GetComponent<CGSurface>() != null), "N" + (level + 1) + " barandales unidos a plataformas fisicas, sin apoyos flotantes falsos");
+            bool clearance = platforms.All(c => c.bounds.min.y >= 2.2f);
+            foreach (var lower in platforms) foreach (var upper in platforms) {
+                if (upper.bounds.min.y <= lower.bounds.max.y || upper.bounds.min.x >= lower.bounds.max.x || lower.bounds.min.x >= upper.bounds.max.x) continue;
+                clearance &= upper.bounds.min.y - lower.bounds.max.y >= 2.1f;
+            }
+            Record(clearance, "N" + (level + 1) + " corredor de suelo y separacion vertical con espacio para el personaje");
         }
     }
 
@@ -139,7 +159,7 @@ public static class CGHeroPhysicsRegression {
         float approach = speed > 4 ? 2.4f : 1.6f;
         using (var fixture = new Fixture(new Vector2(-1.3f - approach, floor + .03f))) {
             fixture.Box(new Vector2(0, floor - .5f), new Vector2(20, 1));
-            fixture.Box(new Vector2(0, top - .16f), new Vector2(2.6f, .32f));
+            fixture.Platform(top);
             for (int i = 0; i < 10; i++) fixture.Step(0, speed);
             fixture.Jump();
             float peak = fixture.hero.Body.position.y;

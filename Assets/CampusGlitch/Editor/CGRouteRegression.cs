@@ -23,6 +23,7 @@ public static class CGRouteRegression {
     static float started, jumpUntil, wonAt;
     static int lastChips;
     static bool finished;
+    static float dropGoal;
 
     static CGRouteRegression() { EditorApplication.playModeStateChanged += OnPlayMode; }
 
@@ -60,7 +61,7 @@ public static class CGRouteRegression {
             keyboard = InputSystem.AddDevice<Keyboard>();
             InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
             Application.runInBackground = true;
-            started = Time.unscaledTime; jumpUntil = wonAt = -1; lastChips = 0; finished = false;
+            started = Time.unscaledTime; jumpUntil = wonAt = -1; lastChips = 0; finished = false; dropGoal = float.NaN;
             InputSystem.onAfterUpdate += Drive;
         } else if (state == PlayModeStateChange.ExitingPlayMode) {
             InputSystem.onAfterUpdate -= Drive;
@@ -110,6 +111,11 @@ public static class CGRouteRegression {
         var keys = new List<Key>();
         CGPickup pickup = world.root.GetComponentsInChildren<CGPickup>().OrderBy(p => p.id).FirstOrDefault();
         float goal = pickup != null ? pickup.transform.position.x : 69;
+        if (pickup != null && pickup.transform.position.y < 2 && Mathf.Abs(x - pickup.transform.position.x) < 1 && hero.transform.position.y > .6f && float.IsNaN(dropGoal)) {
+            var support = world.root.GetComponentsInChildren<BoxCollider2D>().FirstOrDefault(c => c.name == "Plataforma_Elevada" && x > c.bounds.min.x - .2f && x < c.bounds.max.x + .2f && Mathf.Abs(hero.transform.position.y - c.bounds.max.y) < .15f);
+            if (support != null) dropGoal = support.bounds.max.x + .65f;
+        }
+        if (!float.IsNaN(dropGoal)) { if (hero.transform.position.y < .4f) dropGoal = float.NaN; else goal = dropGoal; }
         bool interact = false;
         if (!world.checkpoint && x > 32.5f && x < 37) { goal = 35; interact = Mathf.Abs(x - goal) < .6f; }
         else if (!Get<bool>(game, "terminalSolved") && x > 36 && x < 43) { goal = 40; interact = Mathf.Abs(x - goal) < .6f; }
@@ -117,7 +123,7 @@ public static class CGRouteRegression {
         if (boss != null && !Get<bool>(game, "bossDead") && x > 55) goal = boss.transform.position.x + (x > boss.transform.position.x ? 2.2f : -2.2f);
         if (pickup == null && Get<bool>(game, "terminalSolved") && Get<bool>(game, "bossDead")) { goal = 69; interact = Mathf.Abs(x - goal) < 1; }
         float direction = Mathf.Abs(goal - x) > .13f ? Mathf.Sign(goal - x) : 0;
-        CGEnemy enemy = world.root.GetComponentsInChildren<CGEnemy>().FirstOrDefault(e => e.hp > 0 && Mathf.Abs(e.transform.position.x - x) < (e.boss ? 2.4f : 2.1f) && Mathf.Abs(e.transform.position.y - (hero.transform.position.y + .7f)) < 1.35f);
+        CGEnemy enemy = world.root.GetComponentsInChildren<CGEnemy>().FirstOrDefault(e => e.hp > 0 && Mathf.Abs(e.transform.position.x - x) < (e.boss ? 2.4f : 2.1f) && Vector2.Distance(e.transform.position, hero.transform.position + new Vector3(e.transform.position.x > x ? .85f : -.85f, .7f, 0)) < (e.boss ? 1.77f : 1.32f));
         if (enemy != null) {
             float facing = Mathf.Sign(enemy.transform.position.x - x);
             direction = hero.facesRight == (facing > 0) ? 0 : facing;
@@ -125,7 +131,7 @@ public static class CGRouteRegression {
         }
         if (direction > 0) keys.Add(Key.D); else if (direction < 0) keys.Add(Key.A);
         keys.Add(Key.LeftShift);
-        bool gap = direction > 0 && ((x > 19.0f && x < 19.7f) || (x > 43.0f && x < 43.7f));
+        bool gap = direction > 0 && ((x > 19.15f && x < 19.8f) || (x > 43.15f && x < 43.8f));
         bool highPickup = pickup != null && pickup.transform.position.y > 2 && Mathf.Abs(goal - x) < .3f;
         if (hero.Grounded && (gap || highPickup)) jumpUntil = now + .06f;
         if (now < jumpUntil) keys.Add(Key.Space);
