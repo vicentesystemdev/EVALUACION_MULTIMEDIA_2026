@@ -45,6 +45,7 @@ public class CGHero:MonoBehaviour {
  public Rigidbody2D Body {get;private set;}
  public float moveInput;public bool facesRight=true,running,Grounded;
  public int hearts=3; public float hurtUntil,attackUntil;float lastGrounded,queuedJump,lastAttack, abilityUntil;
+ int inputBlockedThroughFrame=-1;
  CGGame game;CGFrameAnimator anim;
  public void Setup(CGGame g){game=g;Body=gameObject.AddComponent<Rigidbody2D>();Body.gravityScale=3.2f;Body.freezeRotation=true;Body.collisionDetectionMode=CollisionDetectionMode2D.Continuous;
    CapsuleCollider2D co=gameObject.AddComponent<CapsuleCollider2D>();co.size=new Vector2(0.76f,1.64f);co.offset=new Vector2(0,0.82f);
@@ -54,7 +55,7 @@ public class CGHero:MonoBehaviour {
    // Keep the artwork legible; collider geometry remains independent from the sprite.
    art.transform.localScale=Vector3.one;
  }
- void Update(){if(game==null||!game.Playing){moveInput=0;return;}
+ void Update(){if(game==null||!game.Playing||Time.frameCount<=inputBlockedThroughFrame){moveInput=0;running=false;return;}
    moveInput=CGControl.Axis(); running=CGControl.HoldRun();if(Mathf.Abs(moveInput)>0.07f)facesRight=moveInput>0;
    if(Grounded)lastGrounded=Time.time;
    if(CGControl.Jump())queuedJump=Time.time;
@@ -69,11 +70,29 @@ public class CGHero:MonoBehaviour {
     if(!game.Playing)return;
     float speed=running?5.8f:3.5f;if(Time.time<abilityUntil)speed=8f;
     Body.linearVelocity=new Vector2(moveInput*speed,Body.linearVelocity.y);
-    if(transform.position.y<-9f)game.KillHero();
+    if(transform.position.y<-9f)game.HandleHeroFall();
  }
- public void Damage(int n){if(Time.time<hurtUntil||game==null||!game.Playing)return;hearts-=n;hurtUntil=Time.time+1.1f;
-   Body.AddForce(new Vector2(facesRight?-3f:3f,4f),ForceMode2D.Impulse);
-   game.Hint("¡Cuidado! Señal de vida reducida.");if(hearts<=0)game.KillHero();}
+ public void Damage(int n){ApplyDamage(n,false);}
+ public bool DamageFromFall(){return ApplyDamage(1,true);}
+ bool ApplyDamage(int n,bool fromFall){
+   if(n<=0||game==null||!game.Playing||hearts<=0||(!fromFall&&Time.time<hurtUntil))return false;
+   hearts=Mathf.Max(0,hearts-n);hurtUntil=Time.time+1.1f;
+   if(Body!=null&&!fromFall&&hearts>0)Body.AddForce(new Vector2(facesRight?-3f:3f,4f),ForceMode2D.Impulse);
+   if(hearts==0)game.KillHero();
+   else{CGAudio.Play("Damage");game.Hint("¡Cuidado! Señal de vida reducida.");}
+   return true;
+ }
+ public void StopActions(){
+   moveInput=0;running=false;queuedJump=-999;lastGrounded=-999;
+   attackUntil=0;abilityUntil=0;inputBlockedThroughFrame=Time.frameCount;
+   if(Body!=null){Body.linearVelocity=Vector2.zero;Body.angularVelocity=0;}
+ }
+ public void RespawnAt(Vector3 position,bool restoreHearts){
+   StopActions();transform.position=position;
+   if(Body!=null)Body.position=new Vector2(position.x,position.y);
+   Grounded=false;if(restoreHearts)hearts=3;
+   hurtUntil=Time.time+1.1f;lastAttack=Time.time-1;
+ }
 }
 public class CGEnemy:MonoBehaviour {
   public string kind;public bool boss;public int hp=2;public float left,right;CGGame game;float direction=-1,phase,attackTimer;
@@ -103,7 +122,7 @@ public class CGPickup:MonoBehaviour {
    var sr=gameObject.AddComponent<SpriteRenderer>();sr.sprite=CGArt.Get("01_Nuevos_Modulares/Global_UI/CoinIcon");sr.sortingOrder=20;transform.localScale=Vector3.one*.35f;
  }
  void Update(){transform.localScale=Vector3.one*(.35f+0.03f*Mathf.Sin(Time.time*4f));}
- void OnTriggerEnter2D(Collider2D c){if(game!=null&&c.GetComponent<CGHero>()!=null){game.TakeChip(id);Destroy(gameObject);}}
+ void OnTriggerEnter2D(Collider2D c){if(game!=null&&game.Playing&&c.GetComponent<CGHero>()!=null){game.TakeChip(id);Destroy(gameObject);}}
 }
 public class CGParallax:MonoBehaviour {
  public Transform cameraTransform;public float startX;public float factor=.24f;

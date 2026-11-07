@@ -8,10 +8,11 @@ public class CGGame:MonoBehaviour {
     public static bool ShowCreditsOnBoot=false;
     public string initialPage="Splash";
     public int sceneLevel=-1; // -1 = menu, 0..8 main, 9 = extra
-    enum Page{Splash,Main,Map,Customization,Settings,Controls,Help,Credits,Playing,Paused,Quiz,Victory,Ending,ConfirmReset,Loading}
+    enum Page{Splash,Main,Map,Customization,Settings,Controls,Help,Credits,Playing,Paused,Quiz,Victory,Ending,ConfirmReset,Loading,GameOver}
     Page page=Page.Splash;
     CGWorld world;int selection=0,mapSelection=0,chips=0;bool[] taken=new bool[3];bool terminalSolved=false,bossDead=true;string toast="",message="";float toastUntil=0;
     int rebinding=-1;bool padMode=false;
+    int gameOverEnteredFrame=-1;
     public CGHero Hero {get {return world!=null?world.hero:null;}}
     public bool Playing {get {return page==Page.Playing;}}
     GUIStyle buttonStyle,titleStyle,textStyle,tinyStyle;
@@ -39,6 +40,14 @@ public class CGGame:MonoBehaviour {
         else{Key? k=CGControl.NextKeyboardKey();if(k.HasValue){if(k.Value!=Key.Escape){CGStore.Data.actionKeys[rebinding]=k.Value.ToString();CGStore.Save();Hint("Control actualizado");}rebinding=-1;}}
         return;}
       if(page==Page.Loading)return;
+      if(page==Page.GameOver){
+        if(Time.frameCount<=gameOverEnteredFrame)return;
+        if(CGControl.Down())selection=(selection+1)%2;
+        if(CGControl.Up())selection=(selection+1)%2;
+        if(CGControl.Back()){GameOverChoice(1);return;}
+        if(CGControl.Confirm())GameOverChoice(selection);
+        return;
+      }
       if(page==Page.Playing){if(CGControl.Pause()){page=Page.Paused;Time.timeScale=0;selection=0;}return;}
       if(page==Page.Splash){if(CGControl.Confirm()||CGTouch.AnyTap()){page=Page.Main;selection=0;}return;}
       if(page==Page.Quiz){if(CGControl.Back()){page=Page.Playing;Time.timeScale=1;}return;}
@@ -85,12 +94,31 @@ public class CGGame:MonoBehaviour {
     void PauseChoice(int i){if(i==0){page=Page.Playing;Time.timeScale=1;}else if(i==1){page=Page.Playing;Time.timeScale=1;Respawn();}else ToMain();}
     void EquipPurple(bool on){if(on&&!CGStore.Data.purpleUnlocked){Hint("Morado: se desbloquea al terminar el nivel 2");return;}CGStore.Data.purpleEquipped=on;CGStore.Save();Hint(on?"Lobo morado equipado":"Lobo clásico equipado");}
     void AdjustVolume(float n){CGStore.Data.masterVolume=Mathf.Repeat(CGStore.Data.masterVolume+n,1.1f);AudioListener.volume=CGStore.Data.masterVolume;CGStore.Save();}
-    public void TakeChip(int id){if(id<0||id>=3||taken[id])return;taken[id]=true;chips++;CGAudio.Play("Pickup");Hint("Fragmento recuperado: "+chips+"/3");}
-    public void Attack(Vector3 pos){foreach(var c in Physics2D.OverlapCircleAll(pos,.82f)){CGEnemy e=c.GetComponent<CGEnemy>();if(e!=null)e.Hurt(1);}}
-    public void BossDown(){bossDead=true;Hint("¡Jefe derrotado! El portal está disponible.");}
-    public void KillHero(){if(Hero==null)return;CGAudio.Play("Damage");Hint("Restaurando desde el checkpoint...");Respawn();}
-    void Respawn(){if(Hero==null||world==null)return;Hero.transform.position=new Vector3(world.checkpointX+0.5f,.45f,0);Hero.Body.linearVelocity=Vector2.zero;Hero.hearts=3;}
-    public void InteractNearPlayer(){if(Hero==null||world==null)return;
+    public void TakeChip(int id){if(!Playing||id<0||id>=3||taken[id])return;taken[id]=true;chips++;CGAudio.Play("Pickup");Hint("Fragmento recuperado: "+chips+"/3");}
+    public void Attack(Vector3 pos){if(!Playing)return;foreach(var c in Physics2D.OverlapCircleAll(pos,.82f)){CGEnemy e=c.GetComponent<CGEnemy>();if(e!=null)e.Hurt(1);}}
+    public void BossDown(){if(!Playing)return;bossDead=true;Hint("¡Jefe derrotado! El portal está disponible.");}
+    public void KillHero(){
+      if(!Playing||Hero==null)return;
+      Hero.hearts=0;Hero.StopActions();page=Page.GameOver;selection=0;
+      gameOverEnteredFrame=Time.frameCount;rebinding=-1;toast="";toastUntil=0;
+      Time.timeScale=0;CGAudio.Play("Damage");
+    }
+    public void HandleHeroFall(){
+      if(!Playing||Hero==null)return;
+      if(Hero.DamageFromFall()&&Playing){Respawn();Hint("Perdiste un corazón. Regresas al checkpoint.");}
+    }
+    void Respawn(bool restoreHearts=false){
+      if(Hero==null||world==null)return;
+      Hero.RespawnAt(new Vector3(world.checkpointX+0.5f,.45f,0),restoreHearts);
+    }
+    void GameOverChoice(int choice){
+      if(page!=Page.GameOver||Time.frameCount<=gameOverEnteredFrame)return;
+      if(choice==0){
+        Respawn(true);page=Page.Playing;Time.timeScale=1;selection=0;
+        Hint("Nueva oportunidad. Continúas desde el checkpoint.");
+      }else if(choice==1)ToMain();
+    }
+    public void InteractNearPlayer(){if(!Playing||Hero==null||world==null)return;
       float x=Hero.transform.position.x;
       if(Mathf.Abs(x-8)<1.7f){message=world.spec.dialogue;Hint(message);return;}
       if(Mathf.Abs(x-35)<1.5f){world.checkpoint=true;world.checkpointX=35;CGAudio.Play("Checkpoint");Hint("Checkpoint activado. ¡Continúa!");return;}
@@ -101,7 +129,7 @@ public class CGGame:MonoBehaviour {
          CompleteLevel();return;}
       Hint("Acércate a un NPC, terminal, checkpoint o portal para interactuar.");
     }
-    void CompleteLevel(){CGStore.Data.completed[sceneLevel]=true;CGStore.Data.stars[sceneLevel]=3; if(sceneLevel<8)CGStore.Data.latestUnlocked=Mathf.Max(CGStore.Data.latestUnlocked,sceneLevel+1);
+    void CompleteLevel(){if(!Playing)return;CGStore.Data.completed[sceneLevel]=true;CGStore.Data.stars[sceneLevel]=3; if(sceneLevel<8)CGStore.Data.latestUnlocked=Mathf.Max(CGStore.Data.latestUnlocked,sceneLevel+1);
       if(sceneLevel==1)CGStore.Data.purpleUnlocked=true;if(sceneLevel==4)CGStore.Data.extraUnlocked=true;CGAudio.Play("Win");
       CGStore.Save();page=sceneLevel==8?Page.Ending:Page.Victory;selection=0;
     }
@@ -142,12 +170,12 @@ public class CGGame:MonoBehaviour {
       if(CGTouch.Enabled){
         // Mobile: uniform scale centered on screen so wide phones (19.5:9, 20:9) do not stretch the UI.
         float u=CGTouch.Unit;guiScale=new Vector3(u,u,1);guiOffset=new Vector3((Screen.width-1280*u)*.5f,(Screen.height-720*u)*.5f,0);
-        if(page==Page.Paused||page==Page.Quiz)RectColor(new Rect(0,0,Screen.width,Screen.height),new Color(.005f,.012f,.037f,.84f));
+        if(page==Page.Paused||page==Page.Quiz||page==Page.GameOver)RectColor(new Rect(0,0,Screen.width,Screen.height),new Color(.005f,.012f,.037f,.84f));
         else if(page!=Page.Playing)RectColor(new Rect(0,0,Screen.width,Screen.height),new Color(.02f,.045f,.08f,1));
       }
       GUI.matrix=Matrix4x4.TRS(guiOffset,Quaternion.identity,guiScale);
       if(page==Page.Playing){DrawHUD();if(Time.unscaledTime<toastUntil){float ty=CGTouch.Enabled?160:630;Panel(new Rect(280,ty,720,55),new Color(.96f,.5f,.15f,1));GUI.Label(new Rect(305,ty+4,670,43),toast,textStyle);}GUI.matrix=old;CGTouch.Draw();return;}
-      if((page==Page.Paused||page==Page.Quiz)&&!CGTouch.Enabled){RectColor(new Rect(0,0,1280,720),new Color(.005f,.012f,.037f,.84f));}
+      if(page==Page.Paused||page==Page.Quiz||page==Page.GameOver){if(!CGTouch.Enabled)RectColor(new Rect(0,0,1280,720),new Color(.005f,.012f,.037f,.84f));}
       else{
         var image=Resources.Load<Texture2D>("CG/UI/MenuBackdrop");
         if(image!=null)GUI.DrawTexture(new Rect(0,0,1280,720),image,ScaleMode.StretchToFill);
@@ -233,6 +261,14 @@ public class CGGame:MonoBehaviour {
       if(page==Page.Paused){Header("JUEGO EN PAUSA");if(Button("CONTINUAR",0,375,260,530,65))PauseChoice(0);
        if(Button("REINICIAR DESDE CHECKPOINT",1,375,342,530,65))PauseChoice(1);
        if(Button("SALIR AL MENÚ",2,375,425,530,65))PauseChoice(2);}
+      if(page==Page.GameOver){
+       Header("GAME OVER");Panel(new Rect(290,210,700,380));
+       Label("PERDISTE LA SEÑAL",245,60);Label("Reintenta desde el checkpoint con tres corazones.",320,60);
+       bool enabled=GUI.enabled;GUI.enabled=enabled&&Time.frameCount>gameOverEnteredFrame;
+       if(Button("REINTENTAR",0,375,420,530,65))GameOverChoice(0);
+       if(Button("MENÚ PRINCIPAL",1,375,505,530,60))GameOverChoice(1);
+       GUI.enabled=enabled;
+      }
       if(page==Page.Quiz){Header("TERMINAL / MISIÓN DE APRENDIZAJE");Label(world.spec.quiz,230,75);
        string[] options={world.spec.option1,world.spec.option2,world.spec.option3};for(int i=0;i<3;i++)if(Button(options[i],i,340,333+i*80,600,67))QuizAnswer(i);
        Label("ESC / B para cerrar la terminal",635,30);}
