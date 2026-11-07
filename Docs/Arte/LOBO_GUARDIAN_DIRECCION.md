@@ -15,6 +15,7 @@ El modelo acorazado sustituye la presentación del bípedo alternativo. Se conse
 | GuardianFrames_*.json | 64 rectángulos por variante | Recorte por alfa, pivote horizontal estable y pies en el origen |
 | CampusExterior.png | 1672 × 941 | Exterior y terraza, sin personajes ni HUD pintados |
 | CampusInterior.png | 1672 × 941 | Arquitectura común interior; utilería contextual de cada nivel |
+| CampusObjects.png | 1254 × 1254 RGBA | 16 objetos: mobiliario, estación, portal, suelo y plataforma |
 | Conceptos/LoboGuardian_Rojo.png | 1024 × 1536 RGBA | Referencia de volumen y materiales, fuera del build |
 
 Orden de las filas: espera, caminar, correr, ascenso, caída/aterrizaje, ataque, daño y victoria. Ocho fotogramas por fila: **64 por variante, 128 en total**. El recorte conserva los PNG originales, sin recolorear ni recomprimir sus píxeles. Unity utiliza Sprite.Create con 128 PPU y una escala uniforme por variante; no redimensiona cada pose individualmente. La altura de espera es 1,88 unidades. La cola es visual: el collider mantiene 0,76 × 1,64 y su material sin fricción.
@@ -28,6 +29,7 @@ Importación: Point, sin mipmaps ni compresión, alfa transparente, máximo 2048
 3. Atlas morado: “Preserve all 64 poses and grid composition. Replace crimson/orange energy accents with violet and magenta, retain graphite armor, silver fur and amber eyes.”
 4. Exterior: “Wide side-scrolling campus panorama at blue hour, La Paz mountain skyline, modern glass UNIFRANZ entrance, navy architecture, warm amber lighting, pink flowering trees, empty straight walking lane around 85 percent image height. HD pixel-art 2.5D, no actors, HUD or floating platforms.”
 5. Interior: “Wide modern university lobby with glass atrium, navy structural columns, warm amber lighting, restrained violet accents, city and flowering trees through windows. Empty continuous foreground walking lane around 85 percent image height; no actors, text, interface or false platforms.”
+6. Mobiliario modular: “Transparent four by four equal grid, sixteen isolated HD pixel-art campus props matching the backgrounds: bench, flowering planter, amber lamp, U totem; server rack, bookcase, lab workstation, blue chair; checkpoint, terminal, purple portal, arrow sign; navy ground block, thin silver/amber platform, ceiling light, warning bollard. No labels, actors, poster framing or painted background. Consistent side-view depth and transparent gutters.”
 
 ## Lectura y límites
 
