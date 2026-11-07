@@ -6,7 +6,7 @@ Este documento distingue la implementación comprobada de los criterios todavía
 
 | Tarea | Comprobado | Pendiente para aceptación completa |
 |---|---|---|
-| #18: fragmento inaccesible en N1/N8 | Corrección mínima de la posición del segundo fragmento; pruebas positivas; diez recorridos principales con 3/3 datos, terminal, portal y progreso | Revisión independiente del PR #29 y validación manual complementaria |
+| #18: fragmento inaccesible en N1/N8 | Corrección mínima de la posición del segundo fragmento; verificación final de 289 PASS / 0 FAIL en diez niveles, parado y en carrera; diez recorridos principales con 3/3 datos, terminal, portal y progreso | Revisión independiente del PR #29 y validación manual complementaria |
 | #19: salto y geometría | Material sin fricción, plataformas elevadas sólidas, salto medido de aproximadamente 3,164 unidades; 56 comprobaciones de física y diez recorridos principales | Verificar todas las rutas elevadas opcionales desde inicio/checkpoints y revisión independiente del PR #30; una ruta principal completada no demuestra todos los accesos superiores |
 | #15: inventario y referencias | Recursos visuales nuevos con metadatos, pautas de importación, comprobación de GUID duplicados y conservación de los assets anteriores | **No completada:** falta `Docs/Arte/INVENTARIO_REFERENCIAS.md` con inventario global, clasificación mantener/duplicado candidato/no tocar y comprobación de referencias; falta su rama/PR específico |
 | #16: QA de escenas y Windows | Capturas reales de niveles seleccionados, recorridos automatizados en diez niveles, build de las 18 escenas habilitadas con 0 errores y arranque sin gráficos durante 25 segundos | **Parcial:** checklist visual de los 18 assets de escena y prueba manual del .exe con gráficos, teclado y mando; falta su rama/PR específico |
@@ -16,6 +16,8 @@ Este documento distingue la implementación comprobada de los criterios todavía
 La mejora visual está implementada y comprobada: variantes roja/morada, 128 fotogramas en total, estados de animación vinculados al controlador, retratos, fondos exterior/interior, mobiliario y HUD de progreso real. Las verificaciones de arte registran 23 PASS / 0 FAIL. Se conserva el modelo clásico, el desbloqueo morado y la geometría física.
 
 [Informe y límites](GUARDIAN_VISUAL_2026_11_07.md) · [Pruebas de arte](GuardianVisual/arte.txt) · [Física](GuardianVisual/fisica.txt) · [Diez recorridos](GuardianVisual/recorridos.txt) · [Build Windows](GuardianVisual/build_windows.txt).
+
+La repetición final del arnés de fragmentos sobre el código integrado (`8250846`, sin cambios de ejecución respecto de `359160c`) produjo [289 PASS / 0 FAIL](GuardianVisual/fragmentos_final.txt). Incluye aproximaciones paradas y en carrera, tres triggers por nivel y condiciones del portal. Esta prueba aísla aproximaciones recolocando al personaje y desactivando enemigos; no se presenta como recorrido integral. Los diez recorridos principales citados arriba son una prueba diferente, sin esas ayudas. Al terminar se verificaron presencia y hashes de los guardados contra el respaldo tomado inmediatamente antes de la prueba.
 
 ## Comprobación en ejecución
 
