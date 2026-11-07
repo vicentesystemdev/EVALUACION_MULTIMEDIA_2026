@@ -3,10 +3,12 @@
 - **Integrante:** Marcelo Escobar (`Josue-EC16`).
 - **Motor:** Unity `6000.3.16f1` · Windows nativo.
 - **Estado:** DRAFT — diagnóstico y diseño; implementación e integración pendientes.
+- **Fecha de esta entrega:** 2026-11-07.
 - **Rama:** `feature/marcelo/13-game-over`.
 - **Base revisada:** `origin/develop` @ `048b3e3dd93f2240aa85e388ae2233f68dab1a7b`.
 - **Issue:** [#13 — Derrota, vidas, Game Over y checkpoints](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/13).
 - **Revisor e integrador:** Vicente (`vicentesystemdev`).
+- **PR Draft a `develop`:** [#28 — Derrota, checkpoints y QA](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/pull/28).
 
 Este es el expediente único del Issue #13. Se actualizará durante la
 implementación, las pruebas y la revisión. No acredita que Game Over esté
@@ -132,6 +134,10 @@ ajenos al alcance; se preservan y no se incluirán en los commits de este Issue.
 | Flujo de daño y reaparición de la base | Análisis estático | Causa de E4 identificada. |
 | Issues #13/#14 y PR #27 | Consulta GitHub por terminal | Consultados; coordinación pendiente. |
 | Scripts de juego del árbol local | Comparación Git | Sin cambios de esta entrega. |
+| Formato y contenido del entregable | Validación estática | Campos del aviso presentes; 15 casos pendientes explícitos; sin espacios finales. |
+| Alcance y espacios del commit inicial | Git | Solo dos rutas; `git diff --cached --check` sin errores. |
+| Autor y destino del PR #28 | GitHub por terminal | `Josue-EC16`, rama propia hacia `develop`, abierto como Draft. |
+| Revisión de Vicente | GitHub por terminal | Solicitud formal enviada a `vicentesystemdev`; revisión todavía pendiente. |
 
 ### Casos para ejecutar después de integrar la implementación
 
@@ -167,25 +173,30 @@ corregidos ni se sortearán para declarar un recorrido manual completo.
 
 ## 7. Publicación y siguientes pasos
 
-- Commit, SHA real y URL del PR: se registrarán después de publicar esta entrega.
-- El PR debe ser **Draft**, dirigido a `develop` y con `Refs #13`.
-- Solicitar revisión de Vicente sobre diagnóstico, reglas y orden de integración.
+- Commit inicial publicado: [`6fc9810` — diagnóstico, diseño y QA preliminar](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/commit/6fc9810).
+- PR creado: [#28](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/pull/28),
+  **Draft**, dirigido a `develop`, autor `Josue-EC16` y `Refs #13`.
+- Historial completo de actualizaciones: [Commits del PR #28](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/pull/28/commits).
+- Revisión formal solicitada a `vicentesystemdev` sobre diagnóstico, reglas
+  y orden de integración. No hay aprobación ni integración que acreditar.
 - No hacer merge, auto-merge, push a ramas protegidas ni cerrar el Issue.
 - Tras coordinar e implementar, actualizar este mismo archivo con archivos
   modificados, evidencias, pruebas automáticas/manuales y limitaciones reales.
 
 ## 8. Aviso a Vicente — plantilla oficial adaptada
 
-Basado en `Docs/Equipo/05_PLANTILLA_AVISO_PR.md`. Texto para que Marcelo lo
-envíe por WhatsApp después de publicar; no acredita que ya se haya enviado.
+Basado en `Docs/Equipo/05_PLANTILLA_AVISO_PR.md`. Texto listo para que Marcelo
+lo envíe por WhatsApp; no acredita que ya se haya enviado.
 
 **Campus Glitch — Draft para coordinación del Issue #13**
 
 - **Integrante:** Marcelo Escobar (@Josue-EC16).
 - **Issue:** #13 — Derrota, vidas, Game Over y checkpoints.
 - **Rama:** `feature/marcelo/13-game-over`.
-- **Commits propios:** pendientes de registrar después del commit autorizado.
-- **URL del PR a `develop`:** pendiente de registrar después de crearlo.
+- **Commits propios:** `6fc9810` — diagnóstico, diseño y QA preliminar (#13).
+  Las actualizaciones documentales posteriores se consultan en
+  [Commits del PR #28](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/pull/28/commits).
+- **URL del PR a `develop`:** https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/pull/28.
 - **Qué cambié:** documenté el diagnóstico y el diseño de Game Over, las reglas
   elegidas para caída/reintento/pausa y los casos de QA en este expediente.
   Todavía no modifiqué la lógica compartida de `CGGame.cs` o `CGEntities.cs`.
@@ -197,7 +208,7 @@ envíe por WhatsApp después de publicar; no acredita que ya se haya enviado.
 - **No probado / riesgos:** Game Over todavía no implementado; coordinación
   pendiente; ambos scripts compartidos y arnés de Carla requieren integración
   coordinada. PlayMode, teclado/ratón real, mando y Android pendientes.
-- **Revisor solicitado:** @vicentesystemdev.
+- **Revisor solicitado:** @vicentesystemdev (solicitud formal registrada en GitHub).
 - **Estado:** Draft — diagnóstico/diseño; no listo para integración funcional.
 
 **El push es únicamente a mi rama. Este trabajo NO está integrado en `develop`
