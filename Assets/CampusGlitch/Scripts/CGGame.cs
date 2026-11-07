@@ -96,7 +96,7 @@ public class CGGame:MonoBehaviour {
     }
     void PauseChoice(int i){if(i==0){page=Page.Playing;Time.timeScale=1;}else if(i==1){page=Page.Playing;Time.timeScale=1;Respawn();}else ToMain();}
     void EquipPurple(bool on){if(on&&!CGStore.Data.purpleUnlocked){Hint("Morado: se desbloquea al terminar el nivel 2");return;}CGStore.Data.purpleEquipped=on;CGStore.Save();Hint(on?"Lobo morado equipado":"Lobo clásico equipado");}
-    void AdjustVolume(float n){CGStore.Data.masterVolume=Mathf.Repeat(CGStore.Data.masterVolume+n,1.1f);AudioListener.volume=CGStore.Data.masterVolume;CGStore.Save();}
+    void AdjustVolume(float n){float value=CGStore.Data.masterVolume;CGStore.Data.masterVolume=value>=1f?0f:Mathf.Clamp01(value+n);AudioListener.volume=CGStore.Data.masterVolume;CGStore.Save();}
     public void TakeChip(int id){if(id<0||id>=3||taken[id])return;taken[id]=true;chips++;CGAudio.Play("Pickup");Hint("Fragmento recuperado: "+chips+"/3");}
     public void Attack(Vector3 pos){foreach(var c in Physics2D.OverlapCircleAll(pos,.82f)){CGEnemy e=c.GetComponent<CGEnemy>();if(e!=null)e.Hurt(1);}}
     public void BossDown(){bossDead=true;Hint("¡Jefe derrotado! El portal está disponible.");}
