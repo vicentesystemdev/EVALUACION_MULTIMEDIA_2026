@@ -49,12 +49,12 @@ public class CGGame:MonoBehaviour {
         return;
       }
       if(CGControl.Down())selection++; if(CGControl.Up())selection--;
-      int n=page==Page.ConfirmReset?2:page==Page.Main?mainItems.Length:page==Page.Controls?8:page==Page.Paused?3:page==Page.Settings?4:page==Page.Customization?4:page==Page.Map?10:3;
+      int n=(page==Page.ConfirmReset||page==Page.Victory||page==Page.Ending)?2:page==Page.Main?mainItems.Length:page==Page.Controls?8:page==Page.Paused?3:page==Page.Settings?4:page==Page.Customization?4:page==Page.Map?10:3;
       selection=(selection%n+n)%n;
       if(page==Page.Map){mapSelection=selection;}
       if(CGControl.Confirm()){
        switch(page){case Page.Main:MainSelect(selection);break;case Page.Map:ChooseLevel(mapSelection);break;case Page.Paused:PauseChoice(selection);break;
-         case Page.Victory:AfterVictory();break;case Page.Ending:ToMain();break;case Page.ConfirmReset:ConfirmResetChoice(selection);break;
+         case Page.Victory:HandleVictorySelection(selection,AfterVictory,ToMain);break;case Page.Ending:HandleEndingSelection(selection,OpenEndingCredits,ToMain);break;case Page.ConfirmReset:ConfirmResetChoice(selection);break;
          case Page.Customization:if(selection==0)EquipPurple(false);else if(selection==1)EquipPurple(true);
            else if(selection==2){CGStore.Data.useOriginalWolf=!CGStore.Data.useOriginalWolf;CGStore.Save();Hint(CGStore.Data.useOriginalWolf?"Usando el lobo oficial original":"Usando el lobo alternativo erguido");}
            else ToMain();break;
@@ -117,6 +117,7 @@ public class CGGame:MonoBehaviour {
       if(sceneLevel==1)CGStore.Data.purpleUnlocked=true;if(sceneLevel==4)CGStore.Data.extraUnlocked=true;CGAudio.Play("Win");
       CGStore.Save();page=sceneLevel==8?Page.Ending:Page.Victory;selection=0;
     }
+    public static void HandleVictorySelection(int selected,Action nextLevel,Action menu){if(selected==0)nextLevel();else menu();}
     void AfterVictory(){int next=sceneLevel==9?0:sceneLevel+1;if(next==9){ToMain();return;}ChooseLevel(next);}
     public static int MoveQuizSelection(int current,int direction){return (current+direction%3+3)%3;}
     void CloseQuiz(){page=Page.Playing;Time.timeScale=1;}
@@ -253,7 +254,7 @@ public class CGGame:MonoBehaviour {
        Label("ESC / B para cerrar la terminal",646,29);}
       if(page==Page.Victory){Header("¡NIVEL RESTAURADO!");Label("Recuperaste los tres fragmentos y activaste la conexión.",265);
        if(sceneLevel==1)Label("¡PERSONALIZACIÓN MORADA DESBLOQUEADA!",352,57);
-       if(Button("SIGUIENTE NIVEL",0,375,453,530,66))AfterVictory();if(Button("MENÚ PRINCIPAL",1,375,535,530,60))ToMain();}
+       if(Button("SIGUIENTE NIVEL",0,375,453,530,66))HandleVictorySelection(0,AfterVictory,ToMain);if(Button("MENÚ PRINCIPAL",1,375,535,530,60))HandleVictorySelection(1,AfterVictory,ToMain);}
       if(page==Page.Ending){Header("¡CAMPUS RESTAURADO!");Label("CORE GLITCH HA SIDO DERROTADO",260);Label("INNOVACIÓN · APRENDE HACIENDO",349,48);
        Label("UNIFRANZ LA PAZ — FIN DE LA AVENTURA",415);
        if(Button("VER CRÉDITOS",0,390,501,500,65)){ShowCreditsOnBoot=true;SceneManager.LoadScene("SC_Bootstrap");}
