@@ -32,12 +32,13 @@ public class CGWorld : MonoBehaviour {
       new float[]{11,18,27,36,43,52,62},
       new float[]{10,19,26,34,43,52,62}
     };
-    foreach(float x in routes[index]) Platform(x,1.7f+(x%3)*.17f,2.6f,.32f,true);
-    foreach(float x in new float[]{19+index%4,43+index%5,59+index%3}) Platform(x,3.12f,2.0f,.28f,true);
+    // Keep a clear ground corridor and at least a full character height between tiers.
+    foreach(float x in routes[index]) Platform(x,2.8f,2.6f,.32f,true);
+    foreach(float x in new float[]{19+index%4,43+index%5,59+index%3}) Platform(x,5.34f,2.0f,.28f,true);
     if(index==2||index==6||index==7){
-       foreach(float x in new float[]{28,40,54})Platform(x,4.42f,2.2f,.28f,true);
+       foreach(float x in new float[]{28,40,54})Platform(x,8.2f,2.2f,.28f,true);
     }
-    if(index==9)foreach(float x in new float[]{18,28,38,48,58})Platform(x,4.0f,2.7f,.28f,true);
+    if(index==9)foreach(float x in new float[]{18,28,38,48,58})Platform(x,5.34f,2.7f,.28f,true);
     for(int x=5;x<68;x+=4+(index%3)){
       int pidx=(x/4+index)%spec.props.Length;
       string p=spec.props[pidx];
@@ -71,6 +72,7 @@ public class CGWorld : MonoBehaviour {
     else {sr.sprite=MakeSolid(raised?new Color(.35f,.4f,.46f):new Color(.45f,.47f,.52f));visual.transform.localScale=new Vector3(w,h,1);}
     // Collider dimensions must be world units, never derived from sprite pixel size.
     BoxCollider2D col=obj.AddComponent<BoxCollider2D>();col.size=new Vector2(w,h);obj.AddComponent<CGSurface>();
+    if(raised)Piece(obj.transform,"Pasamanos_Elevado","Environment/L"+index.ToString("00")+"_Rail",0,h*.5f+.21f,w,.42f,4);
   }
   // All elements are real SpriteRenderers in side view; objects and collision geometry remain separate.
   void Piece(Transform parent,string id,string asset,float x,float y,float width,float height,int sorting) {
@@ -100,8 +102,7 @@ public class CGWorld : MonoBehaviour {
       Piece(backdrop,"Zocalo_"+block,prefix+"FloorCap",x+2.2f,.0f,6.4f,.45f,-12);
       if(block%3==0 && index!=9)Piece(backdrop,"Maceta_"+block,prefix+"Plant",x+5.6f,.78f,1.0f,1.15f,9);
     }
-    // Elevated decorative balconies: foregrounds and collisions are separate from these visuals.
-    for(int x=10;x<67;x+=13){Piece(backdrop,"Pasamanos_Elevado_"+x,prefix+"Rail",x,2.70f,3.2f,.42f,8);}
+    // Elevated railings are attached to their physical platforms in Platform().
   }
   void AddAmbientDecorations() {
     Transform extras=new GameObject("Efectos_Ambientales_2D").transform;
