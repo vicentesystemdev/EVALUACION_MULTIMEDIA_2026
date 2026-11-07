@@ -203,14 +203,14 @@ public class CGGame:MonoBehaviour {
           if(Button(name+"\n"+status,i,x+123,y,388,70)){mapSelection=i;ChooseLevel(i);}
         }
       }
-      if(page==Page.Customization){Header("PERSONALIZACIÓN DEL LOBO");Label("Lobo Guardián: armadura digital, identidad del campus y dos variantes.",215);
+      if(page==Page.Customization){Header("PERSONALIZACIÓN DEL LOBO");Panel(new Rect(190,205,900,60));Label("Lobo Guardián: armadura digital, identidad del campus y dos variantes.",215);
        HeroPortrait(70,278,230,290,false);HeroPortrait(980,278,230,290,true);
        if(Button("LOBO ROJO",0,355,310,570,58))EquipPurple(false);
        if(Button(CGStore.Data.purpleUnlocked?"LOBO MORADO - DESBLOQUEADO":"LOBO MORADO - COMPLETA NIVEL 2",1,355,380,570,58))EquipPurple(true);
        if(Button("MODELO: "+(CGStore.Data.useOriginalWolf?"CLÁSICO":"GUARDIÁN ACORAZADO"),2,355,452,570,58)){
          CGStore.Data.useOriginalWolf=!CGStore.Data.useOriginalWolf;CGStore.Save();}
        if(Button("VOLVER",3,355,520,570,55))ToMain();
-       Label("Equipado: "+(CGStore.Data.purpleEquipped?"MORADO":"ROJO")+"  |  "+(CGStore.Data.useOriginalWolf?"CLÁSICO":"GUARDIÁN ACORAZADO"),600);}
+       Panel(new Rect(238,590,804,52));Label("Equipado: "+(CGStore.Data.purpleEquipped?"MORADO":"ROJO")+"  |  "+(CGStore.Data.useOriginalWolf?"CLÁSICO":"GUARDIÁN ACORAZADO"),600);}
       if(page==Page.Settings){Header("AJUSTES");
        if(Button("VOLUMEN GENERAL: "+Mathf.RoundToInt(CGStore.Data.masterVolume*100)+" %",0,340,242,600,65))AdjustVolume(.1f);
        if(Button("REDUCIR DESTELLOS: "+(CGStore.Data.reduceFlash?"SÍ":"NO"),1,340,321,600,65)){CGStore.Data.reduceFlash=!CGStore.Data.reduceFlash;CGStore.Save();}
