@@ -5,6 +5,17 @@ using UnityEngine;
 namespace CampusGlitch.EditorQA {
 public static class CGMenuRegression {
     // Runs without touching the player's real JSON save.
+    [MenuItem("Campus Glitch/QA/Comprobar navegacion de terminal")]
+    public static void CheckQuizNavigation() {
+        if (CGGame.MoveQuizSelection(0, 1) != 1 ||
+            CGGame.MoveQuizSelection(1, 1) != 2 ||
+            CGGame.MoveQuizSelection(2, 1) != 0 ||
+            CGGame.MoveQuizSelection(0, -1) != 2 ||
+            CGGame.MoveQuizSelection(2, -1) != 1)
+            throw new Exception("La seleccion de las tres respuestas no circula correctamente.");
+        Debug.Log("[Campus Glitch QA] OK: desplazamiento entre respuestas 0, 1 y 2.");
+    }
+
     [MenuItem("Campus Glitch/QA/Comprobar borrado de progreso")]
     public static void CheckResetChoices() {
         CGProgress progress = new CGProgress();
