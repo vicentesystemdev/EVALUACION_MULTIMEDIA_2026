@@ -22,7 +22,14 @@ namespace CampusGlitch {
 }
 public static class CGStore {
     public static CGProgress Data;
-    static string FileName {get {return System.IO.Path.Combine(Application.persistentDataPath,"campus_glitch_save_v1.json");}}
+#if UNITY_EDITOR
+    internal static string TestSaveDirectory;
+#endif
+    static string FileName {get {
+#if UNITY_EDITOR
+      if(!string.IsNullOrEmpty(TestSaveDirectory))return System.IO.Path.Combine(TestSaveDirectory,"campus_glitch_save_v1.json");
+#endif
+      return System.IO.Path.Combine(Application.persistentDataPath,"campus_glitch_save_v1.json");}}
     public static void Load(){
       if(Data!=null)return;
       try { Data=JsonUtility.FromJson<CGProgress>(System.IO.File.ReadAllText(FileName)); } catch { Data=new CGProgress(); }
