@@ -112,7 +112,7 @@ public static class CGArt {
   // Three original pixel-art animations supplied by the team. Default is Classic.
   public static Sprite Player(bool purple,int frame,bool original){
     if(original)return Get("Playable/"+(purple?"ClassicPurple_":"Classic_")+Mathf.Clamp(frame,0,16).ToString("00"));
-    return Biped(purple,frame);
+    return CGGuardianArt.Preview(purple,frame) ?? Biped(purple,frame);
   }
   public static Sprite NPC(string kind,int f){return Get("02_Animados/NPCs/"+kind+"/"+(f<4?"IDLE_":"HABLAR_")+(f%4).ToString("00"));}
   public static Sprite Enemy(string kind,int f){if(kind=="Boss_Secuencias"||kind=="Boss_IF_ELSE"||kind=="Core_Glitch")return Get("02_Animados/Jefes/"+kind+"/IDLE_"+(f%4).ToString("00"));return Get("02_Animados/Enemigos/"+kind+"/IDLE_"+(f%4).ToString("00"));}

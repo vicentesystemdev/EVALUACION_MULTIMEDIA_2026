@@ -12,6 +12,7 @@ public class CGFrameAnimator:MonoBehaviour {
    Sprite sprite=null;
    if(hero){CGHero h=GetComponentInParent<CGHero>(); if(h!=null){
        bool official=CGStore.Data.useOriginalWolf;
+       if(!official && CGGuardianArt.Available)return;
        int startFrame=0,count=2;
        bool hurt=h.hurtUntil>Time.time;
        bool attacking=h.attackUntil>Time.time;
@@ -56,6 +57,7 @@ public class CGHero:MonoBehaviour {
    GameObject art=new GameObject("LoboGuardián_Sprite");art.transform.SetParent(transform,false);art.transform.localPosition=new Vector3(0,1.0f,0);
    SpriteRenderer sr=art.AddComponent<SpriteRenderer>();sr.sortingOrder=25;sr.sprite=CGArt.Player(CGStore.Data.purpleEquipped,0,CGStore.Data.useOriginalWolf);
    anim=gameObject.AddComponent<CGFrameAnimator>();anim.view=sr;anim.hero=true;
+   gameObject.AddComponent<CGGuardianVisual>().Configure(this,sr);
    // Keep the artwork legible; collider geometry remains independent from the sprite.
    art.transform.localScale=Vector3.one;
  }
