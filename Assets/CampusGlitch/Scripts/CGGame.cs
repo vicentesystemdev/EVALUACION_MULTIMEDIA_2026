@@ -53,6 +53,7 @@ public class CGGame:MonoBehaviour {
       selection=(selection%n+n)%n;
       if(page==Page.Map){mapSelection=selection;}
       if(CGControl.Confirm()){
+       CGAudio.Play("Click");
        switch(page){case Page.Main:MainSelect(selection);break;case Page.Map:ChooseLevel(mapSelection);break;case Page.Paused:PauseChoice(selection);break;
          case Page.Victory:HandleVictorySelection(selection,AfterVictory,ToMain);break;case Page.Ending:HandleEndingSelection(selection,OpenEndingCredits,ToMain);break;case Page.ConfirmReset:ConfirmResetChoice(selection);break;
          case Page.Customization:if(selection==0)EquipPurple(false);else if(selection==1)EquipPurple(true);
@@ -145,7 +146,7 @@ public class CGGame:MonoBehaviour {
       Outline(rect,active?new Color(1,.52f,.14f,1):new Color(.28f,.42f,.57f,.83f),active?3:2);
       if(active){RectColor(new Rect(x+7,y+8,5,h-16),new Color(1,.58f,.17f,1));RectColor(new Rect(x+w-11,y+8,5,h-16),new Color(1,.58f,.17f,1));}
       bool pressed=GUI.Button(rect,label,buttonStyle);
-      if(pressed)selection=order;
+      if(pressed){selection=order;CGAudio.Play("Click");}
       return pressed;
     }
     void Label(string t,float y,float height=43,bool head=false){GUI.Label(new Rect(190,y,900,height),t,head?titleStyle:textStyle);}
