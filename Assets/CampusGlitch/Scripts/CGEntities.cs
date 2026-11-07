@@ -76,6 +76,7 @@ public class CGHero:MonoBehaviour {
  }
  public void Damage(int n){if(Time.time<hurtUntil||game==null||!game.Playing)return;hearts-=n;hurtUntil=Time.time+1.1f;
    Body.AddForce(new Vector2(facesRight?-3f:3f,4f),ForceMode2D.Impulse);
+   if(hearts>0)CGAudio.Play("Damage");
    game.Hint("¡Cuidado! Señal de vida reducida.");if(hearts<=0)game.KillHero();}
 }
 public class CGEnemy:MonoBehaviour {

@@ -56,3 +56,27 @@ El código actual identifica N1 como «Exterior / acceso principal» y N2 como �
 - La regresión de lógica no sustituye pruebas reales de entrada, Play Mode, guardado ni hardware móvil.
 
 **Solicitud:** revisión técnica y QA por Vicente, sin merge hasta comprobar las pruebas y resolver observaciones.
+
+## Correcciones adicionales de Carla — 6 de noviembre de 2026
+
+Trabajo sobre el juego completo de feature/carla en una copia separada CAMPUS_GLITCH_CARLA_QA. El prototipo local EVALUACION_MULTIMEDIA_2026 conserva su integracion pendiente y sus recursos sin registrar.
+
+- Borrado: al abrir el dialogo se selecciona CANCELAR. El borrado sigue exigiendo confirmar expresamente SI, BORRAR.
+- Terminal: teclado/mando recorren tres respuestas y CERRAR TERMINAL. Confirmar el cierre vuelve a Playing y restaura el tiempo. Se rechazan indices ajenos a respuestas y se filtran activaciones durante 200 ms para evitar respuestas duplicadas por una sola interaccion.
+- Volumen: se puede disminuir/aumentar con flechas izquierda/derecha o cruceta, y botones visibles para raton/toque. El valor queda limitado entre 0 y 100 %; subir desde 100 % conserva 100 %.
+- Audio: recibir dano no mortal reproduce Damage; al morir se mantiene el sonido existente sin duplicarlo.
+
+Regresiones ejecutables: Campus Glitch > QA. RunAll incluye navegacion de terminal, decisiones de borrado, victoria/creditos, limites de volumen y apertura del dialogo con Cancelar seleccionado. Estas pruebas no escriben en el JSON personal del jugador.
+
+Pendiente de verificaciones manuales: persistencia con guardado real respaldado; N1/N8/jefe en Play Mode; mando fisico; Android; respuesta auditiva del golpe y capturas de pantallas en resoluciones moviles. Las comprobaciones de logica no equivalen a aprobar esos casos.
+
+### Resultado de ejecucion automatica
+
+Unity 6000.3.16f1 ejecuto CampusGlitch.EditorQA.CGMenuRegression.RunAll en modo batch y finalizo con codigo 0. Pasaron las cinco comprobaciones anteriores. Se repitio la ejecucion sobre la ultima revision de los scripts.
+
+Durante la primera importacion hubo DirectoryNotFoundException en dos recursos .uss/.uxml del paquete com.unity.2d.tooling (SpriteAtlasTextureSpaceUsedIssueSettings). No hubo errores CS de compilacion; estas pruebas no evaluan la ventana del editor afectada ni certifican toda la importacion.
+[Campus Glitch QA] OK: respuestas y cierre accesibles con seleccion 0, 1, 2 y 3.
+[Campus Glitch QA] OK: cancelar conserva progreso; confirmar ejecuta el borrado.
+[Campus Glitch QA] OK: siguiente nivel, menu y creditos respetan seleccion.
+[Campus Glitch QA] OK: volumen sube, baja y conserva limites.
+[Campus Glitch QA] OK: abrir borrado selecciona Cancelar.

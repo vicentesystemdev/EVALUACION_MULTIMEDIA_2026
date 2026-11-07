@@ -11,7 +11,7 @@ public class CGGame:MonoBehaviour {
     enum Page{Splash,Main,Map,Customization,Settings,Controls,Help,Credits,Playing,Paused,Quiz,Victory,Ending,ConfirmReset,Loading}
     Page page=Page.Splash;
     CGWorld world;int selection=0,mapSelection=0,chips=0;bool[] taken=new bool[3];bool terminalSolved=false,bossDead=true;string toast="",message="";float toastUntil=0;
-    int rebinding=-1;bool padMode=false;
+    int rebinding=-1;bool padMode=false;float nextQuizAnswerTime=0;
     public CGHero Hero {get {return world!=null?world.hero:null;}}
     public bool Playing {get {return page==Page.Playing;}}
     GUIStyle buttonStyle,titleStyle,textStyle,tinyStyle;
@@ -45,13 +45,18 @@ public class CGGame:MonoBehaviour {
         if(CGControl.Back()){CloseQuiz();return;}
         if(CGControl.Down())selection=MoveQuizSelection(selection,1);
         if(CGControl.Up())selection=MoveQuizSelection(selection,-1);
-        if(CGControl.Confirm())QuizAnswer(selection);
+        if(CGControl.Confirm()){if(selection==3)CloseQuiz();else QuizAnswer(selection);}
         return;
       }
       if(CGControl.Down())selection++; if(CGControl.Up())selection--;
       int n=page==Page.Main?mainItems.Length:page==Page.Controls?9:page==Page.Paused?3:page==Page.Settings?4:page==Page.Customization?4:page==Page.Map?10:(page==Page.ConfirmReset||page==Page.Victory||page==Page.Ending)?2:1;
       selection=(selection%n+n)%n;
       if(page==Page.Map){mapSelection=selection;}
+      if(page==Page.Settings&&selection==0){
+        var keyboard=Keyboard.current;var pad=Gamepad.current;
+        if((keyboard!=null&&keyboard.leftArrowKey.wasPressedThisFrame)||(pad!=null&&pad.dpad.left.wasPressedThisFrame))AdjustVolume(-.1f);
+        if((keyboard!=null&&keyboard.rightArrowKey.wasPressedThisFrame)||(pad!=null&&pad.dpad.right.wasPressedThisFrame))AdjustVolume(.1f);
+      }
       if(CGControl.Confirm()){
        CGAudio.Play("Click");
        switch(page){case Page.Main:MainSelect(selection);break;case Page.Map:ChooseLevel(mapSelection);break;case Page.Paused:PauseChoice(selection);break;
@@ -69,7 +74,7 @@ public class CGGame:MonoBehaviour {
     public void Hint(string msg){toast=msg;toastUntil=Time.unscaledTime+4f;}
     void MainSelect(int i){switch(i){case 0: ChooseLevel(Mathf.Min(CGStore.Data.latestUnlocked,8));break;case 1:OpenUIScreen("SC_LevelMap",Page.Map);break;
       case 2:OpenUIScreen("SC_Customization",Page.Customization);break;case 3:OpenUIScreen("SC_Settings",Page.Settings);break;case 4:OpenUIScreen("SC_Controls",Page.Controls);break;
-      case 5:OpenUIScreen("SC_Help",Page.Help);break;case 6:OpenUIScreen("SC_Credits",Page.Credits);break;case 7:page=Page.ConfirmReset;selection=0;break;case 8:Application.Quit();break;}}
+      case 5:OpenUIScreen("SC_Help",Page.Help);break;case 6:OpenUIScreen("SC_Credits",Page.Credits);break;case 7:page=Page.ConfirmReset;selection=1;break;case 8:Application.Quit();break;}}
     // Shared decision for keyboard, gamepad and pointer input.
     public static void HandleResetSelection(int selected,Action resetProgress,Action returnToMenu){
       if(selected==0)resetProgress();
@@ -97,7 +102,8 @@ public class CGGame:MonoBehaviour {
     }
     void PauseChoice(int i){if(i==0){page=Page.Playing;Time.timeScale=1;}else if(i==1){page=Page.Playing;Time.timeScale=1;Respawn();}else ToMain();}
     void EquipPurple(bool on){if(on&&!CGStore.Data.purpleUnlocked){Hint("Morado: se desbloquea al terminar el nivel 2");return;}CGStore.Data.purpleEquipped=on;CGStore.Save();Hint(on?"Lobo morado equipado":"Lobo clásico equipado");}
-    void AdjustVolume(float n){float value=CGStore.Data.masterVolume;CGStore.Data.masterVolume=value>=1f?0f:Mathf.Clamp01(value+n);AudioListener.volume=CGStore.Data.masterVolume;CGStore.Save();}
+    public static float VolumeAfterStep(float value,float delta){return Mathf.Clamp01(Mathf.Round((value+delta)*10f)/10f);}
+    void AdjustVolume(float n){CGStore.Data.masterVolume=VolumeAfterStep(CGStore.Data.masterVolume,n);AudioListener.volume=CGStore.Data.masterVolume;CGStore.Save();}
     public void TakeChip(int id){if(id<0||id>=3||taken[id])return;taken[id]=true;chips++;CGAudio.Play("Pickup");Hint("Fragmento recuperado: "+chips+"/3");}
     public void Attack(Vector3 pos){foreach(var c in Physics2D.OverlapCircleAll(pos,.82f)){CGEnemy e=c.GetComponent<CGEnemy>();if(e!=null)e.Hurt(1);}}
     public void BossDown(){bossDead=true;Hint("¡Jefe derrotado! El portal está disponible.");}
@@ -122,9 +128,9 @@ public class CGGame:MonoBehaviour {
     public static void HandleEndingSelection(int selected,Action credits,Action menu){if(selected==0)credits();else menu();}
     void OpenEndingCredits(){OpenUIScreen("SC_Credits",Page.Credits);}
     void AfterVictory(){int next=sceneLevel==9?0:sceneLevel+1;if(next==9){ToMain();return;}ChooseLevel(next);}
-    public static int MoveQuizSelection(int current,int direction){return (current+direction%3+3)%3;}
+    public static int MoveQuizSelection(int current,int direction){return ((current+direction)%4+4)%4;}
     void CloseQuiz(){page=Page.Playing;Time.timeScale=1;}
-    void QuizAnswer(int selected){if(selected==world.spec.right){CGAudio.Play("Checkpoint");terminalSolved=true;Hint("¡Respuesta correcta! Terminal restaurada.");CloseQuiz();}else{CGAudio.Play("Denied");Hint("Esa opción no recupera los datos. Intenta otra vez.");}}
+    void QuizAnswer(int selected){if(page!=Page.Quiz||selected<0||selected>2||Time.unscaledTime<nextQuizAnswerTime)return;nextQuizAnswerTime=Time.unscaledTime+.2f;if(selected==world.spec.right){CGAudio.Play("Checkpoint");terminalSolved=true;Hint("¡Respuesta correcta! Terminal restaurada.");CloseQuiz();}else{CGAudio.Play("Denied");Hint("Esa opción no recupera los datos. Intenta otra vez.");}}
     void RectColor(Rect r,Color color){Color old=GUI.color;GUI.color=color;GUI.DrawTexture(r,Texture2D.whiteTexture);GUI.color=old;}
     void Outline(Rect r,Color color,int b=3){RectColor(new Rect(r.x,r.y,r.width,b),color);RectColor(new Rect(r.x,r.yMax-b,r.width,b),color);RectColor(new Rect(r.x,r.y,b,r.height),color);RectColor(new Rect(r.xMax-b,r.y,b,r.height),color);}
     void Panel(Rect r,Color? accent=null){RectColor(r,new Color(.022f,.035f,.075f,.94f));Outline(r,accent??new Color(.92f,.34f,.11f,.96f),2);}
@@ -236,6 +242,10 @@ public class CGGame:MonoBehaviour {
        if(Button("VOLUMEN GENERAL: "+Mathf.RoundToInt(CGStore.Data.masterVolume*100)+" %",0,340,242,600,65))AdjustVolume(.1f);
        if(Button("REDUCIR DESTELLOS: "+(CGStore.Data.reduceFlash?"SÍ":"NO"),1,340,321,600,65)){CGStore.Data.reduceFlash=!CGStore.Data.reduceFlash;CGStore.Save();}
        if(Button("SUBTÍTULOS: "+(CGStore.Data.subtitles?"SÍ":"NO"),2,340,400,600,65)){CGStore.Data.subtitles=!CGStore.Data.subtitles;CGStore.Save();}
+       GUI.Label(new Rect(340,198,600,36),"Volumen: ← bajar / subir →",tinyStyle);
+       Panel(new Rect(340,570,290,45));Panel(new Rect(650,570,290,45));
+       if(GUI.Button(new Rect(340,570,290,45),"− BAJAR VOLUMEN",buttonStyle))AdjustVolume(-.1f);
+       if(GUI.Button(new Rect(650,570,290,45),"SUBIR VOLUMEN +",buttonStyle))AdjustVolume(.1f);
        if(Button("VOLVER",3,340,500,600,65))ToMain();}
       if(page==Page.Controls){Header("CONTROLES - TECLADO / MANDO");
        if(Button(padMode?"EDITANDO MANDO - CAMBIAR A TECLADO":"EDITANDO TECLADO - CAMBIAR A MANDO",8,400,171,480,32)){padMode=!padMode;rebinding=-1;}
