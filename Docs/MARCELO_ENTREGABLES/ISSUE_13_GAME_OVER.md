@@ -1,215 +1,250 @@
-# Issue #13 — Sistema de derrota y Game Over
+# Issue #13 — Implementé mi sistema de derrota y Game Over
 
-- **Integrante:** Marcelo Escobar (`Josue-EC16`).
-- **Motor:** Unity `6000.3.16f1` · Windows nativo.
-- **Estado:** DRAFT — diagnóstico y diseño; implementación e integración pendientes.
-- **Fecha de esta entrega:** 2026-11-07.
-- **Rama:** `feature/marcelo/13-game-over`.
-- **Base revisada:** `origin/develop` @ `048b3e3dd93f2240aa85e388ae2233f68dab1a7b`.
-- **Issue:** [#13 — Derrota, vidas, Game Over y checkpoints](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/13).
-- **Revisor e integrador:** Vicente (`vicentesystemdev`).
-- **PR Draft a `develop`:** [#28 — Derrota, checkpoints y QA](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/pull/28).
+- **Mi cuenta:** Marcelo Escobar (`Josue-EC16`).
+- **Mi rama:** `feature/marcelo/13-game-over`.
+- **Mi base:** `origin/develop` @ `048b3e3dd93f2240aa85e388ae2233f68dab1a7b`.
+- **Mi motor y entorno:** Unity `6000.3.16f1`, Windows nativo.
+- **Mi fecha de entrega:** 2026-11-07.
+- **Mi estado:** implementé la corrección y superé mi QA de lógica; solicito revisión y conservo los límites indicados abajo.
+- **Mi Issue:** [#13 — Derrota, vidas, Game Over y checkpoints](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/issues/13).
+- **Mi PR hacia `develop`:** [#28](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/pull/28).
+- **Mi revisor e integrador:** Vicente (`vicentesystemdev`).
 
-Este es el expediente único del Issue #13. Se actualizará durante la
-implementación, las pruebas y la revisión. No acredita que Game Over esté
-implementado ni que la funcionalidad esté integrada en `develop`.
+## 1. Qué corregí
 
-## 1. Diagnóstico verificado por lectura
+Corregí E4: cuando perdía el último corazón, el juego me reaparecía con tres
+corazones y continuaba sin derrota. Encontré que el daño mortal, la caída al
+vacío y el reinicio desde pausa utilizaban la misma reaparición con curación.
 
-En la base revisada:
+Separé esas situaciones. Ahora, al llegar a cero, entro en Game Over y puedo
+seleccionar REINTENTAR o MENÚ PRINCIPAL. No restauré las escenas ni los scripts
+del prototipo anterior y no cambié el formato del guardado.
 
-- `CGHero.Damage(int)` descuenta corazones y concede aproximadamente 1,1 s
-  de invulnerabilidad. Cuando la vida llega a cero, llama a `CGGame.KillHero()`.
-- La caída por debajo de `y = -9` también llama a `KillHero()`.
-- `KillHero()` ejecuta `Respawn()`, que reposiciona al héroe, anula su velocidad
-  y siempre establece `hearts = 3`.
-- La opción de pausa «REINICIAR DESDE CHECKPOINT» utiliza ese mismo método,
-  por lo que también restaura corazones.
-- No hay una página Game Over en la máquina de estados de `CGGame`.
-- El checkpoint empieza en `x = 2`; el jugador activa el de `x = 35`
-  mediante interacción. La reaparición actual usa `checkpointX + 0.5`.
-- El estado del intento (fragmentos, terminal, enemigos y jefe) permanece
-  en memoria. Los niveles completados y desbloqueos pertenecen al guardado JSON.
+En esta sesión confirmé que ya podía completar la integración coordinada.
+Consulté el PR #27 de Carla, que sigue abierto y comparte `CGGame.cs` y
+`CGEntities.cs`. No fusioné su PR ni incorporé sus commits por mi cuenta;
+preparé mi cambio sobre la base vigente y dejé indicada la adaptación de QA.
 
-La auditoría histórica ya reprodujo E4 con PlayMode. Esta entrega confirma la
-causa por lectura del código; no ha vuelto a ejecutar esas pruebas históricas.
+## 2. Las reglas que implementé
 
-## 2. Coordinación y condición de integración
-
-El [PR #27 de Carla](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/pull/27),
-rama `feature/carla`, está abierto en la consulta realizada para esta entrega
-y modifica tanto `CGGame.cs` como `CGEntities.cs`. Su head consultado es
-`00d3e68ff8a27f73d8ff5a062fc6218eab9be3d9`.
-
-**Marcelo confirmó que la coordinación con Vicente sigue pendiente y pidió
-preparar la entrega y un PR Draft.** No se editarán los scripts compartidos
-en esta fase. La integración de Game Over se realizará después de que el
-trabajo de Carla esté incorporado en `develop` y Vicente confirme el orden.
-
-Antes de implementar se volverán a consultar el Issue, el PR de Carla y la
-base remota. No se fusionará el PR #27 desde esta rama por iniciativa propia.
-
-## 3. Decisión de jugabilidad propuesta a Vicente
-
-Las siguientes reglas fueron elegidas por Marcelo. **Quedan pendientes de
-validación por Vicente y, si corresponde, de contraste con la rúbrica/docente.**
-
-| Situación | Comportamiento acordado para implementar |
+| Situación | Mi resultado |
 |---|---|
-| Daño de enemigo | Descontar corazones y respetar 1,1 s de invulnerabilidad. |
-| Caída al vacío | Descontar un corazón, incluso si había invulnerabilidad. |
-| Caída con vida restante | Volver al checkpoint conservando los corazones restantes. |
-| Cero corazones | Entrar una sola vez en Game Over; no reaparecer automáticamente. |
-| REINTENTAR | Recuperar tres corazones y volver al checkpoint; sin checkpoint, al inicio. |
-| Reiniciar desde pausa | Reposicionar sin recuperar corazones. |
-| MENÚ PRINCIPAL | Salir con el tiempo normalizado y conservar el progreso persistente. |
+| Recibo daño válido de un enemigo | Descuento corazones y respeto 1,1 s de invulnerabilidad. |
+| Recibo daño cero, negativo o durante la derrota | Lo rechazo y conservo el estado. |
+| Caigo al vacío | Descuento un corazón, incluso si todavía tenía invulnerabilidad. |
+| Caigo y me queda vida | Reaparezco en el checkpoint con los corazones restantes. |
+| Llego a cero | Abro Game Over una sola vez, detengo al héroe y congelo la partida. |
+| Elijo REINTENTAR | Recupero tres corazones y vuelvo al checkpoint; sin checkpoint, al inicio. |
+| Reinicio desde pausa | Me reposiciono sin recuperar corazones. |
+| Elijo MENÚ PRINCIPAL o Escape/B | Salgo al menú con `Time.timeScale = 1`. |
 
-Reaparición y reintento conservarán fragmentos, terminal resuelta, enemigos
-eliminados y jefe derrotado del intento actual. No se añadirá guardado
-persistente dentro del nivel: cerrar o abandonar el nivel no convierte ese
-avance temporal en progreso guardado.
+Conservo los fragmentos recogidos, la terminal resuelta, los enemigos eliminados
+y el estado del jefe durante el reintento. No reconstruyo el mundo ni duplico
+recompensas. Ese avance sigue siendo temporal: no añadí persistencia dentro del
+nivel ni cambié el desbloqueo de niveles ya superados.
 
-La activación automática del checkpoint y otros ajustes del GDD no se darán
-por aprobados ni implementados como consecuencia de este diseño.
+Conservé la activación por interacción del checkpoint existente. No presento
+como aprobado ningún ajuste pendiente del GDD ni cambio el alcance a enemigos
+complejos; trabajaré el #14 en su propia rama después de integrar el #13.
 
-## 4. Arquitectura prevista — todavía no implementada
+## 3. Cómo lo implementé
 
-1. Añadir `Page.GameOver` a `CGGame` y reutilizar su presentación IMGUI,
-   con REINTENTAR y MENÚ PRINCIPAL. No crear otra escena ni importar
-   automáticamente `GameOver.unity` o `GameManager.cs` del prototipo.
-2. Separar la entrada de caída, la reaparición y la derrota. Mantener
-   `KillHero()` como entrada de derrota, y retirar de la reaparición la
-   curación incondicional. Adaptar todos sus llamadores y pruebas.
-3. Mantener compatible `Damage(int)` para los enemigos y añadir una vía
-   explícita de daño por caída que omita la invulnerabilidad. Rechazar daño
-   no positivo, vida negativa y daño fuera del juego activo.
-4. Al entrar en Game Over, detener al héroe, limpiar acciones pendientes y
-   establecer `Playing = false` y `Time.timeScale = 0`. Evitar repetir audio,
-   procesar daño adicional o aceptar la confirmación del mismo fotograma.
-5. Al reaparecer, conservar el mundo y el avance del intento; anular velocidades,
-   salto almacenado, ataque y habilidad temporal; aplicar 1,1 s de protección.
-   Reanudar con `Time.timeScale = 1` sin convertir la confirmación con Espacio
-   en un salto inmediato.
-6. Navegar con flechas/W/S, Enter/Espacio, equivalentes de mando y ratón.
-   REINTENTAR será la selección inicial. Escape/B volverá al menú y no
-   reanudará al personaje derrotado.
-7. Bloquear recogidas, ataques e interacciones durante la derrota.
-   Game Over y reintento no deberán escribir ni reiniciar el guardado.
+| Archivo | Qué cambié |
+|---|---|
+| `Assets/CampusGlitch/Scripts/CGGame.cs` | Agregué `Page.GameOver`, la pantalla IMGUI, sus dos opciones, navegación, bloqueo del mismo fotograma y una entrada diferenciada para caídas. Quité la curación incondicional de la reaparición y protegí ataques, recogidas, interacciones y victoria fuera del juego activo. |
+| `Assets/CampusGlitch/Scripts/CGEntities.cs` | Conservé `Damage(int)`, separé el daño de caída, limité la vida a cero y limpié movimiento, velocidad, salto almacenado, ataque y habilidad al detener/reaparecer. Evité que un trigger destruya un fragmento durante Game Over. |
+| `.gitignore` | Agregué `/QA_Marcelo/` para excluir mis herramientas, copias, ejecutables y resultados temporales. |
+| Este archivo | Actualicé mi expediente único del #13 y el aviso para Vicente. |
 
-### Compatibilidad con QA de Carla
+Reutilicé el audio `Damage`; no agregué recursos ni una animación nueva.
+Al reaparecer aplico 1,1 s de protección y limpio la entrada pendiente para
+que Espacio, usado al confirmar, no se convierta en un salto automático.
 
-El arnés `CGPlaySessionQA` del PR #27 utiliza actualmente `KillHero()` con
-un corazón para comprobar una reaparición que restaura tres. Esa expectativa
-representa el comportamiento que se quiere corregir. Después de la coordinación
-se adaptará ese caso para simular una caída con tres corazones, esperando dos
-y reaparición en el checkpoint. La derrota se cubrirá con casos propios.
+No escribo ni reinicio el guardado desde Game Over o Reintentar. No modifiqué
+escenas, prefabs, paquetes, ProjectSettings ni los `.meta` ajenos de mi árbol
+local. Conservé mis instrucciones personales fuera del versionado.
 
-## 5. Alcance real de esta entrega preliminar
+## 4. Qué probé realmente
 
-**Realizado:**
+### Mi entorno de QA
 
-- Diagnóstico del flujo de daño, caída, pausa y reaparición en la base revisada.
-- Consulta por terminal de los Issues #13 y #14, comentarios y PR activos.
-- Identificación del solapamiento con el PR #27 y su arnés de QA.
-- Decisiones de jugabilidad con Marcelo y plan de integración y pruebas.
-- Creación de este expediente en `Docs/MARCELO_ENTREGABLES/`.
-- Regla en `.gitignore` para excluir instrucciones personales locales.
+Preparé una copia temporal a partir de mi rama, con el producto aislado
+`MARCELO_QA_13_20261107_082131`. Copié exactamente mis dos scripts corregidos y
+comparé sus SHA-256 con los del proyecto original. Ejecuté Unity en esa copia,
+no sobre mi guardado personal.
 
-**Pendiente:** implementación de Game Over, adaptación de QA, compilación,
-ejecución PlayMode y validación visual. El Issue #14 se trabajará en otra rama
-solo después de integrar el #13.
+Conservé mi arnés, archivos de resultados, cachés auxiliares y builds en
+`QA_Marcelo/issue13/` o en la copia temporal externa al repositorio. La carpeta
+`QA_Marcelo/` está ignorada; esos archivos no forman parte del PR. En este
+expediente registro cómo reproduzco los escenarios y los límites de la prueba.
 
-No se han modificado escenas, scripts de juego, paquetes ni ProjectSettings
-como parte de esta entrega. Hay cambios locales de importación en `.meta`
-ajenos al alcance; se preservan y no se incluirán en los commits de este Issue.
+### Mi regresión antes y después
 
-## 6. Plan de pruebas y aceptación
+- En la versión anterior a mi corrección obtuve cuatro comprobaciones correctas
+  de carga/daño/invulnerabilidad y un fallo esperado: al llegar a cero, no entraba
+  en Game Over. Conservé ese resultado en `baseline/resultados.json`.
+- Con mi corrección obtuve **59 comprobaciones correctas y 0 fallidas** en
+  `fixed-focus/resultados.json`. Incluí la carga de las **18 escenas**.
+- Utilicé dispositivos simulados de Input System y su ciclo Dynamic. Configuré
+  el foco del Game View solo en mi copia para que el modo batch procesara la
+  entrada. Eso no equivale a un mando físico ni altera los ajustes del juego.
 
-### Comprobaciones ya ejecutadas
-
-| Comprobación | Tipo | Resultado |
+| Grupo | Qué comprobé | Mi resultado |
 |---|---|---|
-| Rama, remoto e identidad Git de Marcelo | Terminal | Verificados. |
-| Actualización de referencias con `git fetch origin --prune` | Terminal | Completada. |
-| Flujo de daño y reaparición de la base | Análisis estático | Causa de E4 identificada. |
-| Issues #13/#14 y PR #27 | Consulta GitHub por terminal | Consultados; coordinación pendiente. |
-| Scripts de juego del árbol local | Comparación Git | Sin cambios de esta entrega. |
-| Formato y contenido del entregable | Validación estática | Campos del aviso presentes; 15 casos pendientes explícitos; sin espacios finales. |
-| Alcance y espacios del commit inicial | Git | Solo dos rutas; `git diff --cached --check` sin errores. |
-| Autor y destino del PR #28 | GitHub por terminal | `Josue-EC16`, rama propia hacia `develop`, abierto como Draft. |
-| Revisión de Vicente | GitHub por terminal | Solicitud formal enviada a `vicentesystemdev`; revisión todavía pendiente. |
+| Vida y daño | Comprobé 3 → 2 → 1 → 0, invulnerabilidad, daño excesivo y rechazo de daño no positivo. | Correcto en PlayMode. |
+| Derrota | Comprobé Game Over sin curación, física detenida, rechazo de acciones y confirmación del mismo fotograma. | Correcto en PlayMode. |
+| Caída | Moví al héroe debajo de `y = -9` y dejé actuar a `FixedUpdate`, con y sin checkpoint y con invulnerabilidad activa. | Desconté un corazón; a cero entré en Game Over. |
+| Reintento | Confirmé con Espacio y con A de mando simulado; verifiqué vida, posición, tiempo y ausencia de salto almacenado. | Correcto en PlayMode. |
+| Pausa | Pausé después de reaparecer y reinicié desde el checkpoint con un corazón. | Conservé ese corazón y reanudé el tiempo. |
+| Navegación | Cambié entre las dos opciones con flechas; volví al menú con Enter, Escape y mando simulado. | Correcto en PlayMode. |
+| Avance del intento | Recogí fragmentos con colisiones en posiciones controladas, resolví la terminal por su lógica y eliminé un enemigo. | Conservé esos estados al reintentar, sin regenerar objetos. |
+| Progreso persistente | Comparé JSON, `.bak` y `.tmp` durante derrota/reintento/menú y recargué datos guardados. | Conservé el progreso anterior. |
+| Combate de N2 | Apliqué mordida y ejecuté la lógica de contacto de un enemigo. | Desconté vida del enemigo y del héroe según correspondía. |
+| Victoria de N2 | Completé los requisitos mediante callbacks controlados y recargué el JSON. | Conservé N1 y persistí N2 con el siguiente desbloqueo. |
+| Carga | Abrí las ocho pantallas, nueve niveles y el extra. | Cargué las 18 escenas en el editor. |
+| Estado del jefe y fragmentos | Reintenté con el jefe marcado como derrotado y provoqué un trigger durante Game Over. | Conservé el jefe y no destruí el fragmento durante la derrota. |
 
-### Casos para ejecutar después de integrar la implementación
+No presento estos escenarios automatizados como un recorrido físico completo:
+utilicé posiciones controladas, callbacks y enemigos detenidos donde necesitaba
+un escenario determinista. No corregí ni doy por resueltos los bloqueos de
+fragmentos/plataformas de otros Issues.
 
-| ID | Caso | Resultado esperado | Estado |
-|---|---|---|---|
-| D1 | Daño sucesivo separado por la invulnerabilidad | Vida 3 → 2 → 1 → 0; nunca negativa. | No ejecutado |
-| D2 | Daño repetido durante 1,1 s | No descuenta corazones adicionales. | No ejecutado |
-| D3 | Llegar a cero | Game Over una vez; mundo detenido; sin reaparición automática. | No ejecutado |
-| D4 | Caer sin checkpoint, con tres corazones | Reaparece al inicio con dos corazones. | No ejecutado |
-| D5 | Activar checkpoint y caer con dos corazones | Reaparece en checkpoint con un corazón. | No ejecutado |
-| D6 | Caer con un corazón, incluso durante invulnerabilidad | Cero corazones y Game Over. | No ejecutado |
-| D7 | REINTENTAR con y sin checkpoint | Tres corazones, posición correcta, velocidad limpia y tiempo 1. | No ejecutado |
-| D8 | Reintentar tras recoger datos, resolver terminal o eliminar enemigo | Conserva esos estados; no duplica objetos ni recompensas. | No ejecutado |
-| D9 | Reiniciar desde pausa con uno o dos corazones | Reposiciona sin curación; pausa vuelve a funcionar. | No ejecutado |
-| D10 | Confirmar Reintentar con Espacio | No salta ni ataca por la confirmación anterior. | No ejecutado |
-| D11 | MENÚ PRINCIPAL con teclado y ratón | Vuelve al menú con tiempo 1 y progreso previo intacto. | No ejecutado |
-| D12 | Escape/B y doble confirmación en Game Over | Sin reanudación inválida ni transiciones duplicadas. | No ejecutado |
-| D13 | Guardado con niveles ya completados, derrota y recarga | Conserva completados, estrellas, desbloqueos y ajustes. | No ejecutado |
-| D14 | Combate y retorno al juego en N1/N2 | Daño, mordida, HUD y victoria coherentes. | No ejecutado |
-| D15 | Regresión de menús de Carla y carga de las 18 escenas | Sin regresiones nuevas atribuibles al #13. | No ejecutado |
+### Mi compilación y mis límites visuales
 
-Se prepararán regresiones automáticas de PlayMode y se documentarán por separado
-las pruebas manuales de teclado/ratón, capturas y resultados. Mando físico y
-Android permanecerán «No ejecutado» si no hay hardware o APK verificado.
+Compilé mi copia Windows x64: **Succeeded, 0 errores, 209 advertencias,
+140.584.379 bytes**. El ejecutable incluye un iniciador temporal de QA que no
+está en el proyecto original ni en el PR. También repetí la compilación con
+caché limpia; mantengo separado compilar de ejecutar correctamente.
 
-Antes de ejecutar QA se usará aislamiento temporal de guardado, verificando
-la restauración. El PR de Carla aporta `CGStore.TestSaveDirectory` para el
-editor; se comprobará su disponibilidad tras integrar esa base. Otro clon
-o worktree, por sí solo, no protege el guardado personal.
+Al intentar cargar `SC_Level01` desde ese ejecutable, encontré un fallo nativo:
+`level8 is corrupted / Position out of bounds`. `level8` identifica el archivo
+del índice 8 del build (`SC_Level01`), no el Nivel 8. Reproduje el mismo fallo
+con los scripts de `6eb8e08`, anteriores a mi corrección, y con caché limpia.
+En ambos casos el iniciador quedó en carga, antes de ejecutar Game Over.
+Por esa comparación no lo presento como una regresión introducida por #13.
+Conservé `player-baseline.log`, `player-clean.log` y los reportes de build en
+mi carpeta ignorada. No reescribí las escenas compartidas para ocultarlo;
+solicito revisar ese bloqueo con Vicente en la QA de Windows (#16).
 
-Los bloqueos de fragmentos/salto/quiz de otros Issues no se presentarán como
-corregidos ni se sortearán para declarar un recorrido manual completo.
+Después ejecuté mi lógica en un reproductor QA que genera N1 desde Bootstrap,
+solo dentro del iniciador temporal. Llegué a Game Over y ejecuté el reintento
+por su callback; terminé en `Playing` con tres corazones, según
+`Build_RenderLogic/ui-render.json`. Ese control no sustituye la carga de la
+escena original ni una interacción real con ratón.
 
-## 7. Publicación y siguientes pasos
+Inspeccioné las capturas del reproductor, tanto batch como fuera de batch:
+salieron negras. No las acepté como evidencia visual y no marqué el render
+ni el recorrido del `.exe` original como correctos. Tampoco pude
+controlar la ventana con ratón: tanto computer-use como la alternativa integrada
+informaron que el servicio nativo no estaba disponible. Conservo ese caso como
+**No ejecutado**, no como un éxito de navegación.
 
-- Commit inicial publicado: [`6fc9810` — diagnóstico, diseño y QA preliminar](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/commit/6fc9810).
-- PR creado: [#28](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/pull/28),
-  **Draft**, dirigido a `develop`, autor `Josue-EC16` y `Refs #13`.
-- Historial completo de actualizaciones: [Commits del PR #28](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/pull/28/commits).
-- Revisión formal solicitada a `vicentesystemdev` sobre diagnóstico, reglas
-  y orden de integración. No hay aprobación ni integración que acreditar.
-- No hacer merge, auto-merge, push a ramas protegidas ni cerrar el Issue.
-- Tras coordinar e implementar, actualizar este mismo archivo con archivos
-  modificados, evidencias, pruebas automáticas/manuales y limitaciones reales.
+En el editor registré una excepción de indexado `UnityEditor.Search` al iniciar
+la copia y avisos de referencias a scripts incrustadas en escenas. No oculté
+esos mensajes ni afirmo que toda la consola esté libre de incidencias. Mi suite
+de lógica terminó sus 59 comprobaciones sin fallos.
 
-## 8. Aviso a Vicente — plantilla oficial adaptada
+También corregí limitaciones de mi arnés local: separé la captura del editor
+batch, ajusté la API interna Dynamic de la versión instalada y habilité su foco
+de entrada de prueba. No cambié el código del juego para ocultar esos fallos
+del arnés.
 
-Basado en `Docs/Equipo/05_PLANTILLA_AVISO_PR.md`. Texto listo para que Marcelo
-lo envíe por WhatsApp; no acredita que ya se haya enviado.
+**Conservo pendientes:** clic real con ratón, mando físico, Android, escucha
+humana del audio y recorrido manual completo de N1/N2. Mi editor sí tiene
+soporte Android instalado, pero no generé ni validé un APK para esta entrega.
 
-**Campus Glitch — Draft para coordinación del Issue #13**
+## 5. Cómo reproduzco la aceptación del #13
 
-- **Integrante:** Marcelo Escobar (@Josue-EC16).
-- **Issue:** #13 — Derrota, vidas, Game Over y checkpoints.
-- **Rama:** `feature/marcelo/13-game-over`.
-- **Commits propios:** `6fc9810` — diagnóstico, diseño y QA preliminar (#13).
-  Las actualizaciones documentales posteriores se consultan en
-  [Commits del PR #28](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/pull/28/commits).
-- **URL del PR a `develop`:** https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/pull/28.
-- **Qué cambié:** documenté el diagnóstico y el diseño de Game Over, las reglas
-  elegidas para caída/reintento/pausa y los casos de QA en este expediente.
-  Todavía no modifiqué la lógica compartida de `CGGame.cs` o `CGEntities.cs`.
-- **Qué debe probar Vicente:** en esta fase, revisar las reglas de §3 y confirmar
-  el orden con Carla/PR #27. Después de implementar, ejecutar D1–D15 de §6,
-  principalmente cero corazones → Game Over, reintento, menú y guardado intacto.
-- **Pruebas que ya ejecuté:** verificaciones de Git, consulta de Issues/PR y
-  análisis estático. No ejecuté nuevas pruebas de Unity ni builds en esta fase.
-- **No probado / riesgos:** Game Over todavía no implementado; coordinación
-  pendiente; ambos scripts compartidos y arnés de Carla requieren integración
-  coordinada. PlayMode, teclado/ratón real, mando y Android pendientes.
-- **Revisor solicitado:** @vicentesystemdev (solicitud formal registrada en GitHub).
-- **Estado:** Draft — diagnóstico/diseño; no listo para integración funcional.
+1. Abro `SC_Level01` en Unity `6000.3.16f1` y verifico tres corazones.
+2. Recibo tres golpes separados por la invulnerabilidad y compruebo que llego a
+   Game Over sin reaparecer automáticamente.
+3. Selecciono REINTENTAR con flechas y Enter/Espacio: compruebo tres corazones,
+   posición inicial o checkpoint, tiempo normal y ausencia de salto inmediato.
+4. Activo el checkpoint por interacción. Caigo con dos corazones y compruebo
+   que reaparezco con uno; al caer de nuevo, compruebo Game Over.
+5. Reinicio desde pausa con uno o dos corazones y compruebo que no me curo.
+6. Reintento después de recoger datos, resolver la terminal y eliminar un
+   enemigo; compruebo que conservo el avance de ese intento.
+7. Selecciono MENÚ PRINCIPAL y compruebo que vuelvo con el tiempo normalizado.
+   Cierro y reabro sobre un guardado aislado y compruebo mis niveles anteriores.
+8. Repito el daño, reintento y salida en N2. Registro por separado cualquier
+   prueba con ratón, mando físico o Android que todavía no haya ejecutado.
 
-**El push es únicamente a mi rama. Este trabajo NO está integrado en `develop`
-o `main`. No fusionar sin coordinación, implementación, revisión y QA.**
+Para repetir mi arnés local utilizo una copia aislada y estos parámetros:
+
+```powershell
+& $unity -batchmode -force-d3d11 -projectPath $qaProject `
+  -executeMethod CampusGlitch.MarceloLocalQA.CGIssue13QA.Begin `
+  -marceloQaOutput $qaOutput -marceloQaPhase fixed -logFile $qaLog
+```
+
+Mi arnés es local e ignorado, por lo que esos comandos requieren su copia;
+no remito a un archivo inexistente en GitHub. Mantengo los pasos manuales
+anteriores para la revisión independiente de Vicente.
+
+## 6. Cómo coordino la integración con Carla
+
+Identifiqué que el caso 0 de `CGPlaySessionQA` del PR #27 espera que
+`KillHero()` con un corazón me reaparezca curado. Esa expectativa corresponde
+al comportamiento que corregí. Para integrar las dos entregas propongo
+sustituir exclusivamente esa comprobación por una caída no mortal:
+
+```csharp
+Move(game, 35);
+game.InteractNearPlayer();
+Check(world.checkpoint, "Checkpoint no se activa");
+game.Hero.hearts = 3;
+game.HandleHeroFall();
+Check(game.Hero.hearts == 2 &&
+      Mathf.Abs(game.Hero.transform.position.x - 35.5f) < .1f,
+      "Caída no mortal no conserva vida/checkpoint");
+```
+
+No añadí a mi rama el arnés de Carla, porque su PR sigue pendiente. Dejé este
+ajuste concreto para coordinarlo con Vicente y repetir su QA después de la
+integración. Tampoco doy por integradas sus correcciones de menús o terminal.
+
+## 7. Mis commits y mi publicación
+
+- [`6fc9810`](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/commit/6fc9810): documenté mi diagnóstico y QA preliminar.
+- [`6eb8e08`](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/commit/6eb8e08): registré mi PR Draft y mi aviso inicial.
+- `4998fb5`: implementé mi derrota y reintento desde checkpoint y excluí mi QA temporal.
+- Mantengo el [historial completo de mi PR #28](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/pull/28/commits), incluidas las actualizaciones de este expediente.
+
+Publico únicamente en mi rama y solicito revisión de Vicente. No fusiono mi PR,
+no habilito auto-merge y no cierro el Issue por mi cuenta. No modifiqué `main`
+ni `develop`. Mantengo los cambios locales de importación fuera de mis commits.
+
+## 8. Mi aviso a Vicente — plantilla oficial
+
+Adapto `Docs/Equipo/05_PLANTILLA_AVISO_PR.md` en este mismo expediente.
+Dejo mi mensaje preparado para WhatsApp; no afirmo que ya lo haya enviado.
+
+**Campus Glitch — implementé mi corrección del Issue #13 y solicito revisión**
+
+- **Integrante:** soy Marcelo Escobar (@Josue-EC16).
+- **Issue:** trabajé el #13 — Derrota, vidas, Game Over y checkpoints.
+- **Rama:** trabajé en `feature/marcelo/13-game-over`.
+- **Commits propios:** `4998fb5` contiene mi implementación; conservé `6fc9810`
+  y `6eb8e08` como preparación. Registro las actualizaciones documentales en
+  [los commits de mi PR](https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/pull/28/commits).
+- **URL del PR a `develop`:** actualizo https://github.com/vicentesystemdev/EVALUACION_MULTIMEDIA_2026/pull/28.
+- **Qué cambié:** implementé Game Over, reintento y retorno al menú. Separé
+  caída, daño y reaparición; evité curarme desde pausa y conservé el progreso.
+  También excluí mis archivos temporales de QA.
+- **Qué debe probar Vicente:** propongo repetir los ocho pasos de §5,
+  principalmente cero corazones, checkpoint, pausa, reintento y guardado.
+  También solicito coordinar el ajuste de QA del PR #27 y revisar el fallo
+  nativo que encontré al cargar la escena en mi ejecutable aislado.
+- **Pruebas que ya ejecuté:** reproduje el fallo previo y obtuve 59
+  comprobaciones correctas/0 fallidas con la corrección en PlayMode, incluidas
+  18 escenas. Compilé Windows QA con 0 errores y registré sus advertencias.
+- **No probado / riesgos:** no aprobé el render del `.exe`, clic real con
+  ratón, mando físico, Android, escucha del audio ni recorrido manual completo.
+  Comparto dos scripts con Carla y dejé identificada su expectativa antigua
+  de reaparición. No oculto las incidencias del editor o del ejecutable QA.
+- **Revisor solicitado:** solicito revisión a @vicentesystemdev.
+- **Estado:** terminé mi implementación y mi QA de lógica; espero revisión y
+  validación de los límites indicados. No está integrado en `develop`.
+
+**Publiqué únicamente en mi rama. No hice merge ni modifiqué `main` o `develop`.**
