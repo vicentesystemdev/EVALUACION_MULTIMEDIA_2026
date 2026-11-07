@@ -249,7 +249,8 @@ public class CGGame:MonoBehaviour {
        if(Button("SALIR AL MENÚ",2,375,425,530,65))PauseChoice(2);}
       if(page==Page.Quiz){Header("TERMINAL / MISIÓN DE APRENDIZAJE");Label(world.spec.quiz,230,75);
        string[] options={world.spec.option1,world.spec.option2,world.spec.option3};for(int i=0;i<3;i++)if(Button(options[i],i,340,333+i*80,600,67))QuizAnswer(i);
-       Label("ESC / B para cerrar la terminal",635,30);}
+       if(Button("CERRAR TERMINAL",3,420,581,440,48))CloseQuiz();
+       Label("ESC / B para cerrar la terminal",646,29);}
       if(page==Page.Victory){Header("¡NIVEL RESTAURADO!");Label("Recuperaste los tres fragmentos y activaste la conexión.",265);
        if(sceneLevel==1)Label("¡PERSONALIZACIÓN MORADA DESBLOQUEADA!",352,57);
        if(Button("SIGUIENTE NIVEL",0,375,453,530,66))AfterVictory();if(Button("MENÚ PRINCIPAL",1,375,535,530,60))ToMain();}
@@ -259,7 +260,7 @@ public class CGGame:MonoBehaviour {
        if(Button("VOLVER AL MENÚ",1,390,583,500,55))ToMain();}
       if(page==Page.ConfirmReset){Header("¿BORRAR PROGRESO?");Label("Se eliminarán los niveles completados y las skins desbloqueadas.",311);
        if(Button("SÍ, BORRAR",0,320,431,300,58))ConfirmResetChoice(0);if(Button("CANCELAR",1,660,431,300,58))ConfirmResetChoice(1);}
-      if(Time.unscaledTime<toastUntil && page!=Page.Playing){GUI.Label(new Rect(180,628,920,35),toast,tinyStyle);}
+      if(Time.unscaledTime<toastUntil && page!=Page.Playing){GUI.Label(new Rect(180,page==Page.Quiz?132:628,920,35),toast,tinyStyle);}
       GUI.matrix=old;
     }
     void DrawHUD(){
