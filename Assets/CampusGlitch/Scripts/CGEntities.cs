@@ -42,12 +42,17 @@ public class CGFrameAnimator:MonoBehaviour {
  }
 }
 public class CGHero:MonoBehaviour {
+ const float JumpSpeed=14.4f; // Clears the raised first tier (up to 3.00 units) with the existing gravity.
+ static PhysicsMaterial2D movementMaterial;
  public Rigidbody2D Body {get;private set;}
  public float moveInput;public bool facesRight=true,running,Grounded;
  public int hearts=3; public float hurtUntil,attackUntil;float lastGrounded,queuedJump,lastAttack, abilityUntil;
  CGGame game;CGFrameAnimator anim;
  public void Setup(CGGame g){game=g;Body=gameObject.AddComponent<Rigidbody2D>();Body.gravityScale=3.2f;Body.freezeRotation=true;Body.collisionDetectionMode=CollisionDetectionMode2D.Continuous;
    CapsuleCollider2D co=gameObject.AddComponent<CapsuleCollider2D>();co.size=new Vector2(0.76f,1.64f);co.offset=new Vector2(0,0.82f);
+   // Horizontal input must not create enough wall friction to hold the body in the air.
+   if(movementMaterial==null)movementMaterial=new PhysicsMaterial2D("Lobo_Movimiento"){friction=0f,bounciness=0f};
+   co.sharedMaterial=movementMaterial;
    GameObject art=new GameObject("LoboGuardián_Sprite");art.transform.SetParent(transform,false);art.transform.localPosition=new Vector3(0,1.0f,0);
    SpriteRenderer sr=art.AddComponent<SpriteRenderer>();sr.sortingOrder=25;sr.sprite=CGArt.Player(CGStore.Data.purpleEquipped,0,CGStore.Data.useOriginalWolf);
    anim=gameObject.AddComponent<CGFrameAnimator>();anim.view=sr;anim.hero=true;
@@ -58,7 +63,7 @@ public class CGHero:MonoBehaviour {
    moveInput=CGControl.Axis(); running=CGControl.HoldRun();if(Mathf.Abs(moveInput)>0.07f)facesRight=moveInput>0;
    if(Grounded)lastGrounded=Time.time;
    if(CGControl.Jump())queuedJump=Time.time;
-   if(Time.time-queuedJump<0.15f&&Time.time-lastGrounded<0.14f){Body.linearVelocity=new Vector2(Body.linearVelocity.x,9.6f);queuedJump=-999;lastGrounded=-999;CGAudio.Play("Jump");}
+   if(Time.time-queuedJump<0.15f&&Time.time-lastGrounded<0.14f){Body.linearVelocity=new Vector2(Body.linearVelocity.x,JumpSpeed);queuedJump=-999;lastGrounded=-999;CGAudio.Play("Jump");}
    if(CGControl.Attack() && Time.time-lastAttack>0.48f){lastAttack=Time.time;attackUntil=Time.time+0.23f;CGAudio.Play("Attack");game.Attack(transform.position+new Vector3(facesRight?0.85f:-0.85f,0.7f,0));}
    if(CGControl.Ability()&&CGStore.Data.purpleUnlocked){abilityUntil=Time.time+0.8f;game.Hint("Impulso glitch activado");}
    if(CGControl.Interact())game.InteractNearPlayer();
@@ -111,6 +116,6 @@ public class CGParallax:MonoBehaviour {
 }
 public class CGCamera:MonoBehaviour {
  public Transform follow; public float levelWidth=73;
- void LateUpdate(){if(follow==null)return;Vector3 target=new Vector3(Mathf.Clamp(follow.position.x+3,8,levelWidth-8),2.2f,-10);transform.position=Vector3.Lerp(transform.position,target,Time.deltaTime*4f);}
+ void LateUpdate(){if(follow==null)return;float y=Mathf.Max(2.2f,follow.position.y-1f);Vector3 target=new Vector3(Mathf.Clamp(follow.position.x+3,8,levelWidth-8),y,-10);transform.position=Vector3.Lerp(transform.position,target,Time.deltaTime*4f);}
 }
 }
