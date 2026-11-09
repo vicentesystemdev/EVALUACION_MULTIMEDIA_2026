@@ -18,7 +18,7 @@ public static class CGLevelOneStage {
             rect=new Rect((cell%2)*width+1,texture.height-(cell/2+1)*height+1,width-2,height-2);
         }
         panels[index]=Sprite.Create(texture,rect,new Vector2(.5f,.5f),128,0,SpriteMeshType.FullRect);
-        panels[index].name="N1_Zona_"+(index+1);return panels[index];
+        panels[index].name="N1_Zona_"+(index+1);panels[index].hideFlags=HideFlags.HideAndDontSave;return panels[index];
     }
     public static bool Build(CGWorld world){
         for(int i=0;i<5;i++)if(Panel(i)==null)return false;
@@ -49,7 +49,7 @@ public static class CGLevelOneStage {
         Place(world,4,30.2f,2.1f);Place(world,6,36.6f,1.4f);
         Place(world,1,58.2f,1.25f);Place(world,7,64.5f,1.1f);
         foreach(float gap in new[]{20.5f,44.5f}){
-            Quad(world.root,"Hueco_Real_"+gap,new Vector3(gap,-1.52f,0),new Vector2(1,3.04f),new Color(.014f,.02f,.055f),8);
+            Quad(world.root,"Hueco_Real_"+gap,new Vector3(gap,-6,0),new Vector2(1,12),new Color(.014f,.02f,.055f),8);
             Place(world,15,gap-1.3f,.8f);
             Quad(world.root,"Borde_Advertencia_I",new Vector3(gap-.54f,.035f,0),new Vector2(.08f,.07f),new Color(1,.63f,.12f),9);
             Quad(world.root,"Borde_Advertencia_D",new Vector3(gap+.54f,.035f,0),new Vector2(.08f,.07f),new Color(1,.63f,.12f),9);
@@ -66,7 +66,7 @@ public static class CGLevelOneStage {
         var color=x>=43&&x<=58?new Color(.86f,.35f,1):new Color(1,.69f,.2f);
         Quad(parent,"Superficie_Solida_Marcada",new Vector3(0,height*.5f-.018f,0),new Vector2(width,.036f),color,7,true);
     }
-    static void Quad(Transform parent,string name,Vector3 position,Vector2 size,Color color,int order,bool local=false){
+    internal static void Quad(Transform parent,string name,Vector3 position,Vector2 size,Color color,int order,bool local=false){
         if(white==null){var t=new Texture2D(1,1){name="Campus_Color",hideFlags=HideFlags.HideAndDontSave};t.SetPixel(0,0,Color.white);t.Apply();white=Sprite.Create(t,new Rect(0,0,1,1),new Vector2(.5f,.5f),1);white.hideFlags=HideFlags.HideAndDontSave;}
         var obj=new GameObject(name);obj.transform.SetParent(parent,false);
         if(local)obj.transform.localPosition=position;else obj.transform.position=position;

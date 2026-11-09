@@ -41,7 +41,7 @@ public static class CGCampusHUD {
         Fill(new Rect(119, 93, 266 * Mathf.Clamp01(hero.hearts / 3f), 4), accent);
 
         Card(new Rect(427, 18, 434, 94), Cyan);
-        GUI.Label(new Rect(442, 24, 405, 27), world.index==0?CGLevelOneStage.ZoneAt(hero.transform.position.x):world.spec.name, title);
+        GUI.Label(new Rect(442, 24, 405, 27), CGCampusDepthStage.AreaAt(world.index,hero.transform.position.x), title);
         for (int i = 0; i < 3; i++) {
             Card(new Rect(443 + 34 * i, 65, 25, 25), taken[i] ? Amber : new Color(.28f, .34f, .48f));
             GUI.Label(new Rect(443 + 34 * i, 65, 25, 25), taken[i] ? "◆" : "·", number);

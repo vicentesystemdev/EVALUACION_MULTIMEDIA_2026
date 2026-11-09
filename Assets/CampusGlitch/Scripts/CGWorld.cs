@@ -42,14 +42,15 @@ public class CGWorld : MonoBehaviour {
     }
     if(index==9)foreach(float x in new float[]{18,28,38,48,58})Platform(x,5.34f,2.7f,.28f,true);
     if(index==0)CGLevelOneStage.Decorate(this);
-    else for(int x=5;x<68;x+=4+(index%3)){
+    else {CGCampusDepthStage.Decorate(this);for(int x=5;x<68;x+=4+(index%3)){
       int pidx=(x/4+index)%spec.props.Length;
       string p=spec.props[pidx];
+      if(updatedCampus&&CGCampusVisual.Prop(p)==null)continue;
       // Background decoration must not resemble an unsupported elevated platform.
       if(p.Contains("Floor")||p.Contains("Rail")||p.Contains("Entrance"))continue;
       float propHeight=p.Contains("Entrance")?3.3f:p.Contains("Pole")?3.8f:p.Contains("Bench")||p.Contains("Stool")?.9f:1.6f;
       Prop(p,x,propHeight*.5f,propHeight,false);
-    }
+    }}
     Prop("UNIFRANZ_Sign",2,3.8f,1.8f,false);
     PlaceSign("NIVEL "+(index==9?"EXTRA":(index+1).ToString())+" / "+spec.name, 3.7f,3.8f);
     for(int n=0;n<3;n++){
@@ -86,7 +87,7 @@ public class CGWorld : MonoBehaviour {
     // Collider dimensions must be world units, never derived from sprite pixel size.
     BoxCollider2D col=obj.AddComponent<BoxCollider2D>();col.size=new Vector2(w,h);obj.AddComponent<CGSurface>();
     if(raised)Piece(obj.transform,"Pasamanos_Elevado","Environment/L"+index.ToString("00")+"_Rail",0,h*.5f+.21f,w,.42f,4);
-    if(raised&&index==0)CGLevelOneStage.PlatformEdge(obj.transform,w,h,x);
+    if(raised)CGLevelOneStage.PlatformEdge(obj.transform,w,h,x);
   }
   // All elements are real SpriteRenderers in side view; objects and collision geometry remain separate.
   void Piece(Transform parent,string id,string asset,float x,float y,float width,float height,int sorting) {
@@ -135,7 +136,7 @@ public class CGWorld : MonoBehaviour {
   public void Prop(string name,float x,float y,float height,bool interactive,string fixedPath=null){Sprite updated=CGCampusVisual.Prop(name);Sprite s=updated??(!string.IsNullOrEmpty(fixedPath)?CGArt.Get(fixedPath):CGArt.Prop(spec,name));
     if(s==null)return;
     if(updated!=null){if(name=="PortalTransition")height=2.65f;y=height*.5f;}
-    GameObject go=new GameObject("PROP_"+name);go.transform.SetParent(root);go.transform.position=new Vector3(x,y,0);SpriteRenderer sr=go.AddComponent<SpriteRenderer>();sr.sprite=s;sr.sortingOrder=interactive?16:3;
+    GameObject go=new GameObject("PROP_"+name);go.transform.SetParent(root);go.transform.position=new Vector3(x,y,0);SpriteRenderer sr=go.AddComponent<SpriteRenderer>();sr.sprite=s;sr.sortingOrder=interactive?16:-4;
     float aspect=s.bounds.size.x/Mathf.Max(.01f,s.bounds.size.y);float visibleH=Mathf.Max(0.55f,height);go.transform.localScale=new Vector3(visibleH/Mathf.Max(.01f,s.bounds.size.y),visibleH/Mathf.Max(.01f,s.bounds.size.y),1);
     if(interactive){
       var inter=go.AddComponent<CGMarker>();inter.game=game;inter.kind=name;
@@ -156,7 +157,14 @@ public class CGWorld : MonoBehaviour {
   void SpawnAssistant(){GameObject npc=new GameObject("Asistente_Digital");npc.transform.SetParent(root);npc.transform.position=new Vector3(4,2f);var sr=npc.AddComponent<SpriteRenderer>();sr.sortingOrder=18;sr.sprite=CGArt.Get("Playable/Assistant_idle_00");var an=npc.AddComponent<CGFrameAnimator>();an.assistant=true;an.view=sr;if(sr.sprite!=null)npc.transform.localScale=Vector3.one*(.72f/sr.sprite.bounds.size.y);
     var follow=npc.AddComponent<CGAssistantFollow>();follow.game=game;CGCampusActors.Assistant(npc,this);}
   void SpawnEnemy(float x,string name,bool isBoss){GameObject en=new GameObject("ENEMY_"+name);en.transform.SetParent(root);en.transform.position=new Vector3(x,isBoss?0.65f:0.45f,0);CGEnemy enemy=en.AddComponent<CGEnemy>();enemy.Setup(game,name,isBoss);if(isBoss)boss=enemy;CGCampusActors.Enemy(en,enemy,this);}
-  void PlaceSign(string text,float x,float y){GameObject board=new GameObject("SENAL_"+text);board.transform.SetParent(root);board.transform.position=new Vector3(x,y,0);var sr=board.AddComponent<SpriteRenderer>();sr.sprite=CGArt.Get("01_Nuevos_Modulares/00_Global/Arquitectura/DirectionalArrows");sr.sortingOrder=8;}
+  void PlaceSign(string text,float x,float y){
+    var board=new GameObject("Señal_Del_Nivel");board.transform.SetParent(root,false);board.transform.position=new Vector3(x,y,0);
+    CGLevelOneStage.Quad(board.transform,"Panel",Vector3.zero,new Vector2(4.7f,.92f),new Color(.035f,.065f,.13f),-3,true);
+    CGLevelOneStage.Quad(board.transform,"Borde_Institucional",new Vector3(0,.45f,0),new Vector2(4.7f,.035f),new Color(1,.6f,.1f),-2,true);
+    var label=new GameObject("Nombre");label.transform.SetParent(board.transform,false);
+    var mesh=label.AddComponent<TextMesh>();mesh.text=text.Replace(" / ","\n").ToUpperInvariant();mesh.fontSize=40;mesh.characterSize=.045f;mesh.anchor=TextAnchor.MiddleCenter;mesh.alignment=TextAlignment.Center;mesh.color=new Color(1,.84f,.55f);
+    label.GetComponent<MeshRenderer>().sortingOrder=-1;
+  }
 }
 public class CGAssistantFollow:MonoBehaviour {
  public CGGame game;

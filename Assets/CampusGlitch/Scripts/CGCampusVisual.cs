@@ -6,7 +6,7 @@ public static class CGCampusVisual {
     static Sprite[] objects;
     static readonly Sprite[] backdrops = new Sprite[2];
     public static Sprite Object(int index) {
-        if(objects==null) {
+        if(objects==null||objects[0]==null) {
             var texture=Resources.Load<Texture2D>("CG/VisualV2/CampusObjects");
             var data=Resources.Load<TextAsset>("CG/VisualV2/CampusObjects_Frames");
             if(texture==null||data==null)return null;
@@ -17,6 +17,7 @@ public static class CGCampusVisual {
                 var f=atlas.frames[i];
                 objects[i]=Sprite.Create(texture,new Rect(f.x,f.y,f.w,f.h),new Vector2(.5f,.5f),128,0,SpriteMeshType.FullRect);
                 objects[i].name="Campus_Object_"+i;
+                objects[i].hideFlags=HideFlags.HideAndDontSave;
             }
         }
         return objects[Mathf.Clamp(index,0,15)];
@@ -40,6 +41,7 @@ public static class CGCampusVisual {
     }
     public static bool Build(CGWorld world) {
         if(world.index==0&&CGLevelOneStage.Build(world))return true;
+        if(CGCampusDepthStage.Build(world))return true;
         int kind = world.index == 0 || world.index == 7 ? 0 : 1;
         var texture = Background(world.index);
         if (texture == null) return false;
