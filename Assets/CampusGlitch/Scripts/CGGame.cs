@@ -22,7 +22,7 @@ public partial class CGGame:MonoBehaviour {
     int resumedInputFrame=-1;
     bool editorMenuPreview;
     public bool AcceptsPlayerInput {get{return Playing&&Time.frameCount!=resumedInputFrame;}}
-    readonly string[] mainItems={"CONTINUAR / JUGAR","MAPA DE NIVELES","PERSONALIZAR LOBO","AJUSTES","CONTROLES","AYUDA","CRÉDITOS","BORRAR PROGRESO","SALIR"};
+    readonly string[] mainItems={"JUGAR / CONTINUAR","MAPA DEL CAMPUS","PERSONALIZACIÓN","CONFIGURACIÓN","AYUDA Y CONTROLES","CRÉDITOS","SALIR"};
     void Start(){
       // Editor previews exist so scenes are visible in 2D before pressing Play.
       // They are decorative only: runtime generates the playable scene with physics.
@@ -60,7 +60,7 @@ public partial class CGGame:MonoBehaviour {
         else {selection=menuNavigation.Read(selection,3,false);if(CGControl.Confirm()){CGAudio.Menu(true);QuizAnswer(selection);}}
         return;
       }
-      int n=page==Page.Main?mainItems.Length:page==Page.Controls?8:page==Page.Paused?3:page==Page.Settings?4:page==Page.Customization?4:page==Page.Map?10:page==Page.Victory||page==Page.Ending||page==Page.ConfirmReset?2:1;
+      int n=page==Page.Main?mainItems.Length:page==Page.Controls?8:page==Page.Paused?3:page==Page.Settings?6:page==Page.Customization?4:page==Page.Map?10:page==Page.Victory||page==Page.Ending||page==Page.ConfirmReset||page==Page.Help?2:1;
       selection=menuNavigation.Read(selection,n,page==Page.Map);
       selection=(selection%n+n)%n;
       if(page==Page.Map){mapSelection=selection;}
@@ -73,7 +73,8 @@ public partial class CGGame:MonoBehaviour {
          case Page.Customization:if(selection==0)EquipPurple(false);else if(selection==1)EquipPurple(true);
            else if(selection==2){CGStore.Data.useOriginalWolf=!CGStore.Data.useOriginalWolf;CGStore.Save();Hint(CGStore.Data.useOriginalWolf?"Usando el lobo clásico":"Usando el Guardián acorazado");}
            else ToMain();break;
-         case Page.Settings:if(selection==0)AdjustVolume(.1f);else if(selection==1){CGStore.Data.reduceFlash=!CGStore.Data.reduceFlash;CGStore.Save();}else if(selection==2){CGStore.Data.subtitles=!CGStore.Data.subtitles;CGStore.Save();}else ToMain();break;
+         case Page.Settings:if(selection==0)AdjustVolume(.1f);else if(selection==1){CGStore.Data.reduceFlash=!CGStore.Data.reduceFlash;CGStore.Save();}else if(selection==2){CGStore.Data.subtitles=!CGStore.Data.subtitles;CGStore.Save();}else if(selection==3)OpenUIScreen("SC_Controls",Page.Controls);else if(selection==4){page=Page.ConfirmReset;selection=1;}else ToMain();break;
+         case Page.Help:if(selection==0)OpenUIScreen("SC_Controls",Page.Controls);else ToMain();break;
          case Page.Controls:rebinding=selection;break;
          default:ToMain();break;
        }
@@ -82,8 +83,8 @@ public partial class CGGame:MonoBehaviour {
     }
     public void Hint(string msg){toast=msg;toastUntil=Time.unscaledTime+4f;}
     void MainSelect(int i){switch(i){case 0: ChooseLevel(Mathf.Min(CGStore.Data.latestUnlocked,8));break;case 1:OpenUIScreen("SC_LevelMap",Page.Map);break;
-      case 2:OpenUIScreen("SC_Customization",Page.Customization);break;case 3:OpenUIScreen("SC_Settings",Page.Settings);break;case 4:OpenUIScreen("SC_Controls",Page.Controls);break;
-      case 5:OpenUIScreen("SC_Help",Page.Help);break;case 6:OpenUIScreen("SC_Credits",Page.Credits);break;case 7:page=Page.ConfirmReset;selection=1;break;case 8:Application.Quit();break;}}
+      case 2:OpenUIScreen("SC_Customization",Page.Customization);break;case 3:OpenUIScreen("SC_Settings",Page.Settings);break;case 4:OpenUIScreen("SC_Help",Page.Help);break;
+      case 5:OpenUIScreen("SC_Credits",Page.Credits);break;case 6:Application.Quit();break;}}
     void ToMain(){Time.timeScale=1;
        if(Application.CanStreamedLevelBeLoaded("SC_MainMenu"))StartCoroutine(TransitionToScene("SC_MainMenu"));
        else if(sceneLevel>=0)StartCoroutine(TransitionToScene("SC_Bootstrap"));
@@ -136,16 +137,19 @@ public partial class CGGame:MonoBehaviour {
     void QuizAnswer(int selected){if(selected==world.spec.right){CGAudio.Play("Checkpoint");terminalSolved=true;Hint("¡Respuesta correcta! Terminal restaurada.");page=Page.Playing;Time.timeScale=1;resumedInputFrame=Time.frameCount;}else{CGAudio.Play("Denied");Hint("Esa opción no recupera los datos. Intenta otra vez.");}}
     void RectColor(Rect r,Color color){Color old=GUI.color;color.a*=old.a;GUI.color=color;CGUIDraw.Texture(r,Texture2D.whiteTexture);GUI.color=old;}
     void Outline(Rect r,Color color,int b=3){RectColor(new Rect(r.x,r.y,r.width,b),color);RectColor(new Rect(r.x,r.yMax-b,r.width,b),color);RectColor(new Rect(r.x,r.y,b,r.height),color);RectColor(new Rect(r.xMax-b,r.y,b,r.height),color);}
-    void Panel(Rect r,Color? accent=null){RectColor(r,new Color(.022f,.035f,.075f,.94f));Outline(r,accent??new Color(.92f,.34f,.11f,.96f),2);}
+    void Panel(Rect r,Color? accent=null){var design=CGMenuTheme.Design;RectColor(r,design!=null?design.ink:new Color(.022f,.035f,.075f,.94f));Outline(r,accent??(design!=null?design.amber:new Color(.92f,.34f,.11f,.96f)),2);}
     void Styles(){
-      if(buttonStyle!=null)return;
-      buttonStyle=new GUIStyle(GUIStyle.none){font=CGMenuTheme.Interface,fontSize=24,fontStyle=FontStyle.Normal,alignment=TextAnchor.MiddleCenter,wordWrap=true};
+      var design=CGMenuTheme.Design;
+      int buttonSize=design!=null?design.buttonSize:28,titleSize=design!=null?design.titleSize:42,bodySize=design!=null?design.bodySize:22;
+      if(buttonStyle!=null&&buttonStyle.font==CGMenuTheme.Interface&&buttonStyle.fontSize==buttonSize&&titleStyle!=null&&titleStyle.font==CGMenuTheme.Title&&titleStyle.fontSize==titleSize&&textStyle!=null&&textStyle.font==CGMenuTheme.Body&&textStyle.fontSize==bodySize&&tinyStyle!=null&&tinyStyle.fontSize>0){titleStyle.normal.textColor=design!=null?design.amber:new Color(1f,.52f,.10f);return;}
+      buttonStyle=new GUIStyle(GUIStyle.none){font=CGMenuTheme.Interface,fontSize=buttonSize,fontStyle=FontStyle.Normal,alignment=TextAnchor.MiddleCenter,wordWrap=true};
       buttonStyle.normal.textColor=Color.white;buttonStyle.hover.textColor=new Color(1f,.75f,.34f);
-      titleStyle=new GUIStyle(GUI.skin.label){font=CGMenuTheme.Title,fontSize=38,fontStyle=FontStyle.Normal,alignment=TextAnchor.MiddleCenter,wordWrap=true};titleStyle.normal.textColor=new Color(1f,.52f,.10f);
-      textStyle=new GUIStyle(GUI.skin.label){font=CGMenuTheme.Body,fontSize=22,alignment=TextAnchor.MiddleCenter,wordWrap=true};textStyle.normal.textColor=new Color(.96f,.97f,1f);
+      titleStyle=new GUIStyle(GUI.skin.label){font=CGMenuTheme.Title,fontSize=titleSize,fontStyle=FontStyle.Normal,alignment=TextAnchor.MiddleCenter,wordWrap=true};titleStyle.normal.textColor=design!=null?design.amber:new Color(1f,.52f,.10f);
+      textStyle=new GUIStyle(GUI.skin.label){font=CGMenuTheme.Body,fontSize=bodySize,alignment=TextAnchor.MiddleCenter,wordWrap=true};textStyle.normal.textColor=new Color(.96f,.97f,1f);
       tinyStyle=new GUIStyle(textStyle){fontSize=16};
     }
     void HeroPortrait(float x,float y,float w,float h,bool purple=false){
+      if(!CGStore.Data.useOriginalWolf&&CGGuardianMenuArt.Draw(new Rect(x,y,w,h),purple))return;
       Sprite sprite=!CGStore.Data.useOriginalWolf&&CGGuardianArt.Available?CGGuardianArt.Get(purple,0,(int)(CGMenuTheme.Clock*8)%8):CGArt.Player(purple,(int)(CGMenuTheme.Clock*5)%2,true);
       CGGuardianArt.DrawFit(new Rect(x,y,w,h),sprite);
     }
@@ -155,7 +159,9 @@ public partial class CGGame:MonoBehaviour {
       float focus=editorMenuPreview?(active?1:0):menuMotion.Focus(order);rect.x-=focus*4;rect.width+=focus*8;
       float pulse=CGStore.Data.reduceFlash ? .5f : .5f+.5f*Mathf.Sin(CGMenuTheme.Clock*5f);
       RectColor(rect,active?new Color(.18f+.13f*pulse,.073f+.04f*pulse,.06f,.99f):new Color(.025f,.045f,.085f,.96f));
-      Outline(rect,active?new Color(1,.52f,.14f,1):new Color(.28f,.42f,.57f,.83f),active?3:2);
+      Color accent=CGMenuTheme.Design!=null?CGMenuTheme.Design.amber:new Color(1,.52f,.14f,1);
+      Outline(rect,active?accent:new Color(.28f,.42f,.57f,.83f),active?3:2);
+      if(active&&!CGStore.Data.reduceFlash)RectColor(new Rect(rect.x+2,rect.yMax-4,rect.width*(.35f+.15f*pulse),2),new Color(1,.79f,.4f,.9f));
       if(active){RectColor(new Rect(x+7,y+8,5,h-16),new Color(1,.58f,.17f,1));RectColor(new Rect(x+w-11,y+8,5,h-16),new Color(1,.58f,.17f,1));}
       bool clicked=Click(rect,label,buttonStyle);if(clicked){selection=order;CGAudio.Menu(true);}return clicked;
     }
@@ -164,8 +170,9 @@ public partial class CGGame:MonoBehaviour {
     void Header(string t){
       RectColor(new Rect(0,0,1280,98),new Color(.025f,.038f,.085f,.99f));
       RectColor(new Rect(0,94,1280,4),new Color(.98f,.39f,.08f,1));
-      CGUIDraw.Text(new Rect(35,7,620,59),"CAMPUS GLITCH",new GUIStyle(titleStyle){fontSize=44});
-      CGUIDraw.Text(new Rect(45,70,520,21),"UNIFRANZ LA PAZ  |  INNOVACIÓN  ·  APRENDE HACIENDO",tinyStyle);
+      var design=CGMenuTheme.Design;var titleRect=design!=null?design.titleRect:new Rect(35,7,620,59);string title=design!=null?design.title:"CAMPUS GLITCH";
+      var shadow=titleRect;shadow.position+=new Vector2(2,3);var shadowStyle=new GUIStyle(titleStyle);shadowStyle.normal.textColor=new Color(.1f,.025f,.01f);CGUIDraw.Text(shadow,title,shadowStyle);CGUIDraw.Text(titleRect,title,titleStyle);
+      CGUIDraw.Text(new Rect(45,70,560,21),design!=null?design.campus:"UNIFRANZ LA PAZ · INNOVACIÓN · APRENDE HACIENDO",tinyStyle);
       CGUIDraw.Text(new Rect(650,25,590,47),t,textStyle);
     }
     void OnGUI(){DrawInterface(Screen.width,Screen.height);}
@@ -190,8 +197,9 @@ public partial class CGGame:MonoBehaviour {
       if(page==Page.Playing){DrawHUD();if(Time.unscaledTime<toastUntil){float ty=CGTouch.Enabled?160:630;Panel(new Rect(280,ty,720,55),new Color(.96f,.5f,.15f,1));CGUIDraw.Text(new Rect(305,ty+4,670,43),toast,textStyle);}if(!CGStore.Data.reduceFlash)RectColor(new Rect(0,0,1280,720),new Color(.015f,.025f,.055f,1-Mathf.Clamp01((Time.unscaledTime-levelEntered)/.25f)));GUI.matrix=old;GUI.color=oldColor;CGTouch.Draw();return;}
       if((page==Page.Paused||page==Page.Quiz)&&!CGTouch.Enabled){RectColor(new Rect(0,0,1280,720),new Color(.005f,.012f,.037f,.84f));}
       else{
-        var image=(page==Page.Map?Resources.Load<Texture2D>("CG/VisualV2/MapCampus"):null)??Resources.Load<Texture2D>("CG/VisualV2/MenuCampus")??CGCampusVisual.Background(0);
-        float drift=CGStore.Data.reduceFlash?0:Mathf.Sin(CGMenuTheme.Clock*.16f)*5;
+        var design=CGMenuTheme.Design;
+        var image=(page==Page.Map?(design!=null?design.mapBackground:null):design!=null?design.menuBackground:null)??(page==Page.Map?Resources.Load<Texture2D>("CG/VisualV2/MapCampus"):null)??Resources.Load<Texture2D>("CG/VisualV2/MenuCampus")??CGCampusVisual.Background(0);
+        float drift=CGStore.Data.reduceFlash?0:Mathf.Sin(CGMenuTheme.Clock*.16f)*(design!=null?design.backgroundDrift:5);
         if(image!=null)CGUIDraw.Texture(new Rect(-12+drift,-8,1304,736),image,ScaleMode.ScaleAndCrop);
         else RectColor(new Rect(0,0,1280,720),new Color(.02f,.045f,.08f,1));
         // Lightweight animated energy motes: entirely 2D UI, independent of camera.
@@ -208,7 +216,7 @@ public partial class CGGame:MonoBehaviour {
       }
       float entry=editorMenuPreview?1:menuMotion.Entry(CGStore.Data.reduceFlash);
       GUI.color=new Color(oldColor.r,oldColor.g,oldColor.b,oldColor.a*entry);
-      GUI.matrix=Matrix4x4.TRS(guiOffset+new Vector3((1-entry)*16*guiScale.x,0,0),Quaternion.identity,guiScale);
+      GUI.matrix=Matrix4x4.TRS(guiOffset+new Vector3((1-entry)*(CGMenuTheme.Design!=null?CGMenuTheme.Design.screenSlide:16)*guiScale.x,0,0),Quaternion.identity,guiScale);
       if(page==Page.Loading){
         Panel(new Rect(360,280,560,156));
         CGUIDraw.Text(new Rect(398,310,484,45),"RESTAURANDO CONEXIÓN...",textStyle);
@@ -226,10 +234,12 @@ public partial class CGGame:MonoBehaviour {
       }
       if(page==Page.Main){
         Header("MENÚ PRINCIPAL");
-        HeroPortrait(169,263,285,332,CGStore.Data.purpleEquipped);
-        Panel(new Rect(706,137,516,536));
-        for(int i=0;i<mainItems.Length;i++){string label=i==0?(CGStore.Data.latestUnlocked==0&&!CGStore.Data.completed[0]?"INICIAR AVENTURA":"CONTINUAR NIVEL "+(Mathf.Min(CGStore.Data.latestUnlocked,8)+1)):mainItems[i];if(Button(label,i,733,155+i*54,463,47))MainSelect(i);}
-        Panel(new Rect(85,168,475,65));CGUIDraw.Text(new Rect(100,177,445,45),"GUARDIÁN DEL CAMPUS  ·  EXPLORA LA PAZ",new GUIStyle(textStyle){font=CGMenuTheme.Interface,fontSize=23});
+        var design=CGMenuTheme.Design;var hero=design!=null?design.heroRect:new Rect(138,220,360,410);
+        HeroPortrait(hero.x,hero.y,hero.width,hero.height,CGStore.Data.purpleEquipped);
+        Panel(design!=null?design.mainPanel:new Rect(720,133,514,522));
+        Vector2 start=design!=null?design.firstButton:new Vector2(745,150),size=design!=null?design.buttonSizePixels:new Vector2(463,60);float spacing=design!=null?design.buttonSpacing:70;
+        for(int i=0;i<mainItems.Length;i++){string label=design!=null&&design.mainLabels!=null&&i<design.mainLabels.Length?design.mainLabels[i]:mainItems[i];if(i==0)label=CGStore.Data.latestUnlocked==0&&!CGStore.Data.completed[0]?"INICIAR AVENTURA":"CONTINUAR · NIVEL "+(Mathf.Min(CGStore.Data.latestUnlocked,8)+1);if(Button(label,i,start.x,start.y+i*spacing,size.x,size.y))MainSelect(i);}
+        Panel(new Rect(72,141,510,58));CGUIDraw.Text(new Rect(84,148,486,43),"GUARDIÁN DEL CAMPUS  ·  EXPLORA LA PAZ",new GUIStyle(textStyle){font=CGMenuTheme.Interface,fontSize=27});
       }
       if(page==Page.Map)DrawCampusMap();
       if(page==Page.Customization){Header("PERSONALIZACIÓN DEL LOBO");Panel(new Rect(190,205,900,60));Label("Lobo Guardián: armadura digital, identidad del campus y dos variantes.",215);
@@ -241,10 +251,13 @@ public partial class CGGame:MonoBehaviour {
        if(Button("VOLVER",3,355,520,570,55))ToMain();
        Panel(new Rect(238,590,804,52));Label("Equipado: "+(CGStore.Data.purpleEquipped?"MORADO":"ROJO")+"  |  "+(CGStore.Data.useOriginalWolf?"CLÁSICO":"GUARDIÁN ACORAZADO"),600);}
       if(page==Page.Settings){Header("AJUSTES");
-       if(Button("VOLUMEN GENERAL: "+Mathf.RoundToInt(CGStore.Data.masterVolume*100)+" %",0,340,242,600,65))AdjustVolume(.1f);
-       if(Button("REDUCIR DESTELLOS: "+(CGStore.Data.reduceFlash?"SÍ":"NO"),1,340,321,600,65)){CGStore.Data.reduceFlash=!CGStore.Data.reduceFlash;CGStore.Save();}
-       if(Button("SUBTÍTULOS: "+(CGStore.Data.subtitles?"SÍ":"NO"),2,340,400,600,65)){CGStore.Data.subtitles=!CGStore.Data.subtitles;CGStore.Save();}
-       if(Button("VOLVER",3,340,500,600,65))ToMain();}
+       Panel(new Rect(310,160,660,480));
+       if(Button("VOLUMEN GENERAL: "+Mathf.RoundToInt(CGStore.Data.masterVolume*100)+" %",0,340,181,600,60))AdjustVolume(.1f);
+       if(Button("REDUCIR DESTELLOS: "+(CGStore.Data.reduceFlash?"SÍ":"NO"),1,340,253,600,60)){CGStore.Data.reduceFlash=!CGStore.Data.reduceFlash;CGStore.Save();}
+       if(Button("SUBTÍTULOS: "+(CGStore.Data.subtitles?"SÍ":"NO"),2,340,325,600,60)){CGStore.Data.subtitles=!CGStore.Data.subtitles;CGStore.Save();}
+       if(Button("CONFIGURAR CONTROLES",3,340,397,600,60))OpenUIScreen("SC_Controls",Page.Controls);
+       if(Button("BORRAR PROGRESO...",4,340,469,600,60)){page=Page.ConfirmReset;selection=1;}
+       if(Button("VOLVER",5,340,553,600,60))ToMain();}
       if(page==Page.Controls){Header("CONTROLES - TECLADO / MANDO");
        Panel(new Rect(390,165,500,43));if(Click(new Rect(400,171,480,32),padMode?"EDITANDO MANDO - CAMBIAR A TECLADO":"EDITANDO TECLADO - CAMBIAR A MANDO",buttonStyle)){padMode=!padMode;rebinding=-1;}
        for(int i=0;i<8;i++)if(Button(CGControl.Names[i]+":  "+(rebinding==i?"PULSA UN BOTÓN":padMode?CGStore.Data.padBindings[i]:CGStore.Data.actionKeys[i]),i,375,215+i*51,530,43))rebinding=i;
@@ -254,7 +267,8 @@ public partial class CGGame:MonoBehaviour {
        Label("E / Y: hablar con NPC, activar checkpoint, terminal y portal de salida.",306);
        Label("J / X: mordida; evita enemigos y derrota a los jefes de fase.",363);
        Label("La skin morada llega tras el NIVEL 2; Subsuelo extra tras el NIVEL 5.",424);
-       if(Button("VOLVER",0,395,550,490,55))ToMain();}
+       if(Button("CONFIGURAR CONTROLES",0,325,530,630,55))OpenUIScreen("SC_Controls",Page.Controls);
+       if(Button("VOLVER",1,325,598,630,55))ToMain();}
       if(page==Page.Credits){Header("CRÉDITOS - DESARROLLO");Panel(new Rect(180,205,920,415));Label("VICTOR GROVER ASTURIZAGA PLATA",233);Label("Terrenos, assets, diseño de niveles y colisiones",265,32);
        Label("CARLA VALERIA ENCINAS CANO",321);Label("Animación del protagonista y sonidos",350,31);
        Label("VICENTE OSCAR CLAROS MAMANI",405);Label("Integración, menús, conexiones y acciones",435,31);
