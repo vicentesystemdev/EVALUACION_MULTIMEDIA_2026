@@ -36,11 +36,23 @@ public class CGWorld : MonoBehaviour {
     };
     // Keep a clear ground corridor and at least a full character height between tiers.
     foreach(float x in routes[index]) Platform(x,2.8f,2.6f,.32f,true);
-    foreach(float x in new float[]{19+index%4,43+index%5,59+index%3}) Platform(x,5.34f,2.0f,.28f,true);
+    foreach(float originalX in new float[]{19+index%4,43+index%5,59+index%3}){
+       float x=originalX;
+       // A platform directly above the launch pad seals the jump column with its underside.
+       if(index==1&&x==44)x=46.6f;
+       if(index==5&&x==20)x=22.6f;
+       if(index==7&&(x==22||x==60))x+=2.6f;
+       if(index==9&&x==20)x=21.6f;
+       Platform(x,5.34f,2.0f,.28f,true);
+    }
     if(index==2||index==6||index==7){
+       // Connect each upper route to a first-tier launch pad and a second-tier landing.
+       Platform(34.8f,2.8f,2.6f,.32f,true);
+       if(index==2)Platform(48.8f,2.8f,2.6f,.32f,true);
+       foreach(float x in new[]{25.4f,37.4f,51.4f})Platform(x,5.34f,2.0f,.28f,true);
        foreach(float x in new float[]{28,40,54})Platform(x,8.2f,2.2f,.28f,true);
     }
-    if(index==9)foreach(float x in new float[]{18,28,38,48,58})Platform(x,5.34f,2.7f,.28f,true);
+    if(index==9)foreach(float x in new float[]{16,28,38,48,58})Platform(x,5.34f,2.7f,.28f,true);
     if(index==0)CGLevelOneStage.Decorate(this);
     else {CGCampusDepthStage.Decorate(this);for(int x=5;x<68;x+=4+(index%3)){
       int pidx=(x/4+index)%spec.props.Length;
