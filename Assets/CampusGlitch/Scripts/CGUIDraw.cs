@@ -9,13 +9,18 @@ public static class CGUIDraw {
         public int fontSize;public FontStyle fontStyle;public TextAnchor alignment;public bool wrap;public Color color;
     }
     public static List<Item> Capture;
+    static Color captureColor=UnityEngine.Color.white;
+    static Matrix4x4 captureMatrix=Matrix4x4.identity;
+    public static Color Color {get{return Capture!=null?captureColor:GUI.color;}set{if(Capture!=null)captureColor=value;else GUI.color=value;}}
+    public static Matrix4x4 Matrix {get{return Capture!=null?captureMatrix:GUI.matrix;}set{if(Capture!=null)captureMatrix=value;else GUI.matrix=value;}}
+    public static void ResetCaptureState(){captureColor=UnityEngine.Color.white;captureMatrix=Matrix4x4.identity;}
     public static void Text(Rect rect,string text,GUIStyle style){
         if(Capture==null){GUI.Label(rect,text,style);return;}
-        Capture.Add(new Item{rect=rect,text=text,font=style.font,fontSize=style.fontSize,fontStyle=style.fontStyle,alignment=style.alignment,wrap=style.wordWrap,color=style.normal.textColor*GUI.color});
+        Capture.Add(new Item{rect=rect,text=text,font=style.font,fontSize=style.fontSize,fontStyle=style.fontStyle,alignment=style.alignment,wrap=style.wordWrap,color=style.normal.textColor*Color});
     }
     public static void Uv(Rect rect,Texture texture,Rect uv,bool alpha=true){
         if(Capture==null){GUI.DrawTextureWithTexCoords(rect,texture,uv,alpha);return;}
-        Capture.Add(new Item{rect=rect,texture=texture,uv=uv,color=GUI.color});
+        Capture.Add(new Item{rect=rect,texture=texture,uv=uv,color=Color});
     }
     public static void Texture(Rect rect,Texture texture,ScaleMode mode=ScaleMode.StretchToFill){
         if(Capture==null){GUI.DrawTexture(rect,texture,mode);return;}

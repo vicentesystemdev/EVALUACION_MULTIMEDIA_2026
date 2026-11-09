@@ -135,7 +135,7 @@ public partial class CGGame:MonoBehaviour {
     }
     void AfterVictory(){int next=sceneLevel==9?0:sceneLevel+1;if(next==9){ToMain();return;}ChooseLevel(next);}
     void QuizAnswer(int selected){if(selected==world.spec.right){CGAudio.Play("Checkpoint");terminalSolved=true;Hint("¡Respuesta correcta! Terminal restaurada.");page=Page.Playing;Time.timeScale=1;resumedInputFrame=Time.frameCount;}else{CGAudio.Play("Denied");Hint("Esa opción no recupera los datos. Intenta otra vez.");}}
-    void RectColor(Rect r,Color color){Color old=GUI.color;color.a*=old.a;GUI.color=color;CGUIDraw.Texture(r,Texture2D.whiteTexture);GUI.color=old;}
+    void RectColor(Rect r,Color color){Color old=CGUIDraw.Color;color.a*=old.a;CGUIDraw.Color=color;CGUIDraw.Texture(r,Texture2D.whiteTexture);CGUIDraw.Color=old;}
     void Outline(Rect r,Color color,int b=3){RectColor(new Rect(r.x,r.y,r.width,b),color);RectColor(new Rect(r.x,r.yMax-b,r.width,b),color);RectColor(new Rect(r.x,r.y,b,r.height),color);RectColor(new Rect(r.xMax-b,r.y,b,r.height),color);}
     void Panel(Rect r,Color? accent=null){var design=CGMenuTheme.Design;RectColor(r,design!=null?design.ink:new Color(.022f,.035f,.075f,.94f));Outline(r,accent??(design!=null?design.amber:new Color(.92f,.34f,.11f,.96f)),2);}
     void Styles(){
@@ -144,8 +144,8 @@ public partial class CGGame:MonoBehaviour {
       if(buttonStyle!=null&&buttonStyle.font==CGMenuTheme.Interface&&buttonStyle.fontSize==buttonSize&&titleStyle!=null&&titleStyle.font==CGMenuTheme.Title&&titleStyle.fontSize==titleSize&&textStyle!=null&&textStyle.font==CGMenuTheme.Body&&textStyle.fontSize==bodySize&&tinyStyle!=null&&tinyStyle.fontSize>0){titleStyle.normal.textColor=design!=null?design.amber:new Color(1f,.52f,.10f);return;}
       buttonStyle=new GUIStyle(GUIStyle.none){font=CGMenuTheme.Interface,fontSize=buttonSize,fontStyle=FontStyle.Normal,alignment=TextAnchor.MiddleCenter,wordWrap=true};
       buttonStyle.normal.textColor=Color.white;buttonStyle.hover.textColor=new Color(1f,.75f,.34f);
-      titleStyle=new GUIStyle(GUI.skin.label){font=CGMenuTheme.Title,fontSize=titleSize,fontStyle=FontStyle.Normal,alignment=TextAnchor.MiddleCenter,wordWrap=true};titleStyle.normal.textColor=design!=null?design.amber:new Color(1f,.52f,.10f);
-      textStyle=new GUIStyle(GUI.skin.label){font=CGMenuTheme.Body,fontSize=bodySize,alignment=TextAnchor.MiddleCenter,wordWrap=true};textStyle.normal.textColor=new Color(.96f,.97f,1f);
+      titleStyle=new GUIStyle(GUIStyle.none){font=CGMenuTheme.Title,fontSize=titleSize,fontStyle=FontStyle.Normal,alignment=TextAnchor.MiddleCenter,wordWrap=true};titleStyle.normal.textColor=design!=null?design.amber:new Color(1f,.52f,.10f);
+      textStyle=new GUIStyle(GUIStyle.none){font=CGMenuTheme.Body,fontSize=bodySize,alignment=TextAnchor.MiddleCenter,wordWrap=true};textStyle.normal.textColor=new Color(.96f,.97f,1f);
       tinyStyle=new GUIStyle(textStyle){fontSize=16};
     }
     void HeroPortrait(float x,float y,float w,float h,bool purple=false){
@@ -183,7 +183,7 @@ public partial class CGGame:MonoBehaviour {
       try{DrawInterface(1280,720);}finally{page=originalPage;selection=originalSelection;editorMenuPreview=false;}
     }
 #endif
-    void DrawInterface(float viewportWidth,float viewportHeight){CGStore.Load();Styles();var old=GUI.matrix;var oldColor=GUI.color;
+    void DrawInterface(float viewportWidth,float viewportHeight){CGStore.Load();Styles();var old=CGUIDraw.Matrix;var oldColor=CGUIDraw.Color;
       if(!editorMenuPreview&&Event.current.isKey)Event.current.Use(); // Input System handles actions once.
       float desktopUnit=Mathf.Min(viewportWidth/1280f,viewportHeight/720f);
       Vector3 guiScale=new Vector3(desktopUnit,desktopUnit,1),guiOffset=new Vector3((viewportWidth-1280*desktopUnit)*.5f,(viewportHeight-720*desktopUnit)*.5f,0);
@@ -193,8 +193,8 @@ public partial class CGGame:MonoBehaviour {
         if(page==Page.Paused||page==Page.Quiz)RectColor(new Rect(0,0,Screen.width,Screen.height),new Color(.005f,.012f,.037f,.84f));
         else if(page!=Page.Playing)RectColor(new Rect(0,0,Screen.width,Screen.height),new Color(.02f,.045f,.08f,1));
       }
-      GUI.matrix=Matrix4x4.TRS(guiOffset,Quaternion.identity,guiScale);
-      if(page==Page.Playing){DrawHUD();if(Time.unscaledTime<toastUntil){float ty=CGTouch.Enabled?160:630;Panel(new Rect(280,ty,720,55),new Color(.96f,.5f,.15f,1));CGUIDraw.Text(new Rect(305,ty+4,670,43),toast,textStyle);}if(!CGStore.Data.reduceFlash)RectColor(new Rect(0,0,1280,720),new Color(.015f,.025f,.055f,1-Mathf.Clamp01((Time.unscaledTime-levelEntered)/.25f)));GUI.matrix=old;GUI.color=oldColor;CGTouch.Draw();return;}
+      CGUIDraw.Matrix=Matrix4x4.TRS(guiOffset,Quaternion.identity,guiScale);
+      if(page==Page.Playing){DrawHUD();if(Time.unscaledTime<toastUntil){float ty=CGTouch.Enabled?160:630;Panel(new Rect(280,ty,720,55),new Color(.96f,.5f,.15f,1));CGUIDraw.Text(new Rect(305,ty+4,670,43),toast,textStyle);}if(!CGStore.Data.reduceFlash)RectColor(new Rect(0,0,1280,720),new Color(.015f,.025f,.055f,1-Mathf.Clamp01((Time.unscaledTime-levelEntered)/.25f)));CGUIDraw.Matrix=old;CGUIDraw.Color=oldColor;CGTouch.Draw();return;}
       if((page==Page.Paused||page==Page.Quiz)&&!CGTouch.Enabled){RectColor(new Rect(0,0,1280,720),new Color(.005f,.012f,.037f,.84f));}
       else{
         var design=CGMenuTheme.Design;
@@ -215,8 +215,8 @@ public partial class CGGame:MonoBehaviour {
         CGUIDraw.Text(new Rect(28,684,1235,28),page==Page.Map?"MOVER: DIRECCIONES / STICK   ·   A / ENTER: JUGAR   ·   Y / TAB: DETALLES   ·   LB / RB: NIVEL   ·   B / ESC: VOLVER":"MOVER: DIRECCIONES / STICK     ·     A / ENTER: ELEGIR     ·     B / ESC: VOLVER     ·     CAMPUS 2.5D",tinyStyle);
       }
       float entry=editorMenuPreview?1:menuMotion.Entry(CGStore.Data.reduceFlash);
-      GUI.color=new Color(oldColor.r,oldColor.g,oldColor.b,oldColor.a*entry);
-      GUI.matrix=Matrix4x4.TRS(guiOffset+new Vector3((1-entry)*(CGMenuTheme.Design!=null?CGMenuTheme.Design.screenSlide:16)*guiScale.x,0,0),Quaternion.identity,guiScale);
+      CGUIDraw.Color=new Color(oldColor.r,oldColor.g,oldColor.b,oldColor.a*entry);
+      CGUIDraw.Matrix=Matrix4x4.TRS(guiOffset+new Vector3((1-entry)*(CGMenuTheme.Design!=null?CGMenuTheme.Design.screenSlide:16)*guiScale.x,0,0),Quaternion.identity,guiScale);
       if(page==Page.Loading){
         Panel(new Rect(360,280,560,156));
         CGUIDraw.Text(new Rect(398,310,484,45),"RESTAURANDO CONEXIÓN...",textStyle);
@@ -291,8 +291,8 @@ public partial class CGGame:MonoBehaviour {
       if(page==Page.ConfirmReset){Header("¿BORRAR PROGRESO?");Label("Se eliminarán los niveles completados y las skins desbloqueadas.",311);
        if(Button("SÍ, BORRAR",0,320,431,300,58)){CGStore.Reset();ToMain();}if(Button("CANCELAR",1,660,431,300,58))ToMain();}
       if(Time.unscaledTime<toastUntil && page!=Page.Playing){CGUIDraw.Text(new Rect(180,628,920,35),toast,tinyStyle);}
-      GUI.matrix=old;
-      GUI.color=oldColor;
+      CGUIDraw.Matrix=old;
+      CGUIDraw.Color=oldColor;
     }
     void DrawHUD(){
       if(world==null||Hero==null)return;

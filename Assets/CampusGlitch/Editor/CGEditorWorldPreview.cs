@@ -14,12 +14,12 @@ public static class CGEditorWorldPreview {
     static GameObject preview,legacy;
     static bool legacyHidden;
     static readonly Dictionary<Renderer,bool> renderStates=new Dictionary<Renderer,bool>();
-    static bool scheduled,building;
+    static bool building;
     static bool previewClassic,previewPurple;
     static double nextFrame;
 
     static CGEditorWorldPreview(){
-        EditorSceneManager.sceneOpened+=(scene,mode)=>Schedule();
+        EditorSceneManager.sceneOpened+=(scene,mode)=>{Schedule();if(mode==OpenSceneMode.Single)EditorApplication.delayCall+=FrameEntrance;};
         EditorSceneManager.sceneClosing+=(scene,removing)=>Cleanup();
         EditorSceneManager.activeSceneChangedInEditMode+=(oldScene,newScene)=>Schedule();
         EditorApplication.projectChanged+=Schedule;
@@ -31,12 +31,15 @@ public static class CGEditorWorldPreview {
         AssemblyReloadEvents.beforeAssemblyReload+=Cleanup;
         EditorApplication.quitting+=Cleanup;
         Schedule();
+        EditorApplication.delayCall+=FrameEntrance;
     }
-    static void Schedule(){if(scheduled)return;scheduled=true;EditorApplication.delayCall+=()=>{scheduled=false;Refresh();};}
+    static void Schedule(){EditorApplication.delayCall-=DeferredRefresh;EditorApplication.delayCall+=DeferredRefresh;}
+    static void DeferredRefresh(){Refresh();}
 
     [MenuItem("Campus Glitch/Vista del nivel/Actualizar mundo en Scene")]
     public static void Refresh(){
-        if(building||EditorApplication.isCompiling||EditorApplication.isPlayingOrWillChangePlaymode||BuildPipeline.isBuildingPlayer)return;
+        EditorApplication.delayCall-=DeferredRefresh;
+        if(building||Application.isBatchMode||EditorApplication.isCompiling||EditorApplication.isPlayingOrWillChangePlaymode||BuildPipeline.isBuildingPlayer)return;
         var scene=SceneManager.GetActiveScene();
         if(!scene.IsValid()||!scene.isLoaded||EditorSceneManager.IsPreviewScene(scene))return;
         CGGame controller=null;
@@ -87,7 +90,7 @@ public static class CGEditorWorldPreview {
         finally{CGStore.Data=originalData;building=false;}
     }
     public static void Cleanup(){
-        if(preview!=null)Object.DestroyImmediate(preview);
+        if(preview!=null){if(Selection.activeTransform!=null&&Selection.activeTransform.IsChildOf(preview.transform)){var world=preview.GetComponent<CGWorld>();Selection.activeObject=world!=null?world.game:null;}Object.DestroyImmediate(preview);}
         preview=null;
         foreach(var item in renderStates)if(item.Key!=null)item.Key.forceRenderingOff=item.Value;
         renderStates.Clear();
@@ -120,8 +123,11 @@ public static class CGEditorWorldPreview {
     }
     [MenuItem("Campus Glitch/Vista del nivel/Enfocar entrada")]
     public static void FrameEntrance(){
-        var view=SceneView.lastActiveSceneView;if(view==null)return;
-        view.in2DMode=true;view.orthographic=true;view.LookAtDirect(new Vector3(8,2.8f,0),Quaternion.identity,8.8f);view.Focus();
+        if(preview==null||EditorApplication.isPlayingOrWillChangePlaymode)return;
+        var world=preview.GetComponent<CGWorld>();if(world==null||world.ViewCamera==null)return;
+        var camera=world.ViewCamera;
+        var view=EditorWindow.GetWindow<SceneView>();
+        view.in2DMode=true;view.orthographic=true;view.LookAtDirect(new Vector3(camera.transform.position.x,camera.transform.position.y,0),Quaternion.identity,camera.orthographicSize);view.Focus();
         view.Repaint();
     }
 }

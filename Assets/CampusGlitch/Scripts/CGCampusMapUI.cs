@@ -77,8 +77,8 @@ public partial class CGGame {
         else{
             Rect badge=new Rect(rect.x+8,rect.y+7,46,24);RectColor(badge,MapAmber);MapLabel(badge,"N"+(index+1).ToString("00"),20,new Color(.02f,.03f,.06f),false,TextAnchor.MiddleCenter);
             MapLabel(new Rect(rect.x+62,rect.y+3,200,34),CGMenuTheme.MapNames[index],19);
-            var oldColor=GUI.color;if(!unlocked)GUI.color=new Color(.48f,.54f,.65f,oldColor.a);
-            MapImage(new Rect(rect.x+7,rect.y+40,rect.width-14,47),index);GUI.color=oldColor;
+            var oldColor=CGUIDraw.Color;if(!unlocked)CGUIDraw.Color=new Color(.48f,.54f,.65f,oldColor.a);
+            MapImage(new Rect(rect.x+7,rect.y+40,rect.width-14,47),index);CGUIDraw.Color=oldColor;
             MapLabel(new Rect(rect.x+8,rect.y+88,rect.width-16,23),MapState(index)+(complete?" · 3/3 DATOS":""),19,accent,false,TextAnchor.MiddleCenter);
         }
         if(!editorMenuPreview&&pointerMoved&&rect.Contains(Event.current.mousePosition))selection=mapSelection=index;
@@ -88,10 +88,10 @@ public partial class CGGame {
         bool complete=CGStore.Data.completed[index],unlocked=Unlocked(index);Color accent=complete?MapGreen:unlocked?MapCyan:MapLocked;
         Panel(rect,MapAmber);
         MapLabel(new Rect(rect.x+16,rect.y+10,rect.width-32,56),(index==9?"EXTRA":"N"+(index+1).ToString("00"))+" · "+CGMenuTheme.MapNames[index],27);
-        var previousColor=GUI.color;
+        var previousColor=CGUIDraw.Color;
         float imageEntry=editorMenuPreview||CGStore.Data.reduceFlash?1:Mathf.SmoothStep(.65f,1,Mathf.Clamp01((CGMenuTheme.Clock-mapChangedAt)/.18f));
-        GUI.color=new Color(previousColor.r,previousColor.g,previousColor.b,previousColor.a*imageEntry);
-        MapImage(new Rect(rect.x+16,rect.y+78,rect.width-32,145),index);GUI.color=previousColor;
+        CGUIDraw.Color=new Color(previousColor.r,previousColor.g,previousColor.b,previousColor.a*imageEntry);
+        MapImage(new Rect(rect.x+16,rect.y+78,rect.width-32,145),index);CGUIDraw.Color=previousColor;
         MapLabel(new Rect(rect.x+16,rect.y+226,rect.width-32,28),MapState(index)+"  /  "+Risk[index],19,accent);
         MapLabel(new Rect(rect.x+16,rect.y+262,rect.width-32,64),CGLevels.All[index].objective,18,null,true);
         MapLabel(new Rect(rect.x+16,rect.y+330,rect.width-32,50),complete?"REGISTRO GUARDADO\n3/3 datos · terminal y portal completados":"OBJETIVOS\n3 fragmentos · terminal · portal",18,complete?MapGreen:Color.white);
