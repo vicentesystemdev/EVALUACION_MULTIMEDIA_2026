@@ -61,7 +61,7 @@ public class CGHero:MonoBehaviour {
    // Keep the artwork legible; collider geometry remains independent from the sprite.
    art.transform.localScale=Vector3.one;
  }
- void Update(){if(game==null||!game.Playing){moveInput=0;return;}
+ void Update(){if(game==null||!game.AcceptsPlayerInput){moveInput=0;return;}
    moveInput=CGControl.Axis(); running=CGControl.HoldRun();if(Mathf.Abs(moveInput)>0.07f)facesRight=moveInput>0;
    if(Grounded)lastGrounded=Time.time;
    if(CGControl.Jump())queuedJump=Time.time;

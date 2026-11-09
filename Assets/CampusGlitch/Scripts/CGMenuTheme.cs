@@ -2,6 +2,12 @@ using UnityEngine;
 
 namespace CampusGlitch {
 public static class CGMenuTheme {
+    public static float Clock {get{
+#if UNITY_EDITOR
+        if(!Application.isPlaying)return (float)UnityEditor.EditorApplication.timeSinceStartup;
+#endif
+        return Time.unscaledTime;
+    }}
     static Font title,interfaceFont,body;
     public static Font Title {get{if(title==null)title=Resources.Load<Font>("CG/Typography/Bungee-Regular");return title;}}
     public static Font Interface {get{if(interfaceFont==null)interfaceFont=Resources.Load<Font>("CG/Typography/Rajdhani-SemiBold");return interfaceFont;}}

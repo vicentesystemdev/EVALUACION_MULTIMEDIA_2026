@@ -60,7 +60,7 @@ public static class CGGuardianArt {
     static void DrawRegion(Rect area,Texture2D texture,Rect uv) {
         float scale = Mathf.Min(area.width / uv.width, area.height / uv.height);
         Rect target = new Rect(area.center.x - uv.width * scale * .5f, area.center.y - uv.height * scale * .5f, uv.width * scale, uv.height * scale);
-        GUI.DrawTextureWithTexCoords(target, texture, new Rect(uv.x / texture.width, uv.y / texture.height, uv.width / texture.width, uv.height / texture.height), true);
+        CGUIDraw.Uv(target, texture, new Rect(uv.x / texture.width, uv.y / texture.height, uv.width / texture.width, uv.height / texture.height), true);
     }
 }
 }

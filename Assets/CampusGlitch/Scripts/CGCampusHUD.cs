@@ -16,9 +16,9 @@ public static class CGCampusHUD {
     }
     static void Styles() {
         if (small != null) return;
-        small = new GUIStyle(GUI.skin.label) { fontSize = 15, alignment = TextAnchor.MiddleLeft };
+        small = new GUIStyle(GUI.skin.label) { font=CGMenuTheme.Body, fontSize = 15, alignment = TextAnchor.MiddleLeft };
         small.normal.textColor = new Color(.82f, .88f, .96f);
-        title = new GUIStyle(small) { fontSize = 18, fontStyle = FontStyle.Bold };
+        title = new GUIStyle(small) { font=CGMenuTheme.Interface, fontSize = 21, fontStyle = FontStyle.Normal };
         title.normal.textColor = Color.white;
         number = new GUIStyle(title) { fontSize = 25, alignment = TextAnchor.MiddleCenter };
     }
@@ -44,10 +44,12 @@ public static class CGCampusHUD {
         GUI.Label(new Rect(442, 24, 405, 27), CGCampusDepthStage.AreaAt(world.index,hero.transform.position.x), title);
         for (int i = 0; i < 3; i++) {
             Card(new Rect(443 + 34 * i, 65, 25, 25), taken[i] ? Amber : new Color(.28f, .34f, .48f));
-            GUI.Label(new Rect(443 + 34 * i, 65, 25, 25), taken[i] ? "◆" : "·", number);
+            var fragment=CGArt.Get("01_Nuevos_Modulares/Global_UI/CoinIcon");
+            if(taken[i]&&fragment!=null)CGGuardianArt.DrawFit(new Rect(447+34*i,68,17,19),fragment);
+            else GUI.Label(new Rect(443 + 34 * i, 65, 25, 25), "·", number);
         }
         GUI.Label(new Rect(550, 65, 79, 25), chips + "/3 DATOS", small);
-        GUI.Label(new Rect(649, 65, 204, 25), terminalSolved ? "✓ TERMINAL RESTAURADA" : "○ TERMINAL PENDIENTE", small);
+        GUI.Label(new Rect(649, 65, 204, 25), terminalSolved ? "TERMINAL RESTAURADA" : "TERMINAL PENDIENTE", small);
 
         Card(new Rect(878, 18, 384, 94), accent);
         GUI.Label(new Rect(893, 24, 350, 25), "RUTA DEL CAMPUS", title);
