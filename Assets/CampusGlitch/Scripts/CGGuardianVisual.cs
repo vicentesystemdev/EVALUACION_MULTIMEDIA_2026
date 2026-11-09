@@ -8,6 +8,9 @@ public class CGGuardianVisual : MonoBehaviour {
     int state = -1;
     float stateAt, attackSeen, hurtSeen, attackEnd, hurtEnd, landEnd;
     bool wasGrounded, celebrating;
+    [SerializeField,HideInInspector] string currentAnimation="Idle";
+    static readonly string[] AnimationNames={"Idle","Caminar","Correr","Saltar","Caer / aterrizar","Atacar","Daño","Victoria"};
+    public string CurrentAnimation {get{return currentAnimation;}}
     public void Configure(CGHero owner, SpriteRenderer renderer) { hero = owner; view = renderer; }
     public void Celebrate() { celebrating = true; }
 
@@ -21,6 +24,7 @@ public class CGGuardianVisual : MonoBehaviour {
             !hero.Grounded ? (hero.Body.linearVelocity.y > .3f ? 3 : 4) :
             Time.time < landEnd ? 4 : Mathf.Abs(hero.moveInput) > .15f ? (hero.running ? 2 : 1) : 0;
         if (next != state) { state = next; stateAt = Time.time; }
+        currentAnimation=AnimationNames[state];
         float elapsed = Time.time - stateAt;
         int frame;
         switch (state) {

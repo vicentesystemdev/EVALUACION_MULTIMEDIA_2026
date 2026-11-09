@@ -15,7 +15,7 @@ public static class CGCampusActors {
     }
     public static Sprite Frame(bool enemy,int row,int frame){
         int atlasIndex=enemy?1:0;
-        if(sprites[atlasIndex]==null){
+        if(sprites[atlasIndex]==null||sprites[atlasIndex][0]==null){
             string name=enemy?"CampusEnemies":"CampusNPC";
             var texture=Resources.Load<Texture2D>("CG/ActorsV2/"+name);
             var data=Resources.Load<TextAsset>("CG/ActorsV2/"+name+"_Frames");
@@ -29,6 +29,7 @@ public static class CGCampusActors {
                 if(f.w<=0||f.h<=0||f.x<0||f.y<0||f.x+f.w>texture.width||f.y+f.h>texture.height)return null;
                 loaded[i]=Sprite.Create(texture,new Rect(f.x,f.y,f.w,f.h),new Vector2(f.pivotX/f.w,0),128,0,SpriteMeshType.FullRect);
                 loaded[i].name=name+"_"+(i/atlas.columns)+"_"+(i%atlas.columns);
+                loaded[i].hideFlags=HideFlags.HideAndDontSave;
             }
             sprites[atlasIndex]=loaded;
         }

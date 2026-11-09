@@ -13,12 +13,15 @@ public static class CGGuardianArt {
 
     static void Load(bool purple) {
         int skin = purple ? 1 : 0;
-        if (loaded[skin]) return;
+        if (loaded[skin] && sprites[skin] != null && sprites[skin][0] != null) return;
         loaded[skin] = true;
         string name = purple ? "Morado" : "Rojo";
         var texture = Resources.Load<Texture2D>("CG/GuardianV2/Guardian_" + name);
         var data = Resources.Load<TextAsset>("CG/GuardianV2/GuardianFrames_" + name);
         if (texture == null || data == null) return;
+        texture.filterMode=FilterMode.Point;
+        texture.anisoLevel=0;
+        texture.wrapMode=TextureWrapMode.Clamp;
         var atlas = JsonUtility.FromJson<Atlas>(data.text);
         if (atlas == null || atlas.frames == null || atlas.frames.Length != 64) return;
         foreach (var f in atlas.frames)
@@ -28,6 +31,7 @@ public static class CGGuardianArt {
             var f = atlas.frames[i];
             var sprite = Sprite.Create(texture, new Rect(f.x, f.y, f.w, f.h), new Vector2(f.pivotX / f.w, 0), 128, 0, SpriteMeshType.FullRect);
             sprite.name = "Guardian_" + name + "_" + (i / 8) + "_" + (i % 8);
+            sprite.hideFlags = HideFlags.HideAndDontSave;
             sprites[skin][i] = sprite;
         }
         // A single scale per skin preserves anticipation, squash and stride between frames.

@@ -47,7 +47,7 @@ public class CGHero:MonoBehaviour {
  static PhysicsMaterial2D movementMaterial;
  public Rigidbody2D Body {get;private set;}
  public float moveInput;public bool facesRight=true,running,Grounded;
- public int hearts=3; public float hurtUntil,attackUntil;float lastGrounded,queuedJump,lastAttack, abilityUntil;
+ public int hearts=3; public float hurtUntil,attackUntil;float lastGrounded=-999f,queuedJump=-999f,lastAttack, abilityUntil;
  CGGame game;CGFrameAnimator anim;
  public void Setup(CGGame g){game=g;Body=gameObject.AddComponent<Rigidbody2D>();Body.gravityScale=3.2f;Body.freezeRotation=true;Body.collisionDetectionMode=CollisionDetectionMode2D.Continuous;
    CapsuleCollider2D co=gameObject.AddComponent<CapsuleCollider2D>();co.size=new Vector2(0.76f,1.64f);co.offset=new Vector2(0,0.82f);
