@@ -94,7 +94,7 @@ public class CGGame:MonoBehaviour {
       float x=Hero.transform.position.x;
       if(Mathf.Abs(x-8)<1.7f){
         var guide=world.root.GetComponentInChildren<CGCampusNPC>();
-        if(guide!=null&&guide.role=="GUARDIA U")guide.Speak();else{message=world.spec.dialogue;Hint(message);}return;}
+        if(guide!=null)guide.Speak();else{message=world.spec.dialogue;Hint(message);}return;}
       if(Mathf.Abs(x-35)<1.5f){world.checkpoint=true;world.checkpointX=35;CGAudio.Play("Checkpoint");Hint("Checkpoint activado. ¡Continúa!");return;}
       if(Mathf.Abs(x-40)<1.6f){page=Page.Quiz;Time.timeScale=0;selection=0;return;}
       if(Mathf.Abs(x-69)<2f){if(chips<3){Hint("Necesitas reunir los tres fragmentos de datos.");return;}

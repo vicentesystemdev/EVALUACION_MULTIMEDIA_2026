@@ -4,8 +4,8 @@ using UnityEngine;
 namespace CampusGlitch {
 public static class CGCampusActors {
     [Serializable] class Atlas {public int columns,rows;public CGGuardianArt.Frame[] frames;}
-    static readonly Sprite[][] sprites=new Sprite[2][];
-    static readonly int[] columns={4,8};
+    static readonly Sprite[][] sprites=new Sprite[3][];
+    static readonly int[] columns={4,8,4};
     static Material material;
     public static Material Material {
         get {
@@ -14,9 +14,10 @@ public static class CGCampusActors {
         }
     }
     public static Sprite Frame(bool enemy,int row,int frame){
-        int atlasIndex=enemy?1:0;
+        int atlasIndex=enemy?1:row>=4?2:0;
+        if(atlasIndex==2)row-=4;
         if(sprites[atlasIndex]==null||sprites[atlasIndex][0]==null){
-            string name=enemy?"CampusEnemies":"CampusNPC";
+            string name=enemy?"CampusEnemies":atlasIndex==2?"CampusStaff":"CampusNPC";
             var texture=Resources.Load<Texture2D>("CG/ActorsV2/"+name);
             var data=Resources.Load<TextAsset>("CG/ActorsV2/"+name+"_Frames");
             if(texture==null||data==null)return null;
@@ -36,18 +37,18 @@ public static class CGCampusActors {
         int index=row*columns[atlasIndex]+Mathf.Clamp(frame,0,columns[atlasIndex]-1);
         return index>=0&&index<sprites[atlasIndex].Length?sprites[atlasIndex][index]:null;
     }
-    public static int NpcRow(string kind){return kind=="Guardia_U"?0:kind=="Estudiante"?1:kind=="Tecnica_Lab"?2:-1;}
+    public static int NpcRow(string kind){
+        switch(kind){case "Guardia_U":return 0;case "Estudiante":return 1;case "Tecnica_Lab":return 2;
+            case "Unifranzito":return 3;case "Recepcionista":return 4;case "Director":return 5;case "Docente":return 6;case "Noemi_Moller":return 7;default:return -1;}
+    }
     public static int EnemyRow(string kind){return kind=="Bug_Terrestre"?0:kind=="Bug_Saltador"?1:kind=="Centinela"?2:-1;}
     public static void Npc(GameObject obj,string kind,CGWorld world){
         int row=NpcRow(kind);if(row<0||Frame(false,row,0)==null)return;
-        obj.AddComponent<CGCampusActor>().Configure(world,false,row,1.65f,.825f);
-        if(world.index==0){
-            var npc=obj.AddComponent<CGCampusNPC>();
-            npc.Configure(world,kind);
-        }
+        obj.AddComponent<CGCampusActor>().Configure(world,false,row,row==3?.9f:1.65f,.825f);
+        var npc=obj.AddComponent<CGCampusNPC>();npc.Configure(world,kind);
     }
     public static void Assistant(GameObject obj,CGWorld world){
-        if(Frame(false,3,0)!=null)obj.AddComponent<CGCampusActor>().Configure(world,false,3,.72f,.36f);
+        if(Frame(false,3,0)!=null)obj.AddComponent<CGCampusActor>().Configure(world,false,3,.95f,.475f);
     }
     public static void Enemy(GameObject obj,CGEnemy enemy,CGWorld world){
         int row=EnemyRow(enemy.kind);
