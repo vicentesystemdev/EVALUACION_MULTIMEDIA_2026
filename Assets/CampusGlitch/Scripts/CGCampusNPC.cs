@@ -8,6 +8,7 @@ public class CGCampusNPC:MonoBehaviour {
     public void Configure(CGWorld owner,string kind){
         world=owner;
         role=kind=="Guardia_U"?"GUARDIA U":kind=="Estudiante"?"ESTUDIANTE":kind=="Tecnica_Lab"?"TÉCNICA DE LAB":kind=="Recepcionista"?"RECEPCIÓN":kind=="Director"?"DIRECCIÓN":kind=="Docente"?"DOCENTE":kind=="Unifranzito"?"GUÍA DE BIBLIOTECA":"COORDINACIÓN DE SISTEMAS";
+        if(owner.index==8&&kind=="Noemi_Moller")role="GUÍA DEL NÚCLEO";
         dialogue=owner.index!=0||kind=="Guardia_U"?owner.spec.dialogue:kind=="Estudiante"?
             "Busca los tres fragmentos de datos. Las franjas luminosas marcan las plataformas sólidas.":
             "La terminal está a la derecha. Acércate y pulsa Interactuar para recuperar la conexión.";

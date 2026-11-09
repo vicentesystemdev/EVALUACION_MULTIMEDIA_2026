@@ -17,6 +17,8 @@ public class CGWorld : MonoBehaviour {
     if(cam==null){GameObject cg=new GameObject("Gameplay_Camera");cg.tag="MainCamera";cam=cg.AddComponent<Camera>();cam.orthographic=true;cam.orthographicSize=5.65f;cg.AddComponent<AudioListener>();}
     ViewCamera=cam;
     cam.orthographic=true;cam.orthographicSize=5.7f;cam.clearFlags=CameraClearFlags.SolidColor;cam.transform.rotation=Quaternion.identity;cam.transform.position=new Vector3(8f,2.2f,-10f);cam.backgroundColor=new Color(.055f,.10f,.18f);
+    CGLevelOneStage.Quad(root,"Volumen_Fondo",new Vector3(36.5f,4,0),new Vector2(200,60),new Color(.018f,.028f,.065f),-250);
+    CGLevelOneStage.Quad(root,"Profundidad_Bajo_Suelo",new Vector3(36.5f,-7,0),new Vector2(200,12),new Color(.018f,.028f,.065f),-9);
     bool updatedCampus=CGCampusVisual.Build(this);
     if(!updatedCampus){CreateBackground();AddArchitecture();AddAmbientDecorations();}
     for(int x=0;x<73;x+=1){ if(x==20||x==44)continue;Platform(x+0.5f,-.5f,1f,1f, false); }
@@ -174,7 +176,7 @@ public class CGWorld : MonoBehaviour {
     CGLevelOneStage.Quad(board.transform,"Panel",Vector3.zero,new Vector2(4.7f,.92f),new Color(.035f,.065f,.13f),-3,true);
     CGLevelOneStage.Quad(board.transform,"Borde_Institucional",new Vector3(0,.45f,0),new Vector2(4.7f,.035f),new Color(1,.6f,.1f),-2,true);
     var label=new GameObject("Nombre");label.transform.SetParent(board.transform,false);
-    var mesh=label.AddComponent<TextMesh>();mesh.text=text.Replace(" / ","\n").ToUpperInvariant();mesh.fontSize=40;mesh.characterSize=.045f;mesh.anchor=TextAnchor.MiddleCenter;mesh.alignment=TextAlignment.Center;mesh.color=new Color(1,.84f,.55f);
+    var mesh=label.AddComponent<TextMesh>();mesh.text=text.Replace(" / ","\n").ToUpperInvariant();mesh.fontSize=40;mesh.characterSize=.065f;mesh.anchor=TextAnchor.MiddleCenter;mesh.alignment=TextAlignment.Center;mesh.color=new Color(1,.84f,.55f);
     label.GetComponent<MeshRenderer>().sortingOrder=-1;
   }
 }

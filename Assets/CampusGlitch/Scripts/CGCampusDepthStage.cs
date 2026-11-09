@@ -36,13 +36,13 @@ public static class CGCampusDepthStage {
         bool terrace=world.index==7;
         var room=Room(themes[world.index]);if(room==null)return false;
         var sky=CGCampusVisual.Background(0);if(sky==null)return false;
-        if(city==null){city=Sprite.Create(sky,new Rect(0,sky.height*.55f,sky.width,sky.height*.45f),new Vector2(.5f,.5f),128);city.hideFlags=HideFlags.HideAndDontSave;}
+        if(city==null){city=Sprite.Create(sky,new Rect(0,sky.height*.65f,sky.width,sky.height*.35f),new Vector2(.5f,.5f),128);city.hideFlags=HideFlags.HideAndDontSave;}
         var far=terrace?city:room;
         for(int i=-1;i<4;i++){
             var obj=new GameObject("Profundidad_Lejana_"+i);obj.transform.SetParent(world.root,false);
             var view=obj.AddComponent<SpriteRenderer>();view.sprite=far;view.sortingOrder=-140;view.color=terrace?Color.white:new Color(.28f,.34f,.5f);
-            float height=26,width=height*far.bounds.size.x/far.bounds.size.y;
-            obj.transform.position=new Vector3(8+i*width,7.8f,0);obj.transform.localScale=Vector3.one*(height/far.bounds.size.y);
+            float height=terrace?26:12,width=height*far.bounds.size.x/far.bounds.size.y;
+            obj.transform.position=new Vector3(8+i*width,terrace?7.8f:6.5f,0);obj.transform.localScale=Vector3.one*(height/far.bounds.size.y);
             var parallax=obj.AddComponent<CGParallax>();parallax.cameraTransform=world.ViewCamera.transform;parallax.factor=.035f;
             parallax.startX=obj.transform.position.x-world.ViewCamera.transform.position.x*parallax.factor;
         }
