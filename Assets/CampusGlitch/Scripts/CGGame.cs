@@ -92,13 +92,18 @@ public class CGGame:MonoBehaviour {
     void Respawn(){if(Hero==null||world==null)return;Hero.transform.position=new Vector3(world.checkpointX+0.5f,.45f,0);Hero.Body.linearVelocity=Vector2.zero;Hero.hearts=3;}
     public void InteractNearPlayer(){if(Hero==null||world==null)return;
       float x=Hero.transform.position.x;
-      if(Mathf.Abs(x-8)<1.7f){message=world.spec.dialogue;Hint(message);return;}
+      if(Mathf.Abs(x-8)<1.7f){
+        var guide=world.root.GetComponentInChildren<CGCampusNPC>();
+        if(guide!=null&&guide.role=="GUARDIA U")guide.Speak();else{message=world.spec.dialogue;Hint(message);}return;}
       if(Mathf.Abs(x-35)<1.5f){world.checkpoint=true;world.checkpointX=35;CGAudio.Play("Checkpoint");Hint("Checkpoint activado. ¡Continúa!");return;}
       if(Mathf.Abs(x-40)<1.6f){page=Page.Quiz;Time.timeScale=0;selection=0;return;}
       if(Mathf.Abs(x-69)<2f){if(chips<3){Hint("Necesitas reunir los tres fragmentos de datos.");return;}
          if(!terminalSolved){Hint("Primero resuelve la terminal del nivel.");return;}
          if(!bossDead){Hint("Derrota al jefe antes de salir.");return;}
          CompleteLevel();return;}
+      foreach(var npc in world.root.GetComponentsInChildren<CGCampusNPC>()){
+        if(Mathf.Abs(x-npc.transform.position.x)<1.4f&&Mathf.Abs(Hero.transform.position.y-npc.transform.position.y)<1.5f){npc.Speak();return;}
+      }
       Hint("Acércate a un NPC, terminal, checkpoint o portal para interactuar.");
     }
     void CompleteLevel(){CGStore.Data.completed[sceneLevel]=true;CGStore.Data.stars[sceneLevel]=3; if(sceneLevel<8)CGStore.Data.latestUnlocked=Mathf.Max(CGStore.Data.latestUnlocked,sceneLevel+1);

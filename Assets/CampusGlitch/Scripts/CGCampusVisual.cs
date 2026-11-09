@@ -39,6 +39,7 @@ public static class CGCampusVisual {
         return Resources.Load<Texture2D>("CG/VisualV2/" + (level == 0 || level == 7 ? "CampusExterior" : "CampusInterior"));
     }
     public static bool Build(CGWorld world) {
+        if(world.index==0&&CGLevelOneStage.Build(world))return true;
         int kind = world.index == 0 || world.index == 7 ? 0 : 1;
         var texture = Background(world.index);
         if (texture == null) return false;
@@ -53,8 +54,8 @@ public static class CGCampusVisual {
             var view = obj.AddComponent<SpriteRenderer>();
             view.sprite = backdrops[kind]; view.sortingOrder = -100;
             var parallax = obj.AddComponent<CGParallax>();
-            parallax.cameraTransform = Camera.main.transform;
-            parallax.startX = obj.transform.position.x - Camera.main.transform.position.x * .06f;
+            parallax.cameraTransform = world.ViewCamera.transform;
+            parallax.startX = obj.transform.position.x - world.ViewCamera.transform.position.x * .06f;
             parallax.factor = .06f;
         }
         return true;
