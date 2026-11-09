@@ -34,3 +34,7 @@ Desktop.ini
 # Configuraciones locales
 /.codex/
 /.vsconfig
+
+
+# Mis herramientas y resultados temporales de QA por Issue
+/QA_Marcelo/
