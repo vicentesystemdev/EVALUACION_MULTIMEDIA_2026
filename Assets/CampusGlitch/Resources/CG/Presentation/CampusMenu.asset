@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0c017ba175a4028a4d03192bae27366, type: 3}
+  m_Name: CampusMenu
+  m_EditorClassIdentifier: Assembly-CSharp::CampusGlitch.CGMenuDesign
+  title: CAMPUS GLITCH
+  campus: "UNIFRANZ LA PAZ \xB7 INNOVACI\xD3N \xB7 APRENDE HACIENDO"
+  menuBackground: {fileID: 2800000, guid: a1c6f08b86a64c00a0f6a8bdd59f6da6, type: 3}
+  mapBackground: {fileID: 2800000, guid: d4552061434e4f1caf98912155414ae7, type: 3}
+  amber: {r: 1, g: 0.56, b: 0.12, a: 1}
+  cyan: {r: 0.3, g: 0.87, b: 1, a: 1}
+  ink: {r: 0.025, g: 0.04, b: 0.085, a: 0.96}
+  titleFont: {fileID: 12800000, guid: 0934fa54c0ca4c0b902740920f5bb831, type: 3}
+  buttonFont: {fileID: 12800000, guid: fecaf53a71234cdab98f2cfd989cd139, type: 3}
+  bodyFont: {fileID: 12800000, guid: 481b8108c11846058d7f5acfada2aaa1, type: 3}
+  titleSize: 42
+  buttonSize: 28
+  bodySize: 22
+  titleRect:
+    serializedVersion: 2
+    x: 35
+    y: 7
+    width: 620
+    height: 59
+  heroRect:
+    serializedVersion: 2
+    x: 138
+    y: 220
+    width: 360
+    height: 410
+  mainPanel:
+    serializedVersion: 2
+    x: 720
+    y: 133
+    width: 514
+    height: 522
+  firstButton: {x: 745, y: 150}
+  buttonSizePixels: {x: 463, y: 60}
+  buttonSpacing: 70
+  mainLabels:
+  - JUGAR / CONTINUAR
+  - MAPA DEL CAMPUS
+  - "PERSONALIZACI\xD3N"
+  - "CONFIGURACI\xD3N"
+  - AYUDA Y CONTROLES
+  - "CR\xC9DITOS"
+  - SALIR
+  screenTransition: 0.22
+  focusSpeed: 8
+  backgroundDrift: 5
+  screenSlide: 16
