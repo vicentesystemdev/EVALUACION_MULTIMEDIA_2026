@@ -16,8 +16,9 @@ public static class CGGuardianMenuArt {
         if(material==null)material=new Material(shader){hideFlags=HideFlags.HideAndDontSave};
         if(clean!=null){clean.Release();UnityEngine.Object.DestroyImmediate(clean);}
         clean=new RenderTexture(source.width,source.height,0,RenderTextureFormat.ARGB32){name="Guardian_Menu_Definido",filterMode=FilterMode.Point,wrapMode=TextureWrapMode.Clamp,hideFlags=HideFlags.HideAndDontSave};clean.Create();
-        var previousTarget=RenderTexture.active;
-        try{Graphics.Blit(source,clean,material);}finally{RenderTexture.active=previousTarget;}
+        var previousTarget=RenderTexture.active;bool previousSrgb=GL.sRGBWrite;
+        try{GL.sRGBWrite=QualitySettings.activeColorSpace==ColorSpace.Linear;Graphics.Blit(source,clean,material);}
+        finally{GL.sRGBWrite=previousSrgb;RenderTexture.active=previousTarget;}
         return true;
     }
     public static bool Draw(Rect area,bool purple){

@@ -14,7 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::CampusGlitch.CGMenuDesign
   title: CAMPUS GLITCH
   campus: "UNIFRANZ LA PAZ \xB7 INNOVACI\xD3N \xB7 APRENDE HACIENDO"
-  menuBackground: {fileID: 2800000, guid: a1c6f08b86a64c00a0f6a8bdd59f6da6, type: 3}
+  menuBackground: {fileID: 2800000, guid: 06e12d70adc14728ac2831235db6930b, type: 3}
   mapBackground: {fileID: 2800000, guid: d4552061434e4f1caf98912155414ae7, type: 3}
   amber: {r: 1, g: 0.56, b: 0.12, a: 1}
   cyan: {r: 0.3, g: 0.87, b: 1, a: 1}
@@ -27,34 +27,59 @@ MonoBehaviour:
   bodySize: 22
   titleRect:
     serializedVersion: 2
-    x: 35
-    y: 7
+    x: 32
+    y: 18
     width: 620
     height: 59
   heroRect:
     serializedVersion: 2
-    x: 138
-    y: 220
-    width: 360
-    height: 410
+    x: 86
+    y: 288
+    width: 298
+    height: 365
   mainPanel:
     serializedVersion: 2
-    x: 720
+    x: 835
     y: 133
-    width: 514
-    height: 522
-  firstButton: {x: 745, y: 150}
-  buttonSizePixels: {x: 463, y: 60}
-  buttonSpacing: 70
+    width: 410
+    height: 480
+  firstButton: {x: 859, y: 150}
+  buttonSizePixels: {x: 375, y: 56}
+  buttonSpacing: 66
   mainLabels:
-  - JUGAR / CONTINUAR
-  - MAPA DEL CAMPUS
-  - "PERSONALIZACI\xD3N"
-  - "CONFIGURACI\xD3N"
-  - AYUDA Y CONTROLES
-  - "CR\xC9DITOS"
-  - SALIR
+  - Jugar / Continuar
+  - Mapa del Campus
+  - "Personalizaci\xF3n"
+  - "Configuraci\xF3n"
+  - Ayuda y Controles
+  - "Cr\xE9ditos"
+  - Salir
+  mainIcons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  mainDescriptions:
+  - Retoma tu recorrido por el campus.
+  - Explora ambientes, rutas y desbloqueos.
+  - "Elige la presentaci\xF3n de tu Guardi\xE1n."
+  - Adapta sonido, efectos y controles.
+  - Consulta las acciones antes de jugar.
+  - Conoce al equipo de Campus Glitch.
+  - "Hasta la pr\xF3xima aventura."
+  newGameLabel: Iniciar aventura
+  continueLabel: "Continuar \xB7 Nivel {0}"
+  showButtonIcons: 1
+  mainPanelOpacity: 0.06
+  buttonOpacity: 0.78
+  headerShade: 0.65
+  rightShade: 0.16
+  location: "UNIFRANZ \xB7 SEDE LA PAZ"
+  mainCaption: "EXPLORA \xB7 APRENDE \xB7 RESTAURA EL CAMPUS"
   screenTransition: 0.22
   focusSpeed: 8
-  backgroundDrift: 5
+  backgroundDrift: 2
   screenSlide: 16
