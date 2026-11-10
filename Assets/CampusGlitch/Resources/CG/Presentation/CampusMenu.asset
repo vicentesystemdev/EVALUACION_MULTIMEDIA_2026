@@ -16,6 +16,7 @@ MonoBehaviour:
   campus: "UNIFRANZ LA PAZ \xB7 INNOVACI\xD3N \xB7 APRENDE HACIENDO"
   menuBackground: {fileID: 2800000, guid: 06e12d70adc14728ac2831235db6930b, type: 3}
   mapBackground: {fileID: 2800000, guid: d4552061434e4f1caf98912155414ae7, type: 3}
+  entranceBackground: {fileID: 2800000, guid: 59a6b1e136ff420aa67d538720e4e293, type: 3}
   amber: {r: 1, g: 0.56, b: 0.12, a: 1}
   cyan: {r: 0.3, g: 0.87, b: 1, a: 1}
   ink: {r: 0.025, g: 0.04, b: 0.085, a: 0.96}
@@ -83,3 +84,18 @@ MonoBehaviour:
   focusSpeed: 8
   backgroundDrift: 2
   screenSlide: 16
+  campusEntrance: 1
+  entranceDoorRect:
+    serializedVersion: 2
+    x: 448
+    y: 300
+    width: 384
+    height: 240
+  entranceDuration: 1.25
+  glitchHighlights: 1
+  glitchIntensity: 0.72
+  glitchSpeed: 1.35
+  guardianGlitch: 1
+  cycleGuardianVariants: 1
+  guardianCycleSeconds: 6
+  guardianGlitchDuration: 0.6

@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace CampusGlitch {
 [CreateAssetMenu(menuName="Campus Glitch/Diseño del menú",fileName="CampusMenu")]
@@ -6,7 +7,7 @@ public class CGMenuDesign:ScriptableObject {
     [Header("Identidad y fondos")]
     public string title="CAMPUS GLITCH";
     public string campus="UNIFRANZ LA PAZ · INNOVACIÓN · APRENDE HACIENDO";
-    public Texture2D menuBackground,mapBackground;
+    public Texture2D menuBackground,mapBackground,entranceBackground;
     public Color amber=new Color(1,.56f,.12f),cyan=new Color(.3f,.87f,1),ink=new Color(.025f,.04f,.085f,.96f);
     [Header("Tipografía")]
     public Font titleFont,buttonFont,bodyFont;
@@ -38,6 +39,15 @@ public class CGMenuDesign:ScriptableObject {
     [Range(2,12)]public float focusSpeed=8;
     [Range(0,8)]public float backgroundDrift=5;
     [Range(0,30)]public float screenSlide=16;
+    public bool campusEntrance=true;
+    public Rect entranceDoorRect=new Rect(548,221,184,266);
+    [Range(.6f,2)]public float entranceDuration=1.25f;
+    [FormerlySerializedAs("matrixGlitch")]public bool glitchHighlights=true;
+    [FormerlySerializedAs("matrixIntensity"),Range(0,1)]public float glitchIntensity=.65f;
+    [FormerlySerializedAs("matrixSpeed"),Range(.3f,2)]public float glitchSpeed=1.2f;
+    public bool guardianGlitch=true,cycleGuardianVariants=true;
+    [Range(4,12)]public float guardianCycleSeconds=6;
+    [Range(.25f,1)]public float guardianGlitchDuration=.6f;
     void OnValidate(){
         buttonSizePixels.x=Mathf.Clamp(buttonSizePixels.x,220,1160);
         buttonSizePixels.y=Mathf.Clamp(buttonSizePixels.y,44,65);

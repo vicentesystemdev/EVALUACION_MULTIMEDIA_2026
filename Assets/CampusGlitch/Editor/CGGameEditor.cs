@@ -18,6 +18,7 @@ public class CGGameEditor:UnityEditor.Editor {
             if(EditorGUI.EndChangeCheck()){EditorUtility.SetDirty(design);SceneView.RepaintAll();}
         }
         if(GUILayout.Button("Enfocar menú actual en Scene"))CGEditorMenuPreview.Frame();
+        if(GUILayout.Button("Alternar vista de entrada animada"))CGEditorMenuPreview.ToggleEntrance();
         if(GUILayout.Button("Seleccionar archivo de diseño")){Selection.activeObject=design;EditorGUIUtility.PingObject(design);}
     }
 }

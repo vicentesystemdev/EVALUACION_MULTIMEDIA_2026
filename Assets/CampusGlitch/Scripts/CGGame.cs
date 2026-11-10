@@ -41,7 +41,7 @@ public partial class CGGame:MonoBehaviour {
     }
     void LateUpdate(){
       if(lastMenuPage!=(int)page){menuNavigation.Reset();lastMenuPage=(int)page;lastMenuSelection=selection;}
-      else if(selection!=lastMenuSelection&&page!=Page.Playing&&page!=Page.Loading){CGAudio.Menu();lastMenuSelection=selection;}
+      else if(selection!=lastMenuSelection&&page!=Page.Playing&&page!=Page.Loading){CGAudio.Menu();lastMenuSelection=selection;focusChangedAt=Time.unscaledTime;}
       menuMotion.Tick((int)page,selection,CGStore.Data!=null&&CGStore.Data.reduceFlash);
     }
     void Update(){pointerMoved=Mouse.current!=null&&Mouse.current.delta.ReadValue().sqrMagnitude>1;if(rebinding>=0){
@@ -50,7 +50,7 @@ public partial class CGGame:MonoBehaviour {
         if(padMode){string b=CGControl.NextGamepadButton();if(!string.IsNullOrEmpty(b)){CGStore.Data.padBindings[rebinding]=b;CGStore.Save();rebinding=-1;Hint("Botón de mando actualizado");}}
         else{Key? k=CGControl.NextKeyboardKey();if(k.HasValue){if(k.Value!=Key.Escape){CGStore.Data.actionKeys[rebinding]=k.Value.ToString();CGStore.Save();Hint("Control actualizado");}rebinding=-1;}}
         return;}
-      if(page==Page.Loading)return;
+      if(page==Page.Loading){if(loadingLevel&&(CGControl.Confirm()||CGTouch.AnyTap()))skipAccessAnimation=true;return;}
       if(page==Page.Map&&HandleMapShortcuts())return;
       if(page==Page.Controls&&((Keyboard.current!=null&&Keyboard.current.tabKey.wasPressedThisFrame)||(Gamepad.current!=null&&Gamepad.current.leftShoulder.wasPressedThisFrame))){padMode=!padMode;CGAudio.Menu();return;}
       if(page==Page.Playing){if(CGControl.Pause()){page=Page.Paused;Time.timeScale=0;selection=0;}return;}
@@ -97,12 +97,14 @@ public partial class CGGame:MonoBehaviour {
     }
     void ChooseLevel(int i){if(i<9&&i>CGStore.Data.latestUnlocked){Hint("Nivel bloqueado");return;}if(i==9&&!CGStore.Data.extraUnlocked){Hint("Se desbloquea después del nivel 5");return;}
       Time.timeScale=1;string name=CGLevels.Scene(i);
-      if(Application.CanStreamedLevelBeLoaded(name))StartCoroutine(TransitionToScene(name));
+      if(Application.CanStreamedLevelBeLoaded(name))StartCoroutine(TransitionToScene(name,true));
       else{sceneLevel=i;CreateLevel();}}
-    IEnumerator TransitionToScene(string next){
-      page=Page.Loading;loadProgress=0;float began=Time.unscaledTime;
+    IEnumerator TransitionToScene(string next,bool levelEntry=false){
+      page=Page.Loading;loadProgress=0;loadingLevel=levelEntry;skipAccessAnimation=false;accessAnimationStarted=Time.realtimeSinceStartup;
+      loadingCaption=next=="SC_MainMenu"?"VOLVIENDO AL MENÚ":next=="SC_Settings"?"ABRIENDO CONFIGURACIÓN":next=="SC_LevelMap"?"ABRIENDO MAPA DEL CAMPUS":next=="SC_Customization"?"ABRIENDO PERSONALIZACIÓN":next=="SC_Help"?"ABRIENDO AYUDA":next=="SC_Credits"?"ABRIENDO CRÉDITOS":"ABRIENDO CONTROLES";
+      float minimum=ShowCampusAccess?(CGMenuTheme.Design!=null?CGMenuTheme.Design.entranceDuration:1.25f):(CGMenuTheme.Design!=null?CGMenuTheme.Design.screenTransition:.22f);
       var operation=SceneManager.LoadSceneAsync(next);operation.allowSceneActivation=false;
-      while(operation.progress<.9f||Time.unscaledTime-began<.35f){loadProgress=Mathf.Clamp01(operation.progress/.9f);yield return null;}
+      while(operation.progress<.9f||!skipAccessAnimation&&Time.realtimeSinceStartup-accessAnimationStarted<minimum){loadProgress=Mathf.Clamp01(operation.progress/.9f);yield return null;}
       loadProgress=1;operation.allowSceneActivation=true;
     }
     void PauseChoice(int i){if(i==0){page=Page.Playing;Time.timeScale=1;resumedInputFrame=Time.frameCount;}else if(i==1){page=Page.Playing;Time.timeScale=1;resumedInputFrame=Time.frameCount;Respawn();}else ToMain();}
@@ -173,12 +175,11 @@ public partial class CGGame:MonoBehaviour {
       if(active){var tint=CGUIDraw.Color;CGUIDraw.Color=new Color(accent.r,accent.g,accent.b,tint.a*.16f);CGUIDraw.Texture(new Rect(rect.x-5,rect.y-4,rect.width+10,rect.height+8),CGMenuArtwork.Button(true,accent));CGUIDraw.Color=tint;}
       var previousTint=CGUIDraw.Color;CGUIDraw.Color=new Color(previousTint.r,previousTint.g,previousTint.b,previousTint.a*(active?1:design!=null?design.buttonOpacity:.78f));
       CGUIDraw.Texture(rect,CGMenuArtwork.Button(active,accent));CGUIDraw.Color=previousTint;
+      if(active)DrawGlitchFocus(rect,accent);
       bool icon=design==null||design.showButtonIcons;
       if(icon){var texture=design!=null&&design.mainIcons!=null&&order<design.mainIcons.Length?design.mainIcons[order]:null;CGUIDraw.Texture(new Rect(rect.x+18,rect.center.y-18,36,36),texture!=null?texture:CGMenuArtwork.Icon(order),ScaleMode.ScaleToFit);}
       var style=new GUIStyle(buttonStyle){alignment=TextAnchor.MiddleLeft};
-      CGUIDraw.Text(new Rect(rect.x+(icon?72:24),rect.y+2,rect.width-(icon?109:61),rect.height-4),label,style);
-      var number=new GUIStyle(tinyStyle);number.normal.textColor=active?Color.white:new Color(.62f,.69f,.83f);
-      CGUIDraw.Text(new Rect(rect.xMax-38,rect.y,25,rect.height),(order+1).ToString("00"),number);
+      CGUIDraw.Text(new Rect(rect.x+(icon?72:24),rect.y+2,rect.width-(icon?104:56),rect.height-4),label,style);
       if(Click(rect,"",GUIStyle.none)){selection=order;CGAudio.Menu(true);return true;}return false;
     }
     bool Click(Rect rect,string text,GUIStyle style){if(editorMenuPreview){CGUIDraw.Text(rect,text,style);return false;}return GUI.Button(rect,text,style);}
@@ -196,16 +197,18 @@ public partial class CGGame:MonoBehaviour {
       CGUIDraw.Color=new Color(1,1,1,tint.a*(design!=null?design.headerShade:.45f));CGUIDraw.Texture(new Rect(0,0,1280,135),CGMenuArtwork.Shade);CGUIDraw.Color=tint;
       var rect=design!=null?design.titleRect:new Rect(35,7,620,59);string title=design!=null?design.title:"CAMPUS GLITCH";
       var shadow=rect;shadow.position+=new Vector2(2,3);var style=new GUIStyle(titleStyle);style.normal.textColor=new Color(.02f,.025f,.045f,.95f);CGUIDraw.Text(shadow,title,style);CGUIDraw.Text(rect,title,titleStyle);
-      string campus=design!=null?design.campus:"UNIFRANZ LA PAZ · INNOVACIÓN · APRENDE HACIENDO";var subtitle=new Rect(rect.x+6,rect.yMax+1,rect.width-12,24);
-      var subtitleShadow=new GUIStyle(tinyStyle);subtitleShadow.normal.textColor=new Color(.01f,.02f,.04f);var offset=subtitle;offset.position+=new Vector2(1,2);CGUIDraw.Text(offset,campus,subtitleShadow);CGUIDraw.Text(subtitle,campus,tinyStyle);
-      RectColor(new Rect(rect.x+25,rect.yMax+33,rect.width-50,2),design!=null?design.amber:new Color(1,.56f,.12f));
+      string campus=design!=null?design.campus:"UNIFRANZ LA PAZ · INNOVACIÓN · APRENDE HACIENDO";var subtitle=new Rect(rect.x+16,rect.yMax+3,rect.width-32,29);
+      RectColor(new Rect(rect.x+5,rect.yMax,rect.width-10,35),new Color(.012f,.02f,.045f,.88f));
+      RectColor(new Rect(rect.x+5,rect.yMax,3,35),design!=null?design.amber:new Color(1,.56f,.12f));
+      CGUIDraw.Text(subtitle,campus,new GUIStyle(textStyle){font=CGMenuTheme.Interface,fontSize=21,alignment=TextAnchor.MiddleCenter});
     }
     void OnGUI(){DrawInterface(Screen.width,Screen.height);}
 #if UNITY_EDITOR
-    public void DrawEditorMenu(){
-      var originalPage=page;int originalSelection=selection;
+    public void DrawEditorMenu(bool entrance=false){
+      var originalPage=page;int originalSelection=selection;float originalProgress=loadProgress,originalAccess=accessAnimationStarted;bool originalLevel=loadingLevel;
       editorMenuPreview=true;Enum.TryParse(initialPage,true,out page);selection=0;
-      try{DrawInterface(1280,720);}finally{page=originalPage;selection=originalSelection;editorMenuPreview=false;}
+      if(entrance){page=Page.Loading;loadingLevel=true;loadProgress=Mathf.PingPong(CGMenuTheme.Clock*.22f,1);accessAnimationStarted=CGMenuTheme.Clock-loadProgress*(CGMenuTheme.Design!=null?CGMenuTheme.Design.entranceDuration:1.25f);}
+      try{DrawInterface(1280,720);}finally{page=originalPage;selection=originalSelection;loadProgress=originalProgress;loadingLevel=originalLevel;accessAnimationStarted=originalAccess;editorMenuPreview=false;}
     }
 #endif
     void DrawInterface(float viewportWidth,float viewportHeight){CGStore.Load();Styles();var old=CGUIDraw.Matrix;var oldColor=CGUIDraw.Color;
@@ -239,10 +242,8 @@ public partial class CGGame:MonoBehaviour {
       CGUIDraw.Color=new Color(oldColor.r,oldColor.g,oldColor.b,oldColor.a*entry);
       CGUIDraw.Matrix=Matrix4x4.TRS(guiOffset+new Vector3((1-entry)*(CGMenuTheme.Design!=null?CGMenuTheme.Design.screenSlide:16)*guiScale.x,0,0),Quaternion.identity,guiScale);
       if(page==Page.Loading){
-        Panel(new Rect(360,280,560,156));
-        CGUIDraw.Text(new Rect(398,310,484,45),"RESTAURANDO CONEXIÓN...",textStyle);
-        RectColor(new Rect(400,389,480,10),new Color(.12f,.18f,.28f));
-        RectColor(new Rect(400,389,480*loadProgress,10),new Color(.89f,.45f,.12f));
+        if(ShowCampusAccess)DrawCampusAccess(1,"INGRESANDO A LA UNIVERSIDAD",AccessProgress,true);
+        else DrawMenuLoading();
       }
       if(page==Page.Splash){
         Header("EL CAMPUS TE NECESITA");
@@ -257,16 +258,18 @@ public partial class CGGame:MonoBehaviour {
         MainHeader();
         var design=CGMenuTheme.Design;var hero=design!=null?design.heroRect:new Rect(138,220,360,410);
         CGUIDraw.Texture(new Rect(hero.center.x-hero.width*.34f,hero.yMax-9,hero.width*.68f,21),CGMenuArtwork.Shadow);
-        HeroPortrait(hero.x,hero.y,hero.width,hero.height,CGStore.Data.purpleEquipped);
+        DrawMainGuardian(hero);
         RectColor(design!=null?design.mainPanel:new Rect(720,133,514,522),new Color(.018f,.025f,.06f,design!=null?design.mainPanelOpacity:.06f));
         RectColor(new Rect(805,106,475,570),new Color(.015f,.025f,.055f,design!=null?design.rightShade:.16f));
-        CGUIDraw.Text(new Rect(867,43,366,35),"GUARDIÁN DEL CAMPUS  ·  "+(CGStore.Data.purpleEquipped?"MORADO":"ROJO"),tinyStyle);
+        DrawGlitchHighlights();
+        RectColor(new Rect(853,32,381,82),new Color(.012f,.02f,.045f,.82f));
+        CGUIDraw.Text(new Rect(867,39,353,36),"EQUIPADO · GUARDIÁN "+(CGStore.Data.purpleEquipped?"MORADO":"ROJO"),new GUIStyle(textStyle){font=CGMenuTheme.Interface,fontSize=22});
         Vector2 start=design!=null?design.firstButton:new Vector2(745,150),size=design!=null?design.buttonSizePixels:new Vector2(463,60);float spacing=design!=null?design.buttonSpacing:70;
         for(int i=0;i<mainItems.Length;i++){string label=design!=null&&design.mainLabels!=null&&i<design.mainLabels.Length?design.mainLabels[i]:mainItems[i];if(i==0){bool first=CGStore.Data.latestUnlocked==0&&!CGStore.Data.completed[0];label=first?(design!=null?design.newGameLabel:"Iniciar aventura"):(design!=null?design.continueLabel:"Continuar · Nivel {0}").Replace("{0}",(Mathf.Min(CGStore.Data.latestUnlocked,8)+1).ToString());}if(MainButton(label,i,new Rect(start.x,start.y+i*spacing,size.x,size.y)))MainSelect(i);}
         var captionStyle=new GUIStyle(textStyle){font=CGMenuTheme.Interface,fontSize=23,alignment=TextAnchor.MiddleLeft};string caption=design!=null?design.mainCaption:"EXPLORA · APRENDE · RESTAURA EL CAMPUS";
-        var captionShadow=new GUIStyle(captionStyle);captionShadow.normal.textColor=new Color(.01f,.02f,.04f);CGUIDraw.Text(new Rect(53,122,720,34),caption,captionShadow);CGUIDraw.Text(new Rect(52,120,720,34),caption,captionStyle);
+        RectColor(new Rect(42,123,570,39),new Color(.012f,.02f,.045f,.84f));CGUIDraw.Text(new Rect(55,125,545,34),caption,captionStyle);
         CGUIDraw.Texture(new Rect(878,82,24,24),CGMenuArtwork.Icon(1),ScaleMode.ScaleToFit);
-        CGUIDraw.Text(new Rect(913,79,287,30),design!=null?design.location:"UNIFRANZ · SEDE LA PAZ",new GUIStyle(tinyStyle){alignment=TextAnchor.MiddleLeft});
+        CGUIDraw.Text(new Rect(913,79,287,30),design!=null?design.location:"UNIFRANZ · SEDE LA PAZ",new GUIStyle(tinyStyle){font=CGMenuTheme.Interface,fontSize=19,alignment=TextAnchor.MiddleLeft});
         if(design!=null&&design.mainDescriptions!=null&&selection<design.mainDescriptions.Length)CGUIDraw.Text(new Rect(start.x,632,size.x,37),design.mainDescriptions[selection],tinyStyle);
       }
       if(page==Page.Map)DrawCampusMap();

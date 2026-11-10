@@ -6,7 +6,7 @@ public static class CGMenuTheme {
 #if UNITY_EDITOR
         if(!Application.isPlaying)return (float)UnityEditor.EditorApplication.timeSinceStartup;
 #endif
-        return Time.unscaledTime;
+        return Time.realtimeSinceStartup;
     }}
     static Font title,interfaceFont,body;static CGMenuDesign design;
     public static CGMenuDesign Design {get{if(design==null)design=Resources.Load<CGMenuDesign>("CG/Presentation/CampusMenu");return design;}}
@@ -20,10 +20,10 @@ public static class CGMenuTheme {
 public sealed class CGMenuMotion {
     readonly float[] focus=new float[10];int page=-1;float entered;
     public void Tick(int current,int selection,bool reduced){
-        if(page!=current){page=current;entered=Time.unscaledTime;for(int i=0;i<focus.Length;i++)focus[i]=0;}
+        if(page!=current){page=current;entered=Time.realtimeSinceStartup;for(int i=0;i<focus.Length;i++)focus[i]=0;}
         for(int i=0;i<focus.Length;i++)focus[i]=reduced?(i==selection?1:0):Mathf.MoveTowards(focus[i],i==selection?1:0,Time.unscaledDeltaTime*(CGMenuTheme.Design!=null?CGMenuTheme.Design.focusSpeed:8));
     }
     public float Focus(int index){return index>=0&&index<focus.Length?focus[index]:0;}
-    public float Entry(bool reduced){return reduced?1:Mathf.SmoothStep(0,1,Mathf.Clamp01((Time.unscaledTime-entered)/(CGMenuTheme.Design!=null?CGMenuTheme.Design.screenTransition:.22f)));}
+    public float Entry(bool reduced){return reduced?1:Mathf.SmoothStep(0,1,Mathf.Clamp01((Time.realtimeSinceStartup-entered)/(CGMenuTheme.Design!=null?CGMenuTheme.Design.screenTransition:.22f)));}
 }
 }

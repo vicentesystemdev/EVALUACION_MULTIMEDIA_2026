@@ -14,11 +14,11 @@ public static class CGEditorMenuPreview {
     static GameObject root,legacy;static CGGame controller;static RectTransform canvas;
     static readonly List<Graphic> elements=new List<Graphic>();
     static readonly Dictionary<Renderer,bool> renderStates=new Dictionary<Renderer,bool>();
-    static bool legacyHidden;static double nextFrame;
+    static bool legacyHidden,entrancePreview;static double nextFrame;
     static CGEditorMenuPreview(){
-        EditorSceneManager.sceneOpened+=(scene,mode)=>Schedule();
+        EditorSceneManager.sceneOpened+=(scene,mode)=>{entrancePreview=false;Schedule();};
         EditorSceneManager.sceneClosing+=(scene,removing)=>Cleanup();
-        EditorSceneManager.activeSceneChangedInEditMode+=(a,b)=>Schedule();
+        EditorSceneManager.activeSceneChangedInEditMode+=(a,b)=>{entrancePreview=false;Schedule();};
         EditorApplication.projectChanged+=Schedule;
         EditorApplication.playModeStateChanged+=state=>{if(state==PlayModeStateChange.ExitingEditMode)Cleanup();if(state==PlayModeStateChange.EnteredEditMode)Schedule();};
         AssemblyReloadEvents.beforeAssemblyReload+=Cleanup;EditorApplication.quitting+=Cleanup;
@@ -54,7 +54,7 @@ public static class CGEditorMenuPreview {
     static void RecordFrame(){
         if(root==null||controller==null||EditorApplication.isPlayingOrWillChangePlaymode)return;
         var items=new List<CGUIDraw.Item>();var previous=CGUIDraw.Capture;
-        try{CGUIDraw.Capture=items;CGUIDraw.ResetCaptureState();controller.DrawEditorMenu();}
+        try{CGUIDraw.Capture=items;CGUIDraw.ResetCaptureState();controller.DrawEditorMenu(entrancePreview);}
         finally{CGUIDraw.Capture=previous;}
         if(root!=null&&canvas!=null)Apply(items);
     }
@@ -64,7 +64,7 @@ public static class CGEditorMenuPreview {
             if(i<elements.Count&&elements[i]!=null&&((elements[i] is Text)!=text)){if(Selection.activeGameObject==elements[i].gameObject)Selection.activeObject=controller;Object.DestroyImmediate(elements[i].gameObject);elements[i]=null;}
             if(i>=elements.Count)elements.Add(null);
             if(elements[i]==null){var obj=new GameObject(text?"Texto_"+i:"Imagen_"+i,typeof(RectTransform));obj.transform.SetParent(canvas,false);elements[i]=text?(Graphic)obj.AddComponent<Text>():obj.AddComponent<RawImage>();Mark(obj);}
-            var graphic=elements[i];graphic.gameObject.SetActive(true);graphic.raycastTarget=false;graphic.color=item.color;
+            var graphic=elements[i];graphic.transform.SetSiblingIndex(i);graphic.gameObject.SetActive(true);graphic.raycastTarget=false;graphic.color=item.color;
             var rect=graphic.rectTransform;rect.anchorMin=rect.anchorMax=new Vector2(.5f,.5f);rect.pivot=new Vector2(.5f,.5f);
             rect.anchoredPosition=new Vector2(item.rect.center.x-640,360-item.rect.center.y);rect.sizeDelta=item.rect.size;
             if(text){var label=(Text)graphic;label.text=item.text;label.font=item.font!=null?item.font:CGMenuTheme.Body;label.fontSize=item.fontSize;label.fontStyle=item.fontStyle;label.alignment=item.alignment;label.horizontalOverflow=item.wrap?HorizontalWrapMode.Wrap:HorizontalWrapMode.Overflow;label.verticalOverflow=VerticalWrapMode.Overflow;}
@@ -75,6 +75,8 @@ public static class CGEditorMenuPreview {
     }
     [MenuItem("Campus Glitch/Vista del menú/Mostrar menú actual en Scene")]
     public static void Frame(){if(root==null)return;var view=EditorWindow.GetWindow<SceneView>();view.in2DMode=true;view.orthographic=true;view.showGrid=false;view.drawGizmos=false;view.LookAtDirect(Vector3.zero,Quaternion.identity,3.6f);view.Focus();view.Repaint();}
+    [MenuItem("Campus Glitch/Vista del menú/Alternar entrada animada")]
+    public static void ToggleEntrance(){entrancePreview=!entrancePreview;RecordFrame();Frame();}
     public static void Cleanup(){
         if(root!=null){if(Selection.activeTransform!=null&&Selection.activeTransform.IsChildOf(root.transform))Selection.activeObject=controller;Object.DestroyImmediate(root);}root=null;canvas=null;controller=null;elements.Clear();
         foreach(var pair in renderStates)if(pair.Key!=null)pair.Key.forceRenderingOff=pair.Value;renderStates.Clear();
