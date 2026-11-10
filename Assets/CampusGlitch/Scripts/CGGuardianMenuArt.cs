@@ -43,6 +43,11 @@ public static class CGGuardianMenuArt {
         var target=new Rect(area.center.x-f.w*scale*.5f,area.yMax-f.h*scale,f.w*scale,f.h*scale);
         CGUIDraw.Uv(target,clean,new Rect(f.x/(float)source.width,f.y/(float)source.height,f.w/(float)source.width,f.h/(float)source.height));return true;
     }
+    public static bool DrawPortrait(Rect area,bool purple){
+        if(!Load())return false;var f=frames[purple?4:0];float w=f.w*.7f,h=f.h*.46f,scale=Mathf.Min(area.width/w,area.height/h);
+        var rect=new Rect(area.center.x-w*scale*.5f,area.center.y-h*scale*.5f,w*scale,h*scale);
+        CGUIDraw.Uv(rect,clean,new Rect((f.x+f.w*.26f)/source.width,(f.y+f.h*.54f)/source.height,w/source.width,h/source.height));return true;
+    }
     public static bool DrawGlitch(Rect area,bool equippedPurple,bool cycle,float seconds,float duration,float intensity){
         if(!Load())return false;
         float clock=CGMenuTheme.Clock,age=Mathf.Repeat(clock,Mathf.Max(4,seconds));int chapter=Mathf.FloorToInt(clock/Mathf.Max(4,seconds));

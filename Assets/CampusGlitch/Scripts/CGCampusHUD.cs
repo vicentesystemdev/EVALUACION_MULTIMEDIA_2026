@@ -59,6 +59,11 @@ public static class CGCampusHUD {
         Fill(new Rect(checkpoint - 3, 60, 6, 18), world.checkpoint ? Cyan : Color.gray);
         Fill(new Rect(896 + 346 * Mathf.Clamp01(hero.transform.position.x / 73f) - 4, 59, 8, 20), accent);
         GUI.Label(new Rect(893, 82, 350, 21), "E / Y  INTERACTUAR     ESC / START  PAUSA", small);
+        int skill=CGStore.Data.equippedAbility;float remaining=hero.Skills.Remaining(skill,Time.time);
+        Card(new Rect(18,625,313,72),CGAbilities.ColorFor(CGStore.Data.purpleEquipped?2:0));
+        GUI.DrawTexture(new Rect(28,635,48,48),CGAbilityArt.Icon(skill));
+        GUI.Label(new Rect(86,632,235,26),CGAbilities.Names[skill],title);
+        GUI.Label(new Rect(86,661,235,23),remaining>0?"RECARGA  "+remaining.ToString("0.0")+" s":CGStore.Data.actionKeys[6]+" / "+CGStore.Data.padBindings[6]+"  · LISTA",small);
         if (world.boss != null && !bossDead) {
             Card(new Rect(425, 126, 434, 40), new Color(1, .27f, .34f));
             GUI.Label(new Rect(440, 133, 405, 26), "JEFE: " + world.boss.kind + "  /  VIDA " + world.boss.hp, title);

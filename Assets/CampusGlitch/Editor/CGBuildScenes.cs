@@ -156,6 +156,9 @@ namespace CampusGlitch.Editor {
      importer.mipmapEnabled=false;
      importer.textureCompression=TextureImporterCompression.Uncompressed;
      importer.alphaIsTransparency=true;
+     if(assetPath.StartsWith("Assets/CampusGlitch/Resources/CG/Abilities/",StringComparison.Ordinal)){
+       importer.maxTextureSize=512;importer.isReadable=false;importer.anisoLevel=0;importer.wrapMode=TextureWrapMode.Clamp;
+     }
    }
  }
 }

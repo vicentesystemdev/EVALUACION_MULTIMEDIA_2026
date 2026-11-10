@@ -12,6 +12,7 @@ namespace CampusGlitch {
     public bool purpleUnlocked=false;
     public bool purpleEquipped=false;
     public bool useOriginalWolf=false;
+    public int equippedAbility=0;
     public int dataVersion=2;
     public bool extraUnlocked=false;
     public float masterVolume=0.85f;
@@ -31,13 +32,15 @@ public static class CGStore {
       if(Data.dataVersion<2){Data.useOriginalWolf=false;Data.dataVersion=2;}
       if(Data.actionKeys==null || Data.actionKeys.Length!=8)Data.actionKeys=new CGProgress().actionKeys;
       if(Data.padBindings==null || Data.padBindings.Length!=8)Data.padBindings=new CGProgress().padBindings;
+      if(Data.equippedAbility<0||Data.equippedAbility>3||Data.equippedAbility==1||!CGAbilities.Unlocked(Data,Data.equippedAbility))Data.equippedAbility=0;
     }
-    public static void Save(){Load();try{
+    public static bool Save(){Load();try{
       string path=FileName; System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(path));
       string tmp=path+".tmp";System.IO.File.WriteAllText(tmp,JsonUtility.ToJson(Data,true));
       if(System.IO.File.Exists(path)){System.IO.File.Copy(path,path+".bak",true);System.IO.File.Delete(path);}
       System.IO.File.Move(tmp,path);
-    }catch(Exception e){Debug.LogError("No se pudo guardar el progreso: "+e.Message);}}
+      return true;
+    }catch(Exception e){Debug.LogError("No se pudo guardar el progreso: "+e.Message);return false;}}
     public static void Reset(){Data=new CGProgress();Save();}
 }
 public static class CGControl {
@@ -76,7 +79,7 @@ public static class CGControl {
     public static bool Jump(){return KeyTap(2) || PadTapped(2) || CGTouch.Tapped(CGTouch.Jump);}
     public static bool Attack(){return KeyTap(4) || PadTapped(4) || CGTouch.Tapped(CGTouch.Attack);}
     public static bool Interact(){return KeyTap(5) || PadTapped(5) || CGTouch.Tapped(CGTouch.Interact);}
-    public static bool Ability(){return KeyTap(6) || PadTapped(6);}
+    public static bool Ability(){return KeyTap(6) || PadTapped(6) || CGTouch.Tapped(CGTouch.Ability);}
     public static bool Pause(){return KeyTap(7) || (Keyboard.current!=null&&Keyboard.current.escapeKey.wasPressedThisFrame) ||PadTapped(7) || CGTouch.Tapped(CGTouch.Pause);}
     public static bool Confirm(){return (Keyboard.current!=null&&(Keyboard.current.enterKey.wasPressedThisFrame||Keyboard.current.spaceKey.wasPressedThisFrame)) || (Gamepad.current!=null&&Gamepad.current.buttonSouth.wasPressedThisFrame);}
     public static bool Back(){return (Keyboard.current!=null&&Keyboard.current.escapeKey.wasPressedThisFrame)||(Gamepad.current!=null&&Gamepad.current.buttonEast.wasPressedThisFrame);}

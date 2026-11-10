@@ -52,6 +52,7 @@ public partial class CGGame:MonoBehaviour {
         return;}
       if(page==Page.Loading){if(loadingLevel&&(CGControl.Confirm()||CGTouch.AnyTap()))skipAccessAnimation=true;return;}
       if(page==Page.Map&&HandleMapShortcuts())return;
+      if(page==Page.Customization){HandleCustomization();return;}
       if(page==Page.Controls&&((Keyboard.current!=null&&Keyboard.current.tabKey.wasPressedThisFrame)||(Gamepad.current!=null&&Gamepad.current.leftShoulder.wasPressedThisFrame))){padMode=!padMode;CGAudio.Menu();return;}
       if(page==Page.Playing){if(CGControl.Pause()){page=Page.Paused;Time.timeScale=0;selection=0;}return;}
       if(page==Page.Splash){if(CGControl.Confirm()||CGTouch.AnyTap()){page=Page.Main;selection=0;}return;}
@@ -70,9 +71,6 @@ public partial class CGGame:MonoBehaviour {
          case Page.Victory:if(selection==0)AfterVictory();else ToMain();break;
          case Page.Ending:if(selection==0){ShowCreditsOnBoot=true;StartCoroutine(TransitionToScene("SC_Bootstrap"));}else ToMain();break;
          case Page.ConfirmReset:if(selection==0)CGStore.Reset();ToMain();break;
-         case Page.Customization:if(selection==0)EquipPurple(false);else if(selection==1)EquipPurple(true);
-           else if(selection==2){CGStore.Data.useOriginalWolf=!CGStore.Data.useOriginalWolf;CGStore.Save();Hint(CGStore.Data.useOriginalWolf?"Usando el lobo clásico":"Usando el Guardián acorazado");}
-           else ToMain();break;
          case Page.Settings:if(selection==0)AdjustVolume(.1f);else if(selection==1){CGStore.Data.reduceFlash=!CGStore.Data.reduceFlash;CGStore.Save();}else if(selection==2){CGStore.Data.subtitles=!CGStore.Data.subtitles;CGStore.Save();}else if(selection==3)OpenUIScreen("SC_Controls",Page.Controls);else if(selection==4){page=Page.ConfirmReset;selection=1;}else ToMain();break;
          case Page.Help:if(selection==0)OpenUIScreen("SC_Controls",Page.Controls);else ToMain();break;
          case Page.Controls:rebinding=selection;break;
@@ -111,10 +109,24 @@ public partial class CGGame:MonoBehaviour {
     void EquipPurple(bool on){if(on&&!CGStore.Data.purpleUnlocked){Hint("Morado: se desbloquea al terminar el nivel 2");return;}CGStore.Data.purpleEquipped=on;CGStore.Save();Hint(on?"Lobo morado equipado":"Lobo clásico equipado");}
     void AdjustVolume(float n){CGStore.Data.masterVolume=Mathf.Repeat(CGStore.Data.masterVolume+n,1.1f);AudioListener.volume=CGStore.Data.masterVolume;CGStore.Save();}
     public void TakeChip(int id){if(id<0||id>=3||taken[id])return;taken[id]=true;chips++;CGAudio.Play("Pickup");Hint("Fragmento recuperado: "+chips+"/3");}
-    public void Attack(Vector3 pos){foreach(var c in Physics2D.OverlapCircleAll(pos,.82f)){CGEnemy e=c.GetComponent<CGEnemy>();if(e!=null)e.Hurt(1);}}
+    public void Attack(Vector3 pos){AttackPulse(pos,.82f,1);}
+    readonly System.Collections.Generic.List<Collider2D> attackTargets=new System.Collections.Generic.List<Collider2D>();
+    readonly System.Collections.Generic.List<RaycastHit2D> attackObstacles=new System.Collections.Generic.List<RaycastHit2D>();
+    readonly System.Collections.Generic.HashSet<CGEnemy> attacked=new System.Collections.Generic.HashSet<CGEnemy>();
+    public void AttackPulse(Vector3 pos,float radius,int damage){
+      var physics=gameObject.scene.GetPhysicsScene2D();var filter=new ContactFilter2D().NoFilter();attackTargets.Clear();attacked.Clear();physics.OverlapCircle(pos,radius,filter,attackTargets);
+      Vector2 origin=Hero!=null?(Hero.Body!=null?Hero.Body.position:(Vector2)Hero.transform.position)+Vector2.up*.8f:(Vector2)pos;
+      foreach(var c in attackTargets){
+        var e=c.GetComponentInParent<CGEnemy>();if(e==null||!attacked.Add(e))continue;
+        if(Hero!=null&&(e.transform.position.x-origin.x)*(Hero.facesRight?1:-1)<-.05f)continue;
+        attackObstacles.Clear();physics.Linecast(origin,e.transform.position,filter,attackObstacles);bool blocked=false;
+        foreach(var h in attackObstacles)if(h.collider!=null&&!h.collider.isTrigger&&h.collider.GetComponent<CGSurface>()!=null){blocked=true;break;}
+        if(!blocked)e.Hurt(damage);
+      }
+    }
     public void BossDown(){bossDead=true;Hint("¡Jefe derrotado! El portal está disponible.");}
     public void KillHero(){if(Hero==null)return;CGAudio.Play("Damage");Hint("Restaurando desde el checkpoint...");Respawn();}
-    void Respawn(){if(Hero==null||world==null)return;Hero.transform.position=new Vector3(world.checkpointX+0.5f,.45f,0);Hero.Body.linearVelocity=Vector2.zero;Hero.hearts=3;}
+    void Respawn(){if(Hero==null||world==null)return;Hero.Skills.Cancel();Hero.transform.position=new Vector3(world.checkpointX+0.5f,.45f,0);Hero.Body.linearVelocity=Vector2.zero;Hero.hearts=3;}
     public void InteractNearPlayer(){if(Hero==null||world==null)return;
       float x=Hero.transform.position.x;
       if(Mathf.Abs(x-8)<1.7f){
@@ -235,8 +247,8 @@ public partial class CGGame:MonoBehaviour {
             RectColor(new Rect(x,y,3+(k%3),3+(k%3)),new Color(k%2==0?1f:.67f,.23f,k%2==0?.23f:1f,a));
           }
         }
-        RectColor(new Rect(0,676,1280,44),new Color(.02f,.03f,.055f,.95f));
-        CGUIDraw.Text(new Rect(28,684,1235,28),page==Page.Map?"MOVER: DIRECCIONES / STICK   ·   A / ENTER: JUGAR   ·   Y / TAB: DETALLES   ·   LB / RB: NIVEL   ·   B / ESC: VOLVER":"MOVER: DIRECCIONES / STICK     ·     A / ENTER: ELEGIR     ·     B / ESC: VOLVER     ·     CAMPUS 2.5D",tinyStyle);
+        if(page!=Page.Customization){RectColor(new Rect(0,676,1280,44),new Color(.02f,.03f,.055f,.95f));
+        CGUIDraw.Text(new Rect(28,684,1235,28),page==Page.Map?"MOVER: DIRECCIONES / STICK   ·   A / ENTER: JUGAR   ·   Y / TAB: DETALLES   ·   LB / RB: NIVEL   ·   B / ESC: VOLVER":"MOVER: DIRECCIONES / STICK     ·     A / ENTER: ELEGIR     ·     B / ESC: VOLVER     ·     CAMPUS 2.5D",tinyStyle);}
       }
       float entry=editorMenuPreview?1:menuMotion.Entry(CGStore.Data.reduceFlash);
       CGUIDraw.Color=new Color(oldColor.r,oldColor.g,oldColor.b,oldColor.a*entry);
@@ -273,14 +285,7 @@ public partial class CGGame:MonoBehaviour {
         if(design!=null&&design.mainDescriptions!=null&&selection<design.mainDescriptions.Length)CGUIDraw.Text(new Rect(start.x,632,size.x,37),design.mainDescriptions[selection],tinyStyle);
       }
       if(page==Page.Map)DrawCampusMap();
-      if(page==Page.Customization){Header("PERSONALIZACIÓN DEL LOBO");Panel(new Rect(190,205,900,60));Label("Lobo Guardián: armadura digital, identidad del campus y dos variantes.",215);
-       HeroPortrait(70,278,230,290,false);HeroPortrait(980,278,230,290,true);
-       if(Button("LOBO ROJO",0,355,310,570,58))EquipPurple(false);
-       if(Button(CGStore.Data.purpleUnlocked?"LOBO MORADO - DESBLOQUEADO":"LOBO MORADO - COMPLETA NIVEL 2",1,355,380,570,58))EquipPurple(true);
-       if(Button("MODELO: "+(CGStore.Data.useOriginalWolf?"CLÁSICO":"GUARDIÁN ACORAZADO"),2,355,452,570,58)){
-         CGStore.Data.useOriginalWolf=!CGStore.Data.useOriginalWolf;CGStore.Save();}
-       if(Button("VOLVER",3,355,520,570,55))ToMain();
-       Panel(new Rect(238,590,804,52));Label("Equipado: "+(CGStore.Data.purpleEquipped?"MORADO":"ROJO")+"  |  "+(CGStore.Data.useOriginalWolf?"CLÁSICO":"GUARDIÁN ACORAZADO"),600);}
+      if(page==Page.Customization)DrawCustomization();
       if(page==Page.Settings){Header("AJUSTES");
        Panel(new Rect(310,160,660,480));
        if(Button("VOLUMEN GENERAL: "+Mathf.RoundToInt(CGStore.Data.masterVolume*100)+" %",0,340,181,600,60))AdjustVolume(.1f);
@@ -313,15 +318,15 @@ public partial class CGGame:MonoBehaviour {
        string[] options={world.spec.option1,world.spec.option2,world.spec.option3};for(int i=0;i<3;i++)if(Button(options[i],i,340,333+i*80,600,67))QuizAnswer(i);
        Label("ESC / B para cerrar la terminal",635,30);}
       if(page==Page.Victory){Header("¡NIVEL RESTAURADO!");Label("Recuperaste los tres fragmentos y activaste la conexión.",265);
-       if(sceneLevel==1)Label("¡PERSONALIZACIÓN MORADA DESBLOQUEADA!",352,57);
+       DrawAbilityReward();if(sceneLevel==1)Label("Variante morada disponible en Personalización",294,30);
        if(Button("SIGUIENTE NIVEL",0,375,453,530,66))AfterVictory();if(Button("MENÚ PRINCIPAL",1,375,535,530,60))ToMain();}
-      if(page==Page.Ending){Header("¡CAMPUS RESTAURADO!");Label("CORE GLITCH HA SIDO DERROTADO",260);Label("INNOVACIÓN · APRENDE HACIENDO",349,48);
-       Label("UNIFRANZ LA PAZ — FIN DE LA AVENTURA",415);
+      if(page==Page.Ending){Header("¡CAMPUS RESTAURADO!");Label("CORE GLITCH HA SIDO DERROTADO",260);DrawAbilityReward();
+       Label("UNIFRANZ LA PAZ — FIN DE LA AVENTURA",440,35);
        if(Button("VER CRÉDITOS",0,390,501,500,65)){ShowCreditsOnBoot=true;StartCoroutine(TransitionToScene("SC_Bootstrap"));}
        if(Button("VOLVER AL MENÚ",1,390,583,500,55))ToMain();}
       if(page==Page.ConfirmReset){Header("¿BORRAR PROGRESO?");Label("Se eliminarán los niveles completados y las skins desbloqueadas.",311);
        if(Button("SÍ, BORRAR",0,320,431,300,58)){CGStore.Reset();ToMain();}if(Button("CANCELAR",1,660,431,300,58))ToMain();}
-      if(Time.unscaledTime<toastUntil && page!=Page.Playing){CGUIDraw.Text(new Rect(180,628,920,35),toast,tinyStyle);}
+      if(Time.unscaledTime<toastUntil && page!=Page.Playing&&page!=Page.Customization){CGUIDraw.Text(new Rect(180,628,920,35),toast,tinyStyle);}
       CGUIDraw.Matrix=old;
       CGUIDraw.Color=oldColor;
     }

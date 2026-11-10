@@ -47,7 +47,9 @@ public class CGHero:MonoBehaviour {
  static PhysicsMaterial2D movementMaterial;
  public Rigidbody2D Body {get;private set;}
  public float moveInput;public bool facesRight=true,running,Grounded;
- public int hearts=3; public float hurtUntil,attackUntil;float lastGrounded=-999f,queuedJump=-999f,lastAttack, abilityUntil;
+ public int hearts=3; public float hurtUntil,attackUntil;float lastGrounded=-999f,queuedJump=-999f,lastAttack;
+ public CGAbilityState Skills {get;private set;}=new CGAbilityState();
+ readonly System.Collections.Generic.List<RaycastHit2D> groundHits=new System.Collections.Generic.List<RaycastHit2D>();
  CGGame game;CGFrameAnimator anim;
  public void Setup(CGGame g){game=g;Body=gameObject.AddComponent<Rigidbody2D>();Body.gravityScale=3.2f;Body.freezeRotation=true;Body.collisionDetectionMode=CollisionDetectionMode2D.Continuous;
    CapsuleCollider2D co=gameObject.AddComponent<CapsuleCollider2D>();co.size=new Vector2(0.76f,1.64f);co.offset=new Vector2(0,0.82f);
@@ -58,27 +60,37 @@ public class CGHero:MonoBehaviour {
    SpriteRenderer sr=art.AddComponent<SpriteRenderer>();sr.sortingOrder=25;sr.sprite=CGArt.Player(CGStore.Data.purpleEquipped,0,CGStore.Data.useOriginalWolf);
    anim=gameObject.AddComponent<CGFrameAnimator>();anim.view=sr;anim.hero=true;
    gameObject.AddComponent<CGGuardianVisual>().Configure(this,sr);
+   gameObject.AddComponent<CGAbilityVisual>().Configure(this);
    // Keep the artwork legible; collider geometry remains independent from the sprite.
    art.transform.localScale=Vector3.one;
  }
  void Update(){if(game==null||!game.AcceptsPlayerInput){moveInput=0;return;}
    moveInput=CGControl.Axis(); running=CGControl.HoldRun();if(Mathf.Abs(moveInput)>0.07f)facesRight=moveInput>0;
    if(Grounded)lastGrounded=Time.time;
-   if(CGControl.Jump())queuedJump=Time.time;
+   bool jumpPressed=CGControl.Jump();if(jumpPressed)queuedJump=Time.time;
    if(Time.time-queuedJump<0.15f&&Time.time-lastGrounded<0.14f){Body.linearVelocity=new Vector2(Body.linearVelocity.x,JumpSpeed);queuedJump=-999;lastGrounded=-999;CGAudio.Play("Jump");}
+   else if(jumpPressed&&!Grounded&&Skills.TryAirJump(CGAbilities.Unlocked(CGStore.Data,1))){Body.linearVelocity=new Vector2(Body.linearVelocity.x,CGAbilities.Stats(CGStore.Data,1).speed);queuedJump=-999;CGAudio.Play("Jump");}
    if(CGControl.Attack() && Time.time-lastAttack>0.48f){lastAttack=Time.time;attackUntil=Time.time+0.23f;CGAudio.Play("Attack");game.Attack(transform.position+new Vector3(facesRight?0.85f:-0.85f,0.7f,0));}
-   if(CGControl.Ability()&&CGStore.Data.purpleUnlocked){abilityUntil=Time.time+0.8f;game.Hint("Impulso glitch activado");}
+   if(CGControl.Ability())ActivateAbility(CGStore.Data.equippedAbility);
    if(CGControl.Interact())game.InteractNearPlayer();
  }
  void FixedUpdate(){if(Body==null||game==null)return;
-    Grounded=false;var all=Physics2D.RaycastAll(transform.position+new Vector3(0,0.08f,0),Vector2.down,0.23f);
-    foreach(var hit in all){if(hit.collider!=null&&hit.collider.GetComponent<CGSurface>()!=null){Grounded=true;break;}}
+    Grounded=false;groundHits.Clear();gameObject.scene.GetPhysicsScene2D().Raycast(transform.position+new Vector3(0,0.08f,0),Vector2.down,0.23f,new ContactFilter2D().NoFilter(),groundHits);
+    foreach(var hit in groundHits){if(hit.collider!=null&&!hit.collider.isTrigger&&hit.collider.GetComponent<CGSurface>()!=null){Grounded=true;break;}}
+    if(Grounded&&Body.linearVelocity.y<=.1f)Skills.Land();
     if(!game.Playing)return;
-    float speed=running?5.8f:3.5f;if(Time.time<abilityUntil)speed=8f;
-    Body.linearVelocity=new Vector2(moveInput*speed,Body.linearVelocity.y);
+    float speed=running?5.8f:3.5f;
+    Body.linearVelocity=new Vector2(Skills.Active(0,Time.time)?(facesRight?1:-1)*CGAbilities.Stats(CGStore.Data,0).speed:moveInput*speed,Body.linearVelocity.y);
     if(transform.position.y<-9f)game.KillHero();
  }
- public void Damage(int n){if(Time.time<hurtUntil||game==null||!game.Playing)return;hearts-=n;hurtUntil=Time.time+1.1f;
+ public bool ActivateAbility(int id){
+   if(game==null||!game.AcceptsPlayerInput)return false;
+   var stats=CGAbilities.Stats(CGStore.Data,id);
+   if(!Skills.TryActivate(id,CGAbilities.Unlocked(CGStore.Data,id),Time.time,stats)){game.Hint(CGAbilities.Unlocked(CGStore.Data,id)?"Habilidad recargando":"Habilidad bloqueada: "+CGAbilities.Gate(Mathf.Clamp(id,0,3)));return false;}
+   if(id==3){attackUntil=Time.time+.25f;game.AttackPulse(transform.position+new Vector3(facesRight?1.1f:-1.1f,.8f,0),stats.range,stats.damage);}
+   CGAudio.Play(id==3?"Attack":"Checkpoint");game.Hint(CGAbilities.Names[id]);return true;
+ }
+ public void Damage(int n){if(Time.time<hurtUntil||game==null||!game.Playing)return;if(Skills.Absorb(Time.time)){game.Hint("Escudo: golpe absorbido");return;}hearts-=n;hurtUntil=Time.time+1.1f;
    Body.AddForce(new Vector2(facesRight?-3f:3f,4f),ForceMode2D.Impulse);
    game.Hint("¡Cuidado! Señal de vida reducida.");if(hearts<=0)game.KillHero();}
 }

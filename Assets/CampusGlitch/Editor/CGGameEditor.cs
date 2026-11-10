@@ -20,6 +20,13 @@ public class CGGameEditor:UnityEditor.Editor {
         if(GUILayout.Button("Enfocar menú actual en Scene"))CGEditorMenuPreview.Frame();
         if(GUILayout.Button("Alternar vista de entrada animada"))CGEditorMenuPreview.ToggleEntrance();
         if(GUILayout.Button("Seleccionar archivo de diseño")){Selection.activeObject=design;EditorGUIUtility.PingObject(design);}
+        if(game.initialPage=="Customization"){
+            EditorGUILayout.Space();EditorGUILayout.LabelField("Personalización en Scene",EditorStyles.boldLabel);
+            var labels=new[]{"Apariencia","Habilidades","Evolución"};
+            for(int i=0;i<labels.Length;i++)if(GUILayout.Button("Mostrar "+labels[i])){game.SelectCustomizationSection(i);CGEditorMenuPreview.Refresh();}
+            if(GUILayout.Button("Mostrar activación con teclado")){game.SelectCustomizationControls(false);CGEditorMenuPreview.Refresh();}
+            if(GUILayout.Button("Mostrar activación con mando")){game.SelectCustomizationControls(true);CGEditorMenuPreview.Refresh();}
+        }
     }
 }
 }

@@ -6,8 +6,8 @@ namespace CampusGlitch {
 // On-screen touch controls for Android. Reads Touchscreen from the Input System and is
 // only enabled on mobile platforms, so keyboard/gamepad behaviour on Windows is unchanged.
 public static class CGTouch {
-  public const int Left=0,Right=1,Jump=2,Attack=3,Interact=4,Pause=5;
-  static readonly string[] Labels={"<\nIZQ",">\nDER","SALTAR","ATACAR","USAR","II  PAUSA"};
+  public const int Left=0,Right=1,Jump=2,Attack=3,Interact=4,Pause=5,Ability=6;
+  static readonly string[] Labels={"<\nIZQ",">\nDER","SALTAR","ATACAR","USAR","II  PAUSA","HABILIDAD"};
   public static bool Enabled {get {return Application.isMobilePlatform;}}
   // Uniform scale against the 1280x720 reference used by CGGame.OnGUI.
   public static float Unit {get {return Mathf.Min(Screen.width/1280f,Screen.height/720f);}}
@@ -23,6 +23,7 @@ public static class CGTouch {
       case Jump:return new Rect(right-m-s,bottom-m-s,s,s);
       case Attack:return new Rect(right-2*m-2*s,bottom-m-s,s,s);
       case Interact:return new Rect(right-m-s,bottom-2*m-2*s,s,s);
+      case Ability:return new Rect(right-3*m-3*s,bottom-m-s,s,s);
       default:{ // Pause sits in the gap between the two HUD panels (reference x 690..820).
         float offX=(Screen.width-1280*u)*.5f,offY=(Screen.height-720*u)*.5f;
         return new Rect(offX+690*u,offY+12*u,130*u,50*u);}
