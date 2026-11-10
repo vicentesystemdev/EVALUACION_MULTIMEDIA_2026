@@ -15,7 +15,10 @@ public static class CGEditorMenuPreview {
     static readonly List<Graphic> elements=new List<Graphic>();
     static readonly Dictionary<Renderer,bool> renderStates=new Dictionary<Renderer,bool>();
     static bool legacyHidden,entrancePreview;static double nextFrame;
+    static int fontRevision;
+    const string PreviewCharacters=" ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzÁÉÍÓÚÜÑáéíóúüñ0123456789.,:;!?¡¿+-*/()%·↑↓←→✓= /";
     static CGEditorMenuPreview(){
+        Font.textureRebuilt+=font=>fontRevision++;
         EditorSceneManager.sceneOpened+=(scene,mode)=>{entrancePreview=false;Schedule();};
         EditorSceneManager.sceneClosing+=(scene,removing)=>Cleanup();
         EditorSceneManager.activeSceneChangedInEditMode+=(a,b)=>{entrancePreview=false;Schedule();};
@@ -61,7 +64,8 @@ public static class CGEditorMenuPreview {
     static void Apply(List<CGUIDraw.Item> items){
         // Reserve every glyph before generating any Text mesh. Otherwise a later label can
         // rebuild a dynamic font atlas and invalidate UVs already recorded for this frame.
-        foreach(var item in items)if(item.text!=null){var font=item.font!=null?item.font:CGMenuTheme.Body;if(font!=null&&font.dynamic)font.RequestCharactersInTexture(item.text,item.fontSize,item.fontStyle);}
+        var warmed=new HashSet<(Font,int,FontStyle)>();
+        foreach(var item in items)if(item.text!=null){var font=item.font!=null?item.font:CGMenuTheme.Body;if(font!=null&&font.dynamic&&warmed.Add((font,item.fontSize,item.fontStyle)))font.RequestCharactersInTexture(PreviewCharacters,item.fontSize,item.fontStyle);}
         for(int i=0;i<items.Count;i++){
             var item=items[i];bool text=item.text!=null;
             if(i<elements.Count&&elements[i]!=null&&((elements[i] is Text)!=text)){if(Selection.activeGameObject==elements[i].gameObject)Selection.activeObject=controller;Object.DestroyImmediate(elements[i].gameObject);elements[i]=null;}
@@ -74,7 +78,11 @@ public static class CGEditorMenuPreview {
             else{var image=(RawImage)graphic;image.texture=item.texture;image.uvRect=item.uv;}
         }
         for(int i=items.Count;i<elements.Count;i++)if(elements[i]!=null)elements[i].gameObject.SetActive(false);
-        Canvas.ForceUpdateCanvases();
+        for(int attempt=0;attempt<3;attempt++){
+            int revision=fontRevision;
+            foreach(var element in elements)if(element is Text label&&label.gameObject.activeSelf){label.cachedTextGenerator.Invalidate();label.SetVerticesDirty();}
+            Canvas.ForceUpdateCanvases();if(fontRevision==revision)break;
+        }
     }
     [MenuItem("Campus Glitch/Vista del menú/Mostrar menú actual en Scene")]
     public static void Frame(){if(root==null)return;var view=EditorWindow.GetWindow<SceneView>();view.in2DMode=true;view.orthographic=true;view.showGrid=false;view.drawGizmos=false;view.LookAtDirect(Vector3.zero,Quaternion.identity,3.6f);view.Focus();view.Repaint();}

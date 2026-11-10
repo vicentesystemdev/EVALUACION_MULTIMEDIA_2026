@@ -15,6 +15,7 @@ public static class CGUIDraw {
     public static Matrix4x4 Matrix {get{return Capture!=null?captureMatrix:GUI.matrix;}set{if(Capture!=null)captureMatrix=value;else GUI.matrix=value;}}
     public static void ResetCaptureState(){captureColor=UnityEngine.Color.white;captureMatrix=Matrix4x4.identity;}
     public static void Text(Rect rect,string text,GUIStyle style){
+        if(string.IsNullOrEmpty(text))return;
         if(Capture==null){GUI.Label(rect,text,style);return;}
         Capture.Add(new Item{rect=rect,text=text,font=style.font,fontSize=style.fontSize,fontStyle=style.fontStyle,alignment=style.alignment,wrap=style.wordWrap,color=style.normal.textColor*Color});
     }
