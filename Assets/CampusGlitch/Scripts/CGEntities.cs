@@ -65,11 +65,11 @@ public class CGHero:MonoBehaviour {
    art.transform.localScale=Vector3.one;
  }
  void Update(){if(game==null||!game.AcceptsPlayerInput){moveInput=0;return;}
+   Skills.Tick(Time.deltaTime);
    moveInput=CGControl.Axis(); running=CGControl.HoldRun();if(Mathf.Abs(moveInput)>0.07f)facesRight=moveInput>0;
    if(Grounded)lastGrounded=Time.time;
    bool jumpPressed=CGControl.Jump();if(jumpPressed)queuedJump=Time.time;
    if(Time.time-queuedJump<0.15f&&Time.time-lastGrounded<0.14f){Body.linearVelocity=new Vector2(Body.linearVelocity.x,JumpSpeed);queuedJump=-999;lastGrounded=-999;CGAudio.Play("Jump");}
-   else if(jumpPressed&&!Grounded&&Skills.TryAirJump(CGAbilities.Unlocked(CGStore.Data,1))){Body.linearVelocity=new Vector2(Body.linearVelocity.x,CGAbilities.Stats(CGStore.Data,1).speed);queuedJump=-999;CGAudio.Play("Jump");}
    if(CGControl.Attack() && Time.time-lastAttack>0.48f){lastAttack=Time.time;attackUntil=Time.time+0.23f;CGAudio.Play("Attack");game.Attack(transform.position+new Vector3(facesRight?0.85f:-0.85f,0.7f,0));}
    if(CGControl.Ability())ActivateAbility(CGStore.Data.equippedAbility);
    if(CGControl.Interact())game.InteractNearPlayer();
@@ -77,7 +77,6 @@ public class CGHero:MonoBehaviour {
  void FixedUpdate(){if(Body==null||game==null)return;
     Grounded=false;groundHits.Clear();gameObject.scene.GetPhysicsScene2D().Raycast(transform.position+new Vector3(0,0.08f,0),Vector2.down,0.23f,new ContactFilter2D().NoFilter(),groundHits);
     foreach(var hit in groundHits){if(hit.collider!=null&&!hit.collider.isTrigger&&hit.collider.GetComponent<CGSurface>()!=null){Grounded=true;break;}}
-    if(Grounded&&Body.linearVelocity.y<=.1f)Skills.Land();
     if(!game.Playing)return;
     float speed=running?5.8f:3.5f;
     Body.linearVelocity=new Vector2(Skills.Active(0,Time.time)?(facesRight?1:-1)*CGAbilities.Stats(CGStore.Data,0).speed:moveInput*speed,Body.linearVelocity.y);
@@ -86,11 +85,12 @@ public class CGHero:MonoBehaviour {
  public bool ActivateAbility(int id){
    if(game==null||!game.AcceptsPlayerInput)return false;
    var stats=CGAbilities.Stats(CGStore.Data,id);
-   if(!Skills.TryActivate(id,CGAbilities.Unlocked(CGStore.Data,id),Time.time,stats)){game.Hint(CGAbilities.Unlocked(CGStore.Data,id)?"Habilidad recargando":"Habilidad bloqueada: "+CGAbilities.Gate(Mathf.Clamp(id,0,3)));return false;}
+   if(!Skills.TryActivate(id,CGAbilities.Unlocked(CGStore.Data,id),Time.time,stats)){game.Hint(!CGAbilities.Unlocked(CGStore.Data,id)?"Habilidad bloqueada: "+CGAbilities.Gate(Mathf.Clamp(id,0,3)):Skills.Energy<stats.cost?"Carga insuficiente: necesitas "+stats.cost+" puntos":"Habilidad recargando");return false;}
+   if(id==1){attackUntil=Time.time+.3f;CGPowerProjectile.Spawn(game,this,stats);}
    if(id==3){attackUntil=Time.time+.25f;game.AttackPulse(transform.position+new Vector3(facesRight?1.1f:-1.1f,.8f,0),stats.range,stats.damage);}
    CGAudio.Play(id==3?"Attack":"Checkpoint");game.Hint(CGAbilities.Names[id]);return true;
  }
- public void Damage(int n){if(Time.time<hurtUntil||game==null||!game.Playing)return;if(Skills.Absorb(Time.time)){game.Hint("Escudo: golpe absorbido");return;}hearts-=n;hurtUntil=Time.time+1.1f;
+ public void Damage(int n){if(Time.time<hurtUntil||game==null||!game.Playing)return;if(Skills.Absorb(Time.time)){GetComponent<CGAbilityVisual>()?.ShieldImpact();game.Hint("Escudo: golpe absorbido");return;}hearts-=n;hurtUntil=Time.time+1.1f;
    Body.AddForce(new Vector2(facesRight?-3f:3f,4f),ForceMode2D.Impulse);
    game.Hint("¡Cuidado! Señal de vida reducida.");if(hearts<=0)game.KillHero();}
 }

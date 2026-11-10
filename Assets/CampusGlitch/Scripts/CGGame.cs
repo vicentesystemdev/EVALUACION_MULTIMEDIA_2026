@@ -230,7 +230,7 @@ public partial class CGGame:MonoBehaviour {
       Vector3 guiScale=new Vector3(desktopUnit,desktopUnit,1),guiOffset=new Vector3(content.x,content.y,0);
       if(page!=Page.Playing)RectColor(new Rect(0,0,viewportWidth,viewportHeight),page==Page.Paused||page==Page.Quiz?new Color(.005f,.012f,.037f,.84f):new Color(.012f,.02f,.045f,1));
       CGUIDraw.Matrix=Matrix4x4.TRS(guiOffset,Quaternion.identity,guiScale);
-      if(page==Page.Playing){DrawHUD();if(Time.unscaledTime<toastUntil){float ty=CGTouch.Enabled?160:630;Panel(new Rect(280,ty,720,55),new Color(.96f,.5f,.15f,1));CGUIDraw.Text(new Rect(305,ty+4,670,43),toast,textStyle);}if(!CGStore.Data.reduceFlash)RectColor(new Rect(0,0,1280,720),new Color(.015f,.025f,.055f,1-Mathf.Clamp01((Time.unscaledTime-levelEntered)/.25f)));CGUIDraw.Matrix=old;CGUIDraw.Color=oldColor;CGTouch.Draw();return;}
+      if(page==Page.Playing){DrawHUD();if(Time.unscaledTime<toastUntil){float ty=CGTouch.Enabled?160:630,tx=CGTouch.Enabled?280:350,tw=CGTouch.Enabled?720:630;Panel(new Rect(tx,ty,tw,55),new Color(.96f,.5f,.15f,1));CGUIDraw.Text(new Rect(tx+25,ty+4,tw-50,43),toast,textStyle);}if(!CGStore.Data.reduceFlash)RectColor(new Rect(0,0,1280,720),new Color(.015f,.025f,.055f,1-Mathf.Clamp01((Time.unscaledTime-levelEntered)/.25f)));CGUIDraw.Matrix=old;CGUIDraw.Color=oldColor;CGTouch.Draw();return;}
       if((page==Page.Paused||page==Page.Quiz)&&!CGTouch.Enabled){RectColor(new Rect(0,0,1280,720),new Color(.005f,.012f,.037f,.84f));}
       else{
         var design=CGMenuTheme.Design;
@@ -337,6 +337,7 @@ public partial class CGGame:MonoBehaviour {
       Rect r=new Rect(12,12,625,72);Panel(r,new Color(.97f,.43f,.12f,1));
       CGUIDraw.Text(new Rect(24,18,595,24),world.spec.name,tinyStyle);
       CGUIDraw.Text(new Rect(24,44,600,27),"VIDAS "+Mathf.Max(0,Hero.hearts)+"/3   ·   DATOS "+chips+"/3   ·   "+(terminalSolved?"TERMINAL OK":"TERMINAL PENDIENTE"),tinyStyle);
+      Panel(new Rect(12,91,340,53),new Color(.25f,.8f,1));CGUIDraw.Text(new Rect(24,94,315,23),CGAbilities.Names[CGStore.Data.equippedAbility]+" · "+Mathf.FloorToInt(Hero.Skills.Energy)+"/100",tinyStyle);RectColor(new Rect(24,126,315*Hero.Skills.Energy/100,6),new Color(.25f,.8f,1));
       Rect rr=new Rect(866,12,403,50);Panel(rr,new Color(.34f,.67f,1f,1));
       CGUIDraw.Text(new Rect(876,19,383,33),"E / Y  INTERACTUAR   ·   ESC / START  PAUSA",tinyStyle);
       if(world.boss!=null&&!bossDead){Panel(new Rect(390,97,500,52),new Color(1,.21f,.25f,1));CGUIDraw.Text(new Rect(404,106,474,36),"JEFE: "+world.boss.kind+"   |   VIDA: "+world.boss.hp,textStyle);}

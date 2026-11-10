@@ -26,6 +26,8 @@ public class CGGameEditor:UnityEditor.Editor {
             for(int i=0;i<labels.Length;i++)if(GUILayout.Button("Mostrar "+labels[i])){game.SelectCustomizationSection(i);CGEditorMenuPreview.Refresh();}
             if(GUILayout.Button("Mostrar activación con teclado")){game.SelectCustomizationControls(false);CGEditorMenuPreview.Refresh();}
             if(GUILayout.Button("Mostrar activación con mando")){game.SelectCustomizationControls(true);CGEditorMenuPreview.Refresh();}
+            EditorGUILayout.LabelField("Demostrar poder sin guardar progreso",EditorStyles.boldLabel);
+            for(int id=0;id<CGAbilities.Names.Length;id++)if(GUILayout.Button(CGAbilities.Names[id])){game.PreviewCustomizationAbility(id);CGEditorMenuPreview.Refresh();}
         }
     }
 }

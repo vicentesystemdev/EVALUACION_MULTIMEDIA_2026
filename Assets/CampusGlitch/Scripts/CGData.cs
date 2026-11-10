@@ -32,7 +32,7 @@ public static class CGStore {
       if(Data.dataVersion<2){Data.useOriginalWolf=false;Data.dataVersion=2;}
       if(Data.actionKeys==null || Data.actionKeys.Length!=8)Data.actionKeys=new CGProgress().actionKeys;
       if(Data.padBindings==null || Data.padBindings.Length!=8)Data.padBindings=new CGProgress().padBindings;
-      if(Data.equippedAbility<0||Data.equippedAbility>3||Data.equippedAbility==1||!CGAbilities.Unlocked(Data,Data.equippedAbility))Data.equippedAbility=0;
+      if(Data.equippedAbility<0||Data.equippedAbility>3||!CGAbilities.Unlocked(Data,Data.equippedAbility))Data.equippedAbility=0;
     }
     public static bool Save(){Load();try{
       string path=FileName; System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(path));

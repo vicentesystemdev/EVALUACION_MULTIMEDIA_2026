@@ -4,7 +4,7 @@ using UnityEngine.InputSystem;
 namespace CampusGlitch {
 public partial class CGGame {
     int customSection,customAbility,customMilestone=1;bool customReady,draftPurple,draftClassic,inspectPurple,customDiscard;int draftAbility,discardChoice=1;
-    float demonstrationAt=-99,secondJumpAt=-99;int demonstration=-1;bool impact,customPadControls;
+    float demonstrationAt=-99,demonstrationImpactAt=-99,lastDemoTick;int demonstration=-1;bool impact,customPadControls;
     CGAbilityState demonstrationState=new CGAbilityState();
     static readonly string[] CustomSections={"APARIENCIA","HABILIDADES","EVOLUCIÓN"};
     bool CustomDirty {get{return draftPurple!=CGStore.Data.purpleEquipped||draftClassic!=CGStore.Data.useOriginalWolf||draftAbility!=CGStore.Data.equippedAbility;}}
@@ -23,12 +23,9 @@ public partial class CGGame {
     }
     void DemoAbility(){
         float now=CGMenuTheme.Clock;
-        if(customAbility==1&&demonstration==1&&now-demonstrationAt<1.3f&&now-demonstrationAt>.15f){
-            if(demonstrationState.TryAirJump(true)){secondJumpAt=now;Hint("Segundo salto: un impulso adicional antes de aterrizar.");}return;
-        }
-        if(customAbility==1){demonstrationState.Land();}
-        else if(!demonstrationState.TryActivate(customAbility,true,now,CGAbilities.Stats(CGStore.Data,customAbility,customSection==2?customMilestone:0))){Hint("Demostración recargando: "+demonstrationState.Remaining(customAbility,now).ToString("0.0")+" s");return;}
-        demonstration=customAbility;demonstrationAt=now;secondJumpAt=-99;impact=false;CGAudio.Menu(true);
+        var stats=CGAbilities.Stats(CGStore.Data,customAbility,customSection==2?customMilestone:0);
+        if(!demonstrationState.TryActivate(customAbility,true,now,stats)){Hint(demonstrationState.Energy<stats.cost?"Carga insuficiente: espera a que el núcleo recupere energía.":"Demostración recargando: "+demonstrationState.Remaining(customAbility,now).ToString("0.0")+" s");return;}
+        demonstration=customAbility;demonstrationAt=now;impact=false;CGAudio.Menu(true);
     }
     void CustomAction(int item){
         if(customSection==0){
@@ -36,14 +33,15 @@ public partial class CGGame {
             else if(item<4)draftClassic=item==3;
             else if(item==4)ApplyCustomization();else CustomLeave();
         }else if(customSection==1){
-            if(item<4){customAbility=item;if(item==1)Hint("Doble salto es una habilidad pasiva; no ocupa la ranura activa.");else if(CGAbilities.Unlocked(CGStore.Data,item)){draftAbility=item;Hint("Habilidad seleccionada. Pulsa Aplicar para guardarla.");}else Hint(CGAbilities.Gate(item));}
-            else if(item==4)DemoAbility();else if(item==5){if(demonstrationState.Absorb(CGMenuTheme.Clock)){impact=true;Hint("Escudo: impacto absorbido sin perder vida.");}else Hint("Activa la demostración del escudo para simular un impacto.");}
-            else if(item==6)ApplyCustomization();else CustomLeave();
+            if(item<4){customAbility=item;if(CGAbilities.Unlocked(CGStore.Data,item)){draftAbility=item;Hint("Habilidad seleccionada. Pulsa Aplicar para guardarla.");}else Hint(CGAbilities.Gate(item));}
+            else if(item==4)DemoAbility();else if(item==5){if(demonstrationState.Absorb(CGMenuTheme.Clock)){impact=true;demonstrationImpactAt=CGMenuTheme.Clock;Hint("Escudo: impacto absorbido sin perder vida.");}else Hint("Activa la demostración del escudo para simular un impacto.");}
+            else if(item==6){if(!CGAbilities.Unlocked(CGStore.Data,customAbility)){Hint(CGAbilities.Gate(customAbility));return;}draftAbility=customAbility;ApplyCustomization();}else CustomLeave();
         }else if(item<9){customMilestone=item+1;customAbility=CGAbilities.RewardAbility[item];}
         else if(item==9)DemoAbility();else CustomLeave();
     }
     void HandleCustomization(){
         if(!customReady)BeginCustomization();var k=Keyboard.current;var p=Gamepad.current;
+        demonstrationState.Tick(Time.unscaledDeltaTime);lastDemoTick=CGMenuTheme.Clock;
         if(customDiscard){discardChoice=menuNavigation.Read(discardChoice,2,false);if(CGControl.Confirm()){if(discardChoice==0){customDiscard=false;ToMain();}else customDiscard=false;}else if(CGControl.Back())customDiscard=false;return;}
         if((k!=null&&k.vKey.wasPressedThisFrame)||(p!=null&&p.buttonNorth.wasPressedThisFrame)){customPadControls=!customPadControls;CGAudio.Menu();}
         int category=0;if(k!=null&&k.tabKey.wasPressedThisFrame)category=k.leftShiftKey.isPressed?-1:1;
@@ -114,21 +112,21 @@ public partial class CGGame {
         CGUIDraw.Texture(new Rect(287,167,112,112),CGAbilityArt.Card(customAbility),ScaleMode.ScaleToFit);
         CustomLabel(new Rect(212,283,262,39),CGAbilities.Names[customAbility],25,accent);
         CustomLabel(new Rect(212,328,262,62),CGAbilities.Description(CGStore.Data,customAbility),19,null,true);
-        CustomLabel(new Rect(212,390,262,44),CGAbilities.Unlocked(CGStore.Data,customAbility)?customAbility==1?"PASIVA · UN SALTO EXTRA":"RANGO "+CGAbilities.Stats(CGStore.Data,customAbility).tier+" · RECARGA "+CGAbilities.Stats(CGStore.Data,customAbility).cooldown.ToString("0.0")+" s":CGAbilities.Gate(customAbility),19,CGAbilities.Unlocked(CGStore.Data,customAbility)?new Color(.45f,1,.7f):new Color(.77f,.8f,.87f));
+        var stats=CGAbilities.Stats(CGStore.Data,customAbility);CustomLabel(new Rect(212,390,262,44),CGAbilities.Unlocked(CGStore.Data,customAbility)?"RANGO "+stats.tier+" · "+stats.cost+" DE CARGA\nRECARGA "+stats.cooldown.ToString("0.0")+" s":CGAbilities.Gate(customAbility),18,CGAbilities.Unlocked(CGStore.Data,customAbility)?new Color(.45f,1,.7f):new Color(.77f,.8f,.87f));
         CustomButton(new Rect(211,435,127,44),"PROBAR",4);
         CustomButton(new Rect(347,435,128,44),"IMPACTO",5,customAbility==2&&demonstrationState.Active(2,CGMenuTheme.Clock));
-        CustomButton(new Rect(211,485,264,44),draftAbility==CGStore.Data.equippedAbility?"HABILIDAD EQUIPADA":"APLICAR HABILIDAD",6);
+        CustomButton(new Rect(211,485,264,44),customAbility==CGStore.Data.equippedAbility?"HABILIDAD EQUIPADA":"EQUIPAR HABILIDAD",6,CGAbilities.Unlocked(CGStore.Data,customAbility));
     }
     static string ControlCaption(string binding){
         if(string.IsNullOrEmpty(binding))return "SIN ASIGNAR";
         switch(binding){case "Space":return "ESPACIO";case "LeftShift":return "SHIFT";case "RightShift":return "SHIFT DER.";case "buttonSouth":return "A";case "buttonEast":return "B";case "buttonWest":return "X";case "buttonNorth":return "Y";case "leftShoulder":return "LB";case "rightShoulder":return "RB";case "leftTrigger":return "LT";case "rightTrigger":return "RT";case "startButton":return "START";case "selectButton":return "SELECT";case "dpadUp":return "↑";case "dpadDown":return "↓";case "dpadLeft":return "←";case "dpadRight":return "→";case "leftStickButton":return "L3";case "rightStickButton":return "R3";default:return binding.ToUpperInvariant();}
     }
     void DrawActivationHelp(Color accent){
-        int id=customSection==2?CGAbilities.RewardAbility[customMilestone-1]:customAbility,action=id==1?2:6;
+        int id=customSection==2?CGAbilities.RewardAbility[customMilestone-1]:customAbility,action=6;
         CustomPanel(new Rect(195,548,654,104));CustomLabel(new Rect(211,553,620,31),"CÓMO ACTIVAR · "+CGAbilities.Names[id],23,accent);
         for(int i=0;i<2;i++){var choice=new Rect(211+i*116,595,108,42);CGUIDraw.Texture(choice,CGMenuArtwork.Button(customPadControls==(i==1),accent));CustomLabel(choice,i==0?"TECLADO":"MANDO",21,null,false,TextAnchor.MiddleCenter);if(!customDiscard&&Click(choice,"",GUIStyle.none)){customPadControls=i==1;CGAudio.Menu();}}
         var key=new Rect(455,595,100,42);RectColor(key,new Color(.08f,.12f,.2f));Outline(key,new Color(.4f,.53f,.7f),1);CustomLabel(key,ControlCaption(customPadControls?CGStore.Data.padBindings[action]:CGStore.Data.actionKeys[action]),22,null,false,TextAnchor.MiddleCenter);
-        string instruction=!CGAbilities.Unlocked(CGStore.Data,id)?CGAbilities.Gate(id):id==1?"SALTA Y PULSA OTRA VEZ EN EL AIRE":CGStore.Data.equippedAbility==id?"PULSA PARA ACTIVAR · EQUIPADA":"EQUÍPALA Y APLICA PARA UTILIZARLA";
+        string instruction=!CGAbilities.Unlocked(CGStore.Data,id)?CGAbilities.Gate(id):CGStore.Data.equippedAbility==id?"PULSA PARA ACTIVAR · "+CGAbilities.Stats(CGStore.Data,id).cost+" DE CARGA":"EQUÍPALA Y APLICA PARA UTILIZARLA";
         CustomLabel(new Rect(569,585,260,62),instruction,18,CGAbilities.Unlocked(CGStore.Data,id)?new Color(.45f,1,.7f):new Color(.76f,.8f,.86f),false);
     }
     void DrawEvolutionDetails(Color amber){
@@ -153,26 +151,28 @@ public partial class CGGame {
         CustomPanel(rect);if(selected)Outline(rect,color,2);
         CGUIDraw.Color=unlocked?Color.white:new Color(.5f,.55f,.65f);CGUIDraw.Texture(new Rect(rect.x+8,rect.y+8,75,75),CGAbilityArt.Card(id));CGUIDraw.Color=Color.white;
         CustomLabel(new Rect(rect.x+96,rect.y+7,rect.width-107,30),CGAbilities.Names[id],24);
-        CustomLabel(new Rect(rect.x+96,rect.y+41,rect.width-107,41),unlocked?id==1?"PASIVA · SEGUNDO SALTO":draftAbility==id?CGStore.Data.equippedAbility==id?"EQUIPADA · LISTA PARA USAR":"SELECCIONADA · APLICAR PARA GUARDAR":"DISPONIBLE · ELEGIR PARA EQUIPAR":CGAbilities.Gate(id),17,unlocked?new Color(.45f,1,.7f):new Color(.7f,.75f,.83f));
+        CustomLabel(new Rect(rect.x+96,rect.y+41,rect.width-107,41),unlocked?draftAbility==id?CGStore.Data.equippedAbility==id?"EQUIPADA · "+CGAbilities.Stats(CGStore.Data,id).cost+" DE CARGA":"SELECCIONADA · APLICAR PARA GUARDAR":"DISPONIBLE · ELEGIR PARA EQUIPAR":CGAbilities.Gate(id),17,unlocked?new Color(.45f,1,.7f):new Color(.7f,.75f,.83f));
         if(!editorMenuPreview&&!customDiscard&&pointerMoved&&customSection==1&&rect.Contains(Event.current.mousePosition)){selection=id;customAbility=id;}
         if(!customDiscard&&Click(rect,"",GUIStyle.none)){CustomCategory(1);selection=id;CustomAction(id);}
     }
     void DrawCustomizationHero(Rect rect,Color accent){
         RectColor(rect,new Color(.02f,.035f,.075f,.48f));
         CustomLabel(new Rect(rect.x+12,rect.y+8,rect.width-24,30),"LOBO GUARDIÁN",26,Color.white,false,TextAnchor.MiddleCenter);
-        float now=CGMenuTheme.Clock,age=now-demonstrationAt;bool showing=demonstration>=0&&age<2.2f;float x=0,y=0;
-        if(showing&&demonstration==0)x=age<.25f?age/.25f*64:Mathf.Lerp(64,0,Mathf.Clamp01((age-.5f)/.5f));
-        if(showing&&demonstration==1){y=Mathf.Max(0,Mathf.Sin(Mathf.Clamp01(age/1.1f)*Mathf.PI)*68);if(secondJumpAt>0)y+=Mathf.Max(0,Mathf.Sin(Mathf.Clamp01((now-secondJumpAt)/.8f)*Mathf.PI)*58);}
-        var area=new Rect(rect.x+36+x,rect.y+55-y,rect.width-72,280);
+        float now=CGMenuTheme.Clock,age=now-demonstrationAt;if(editorMenuPreview&&!Application.isPlaying&&lastDemoTick>0)demonstrationState.Tick(Mathf.Clamp(now-lastDemoTick,0,.3f));lastDemoTick=now;
+        bool showing=demonstration>=0&&age<2.5f;float x=0;
+        if(showing&&demonstration==0)x=age<.25f?age/.25f*54:Mathf.Lerp(54,0,Mathf.Clamp01((age-.5f)/.5f));
+        var area=new Rect(rect.x+36+x,rect.y+55,rect.width-72,280);
         CGUIDraw.Texture(new Rect(rect.x+39,rect.y+328,rect.width-78,22),CGMenuArtwork.Button(true,accent));CGUIDraw.Texture(new Rect(rect.x+63,rect.y+328,rect.width-126,19),CGMenuArtwork.Shadow);
-        if(showing){int row=demonstration==0?2:demonstration==1?3:demonstration==3?5:0;CGGuardianArt.DrawFit(area,CGGuardianArt.Get(inspectPurple,row,(int)(age*14)%8));}
-        else if(draftClassic)CGGuardianArt.DrawFit(area,CGArt.Player(inspectPurple,(int)(now*5)%2,true));else CGGuardianMenuArt.Draw(area,inspectPurple);
-        if(showing&&demonstration==2&&demonstrationState.Active(2,now)){CGUIDraw.Color=new Color(accent.r,accent.g,accent.b,.7f);CGUIDraw.Texture(new Rect(rect.x+26,rect.y+58,rect.width-52,292),CGAbilityArt.Icon(2));CGUIDraw.Color=Color.white;}
+        if(showing&&demonstration==0&&age<.4f&&!CGStore.Data.reduceFlash){for(int i=3;i>0;i--){var echo=area;echo.x-=i*15;CGUIDraw.Color=new Color(.5f,.85f,1,.12f);CGGuardianMenuArt.Draw(echo,inspectPurple);}CGUIDraw.Color=Color.white;}
+        if(draftClassic)CGGuardianArt.DrawFit(area,CGArt.Player(inspectPurple,(int)(now*5)%2,true));else CGGuardianMenuArt.Draw(area,inspectPurple);
+        if(showing&&demonstration==2&&(demonstrationState.Active(2,now)||now-demonstrationImpactAt<.22f)){CGUIDraw.Color=new Color(.24f,.82f,1,.8f);CGUIDraw.Texture(new Rect(rect.x+15,rect.y+30,rect.width-30,340),CGAbilityArt.FxTexture(0));CGUIDraw.Color=Color.white;}
+        if(showing&&demonstration==2&&impact&&now-demonstrationImpactAt<.35f){CGUIDraw.Color=new Color(.4f,.9f,1,1-(now-demonstrationImpactAt)/.35f);CGUIDraw.Texture(new Rect(rect.xMax-107,rect.y+160,100,100),CGAbilityArt.FxTexture(2));CGUIDraw.Color=Color.white;}
+        if(showing&&demonstration==1){bool hit=age>=.65f;float shotX=Mathf.Lerp(rect.center.x+25,rect.xMax-37,Mathf.Clamp01(age/.65f));if(!hit)CGUIDraw.Texture(new Rect(shotX-38,rect.y+165,76,50),CGAbilityArt.FxTexture(1));CGUIDraw.Color=hit?new Color(1,1,1,.25f):Color.white;CGGuardianArt.DrawFit(new Rect(rect.xMax-61,rect.y+161,55,60),CGCampusActors.Frame(true,2,(int)(now*8)%8));CGUIDraw.Color=Color.white;if(hit&&age<.95f){CGUIDraw.Color=new Color(.65f,.65f,1,1-(age-.65f)/.3f);CGUIDraw.Texture(new Rect(rect.xMax-83,rect.y+148,85,85),CGAbilityArt.FxTexture(2));CGUIDraw.Color=Color.white;}}
         if(showing&&demonstration==3&&age<.5f){CGUIDraw.Color=accent;CGUIDraw.Texture(new Rect(rect.xMax-95,rect.y+137,78,133),CGAbilityArt.Icon(3));CGUIDraw.Color=Color.white;}
         if(showing&&demonstration==3){bool hit=age>.16f;CGUIDraw.Color=hit?new Color(1,1,1,.3f):Color.white;CGGuardianArt.DrawFit(new Rect(rect.xMax-68,rect.y+267,58,63),CGCampusActors.Frame(true,0,(int)(now*8)%8));CGUIDraw.Color=Color.white;RectColor(new Rect(rect.xMax-67,rect.y+254,55,4),new Color(.18f,.23f,.3f));if(!hit)RectColor(new Rect(rect.xMax-67,rect.y+254,55,4),new Color(.5f,1,.55f));CustomLabel(new Rect(rect.xMax-84,rect.y+231,84,21),hit?CGAbilities.Stats(CGStore.Data,3,customSection==2?customMilestone:0).damage+" DE DAÑO":"OBJETIVO",15,accent,false,TextAnchor.MiddleCenter);}
-        float remain=demonstrationState.Remaining(customAbility,now);string message=showing?demonstration==1?secondJumpAt>0?"SEGUNDO SALTO ACTIVADO":"PROBAR OTRA VEZ: SEGUNDO SALTO":impact?"IMPACTO ABSORBIDO":CGAbilities.Names[demonstration]:"SELECCIONA Y PRUEBA UNA HABILIDAD";
-        CustomLabel(new Rect(rect.x+10,rect.y+355,rect.width-20,31),message,17,accent,false,TextAnchor.MiddleCenter);
-        CustomLabel(new Rect(rect.x+10,rect.y+388,rect.width-20,22),remain>0?"RECARGA "+remain.ToString("0.0")+" s":"T / X · DEMOSTRACIÓN SIN ALTERAR PROGRESO",15,null,false,TextAnchor.MiddleCenter);
+        float remain=demonstrationState.Remaining(customAbility,now);string message=showing?impact?"IMPACTO ABSORBIDO":demonstration==1&&age>=.65f?"PROYECTIL · IMPACTO EN EL OBJETIVO":demonstration==2&&demonstrationState.Active(2,now)?"ESCUDO · 1 GOLPE · "+demonstrationState.ActiveRemaining(2,now).ToString("0.0")+" s":CGAbilities.Names[demonstration]:"T / X · PROBAR PODER";
+        RectColor(new Rect(rect.x+13,rect.y+345,rect.width-26,63),new Color(.015f,.025f,.055f,.9f));CustomLabel(new Rect(rect.x+18,rect.y+344,rect.width-36,25),"CARGA "+Mathf.FloorToInt(demonstrationState.Energy)+" / 100"+(remain>0?" · RECARGA "+remain.ToString("0.0")+" s":""),17,new Color(.4f,.9f,1),false,TextAnchor.MiddleCenter);
+        RectColor(new Rect(rect.x+20,rect.y+374,rect.width-40,8),new Color(.13f,.2f,.3f));RectColor(new Rect(rect.x+20,rect.y+374,(rect.width-40)*demonstrationState.Energy/100,8),new Color(.25f,.8f,1));CustomLabel(new Rect(rect.x+14,rect.y+386,rect.width-28,23),message,16,accent,false,TextAnchor.MiddleCenter);
     }
     void DrawDiscardCustomization(){
         RectColor(new Rect(0,0,1280,720),new Color(0,0,0,.76f));Panel(new Rect(320,245,640,230));
@@ -188,8 +188,9 @@ public partial class CGGame {
         CustomLabel(new Rect(431,367,492,56),CGAbilities.Rewards[sceneLevel],23,null,true);
     }
 #if UNITY_EDITOR
-    public void SelectCustomizationSection(int section){if(!customReady)BeginCustomization();customSection=Mathf.Clamp(section,0,2);selection=0;}
+    public void SelectCustomizationSection(int section){if(!customReady)BeginCustomization();customSection=Mathf.Clamp(section,0,2);selection=0;if(customSection==2)customAbility=CGAbilities.RewardAbility[customMilestone-1];}
     public void SelectCustomizationControls(bool gamepad){customPadControls=gamepad;}
+    public void PreviewCustomizationAbility(int id){if(!customReady)BeginCustomization();customSection=1;customAbility=Mathf.Clamp(id,0,3);selection=customAbility;DemoAbility();}
 #endif
 }
 }
