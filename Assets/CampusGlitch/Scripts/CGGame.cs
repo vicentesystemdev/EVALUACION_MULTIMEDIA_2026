@@ -34,6 +34,7 @@ public partial class CGGame:MonoBehaviour {
         if(ShowCreditsOnBoot)page=Page.Credits;
         else if(!Enum.TryParse<Page>(initialPage,true,out page))page=Page.Splash;
         ShowCreditsOnBoot=false;
+        if(page==Page.Controls)BeginControls();
       }
     }
     void CreateLevel(){page=Page.Playing;chips=0;taken=new bool[3];terminalSolved=false;bossDead=string.IsNullOrEmpty(CGLevels.All[sceneLevel].boss);
@@ -44,16 +45,11 @@ public partial class CGGame:MonoBehaviour {
       else if(selection!=lastMenuSelection&&page!=Page.Playing&&page!=Page.Loading){CGAudio.Menu();lastMenuSelection=selection;focusChangedAt=Time.unscaledTime;}
       menuMotion.Tick((int)page,selection,CGStore.Data!=null&&CGStore.Data.reduceFlash);
     }
-    void Update(){pointerMoved=Mouse.current!=null&&Mouse.current.delta.ReadValue().sqrMagnitude>1;if(rebinding>=0){
-        if(CGControl.Back()){rebinding=-1;return;}
-        if(CGTouch.AnyTap()){rebinding=-1;return;} // no physical keyboard on touch devices
-        if(padMode){string b=CGControl.NextGamepadButton();if(!string.IsNullOrEmpty(b)){CGStore.Data.padBindings[rebinding]=b;CGStore.Save();rebinding=-1;Hint("Botón de mando actualizado");}}
-        else{Key? k=CGControl.NextKeyboardKey();if(k.HasValue){if(k.Value!=Key.Escape){CGStore.Data.actionKeys[rebinding]=k.Value.ToString();CGStore.Save();Hint("Control actualizado");}rebinding=-1;}}
-        return;}
+    void Update(){pointerMoved=Mouse.current!=null&&Mouse.current.delta.ReadValue().sqrMagnitude>1;
+      if(page==Page.Controls){HandleControls();return;}
       if(page==Page.Loading){if(loadingLevel&&(CGControl.Confirm()||CGTouch.AnyTap()))skipAccessAnimation=true;return;}
       if(page==Page.Map&&HandleMapShortcuts())return;
       if(page==Page.Customization){HandleCustomization();return;}
-      if(page==Page.Controls&&((Keyboard.current!=null&&Keyboard.current.tabKey.wasPressedThisFrame)||(Gamepad.current!=null&&Gamepad.current.leftShoulder.wasPressedThisFrame))){padMode=!padMode;CGAudio.Menu();return;}
       if(page==Page.Playing){if(CGControl.Pause()){page=Page.Paused;Time.timeScale=0;selection=0;}return;}
       if(page==Page.Splash){if(CGControl.Confirm()||CGTouch.AnyTap()){page=Page.Main;selection=0;}return;}
       if(page==Page.Quiz){
@@ -247,7 +243,7 @@ public partial class CGGame:MonoBehaviour {
             RectColor(new Rect(x,y,3+(k%3),3+(k%3)),new Color(k%2==0?1f:.67f,.23f,k%2==0?.23f:1f,a));
           }
         }
-        if(page!=Page.Customization){RectColor(new Rect(0,676,1280,44),new Color(.02f,.03f,.055f,.95f));
+        if(page!=Page.Customization&&page!=Page.Controls){RectColor(new Rect(0,676,1280,44),new Color(.02f,.03f,.055f,.95f));
         CGUIDraw.Text(new Rect(28,684,1235,28),page==Page.Map?"MOVER: DIRECCIONES / STICK   ·   A / ENTER: JUGAR   ·   Y / TAB: DETALLES   ·   LB / RB: NIVEL   ·   B / ESC: VOLVER":"MOVER: DIRECCIONES / STICK     ·     A / ENTER: ELEGIR     ·     B / ESC: VOLVER     ·     CAMPUS 2.5D",tinyStyle);}
       }
       float entry=editorMenuPreview?1:menuMotion.Entry(CGStore.Data.reduceFlash);
@@ -294,11 +290,7 @@ public partial class CGGame:MonoBehaviour {
        if(Button("CONFIGURAR CONTROLES",3,340,397,600,60))OpenUIScreen("SC_Controls",Page.Controls);
        if(Button("BORRAR PROGRESO...",4,340,469,600,60)){page=Page.ConfirmReset;selection=1;}
        if(Button("VOLVER",5,340,553,600,60))ToMain();}
-      if(page==Page.Controls){Header("CONTROLES - TECLADO / MANDO");
-       Panel(new Rect(390,165,500,43));if(Click(new Rect(400,171,480,32),padMode?"EDITANDO MANDO - CAMBIAR A TECLADO":"EDITANDO TECLADO - CAMBIAR A MANDO",buttonStyle)){padMode=!padMode;rebinding=-1;}
-       for(int i=0;i<8;i++)if(Button(CGControl.Names[i]+":  "+(rebinding==i?"PULSA UN BOTÓN":padMode?CGStore.Data.padBindings[i]:CGStore.Data.actionKeys[i]),i,375,215+i*51,530,43))rebinding=i;
-       CGUIDraw.Text(new Rect(70,645,1140,40),"TAB / LB: teclado o mando   ·   B / ESC: cancelar asignación   ·   START: pausa al jugar",tinyStyle);
-       if(CGTouch.Enabled&&Click(new Rect(40,171,200,32),"< VOLVER",buttonStyle))ToMain();}
+      if(page==Page.Controls)DrawControls();
       if(page==Page.Help){Header("GUÍA DEL JUGADOR");Panel(new Rect(180,205,920,290));Label("Corre, salta, recupera 3 fragmentos y resuelve una terminal por nivel.",249);
        Label("E / Y: hablar con NPC, activar checkpoint, terminal y portal de salida.",306);
        Label("J / X: mordida; evita enemigos y derrota a los jefes de fase.",363);
@@ -326,7 +318,7 @@ public partial class CGGame:MonoBehaviour {
        if(Button("VOLVER AL MENÚ",1,390,583,500,55))ToMain();}
       if(page==Page.ConfirmReset){Header("¿BORRAR PROGRESO?");Label("Se eliminarán los niveles completados y las skins desbloqueadas.",311);
        if(Button("SÍ, BORRAR",0,320,431,300,58)){CGStore.Reset();ToMain();}if(Button("CANCELAR",1,660,431,300,58))ToMain();}
-      if(Time.unscaledTime<toastUntil && page!=Page.Playing&&page!=Page.Customization){CGUIDraw.Text(new Rect(180,628,920,35),toast,tinyStyle);}
+      if(Time.unscaledTime<toastUntil && page!=Page.Playing&&page!=Page.Customization&&page!=Page.Controls){CGUIDraw.Text(new Rect(180,628,920,35),toast,tinyStyle);}
       CGUIDraw.Matrix=old;
       CGUIDraw.Color=oldColor;
     }

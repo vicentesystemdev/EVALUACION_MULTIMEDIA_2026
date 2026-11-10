@@ -48,12 +48,28 @@ public class CGMenuDesign:ScriptableObject {
     public bool guardianGlitch=true,cycleGuardianVariants=true;
     [Range(4,12)]public float guardianCycleSeconds=6;
     [Range(.25f,1)]public float guardianGlitchDuration=.6f;
+    [Header("Controles · paneles y mando editable")]
+    public Rect controlsActionsPanel=new Rect(24,177,420,390);
+    public Rect controlsDevicePanel=new Rect(460,177,796,390);
+    public Texture2D controllerXbox,controllerPlayStation,controllerButtonStates;
+    public Texture2D keyboardBackground,keyboardKeyStates;
+    public Color controllerBody=new Color(.065f,.08f,.18f),controllerEdge=new Color(.62f,.35f,1);
+    [Range(0,.15f)]public float controllerPressScale=.07f;
+    public bool animateControlPresses=true;
     void OnValidate(){
         buttonSizePixels.x=Mathf.Clamp(buttonSizePixels.x,220,1160);
         buttonSizePixels.y=Mathf.Clamp(buttonSizePixels.y,44,65);
         buttonSpacing=Mathf.Clamp(buttonSpacing,buttonSizePixels.y+3,75);
         firstButton.x=Mathf.Clamp(firstButton.x,12,1268-buttonSizePixels.x);
         firstButton.y=Mathf.Clamp(firstButton.y,100,664-6*buttonSpacing-buttonSizePixels.y);
+        controlsActionsPanel.width=Mathf.Clamp(controlsActionsPanel.width,340,470);
+        controlsActionsPanel.height=Mathf.Clamp(controlsActionsPanel.height,350,410);
+        controlsActionsPanel.x=Mathf.Clamp(controlsActionsPanel.x,12,580-controlsActionsPanel.width);
+        controlsActionsPanel.y=Mathf.Clamp(controlsActionsPanel.y,160,570-controlsActionsPanel.height);
+        controlsDevicePanel.x=Mathf.Clamp(controlsDevicePanel.x,controlsActionsPanel.xMax+16,628);
+        controlsDevicePanel.width=Mathf.Clamp(controlsDevicePanel.width,640,1268-controlsDevicePanel.x);
+        controlsDevicePanel.height=Mathf.Clamp(controlsDevicePanel.height,350,410);
+        controlsDevicePanel.y=Mathf.Clamp(controlsDevicePanel.y,160,570-controlsDevicePanel.height);
     }
 }
 }

@@ -29,6 +29,13 @@ public class CGGameEditor:UnityEditor.Editor {
             EditorGUILayout.LabelField("Demostrar poder sin guardar progreso",EditorStyles.boldLabel);
             for(int id=0;id<CGAbilities.Names.Length;id++)if(GUILayout.Button(CGAbilities.Names[id])){game.PreviewCustomizationAbility(id);CGEditorMenuPreview.Refresh();}
         }
+        if(game.initialPage=="Controls"){
+            EditorGUILayout.Space();EditorGUILayout.LabelField("Controles en Scene",EditorStyles.boldLabel);
+            if(GUILayout.Button("Mostrar controles de teclado")){game.PreviewControlsMode(false);CGEditorMenuPreview.Refresh();}
+            if(GUILayout.Button("Mostrar controles de mando")){game.PreviewControlsMode(true);CGEditorMenuPreview.Refresh();}
+            if(GUILayout.Button("Mostrar mando Xbox")){game.PreviewControlsMode(true);game.PreviewControllerFamily(0);CGEditorMenuPreview.Refresh();}
+            if(GUILayout.Button("Mostrar mando PlayStation")){game.PreviewControlsMode(true);game.PreviewControllerFamily(1);CGEditorMenuPreview.Refresh();}
+        }
     }
 }
 }

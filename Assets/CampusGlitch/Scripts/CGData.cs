@@ -58,21 +58,23 @@ public static class CGControl {
       case "leftShoulder":return p.leftShoulder.isPressed;case "rightShoulder":return p.rightShoulder.isPressed;
       case "startButton":return p.startButton.isPressed;case "selectButton":return p.selectButton.isPressed;
       case "leftStickButton":return p.leftStickButton.isPressed;case "rightStickButton":return p.rightStickButton.isPressed;
-      case "leftTrigger":return p.leftTrigger.ReadValue()>.65f;case "rightTrigger":return p.rightTrigger.ReadValue()>.65f;
+      case "leftTrigger":return p.leftTrigger.isPressed;case "rightTrigger":return p.rightTrigger.isPressed;
       default:return false;}}
     public static bool PadTapped(int n){CGStore.Load();var p=Gamepad.current;if(p==null)return false;
-      string name=CGStore.Data.padBindings[n];if(name=="leftTrigger"||name=="rightTrigger")return false;
+      string name=CGStore.Data.padBindings[n];
       ButtonControl b=PadButton(name);return b!=null&&b.wasPressedThisFrame;}
-    static ButtonControl PadButton(string n){var p=Gamepad.current;if(p==null)return null;
+    public static ButtonControl PadButton(string n){var p=Gamepad.current;if(p==null)return null;
       switch(n){case "dpadLeft":return p.dpad.left;case "dpadRight":return p.dpad.right;
       case "dpadUp":return p.dpad.up;case "dpadDown":return p.dpad.down;
       case "buttonSouth":return p.buttonSouth;case "buttonNorth":return p.buttonNorth;case "buttonWest":return p.buttonWest;
       case "buttonEast":return p.buttonEast;case "leftShoulder":return p.leftShoulder;case "rightShoulder":return p.rightShoulder;
       case "startButton":return p.startButton;case "selectButton":return p.selectButton;
       case "leftStickButton":return p.leftStickButton;case "rightStickButton":return p.rightStickButton;
+      case "leftTrigger":return p.leftTrigger;case "rightTrigger":return p.rightTrigger;
       default:return null;}}
-    public static string NextGamepadButton(){string[] names={"buttonSouth","buttonWest","buttonNorth","buttonEast","leftShoulder","rightShoulder","startButton","selectButton","dpadLeft","dpadRight","dpadUp","dpadDown","leftStickButton","rightStickButton"};
-      foreach(string n in names){ButtonControl b=PadButton(n);if(b!=null&&b.wasPressedThisFrame)return n;}return null;}
+    public static readonly string[] GamepadButtons={"buttonSouth","buttonWest","buttonNorth","buttonEast","leftShoulder","rightShoulder","startButton","selectButton","dpadLeft","dpadRight","dpadUp","dpadDown","leftStickButton","rightStickButton","leftTrigger","rightTrigger"};
+    public static string NextGamepadButton(){
+      foreach(string n in GamepadButtons){ButtonControl b=PadButton(n);if(b!=null&&b.wasPressedThisFrame)return n;}return null;}
     public static float Axis(){float x=(KeyHeld(1)?1:0)-(KeyHeld(0)?1:0);if(Gamepad.current!=null){float v=Gamepad.current.leftStick.ReadValue().x;if(Mathf.Abs(v)>0.22f)x=v; if(PadHeld(0))x=-1; if(PadHeld(1))x=1;}
       if(CGTouch.Held(CGTouch.Left))x=-1; if(CGTouch.Held(CGTouch.Right))x=1;return x;}
     public static bool HoldRun(){return KeyHeld(3) || PadHeld(3);}
