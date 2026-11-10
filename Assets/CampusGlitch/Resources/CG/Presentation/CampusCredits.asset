@@ -1,0 +1,99 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a104738421124826a781c784990e3624, type: 3}
+  m_Name: CampusCredits
+  m_EditorClassIdentifier: Assembly-CSharp::CampusGlitch.CGCreditsDesign
+  title: "CR\xC9DITOS"
+  subtitle: "LAS PERSONAS DETR\xC1S DEL CAMPUS"
+  footer: Gracias por ser parte de Campus Glitch
+  background: {fileID: 0}
+  firstCard:
+    serializedVersion: 2
+    x: 31
+    y: 184
+    width: 282
+    height: 391
+  cardGap: 24
+  panelOpacity: 0.98
+  hoverLift: 4
+  modalTransition: 0.24
+  animatePortraits: 1
+  team:
+  - name: "V\xCDCTOR GROVER\nASTURIZAGA PLATA"
+    role: Escenarios, dibujos y caminos del campus
+    theme: "PROGRAMACI\xD3N \xB7 ANIMACI\xD3N"
+    detail: "Dio forma a los escenarios, las plataformas y los caminos del campus.
+      Mejor\xF3 los men\xFAs, el mapa y la presentaci\xF3n de los poderes del Guardi\xE1n.
+      Su estilo mezcla Spider-Man, programaci\xF3n y animaci\xF3n."
+    portrait: {fileID: 2800000, guid: 2ff44d8f0b819d7468b8202354407439, type: 3}
+    accent: {r: 1, g: 0.24, b: 0.3, a: 1}
+    arachnidTheme: 1
+    portraitFocus: 1
+  - name: 'CARLA VALERIA
+
+      ENCINAS CANO'
+    role: "Men\xFAs, movimiento y sonidos"
+    theme: "ANIMACI\xD3N \xB7 SONIDO"
+    detail: "Cre\xF3 el primer men\xFA de inicio: organiz\xF3 el t\xEDtulo, las opciones
+      y el bot\xF3n para jugar. Su trabajo en el equipo se centra en los men\xFAs,
+      el movimiento de los personajes y los sonidos."
+    portrait: {fileID: 2800000, guid: a2373f6c8b278904cb29ef8e913a04a6, type: 3}
+    accent: {r: 0.81, g: 0.43, b: 1, a: 1}
+    arachnidTheme: 0
+    portraitFocus: 1
+  - name: 'VICENTE OSCAR
+
+      CLAROS MAMANI'
+    role: "Uni\xF3n del juego y controles en pantalla"
+    theme: "PANTALLAS \xB7 JUEGO EN TEL\xC9FONO"
+    detail: "Uni\xF3 las partes del juego y prepar\xF3 el cambio entre pantallas.
+      A\xF1adi\xF3 controles en pantalla para jugar en el tel\xE9fono y organiz\xF3
+      la revisi\xF3n del trabajo del equipo."
+    portrait: {fileID: 2800000, guid: 960476130c858df4d9f4abdcd7739fa3, type: 3}
+    accent: {r: 0.3, g: 0.85, b: 1, a: 1}
+    arachnidTheme: 0
+    portraitFocus: 1
+  - name: 'MARCELO JOSUE
+
+      ESCOBAR CHIPANA'
+    role: Enemigos y regreso a la partida
+    theme: "DESAF\xCDOS \xB7 NUEVOS INTENTOS"
+    detail: "Cre\xF3 la primera pantalla de derrota y sus opciones de regreso. Su
+      trabajo se centra en los enemigos, el combate y volver a jugar desde el \xFAltimo
+      punto alcanzado."
+    portrait: {fileID: 2800000, guid: f2a0ee2408a3d07419193fc609b31a6f, type: 3}
+    accent: {r: 1, g: 0.4, b: 0.62, a: 1}
+    arachnidTheme: 0
+    portraitFocus: 1
+  acknowledgements:
+  - name: "Ing. Noem\xED Moller\nChuquimia"
+    role: "Directora de la carrera\nIngenier\xEDa de Sistemas"
+    theme: "DIRECCI\xD3N ACAD\xC9MICA"
+    detail: "Gracias por su apoyo, confianza y gu\xEDa en el desarrollo de Campus
+      Glitch."
+    portrait: {fileID: 2800000, guid: 0aac65e31cf513f4eae166244c00445d, type: 3}
+    accent: {r: 0.8, g: 0.4, b: 1, a: 1}
+    arachnidTheme: 0
+    portraitFocus: 1
+  - name: "Ing. Rub\xE9n Soria"
+    role: "Docente de\nProgramaci\xF3n Multimedia"
+    theme: APRENDE HACIENDO
+    detail: "Gracias por su orientaci\xF3n, dedicaci\xF3n y aportes a la elaboraci\xF3n
+      de este proyecto."
+    portrait: {fileID: 2800000, guid: cac2f5b92b606ed46b2833a3aa5a5d89, type: 3}
+    accent: {r: 0.3, g: 0.85, b: 1, a: 1}
+    arachnidTheme: 0
+    portraitFocus: 1
+  resources: "TIPOGRAF\xCDA\nAudiowide \xB7 Barlow Condensed \xB7 Questrial\nFuentes
+    y licencias incluidas en el proyecto.\n\nARTE Y DESARROLLO\nCampus, Guardi\xE1n,
+    actores e interfaces de Campus Glitch.\n\nPROYECTO ACAD\xC9MICO\nUNIFRANZ \xB7
+    Sede La Paz \xB7 Programaci\xF3n Multimedia"
