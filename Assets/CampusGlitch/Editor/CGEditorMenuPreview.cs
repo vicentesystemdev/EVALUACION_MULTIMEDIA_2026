@@ -16,7 +16,7 @@ public static class CGEditorMenuPreview {
     static readonly Dictionary<Renderer,bool> renderStates=new Dictionary<Renderer,bool>();
     static bool legacyHidden,entrancePreview;static double nextFrame;
     static int fontRevision;
-    const string PreviewCharacters=" ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzÁÉÍÓÚÜÑáéíóúüñ0123456789.,:;!?¡¿+-*/()%·↑↓←→✓= /";
+    const string PreviewCharacters=" ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzÁÉÍÓÚÜÑáéíóúüñ0123456789.,:;!?¡¿+-*/()%·↑↓←→✓×= /";
     static CGEditorMenuPreview(){
         Font.textureRebuilt+=font=>fontRevision++;
         EditorSceneManager.sceneOpened+=(scene,mode)=>{entrancePreview=false;Schedule();};

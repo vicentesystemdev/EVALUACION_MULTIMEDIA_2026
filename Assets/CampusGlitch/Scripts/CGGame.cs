@@ -35,6 +35,7 @@ public partial class CGGame:MonoBehaviour {
         else if(!Enum.TryParse<Page>(initialPage,true,out page))page=Page.Splash;
         ShowCreditsOnBoot=false;
         if(page==Page.Controls)BeginControls();
+        if(page==Page.Credits)BeginCredits();
       }
     }
     void CreateLevel(){page=Page.Playing;chips=0;taken=new bool[3];terminalSolved=false;bossDead=string.IsNullOrEmpty(CGLevels.All[sceneLevel].boss);
@@ -50,6 +51,7 @@ public partial class CGGame:MonoBehaviour {
       if(page==Page.Loading){if(loadingLevel&&(CGControl.Confirm()||CGTouch.AnyTap()))skipAccessAnimation=true;return;}
       if(page==Page.Map&&HandleMapShortcuts())return;
       if(page==Page.Customization){HandleCustomization();return;}
+      if(page==Page.Credits){HandleCredits();return;}
       if(page==Page.Playing){if(CGControl.Pause()){page=Page.Paused;Time.timeScale=0;selection=0;}return;}
       if(page==Page.Splash){if(CGControl.Confirm()||CGTouch.AnyTap()){page=Page.Main;selection=0;}return;}
       if(page==Page.Quiz){
@@ -231,6 +233,7 @@ public partial class CGGame:MonoBehaviour {
       else{
         var design=CGMenuTheme.Design;
         var image=(page==Page.Map?(design!=null?design.mapBackground:null):design!=null?design.menuBackground:null)??(page==Page.Map?Resources.Load<Texture2D>("CG/VisualV2/MapCampus"):null)??Resources.Load<Texture2D>("CG/VisualV2/MenuCampus")??CGCampusVisual.Background(0);
+        if(page==Page.Credits&&CreditsDesign!=null&&CreditsDesign.background!=null)image=CreditsDesign.background;
         float drift=CGStore.Data.reduceFlash?0:Mathf.Sin(CGMenuTheme.Clock*.16f)*(design!=null?design.backgroundDrift:5);
         if(image!=null)CGUIDraw.Texture(new Rect(-12+drift,-8,1304,736),image,ScaleMode.ScaleAndCrop);
         else RectColor(new Rect(0,0,1280,720),new Color(.02f,.045f,.08f,1));
@@ -243,7 +246,7 @@ public partial class CGGame:MonoBehaviour {
             RectColor(new Rect(x,y,3+(k%3),3+(k%3)),new Color(k%2==0?1f:.67f,.23f,k%2==0?.23f:1f,a));
           }
         }
-        if(page!=Page.Customization&&page!=Page.Controls){RectColor(new Rect(0,676,1280,44),new Color(.02f,.03f,.055f,.95f));
+        if(page!=Page.Customization&&page!=Page.Controls&&page!=Page.Credits){RectColor(new Rect(0,676,1280,44),new Color(.02f,.03f,.055f,.95f));
         CGUIDraw.Text(new Rect(28,684,1235,28),page==Page.Map?"MOVER: DIRECCIONES / STICK   ·   A / ENTER: JUGAR   ·   Y / TAB: DETALLES   ·   LB / RB: NIVEL   ·   B / ESC: VOLVER":"MOVER: DIRECCIONES / STICK     ·     A / ENTER: ELEGIR     ·     B / ESC: VOLVER     ·     CAMPUS 2.5D",tinyStyle);}
       }
       float entry=editorMenuPreview?1:menuMotion.Entry(CGStore.Data.reduceFlash);
@@ -297,12 +300,7 @@ public partial class CGGame:MonoBehaviour {
        Label("La skin morada llega tras el NIVEL 2; Subsuelo extra tras el NIVEL 5.",424);
        if(Button("CONFIGURAR CONTROLES",0,325,530,630,55))OpenUIScreen("SC_Controls",Page.Controls);
        if(Button("VOLVER",1,325,598,630,55))ToMain();}
-      if(page==Page.Credits){Header("CRÉDITOS - DESARROLLO");Panel(new Rect(180,205,920,415));Label("VICTOR GROVER ASTURIZAGA PLATA",233);Label("Terrenos, assets, diseño de niveles y colisiones",265,32);
-       Label("CARLA VALERIA ENCINAS CANO",321);Label("Animación del protagonista y sonidos",350,31);
-       Label("VICENTE OSCAR CLAROS MAMANI",405);Label("Integración, menús, conexiones y acciones",435,31);
-       Label("MARCELO JOSUE ESCOBAR CHIPANA",492);Label("Villanos, enemigos, jefes y apoyo visual",521,31);
-       Label("Agradecimiento: Noemi Moller Chuquimia",573,29);
-       if(Button("VOLVER",0,470,629,340,45))ToMain();}
+      if(page==Page.Credits)DrawCredits();
       if(page==Page.Paused){Header("JUEGO EN PAUSA");if(Button("CONTINUAR",0,375,260,530,65))PauseChoice(0);
        if(Button("REINICIAR DESDE CHECKPOINT",1,375,342,530,65))PauseChoice(1);
        if(Button("SALIR AL MENÚ",2,375,425,530,65))PauseChoice(2);}

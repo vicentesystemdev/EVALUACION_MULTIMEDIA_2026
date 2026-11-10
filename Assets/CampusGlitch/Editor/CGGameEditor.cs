@@ -5,8 +5,8 @@ using UnityEngine;
 namespace CampusGlitch.Editor {
 [CustomEditor(typeof(CGGame))]
 public class CGGameEditor:UnityEditor.Editor {
-    UnityEditor.Editor designEditor;bool expanded=true;
-    void OnDisable(){if(designEditor!=null)DestroyImmediate(designEditor);}
+    UnityEditor.Editor designEditor,creditsEditor;bool expanded=true,creditsExpanded=true;
+    void OnDisable(){if(designEditor!=null)DestroyImmediate(designEditor);if(creditsEditor!=null)DestroyImmediate(creditsEditor);}
     public override void OnInspectorGUI(){
         DrawDefaultInspector();var game=(CGGame)target;
         if(game.sceneLevel>=0){if(GUILayout.Button("Enfocar nivel actual en Scene"))CGEditorWorldPreview.FrameEntrance();return;}
@@ -35,6 +35,14 @@ public class CGGameEditor:UnityEditor.Editor {
             if(GUILayout.Button("Mostrar controles de mando")){game.PreviewControlsMode(true);CGEditorMenuPreview.Refresh();}
             if(GUILayout.Button("Mostrar mando Xbox")){game.PreviewControlsMode(true);game.PreviewControllerFamily(0);CGEditorMenuPreview.Refresh();}
             if(GUILayout.Button("Mostrar mando PlayStation")){game.PreviewControlsMode(true);game.PreviewControllerFamily(1);CGEditorMenuPreview.Refresh();}
+        }
+        if(game.initialPage=="Credits"){
+            var credits=Resources.Load<CGCreditsDesign>("CG/Presentation/CampusCredits");EditorGUILayout.Space();creditsExpanded=EditorGUILayout.Foldout(creditsExpanded,"Diseño y contenido de Créditos",true);
+            if(credits!=null&&creditsExpanded){CreateCachedEditor(credits,null,ref creditsEditor);EditorGUI.BeginChangeCheck();creditsEditor.OnInspectorGUI();if(EditorGUI.EndChangeCheck()){EditorUtility.SetDirty(credits);CGEditorMenuPreview.Refresh();}}
+            if(GUILayout.Button("Mostrar equipo")){game.PreviewCredits(0);CGEditorMenuPreview.Refresh();}
+            if(GUILayout.Button("Mostrar agradecimientos")){game.PreviewCredits(2);CGEditorMenuPreview.Refresh();}
+            if(GUILayout.Button("Mostrar detalle de Víctor")){game.PreviewCredits(1,0);CGEditorMenuPreview.Refresh();}
+            if(GUILayout.Button("Mostrar arte y recursos")){game.PreviewCredits(3);CGEditorMenuPreview.Refresh();}
         }
     }
 }
