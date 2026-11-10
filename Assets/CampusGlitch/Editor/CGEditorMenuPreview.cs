@@ -59,6 +59,9 @@ public static class CGEditorMenuPreview {
         if(root!=null&&canvas!=null)Apply(items);
     }
     static void Apply(List<CGUIDraw.Item> items){
+        // Reserve every glyph before generating any Text mesh. Otherwise a later label can
+        // rebuild a dynamic font atlas and invalidate UVs already recorded for this frame.
+        foreach(var item in items)if(item.text!=null){var font=item.font!=null?item.font:CGMenuTheme.Body;if(font!=null&&font.dynamic)font.RequestCharactersInTexture(item.text,item.fontSize,item.fontStyle);}
         for(int i=0;i<items.Count;i++){
             var item=items[i];bool text=item.text!=null;
             if(i<elements.Count&&elements[i]!=null&&((elements[i] is Text)!=text)){if(Selection.activeGameObject==elements[i].gameObject)Selection.activeObject=controller;Object.DestroyImmediate(elements[i].gameObject);elements[i]=null;}
@@ -67,7 +70,7 @@ public static class CGEditorMenuPreview {
             var graphic=elements[i];graphic.transform.SetSiblingIndex(i);graphic.gameObject.SetActive(true);graphic.raycastTarget=false;graphic.color=item.color;
             var rect=graphic.rectTransform;rect.anchorMin=rect.anchorMax=new Vector2(.5f,.5f);rect.pivot=new Vector2(.5f,.5f);
             rect.anchoredPosition=new Vector2(item.rect.center.x-640,360-item.rect.center.y);rect.sizeDelta=item.rect.size;
-            if(text){var label=(Text)graphic;label.text=item.text;label.font=item.font!=null?item.font:CGMenuTheme.Body;label.fontSize=item.fontSize;label.fontStyle=item.fontStyle;label.alignment=item.alignment;label.horizontalOverflow=item.wrap?HorizontalWrapMode.Wrap:HorizontalWrapMode.Overflow;label.verticalOverflow=VerticalWrapMode.Overflow;}
+            if(text){var label=(Text)graphic;label.text=item.text;label.font=item.font!=null?item.font:CGMenuTheme.Body;label.fontSize=item.fontSize;label.fontStyle=item.fontStyle;label.alignment=item.alignment;label.horizontalOverflow=item.wrap?HorizontalWrapMode.Wrap:HorizontalWrapMode.Overflow;label.verticalOverflow=VerticalWrapMode.Overflow;label.cachedTextGenerator.Invalidate();label.SetVerticesDirty();}
             else{var image=(RawImage)graphic;image.texture=item.texture;image.uvRect=item.uv;}
         }
         for(int i=items.Count;i<elements.Count;i++)if(elements[i]!=null)elements[i].gameObject.SetActive(false);

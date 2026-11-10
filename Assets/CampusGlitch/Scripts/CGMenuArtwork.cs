@@ -3,8 +3,8 @@ using UnityEngine;
 namespace CampusGlitch {
 // Small cached UI textures keep beveled controls and symbols identical in Scene and Play.
 public static class CGMenuArtwork {
-    static Texture2D normal,focused;static readonly Texture2D[] icons=new Texture2D[7];
-    static Color cachedAccent;
+    static readonly System.Collections.Generic.Dictionary<Color32,Texture2D[]> buttons=new System.Collections.Generic.Dictionary<Color32,Texture2D[]>();
+    static readonly Texture2D[] icons=new Texture2D[7];
     static Texture2D shade,shadow;
     public static Texture2D Shadow {get{
         if(shadow!=null)return shadow;var pixels=new Color[128*32];
@@ -17,13 +17,12 @@ public static class CGMenuArtwork {
         return shade=Make("Menu_Velo_Gradual",64,64,pixels);
     }}
     public static Texture2D Button(bool selected,Color accent){
-        if(normal==null||focused==null||cachedAccent!=accent){
-            Release(normal);Release(focused);cachedAccent=accent;
-            normal=CreateButton(false,accent);focused=CreateButton(true,accent);
+        Color32 key=accent;
+        if(!buttons.TryGetValue(key,out var pair)||pair[0]==null||pair[1]==null){
+            pair=new[]{CreateButton(false,key),CreateButton(true,key)};buttons[key]=pair;
         }
-        return selected?focused:normal;
+        return pair[selected?1:0];
     }
-    static void Release(Texture2D texture){if(texture!=null)Object.DestroyImmediate(texture);}
     static bool Inside(float x,float y,float w,float h,float cut){return x>=0&&y>=0&&x<=w&&y<=h&&x+y>=cut&&w-x+y>=cut&&x+h-y>=cut&&w-x+h-y>=cut;}
     static Texture2D CreateButton(bool selected,Color accent){
         const int w=512,h=80;var pixels=new Color[w*h];
