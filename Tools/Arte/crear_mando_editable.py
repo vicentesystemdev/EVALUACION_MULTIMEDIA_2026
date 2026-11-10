@@ -125,6 +125,7 @@ def draw_family(family, state):
     for x in (249,254,259):panel.ellipse((x,168,x+2,170),fill=(118,146,184,255))
     cx,cy=anatomy_data["face"]
     for dx,dy,label,color in [(0,-34,"Y",(255,218,52,255)),(35,0,"B",(255,82,102,255)),(0,34,"A",(83,243,155,255)),(-35,0,"X",(66,196,255,255))]:
+        if family=="PlayStation":color={"Y":(82,245,175,255),"B":(255,82,102,255),"A":(116,184,255,255),"X":(241,102,255,255)}[label]
         x,y=cx+dx,cy+dy
         image=cap(18,state if label=="A" else 0);layers[4].alpha_composite(image,(x-image.width//2,y-image.height//2))
         if family=="Xbox":symbols.text((x,y-1),label,font=font,fill=color,anchor="mm")
