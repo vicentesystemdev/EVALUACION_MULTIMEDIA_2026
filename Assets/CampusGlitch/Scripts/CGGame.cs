@@ -48,7 +48,7 @@ public partial class CGGame:MonoBehaviour {
       else if(selection!=lastMenuSelection&&page!=Page.Playing&&page!=Page.Loading){CGAudio.Menu();lastMenuSelection=selection;focusChangedAt=Time.unscaledTime;}
       menuMotion.Tick((int)page,selection,CGStore.Data!=null&&CGSettingsRuntime.ReduceFlash);
     }
-    void Update(){pointerMoved=Mouse.current!=null&&Mouse.current.delta.ReadValue().sqrMagnitude>1;
+    void Update(){CGTouch.UpdateInput();pointerMoved=Mouse.current!=null&&Mouse.current.delta.ReadValue().sqrMagnitude>1;
       if(page==Page.Controls){HandleControls();return;}
       if(page==Page.Settings){CGSettingsWorldView.Tick();HandleSettings();return;}
       if(page==Page.Help){HandleHelp();return;}

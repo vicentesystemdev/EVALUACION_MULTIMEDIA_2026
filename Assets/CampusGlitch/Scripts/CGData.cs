@@ -18,6 +18,7 @@ namespace CampusGlitch {
     public float masterVolume=0.85f;
     public bool reduceFlash=false;
     public bool subtitles=true;
+    public bool touchGestures=false;
     public CGSettingsOptions settings=new CGSettingsOptions();
     public string[] actionKeys={"A", "D", "Space", "LeftShift", "J", "E", "Q", "Escape"};
     public string[] padBindings={"dpadLeft","dpadRight","buttonSouth","rightTrigger","buttonWest","buttonNorth","rightShoulder","startButton"};
@@ -78,8 +79,8 @@ public static class CGControl {
     public static string NextGamepadButton(){
       foreach(string n in GamepadButtons){ButtonControl b=PadButton(n);if(b!=null&&b.wasPressedThisFrame)return n;}return null;}
     public static float Axis(){float x=(KeyHeld(1)?1:0)-(KeyHeld(0)?1:0);if(Gamepad.current!=null){float v=Gamepad.current.leftStick.ReadValue().x;if(Mathf.Abs(v)>0.22f)x=v; if(PadHeld(0))x=-1; if(PadHeld(1))x=1;}
-      if(CGTouch.Held(CGTouch.Left))x=-1; if(CGTouch.Held(CGTouch.Right))x=1;return x;}
-    public static bool HoldRun(){return KeyHeld(3) || PadHeld(3);}
+      if(CGTouch.Enabled&&Mathf.Abs(CGTouch.Axis)>.01f)x=CGTouch.Axis;return x;}
+    public static bool HoldRun(){return KeyHeld(3) || PadHeld(3) || CGTouch.Running;}
     public static bool Jump(){return KeyTap(2) || PadTapped(2) || CGTouch.Tapped(CGTouch.Jump);}
     public static bool Attack(){return KeyTap(4) || PadTapped(4) || CGTouch.Tapped(CGTouch.Attack);}
     public static bool Interact(){return KeyTap(5) || PadTapped(5) || CGTouch.Tapped(CGTouch.Interact);}
