@@ -11,7 +11,13 @@ public sealed class CGBuildPreviewFilter:IProcessSceneWithReport {
     public void OnProcessScene(Scene scene,BuildReport report){if(report!=null&&!EditorApplication.isPlaying)Strip(scene);}
     public static int Strip(Scene scene){int removed=0;foreach(var root in scene.GetRootGameObjects()){
         if(root.name=="CG_EDITOR_PREVIEW_2D"||root.name=="CG_EDITOR_LIVE_PREVIEW"||root.name=="CG_EDITOR_MENU_PREVIEW"){Object.DestroyImmediate(root);removed++;}
-    }return removed;}
+    }
+        // Legacy scenes embed two CGCamera scripts without an asset GUID. The runtime
+        // world configures a fresh follower and its target in CGWorld.Setup.
+        foreach(var root in scene.GetRootGameObjects())foreach(var camera in root.GetComponentsInChildren<Camera>(true))
+            foreach(var legacy in camera.GetComponents<CGCamera>())Object.DestroyImmediate(legacy);
+        return removed;
+    }
 }
 }
 #endif
