@@ -18,6 +18,7 @@ namespace CampusGlitch {
     public float masterVolume=0.85f;
     public bool reduceFlash=false;
     public bool subtitles=true;
+    public CGSettingsOptions settings=new CGSettingsOptions();
     public string[] actionKeys={"A", "D", "Space", "LeftShift", "J", "E", "Q", "Escape"};
     public string[] padBindings={"dpadLeft","dpadRight","buttonSouth","rightTrigger","buttonWest","buttonNorth","rightShoulder","startButton"};
 }
@@ -33,8 +34,9 @@ public static class CGStore {
       if(Data.actionKeys==null || Data.actionKeys.Length!=8)Data.actionKeys=new CGProgress().actionKeys;
       if(Data.padBindings==null || Data.padBindings.Length!=8)Data.padBindings=new CGProgress().padBindings;
       if(Data.equippedAbility<0||Data.equippedAbility>3||!CGAbilities.Unlocked(Data,Data.equippedAbility))Data.equippedAbility=0;
+      CGSettingsRuntime.Normalize(Data);
     }
-    public static bool Save(){Load();try{
+    public static bool Save(){Load();CGSettingsRuntime.Normalize(Data);try{
       string path=FileName; System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(path));
       string tmp=path+".tmp";System.IO.File.WriteAllText(tmp,JsonUtility.ToJson(Data,true));
       if(System.IO.File.Exists(path)){System.IO.File.Copy(path,path+".bak",true);System.IO.File.Delete(path);}

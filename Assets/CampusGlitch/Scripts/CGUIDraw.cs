@@ -16,6 +16,7 @@ public static class CGUIDraw {
     public static void ResetCaptureState(){captureColor=UnityEngine.Color.white;captureMatrix=Matrix4x4.identity;}
     public static void Text(Rect rect,string text,GUIStyle style){
         if(string.IsNullOrEmpty(text))return;
+        if(CGSettingsRuntime.Options.solidText){var tint=Color;var backing=new Rect(rect.x+12,rect.y+3,Mathf.Max(0,rect.width-24),Mathf.Max(0,rect.height-6));Color=new Color(.008f,.012f,.035f,tint.a*.96f);Uv(backing,Texture2D.whiteTexture,new Rect(0,0,1,1));Color=tint;}
         if(Capture==null){GUI.Label(rect,text,style);return;}
         Capture.Add(new Item{rect=rect,text=text,font=style.font,fontSize=style.fontSize,fontStyle=style.fontStyle,alignment=style.alignment,wrap=style.wordWrap,color=style.normal.textColor*Color});
     }
