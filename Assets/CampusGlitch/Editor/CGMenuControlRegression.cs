@@ -81,7 +81,7 @@ public static class CGMenuControlRegression {
         yield return Tap(GamepadButton.South);Check(Page=="Settings"&&Get<int>("settingsDialog")==0&&ReferenceEquals(progress,CGStore.Data),"Confirmar Cancelar conserva el progreso y vuelve a Configuración");
         yield return Tap(GamepadButton.East);yield return WaitPage("Main");
         yield return Select(4);yield return Tap(GamepadButton.South);yield return WaitPage("Help");
-        yield return Select(5);yield return Tap(GamepadButton.South);yield return WaitPage("Controls");
+        yield return Select(6);yield return Tap(GamepadButton.South);yield return WaitPage("Controls");
         yield return Tap(GamepadButton.LeftShoulder);Check(Get<bool>("padMode"),"LB cambia a edición de mando");
         string binding=CGStore.Data.padBindings[0];yield return Tap(GamepadButton.South);Check(Get<int>("rebinding")==0,"A inicia asignación del control elegido");
         yield return Tap(GamepadButton.East);Check(Get<int>("rebinding")==-1&&binding==CGStore.Data.padBindings[0],"B cancela asignación sin guardar otro botón");
