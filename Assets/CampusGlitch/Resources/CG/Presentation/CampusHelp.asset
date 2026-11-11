@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 48027a283719eb447b99a38e85466234, type: 3}
-  m_Name: 
+  m_Name:
   m_EditorClassIdentifier: Assembly-CSharp::CampusGlitch.CGHelpDesign
   title: "GU\xCDA DEL CAMPUS"
   subtitle: "EXPLORA \xB7 RESUELVE \xB7 AVANZA"
