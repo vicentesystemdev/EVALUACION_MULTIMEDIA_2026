@@ -39,7 +39,7 @@ public class CGGameEditor:UnityEditor.Editor {
         if(game.initialPage=="Help"){
             var help=Resources.Load<CGHelpDesign>("CG/Presentation/CampusHelp");EditorGUILayout.Space();helpExpanded=EditorGUILayout.Foldout(helpExpanded,"Contenido de Ayuda",true);
             if(help!=null&&helpExpanded){CreateCachedEditor(help,null,ref helpEditor);EditorGUI.BeginChangeCheck();helpEditor.OnInspectorGUI();if(EditorGUI.EndChangeCheck()){EditorUtility.SetDirty(help);CGEditorMenuPreview.Refresh();}}
-            var chapters=new[]{"Cómo jugar","Objetivos","Iconos","Personajes","Guardado"};for(int i=0;i<chapters.Length;i++)if(GUILayout.Button("Mostrar "+chapters[i])){game.PreviewHelp(i);CGEditorMenuPreview.Refresh();}
+            var chapters=new[]{"Cómo jugar","Objetivos","Iconos","Personajes","Guardado","Versión móvil"};for(int i=0;i<chapters.Length;i++)if(GUILayout.Button("Mostrar "+chapters[i])){game.PreviewHelp(i);CGEditorMenuPreview.Refresh();}
         }
         if(game.initialPage=="Map"){
             var map=Resources.Load<CGMapDesign>("CG/Presentation/CampusMap");EditorGUILayout.Space();mapExpanded=EditorGUILayout.Foldout(mapExpanded,"Diseño del mapa y actividades",true);

@@ -27,7 +27,7 @@ public partial class CGGame {
         settingsBaseline=settingsDraft.Copy();settingsDialog=0;settingsChoice=1;selection=4;settingsNotice="";settingsAxis=0;menuNavigation.Reset();SyncSettingsPreview();
     }
     void SyncSettingsPreview(){if(Application.isPlaying){CGSettingsRuntime.Preview=settingsDraft;CGSettingsRuntime.Audio();}}
-    void OnDisable(){CGSettingsWorldView.Cleanup();CGHelpArt.Cleanup();if(settingsDraft!=null){if(displayTrial)RestoreSettingsDisplay();if(ReferenceEquals(CGSettingsRuntime.Preview,settingsDraft)){CGSettingsRuntime.Preview=null;CGSettingsRuntime.Audio();}}}
+    void OnDisable(){CGSettingsWorldView.Cleanup();CGHelpArt.Cleanup();CGTouch.Reset();if(settingsDraft!=null){if(displayTrial)RestoreSettingsDisplay();if(ReferenceEquals(CGSettingsRuntime.Preview,settingsDraft)){CGSettingsRuntime.Preview=null;CGSettingsRuntime.Audio();}}}
     void SettingsSection(int section){settingsSection=(section+4)%4;selection=4;settingsNotice="";settingsChangedAt=CGMenuTheme.Clock;settingsAxis=0;menuNavigation.Reset();CGAudio.Menu();}
     bool SettingsToggle(int row){return settingsSection==0&&row==3||settingsSection==1&&row==0||settingsSection==2&&row!=1;}
     void SettingsChange(int row,int direction){

@@ -14,7 +14,7 @@ public static class CGAndroidBuild {
   public const string AppId="com.unifranz.campusglitch";
   public const string AndroidName="Campus Glitch";
   const string ApkPath="Builds/Android/CampusGlitch.apk";
-  const string ReportPath="Docs/Evaluacion_Dia2/Android/Reporte_Build_Android.txt";
+  const string ReportPath="Builds/Android/Reporte_Build_Android.txt";
 
   [MenuItem("Campus Glitch/Android/1. Configurar Android (sin compilar)")]
   public static void Configure(){
@@ -34,32 +34,15 @@ public static class CGAndroidBuild {
   }
 
   [MenuItem("Campus Glitch/Android/2. Generar APK (Builds/Android)")]
-  public static void BuildApk(){
-    if(!BuildPipeline.IsBuildTargetSupported(BuildTargetGroup.Android,BuildTarget.Android))
-      throw new InvalidOperationException("Falta el módulo Android Build Support (con OpenJDK y Android SDK & NDK Tools). Instálalo desde Unity Hub > Installs > 6000.3.16f1 > Add modules.");
+  public static void BuildApk(){CGAndroidLocalExport.Queue();}
+
+  internal static BuildReport BuildCurrent(){
     var scenes=EditorBuildSettings.scenes.Where(s=>s.enabled).Select(s=>s.path).ToArray();
-    foreach(string s in scenes)if(!File.Exists(s))throw new FileNotFoundException("Escena incluida en Build Profiles pero inexistente: "+s);
-    if(scenes.Length!=18)throw new InvalidOperationException("Se esperaban 18 escenas activas en Build Profiles; hay "+scenes.Length+".");
-    if(scenes[0]!="Assets/CampusGlitch/Scenes/SC_Bootstrap.unity")throw new InvalidOperationException("La primera escena debe ser SC_Bootstrap; es "+scenes[0]);
-    Configure();
-    if(EditorUserBuildSettings.activeBuildTarget!=BuildTarget.Android)
-      EditorUserBuildSettings.SwitchActiveBuildTarget(BuildTargetGroup.Android,BuildTarget.Android);
-    // productName is shared with Windows: use "Campus Glitch" for the APK only and restore it afterwards.
-    string previousName=PlayerSettings.productName;
+    foreach(string path in scenes)if(!File.Exists(path))throw new FileNotFoundException("Escena inexistente: "+path);
+    if(scenes.Length!=18||scenes[0]!="Assets/CampusGlitch/Scenes/SC_Bootstrap.unity")throw new InvalidOperationException("Revisar las 18 escenas y el inicio del juego.");
     Directory.CreateDirectory(Path.GetDirectoryName(ApkPath));
-    BuildReport report;
-    try {
-      PlayerSettings.productName=AndroidName;
-      report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=scenes,locationPathName=ApkPath,target=BuildTarget.Android,options=BuildOptions.None});
-    } finally {
-      PlayerSettings.productName=previousName;
-      AssetDatabase.SaveAssets();
-    }
-    WriteReport(report,scenes);
-    var summary=report.summary;
-    Debug.Log("[Campus Glitch Android] "+summary.result+" | errores "+summary.totalErrors+" | "+ApkPath);
-    if(summary.result!=BuildResult.Succeeded)throw new Exception("Build Android falló ("+summary.result+"). Revisa la Consola y "+ReportPath);
-    if(!Application.isBatchMode)EditorUtility.RevealInFinder(ApkPath);
+    var report=BuildPipeline.BuildPlayer(new BuildPlayerOptions{scenes=scenes,locationPathName=ApkPath,target=BuildTarget.Android,options=BuildOptions.None});
+    WriteReport(report,scenes);return report;
   }
 
   static void WriteReport(BuildReport report,string[] scenes){

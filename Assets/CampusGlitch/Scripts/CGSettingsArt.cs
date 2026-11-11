@@ -3,7 +3,7 @@ using UnityEngine;
 namespace CampusGlitch {
 // Nine-slice panels preserve border width and cut corners at every menu size.
 public static class CGSettingsArt {
-    static readonly Dictionary<(Color32,Color32),Texture2D> frames=new Dictionary<(Color32,Color32),Texture2D>();static readonly Texture2D[] icons=new Texture2D[8];static readonly Vector4 UV=new Vector4(0,.25f,.75f,1);static Texture2D knob,track;
+    static readonly Dictionary<(Color32,Color32),Texture2D> frames=new Dictionary<(Color32,Color32),Texture2D>();static readonly Texture2D[] icons=new Texture2D[9];static readonly Vector4 UV=new Vector4(0,.25f,.75f,1);static Texture2D knob,track;
     static Texture2D Make(string name,int size,Color32[] pixels){var t=new Texture2D(size,size,TextureFormat.RGBA32,false){name=name,filterMode=FilterMode.Point,wrapMode=TextureWrapMode.Clamp,hideFlags=HideFlags.HideAndDontSave};t.SetPixels32(pixels);t.Apply(false,true);return t;}
     public static void Frame(Rect r,Color edge,Color fill){
         var key=((Color32)edge,(Color32)fill);
@@ -18,7 +18,7 @@ public static class CGSettingsArt {
     public static Texture2D Track {get{if(track!=null)return track;var p=new Color32[32*32];for(int y=0;y<32;y++)for(int x=0;x<32;x++){if(new Vector2(x-15.5f,y-15.5f).magnitude<15.5f)p[y*32+x]=Color.white;}return track=Make("Ajuste_Pista",32,p);}}
     static bool Line(Vector2 p,float ax,float ay,float bx,float by){var a=new Vector2(ax,ay);var d=new Vector2(bx,by)-a;return (p-a-d*Mathf.Clamp01(Vector2.Dot(p-a,d)/d.sqrMagnitude)).magnitude<1.6f;}
     public static Texture2D Icon(int id){
-        id=Mathf.Clamp(id,0,7);if(icons[id]!=null)return icons[id];var pixels=new Color32[64*64];for(int y=0;y<64;y++)for(int x=0;x<64;x++){
+        id=Mathf.Clamp(id,0,8);if(icons[id]!=null)return icons[id];var pixels=new Color32[64*64];for(int y=0;y<64;y++)for(int x=0;x<64;x++){
             var p=new Vector2(x-32,y-32);bool on=false;
             if(id==0)on=(Mathf.Abs(p.x)<23&&Mathf.Abs(p.y-4)<15&&(Mathf.Abs(p.x)>20||Mathf.Abs(p.y-4)>12))||Line(p,0,-11,0,-23)||Line(p,-13,-23,13,-23);
             if(id==1)on=(p.x>=-23&&p.x<=-12&&Mathf.Abs(p.y)<7)||Line(p,-12,7,1,19)||Line(p,1,19,1,-19)||Line(p,1,-19,-12,-7)||(p.x>5&&Mathf.Abs(p.magnitude-14)<1.5f)||(p.x>10&&Mathf.Abs(p.magnitude-24)<1.5f);
@@ -28,6 +28,7 @@ public static class CGSettingsArt {
             if(id==5)on=Line(p,2,24,-14,-2)||Line(p,-14,-2,2,-2)||Line(p,2,-2,-2,-24)||Line(p,-2,-24,15,4)||Line(p,15,4,-1,4);
             if(id==6){for(int i=0;i<5;i++)on|=Mathf.Abs(p.x-(-20+i*10))<2.5f&&Mathf.Abs(p.y)<8+(i%3)*7;}
             if(id==7)on=Line(p,-23,19,-3,19)||Line(p,-13,19,-13,-19)||Line(p,4,9,23,9)||Line(p,14,9,14,-19);
+            if(id==8)on=(Mathf.Abs(p.x)<15&&Mathf.Abs(p.y)<26&&(Mathf.Abs(p.x)>12||Mathf.Abs(p.y)>23))||Line(p,-5,-19,5,-19)||Line(p,-5,19,5,19);
             if(on)pixels[y*64+x]=Color.white;
         }return icons[id]=Make("Configuracion_Icono_"+id,64,pixels);
     }

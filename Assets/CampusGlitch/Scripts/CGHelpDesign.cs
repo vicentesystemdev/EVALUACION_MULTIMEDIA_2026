@@ -8,7 +8,7 @@ namespace CampusGlitch {
 [CreateAssetMenu(menuName="Campus Glitch/Diseño de ayuda",fileName="CampusHelp")]
 public sealed class CGHelpDesign:ScriptableObject {
     public string title="GUÍA DEL CAMPUS",subtitle="EXPLORA · RESUELVE · AVANZA";
-    public string[] sections={"Cómo jugar","Objetivos","Iconos del juego","Personajes","Guardado"};
+    public string[] sections={"Cómo jugar","Objetivos","Iconos del juego","Personajes","Guardado","Versión móvil"};
     public Texture2D background;
     public Color panel=new Color(.025f,.04f,.085f,1);
     [Range(.12f,.4f)]public float transition=.2f;
