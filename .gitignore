@@ -45,3 +45,6 @@ Desktop.ini
 *.aab
 *.keystore
 *.jks
+
+# Trabajo temporal del editor
+/.utmp/

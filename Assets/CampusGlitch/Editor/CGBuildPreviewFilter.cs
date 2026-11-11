@@ -9,13 +9,16 @@ namespace CampusGlitch.Editor {
 public sealed class CGBuildPreviewFilter:IProcessSceneWithReport {
     public int callbackOrder {get{return -1000;}}
     public void OnProcessScene(Scene scene,BuildReport report){if(report!=null&&!EditorApplication.isPlaying)Strip(scene);}
-    public static int Strip(Scene scene){int removed=0;foreach(var root in scene.GetRootGameObjects()){
-        if(root.name=="CG_EDITOR_PREVIEW_2D"||root.name=="CG_EDITOR_LIVE_PREVIEW"||root.name=="CG_EDITOR_MENU_PREVIEW"){Object.DestroyImmediate(root);removed++;}
-    }
-        // Legacy scenes embed two CGCamera scripts without an asset GUID. The runtime
-        // world configures a fresh follower and its target in CGWorld.Setup.
-        foreach(var root in scene.GetRootGameObjects())foreach(var camera in root.GetComponentsInChildren<Camera>(true))
-            foreach(var legacy in camera.GetComponents<CGCamera>())Object.DestroyImmediate(legacy);
+    public static int Strip(Scene scene){
+        var roots=scene.GetRootGameObjects();bool playable=false;int removed=0,cameras=0;
+        foreach(var root in roots){var controller=root.GetComponent<CGGame>();if(controller!=null&&controller.sceneLevel>=0)playable=true;}
+        foreach(var root in roots){
+            if(root.name=="CG_EDITOR_PREVIEW_2D"||root.name=="CG_EDITOR_LIVE_PREVIEW"||root.name=="CG_EDITOR_MENU_PREVIEW"){Object.DestroyImmediate(root);removed++;}
+            // CGGame.Start creates the level camera, and CGWorld.Setup assigns its follower.
+            // Replacing the legacy rig avoids its embedded, GUID-less MonoScript entries.
+            else if(playable&&root.name=="Main Camera (2D ortográfica)"&&root.GetComponent<Camera>()!=null){Object.DestroyImmediate(root);cameras++;}
+        }
+        if(BuildPipeline.isBuildingPlayer){System.IO.Directory.CreateDirectory("Builds/Android");System.IO.File.AppendAllText("Builds/Android/Filtro_Escenas.txt",scene.name+": maquetas "+removed+"; rig de cámara sustituido "+cameras+"\n");}
         return removed;
     }
 }
