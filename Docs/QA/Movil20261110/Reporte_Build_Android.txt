@@ -1,13 +1,13 @@
 CAMPUS GLITCH - Reporte de build Android (generado por Unity, CGAndroidBuild.BuildApk)
-Fecha: 2026-11-10 23:34:03
+Fecha: 2026-11-11 00:04:37
 Unity: 6000.3.16f1
 Resultado: Succeeded
-Errores: 0 | Advertencias: 213
-Duración: 00:07:49.2703720
+Errores: 0 | Advertencias: 22
+Duración: 00:03:04.6450650
 Salida: Builds/Android/Trabajo/CampusGlitch.apk
-Tamaño APK: 100,3 MB
+Tamaño APK: 100,1 MB
 Identificador: com.unifranz.campusglitch
-Nombre: Campus Glitch | Versión: 1.0 (3)
+Nombre: Campus Glitch | Versión: 1.0 (4)
 Backend: IL2CPP | Arquitecturas: ARM64
 Min SDK: AndroidApiLevel25 | Target SDK: AndroidApiLevelAuto
 Orientación: AutoRotation (landscape izq/der)
