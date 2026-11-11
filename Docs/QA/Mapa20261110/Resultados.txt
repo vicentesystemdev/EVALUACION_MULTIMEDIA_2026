@@ -1,0 +1,39 @@
+PASS Abre el mapa del campus
+PASS Diez tarjetas con espacio propio, sin superposición ni salida del recorrido
+PASS N1: destino y actividades conectados al nivel
+PASS N2: destino y actividades conectados al nivel
+PASS N3: destino y actividades conectados al nivel
+PASS N4: destino y actividades conectados al nivel
+PASS N5: destino y actividades conectados al nivel
+PASS N6: destino y actividades conectados al nivel
+PASS N7: destino y actividades conectados al nivel
+PASS N8: destino y actividades conectados al nivel
+PASS N9: destino y actividades conectados al nivel
+PASS N10: destino y actividades conectados al nivel
+PASS Nivel bloqueado explica su acceso sin inventar actividades cumplidas
+PASS Recompensa de N1 coincide con el poder que se desbloquea
+PASS Nivel con jefe muestra el desafío correspondiente
+PASS Subsuelo tiene acceso y recompensa propios
+PASS Consultar los diez destinos no cambia el progreso
+PASS Cruceta mueve a la tarjeta contigua
+PASS A sobre un nivel bloqueado conserva el mapa y comunica el motivo
+PASS Y abre el nivel y sus guías
+PASS RB cambia de destino en el detalle
+PASS LB vuelve al destino anterior
+PASS B cierra el detalle sin salir del mapa
+PASS Tab abre el detalle con teclado
+PASS Escape cierra el detalle conservando la selección
+PASS Stick baja de la última fila a la ruta extra
+PASS Cruceta vuelve del extra a la última fila
+PASS Un nivel completado muestra actividades, repetición y recompensa conseguidas
+PASS El progreso cuenta los niveles realmente completados
+PASS El acceso extra responde al desbloqueo guardado
+PASS Reducir destellos conserva el contenido y sus acciones
+PASS X abre la pantalla real del Guardián
+PASS View abre la pantalla real de Configuración
+PASS Los accesos del mapa no activan la entrada de niveles
+PASS P abre el Guardián con teclado
+PASS C abre Configuración con teclado
+PASS Start devuelve al menú principal
+TOTAL PASS=37 FAIL=0
+Guardado original restaurado.

@@ -75,9 +75,11 @@ public static class CGMenuControlRegression {
         yield return Tap(GamepadButton.East);Check(Page=="Map"&&!Get<bool>("mapDetails"),"B cierra detalle sin abandonar el mapa");
         yield return Tap(GamepadButton.East);yield return WaitPage("Main");
         yield return Select(3);yield return Tap(GamepadButton.South);yield return WaitPage("Settings");
-        yield return Select(4);yield return Tap(GamepadButton.South);yield return WaitPage("ConfirmReset");
-        Check(Get<int>("selection")==1,"Borrar progreso abre con Cancelar seleccionado");var progress=CGStore.Data;
-        yield return Tap(GamepadButton.South);yield return WaitPage("Main");Check(ReferenceEquals(progress,CGStore.Data),"Confirmar Cancelar conserva el progreso");
+        yield return Tap(GamepadButton.RightShoulder);yield return Tap(GamepadButton.RightShoulder);yield return Tap(GamepadButton.RightShoulder);
+        yield return Tap(GamepadButton.DpadDown);yield return Tap(GamepadButton.South);
+        Check(Get<int>("settingsDialog")==4&&Get<int>("settingsChoice")==1,"Borrar avance abre con Cancelar seleccionado");var progress=CGStore.Data;
+        yield return Tap(GamepadButton.South);Check(Page=="Settings"&&Get<int>("settingsDialog")==0&&ReferenceEquals(progress,CGStore.Data),"Confirmar Cancelar conserva el progreso y vuelve a Configuración");
+        yield return Tap(GamepadButton.East);yield return WaitPage("Main");
         yield return Select(4);yield return Tap(GamepadButton.South);yield return WaitPage("Help");
         yield return Tap(GamepadButton.South);yield return WaitPage("Controls");
         yield return Tap(GamepadButton.LeftShoulder);Check(Get<bool>("padMode"),"LB cambia a edición de mando");
