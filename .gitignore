@@ -39,3 +39,9 @@ Desktop.ini
 /Assets/Resources/PerformanceTestRunInfo.json.meta
 /Assets/Resources/PerformanceTestRunSettings.json
 /Assets/Resources/PerformanceTestRunSettings.json.meta
+
+# Paquetes Android y firmas locales
+*.apk
+*.aab
+*.keystore
+*.jks

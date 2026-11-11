@@ -9,7 +9,7 @@ public static class CGTouch {
     static readonly string[] Labels={"IZQ","DER","SALTAR","ATACAR","USAR","PAUSA","PODER","CORRER"};
     struct Finger {public Vector2 start;public int button;public bool fired;}
     static readonly Dictionary<int,Finger> fingers=new Dictionary<int,Finger>();static readonly List<int> ended=new List<int>();
-    static int taps,consumed,held,frame=-1;static float axis;static bool running;
+    static int taps,held,frame=-1;static readonly float[] expires=new float[8];static float axis;static bool running;
     #if UNITY_EDITOR
     public static bool EditorSimulation;
 #endif
@@ -32,24 +32,25 @@ public static class CGTouch {
     public static Rect ButtonRect(int b){return Layout(b,Screen.width,Screen.height,Screen.safeArea);}
     [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]static void Initialize(){Reset();if(!EnhancedTouchSupport.enabled)EnhancedTouchSupport.Enable();Application.focusChanged-=Focus;Application.focusChanged+=Focus;}
     static void Focus(bool focused){if(!focused)Reset();}
-    public static void Reset(){fingers.Clear();taps=consumed=held=0;axis=0;running=false;frame=-1;}
+    public static void Reset(){fingers.Clear();taps=held=0;axis=0;running=false;frame=-1;}
     public static int Gesture(Vector2 delta,float duration,float unit){if(duration>1.2f)return -1;float threshold=55*unit;if(delta.y < -threshold&&Mathf.Abs(delta.y)>Mathf.Abs(delta.x)*1.1f)return Jump;if(Mathf.Abs(delta.x)>threshold&&Mathf.Abs(delta.x)>Mathf.Abs(delta.y)*1.1f)return Ability;return delta.magnitude<20*unit&&duration<.35f?Attack:-1;}
     public static void UpdateInput(){
-        if(!Enabled||frame==Time.frameCount)return;frame=Time.frameCount;taps=consumed=held=0;axis=0;running=false;
+        if(!Enabled||frame==Time.frameCount)return;frame=Time.frameCount;held=0;axis=0;running=false;for(int b=0;b<8;b++)if(Time.unscaledTime>=expires[b])taps&=~(1<<b);
         if(!EnhancedTouchSupport.enabled)EnhancedTouchSupport.Enable();CGStore.Load();bool gestures=CGStore.Data.touchGestures;ended.Clear();
         foreach(var touch in Touch.activeTouches){int id=touch.touchId;var point=new Vector2(touch.screenPosition.x,Screen.height-touch.screenPosition.y);
-            if(touch.phase==TouchPhase.Began){int button=-1;for(int b=0;b<Labels.Length;b++)if((!gestures||b==Interact||b==Pause)&&ButtonRect(b).Contains(point)){button=b;break;}if(gestures&&button<0)button=point.x<Screen.safeArea.center.x?-2:-3;fingers[id]=new Finger{start=point,button=button};if(button>=0)taps|=1<<button;}
+            if(touch.phase==TouchPhase.Began){int button=-1;for(int b=0;b<Labels.Length;b++)if((!gestures||b==Interact||b==Pause)&&ButtonRect(b).Contains(point)){button=b;break;}if(gestures&&button<0)button=point.x<Screen.safeArea.center.x?-2:-3;fingers[id]=new Finger{start=point,button=button};if(button>=0)QueueTap(button);}
             if(!fingers.TryGetValue(id,out var finger))continue;
             if(touch.phase==TouchPhase.Canceled){ended.Add(id);continue;}
-            if(touch.phase==TouchPhase.Ended){if(finger.button==-3&&!finger.fired){int action=Gesture(point-finger.start,(float)(touch.time-touch.startTime),Unit);if(action>=0)taps|=1<<action;}ended.Add(id);continue;}
+            if(touch.phase==TouchPhase.Ended){if(finger.button==-3&&!finger.fired){int action=Gesture(point-finger.start,(float)(touch.time-touch.startTime),Unit);if(action>=0)QueueTap(action);}ended.Add(id);continue;}
             if(finger.button>=0)held|=1<<finger.button;
             if(finger.button==-2){float x=Mathf.Clamp((point.x-finger.start.x)/(85*Unit),-1,1);if(Mathf.Abs(x)>.16f)axis=x;running=Mathf.Abs(x)>.85f;}
-            if(finger.button==-3&&!finger.fired){int action=Gesture(point-finger.start,(float)(touch.time-touch.startTime),Unit);if(action==Jump||action==Ability){taps|=1<<action;finger.fired=true;fingers[id]=finger;}}
+            if(finger.button==-3&&!finger.fired){int action=Gesture(point-finger.start,(float)(touch.time-touch.startTime),Unit);if(action==Jump||action==Ability){QueueTap(action);finger.fired=true;fingers[id]=finger;}}
         }
         foreach(int id in ended)fingers.Remove(id);if((held&(1<<Left))!=0)axis=-1;if((held&(1<<Right))!=0)axis=1;running|=(held&(1<<Run))!=0;
     }
+    static void QueueTap(int b){taps|=1<<b;expires[b]=Time.unscaledTime+.18f;}
     public static bool Held(int b){return Enabled&&(held&(1<<b))!=0;}
-    public static bool Tapped(int b){if(!Enabled||(taps&(1<<b))==0||(consumed&(1<<b))!=0)return false;consumed|=1<<b;return true;}
+    public static bool Tapped(int b){if(!Enabled||(taps&(1<<b))==0)return false;taps&=~(1<<b);return true;}
     public static bool AnyTap(){if(!Enabled)return false;foreach(var touch in Touch.activeTouches)if(touch.phase==TouchPhase.Began)return true;return false;}
     static GUIStyle style;
     public static void Draw(){

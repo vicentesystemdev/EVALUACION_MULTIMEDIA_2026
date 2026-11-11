@@ -13,7 +13,7 @@ namespace CampusGlitch.Editor {
 public static class CGAndroidBuild {
   public const string AppId="com.unifranz.campusglitch";
   public const string AndroidName="Campus Glitch";
-  const string ApkPath="Builds/Android/CampusGlitch.apk";
+  const string ApkPath="Builds/Android/Trabajo/CampusGlitch.apk";
   const string ReportPath="Builds/Android/Reporte_Build_Android.txt";
 
   [MenuItem("Campus Glitch/Android/1. Configurar Android (sin compilar)")]

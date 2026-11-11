@@ -21,10 +21,12 @@ public static class CGUIDraw {
         Capture.Add(new Item{rect=rect,text=text,font=style.font,fontSize=style.fontSize,fontStyle=style.fontStyle,alignment=style.alignment,wrap=style.wordWrap,color=style.normal.textColor*Color});
     }
     public static void Uv(Rect rect,Texture texture,Rect uv,bool alpha=true){
+        if(texture==null)return;
         if(Capture==null){GUI.DrawTextureWithTexCoords(rect,texture,uv,alpha);return;}
         Capture.Add(new Item{rect=rect,texture=texture,uv=uv,color=Color});
     }
     public static void Texture(Rect rect,Texture texture,ScaleMode mode=ScaleMode.StretchToFill){
+        if(texture==null)return;
         if(Capture==null){GUI.DrawTexture(rect,texture,mode);return;}
         Rect uv=new Rect(0,0,1,1);
         float source=texture.width/(float)texture.height,target=rect.width/rect.height;
