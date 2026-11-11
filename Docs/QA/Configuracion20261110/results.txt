@@ -1,0 +1,47 @@
+PASS Abre Configuración
+PASS Abrir no genera cambios pendientes
+PASS Tab abre Audio
+PASS Silenciar actúa sin guardar
+PASS Desactivar silencio recupera el volumen
+PASS Teclado reduce volumen sin guardar automáticamente
+PASS General, música, juego y botones controlan salidas separadas
+PASS La prueba reproduce sonidos y música reales
+PASS El indicador recibe señal real de sonido
+PASS Silenciar deja el indicador sin señal
+PASS Salir con cambios selecciona Seguir ajustando
+PASS Cancelar la salida conserva el borrador
+PASS Guardar confirma las opciones
+PASS Opciones conservadas al volver a leer el archivo
+PASS Guardar sonido conserva el modo de pantalla anterior
+PASS Los valores guardados abren sin cambios pendientes
+PASS El progreso antiguo conserva su volumen y recibe opciones nuevas válidas
+PASS Opciones fuera de rango se corrigen antes de guardar
+PASS A cambia consejos sin borrar el valor guardado
+PASS Tamaño, fondos y reducción de destellos responden antes de guardar
+PASS Las conversaciones se conservan aunque los consejos estén apagados
+PASS Scene dibuja una vista del nivel y no una imagen del menú
+PASS La vista genera el nivel real con el Guardián y sus personajes
+PASS La vista mantiene la física y el control desactivados
+PASS La vista tiene una escena física independiente
+PASS La vista no cambia la cámara de Configuración
+PASS El nivel se actualiza con las animaciones
+PASS La cámara del nivel muestra el escenario iluminado y no un cuadro vacío
+PASS Cancelar restablecimiento conserva el borrador
+PASS Restablecer prepara opciones originales sin guardarlas ni borrar avance
+PASS Borrar avance abre una confirmación con Cancelar elegido
+PASS Cancelar conserva el avance
+PASS Confirmar comienza de nuevo
+PASS Borrar avance conserva sonido, pantalla y botones
+PASS Caducar la confirmación recupera los valores anteriores de pantalla
+PASS La caducidad no guarda ni cambia la pantalla física en el editor
+PASS Una dirección mantenida no confirma un borrado por arrastre
+PASS Confirmar la opción segura cierra el aviso
+PASS Mantener dirección cambia un interruptor una sola vez
+PASS Volver avisa sobre los cambios de pantalla pendientes
+PASS Salir sin guardar recupera el menú, el sonido y libera la vista del nivel
+PASS Salir no deja mundos temporales ocultos
+PASS Solo queda la luz global de la pantalla actual
+PASS Configuración vuelve a abrir con los valores guardados
+PASS Elegir teclas y botones abre la pantalla real de Controles
+TOTAL PASS=45 FAIL=0
+Guardado original restaurado.
