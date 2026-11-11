@@ -1,0 +1,32 @@
+CAMPUS GLITCH - Reporte de build Android (generado por Unity, CGAndroidBuild.BuildApk)
+Fecha: 2026-11-10 23:34:03
+Unity: 6000.3.16f1
+Resultado: Succeeded
+Errores: 0 | Advertencias: 213
+Duración: 00:07:49.2703720
+Salida: Builds/Android/Trabajo/CampusGlitch.apk
+Tamaño APK: 100,3 MB
+Identificador: com.unifranz.campusglitch
+Nombre: Campus Glitch | Versión: 1.0 (3)
+Backend: IL2CPP | Arquitecturas: ARM64
+Min SDK: AndroidApiLevel25 | Target SDK: AndroidApiLevelAuto
+Orientación: AutoRotation (landscape izq/der)
+Escenas (18):
+  0. Assets/CampusGlitch/Scenes/SC_Bootstrap.unity
+  1. Assets/CampusGlitch/Scenes/SC_MainMenu.unity
+  2. Assets/CampusGlitch/Scenes/SC_LevelMap.unity
+  3. Assets/CampusGlitch/Scenes/SC_Customization.unity
+  4. Assets/CampusGlitch/Scenes/SC_Settings.unity
+  5. Assets/CampusGlitch/Scenes/SC_Controls.unity
+  6. Assets/CampusGlitch/Scenes/SC_Credits.unity
+  7. Assets/CampusGlitch/Scenes/SC_Help.unity
+  8. Assets/CampusGlitch/Scenes/SC_Level01.unity
+  9. Assets/CampusGlitch/Scenes/SC_Level02.unity
+  10. Assets/CampusGlitch/Scenes/SC_Level03.unity
+  11. Assets/CampusGlitch/Scenes/SC_Level04.unity
+  12. Assets/CampusGlitch/Scenes/SC_Level05.unity
+  13. Assets/CampusGlitch/Scenes/SC_Level06.unity
+  14. Assets/CampusGlitch/Scenes/SC_Level07.unity
+  15. Assets/CampusGlitch/Scenes/SC_Level08.unity
+  16. Assets/CampusGlitch/Scenes/SC_Level09.unity
+  17. Assets/CampusGlitch/Scenes/SC_Extra_Subsuelo.unity

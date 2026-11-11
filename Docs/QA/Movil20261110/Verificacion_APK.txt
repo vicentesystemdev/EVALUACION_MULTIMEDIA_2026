@@ -1,0 +1,18 @@
+Nombre: Campus Glitch
+Versión: 1.0 (3)
+APK: 105143337 bytes
+SHA-256: 0c371807e6596b39513487d67b1e09e4c7bdc58f997034c1e49fe7075fb86795
+Firma verificada: Android Debug
+Copia mediante selector de carpeta: coincide por SHA-256
+Dispositivos de depuración USB encontrados: 0
+package: name='com.unifranz.campusglitch' versionCode='3' versionName='1.0' platformBuildVersionName='16' platformBuildVersionCode='36' compileSdkVersion='36' compileSdkVersionCodename='16'
+sdkVersion:'25'
+targetSdkVersion:'36'
+application-label:'Campus Glitch'
+application-icon-120:'res/Ut.png'
+application-icon-160:'res/W5.png'
+application-icon-240:'res/YA.png'
+application-icon-320:'res/l4.png'
+application-icon-480:'res/Iw.png'
+application-icon-640:'res/oj.png'
+native-code: 'arm64-v8a'
