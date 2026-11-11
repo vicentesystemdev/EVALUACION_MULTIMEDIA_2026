@@ -1,0 +1,56 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 48027a283719eb447b99a38e85466234, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::CampusGlitch.CGHelpDesign
+  title: "GU\xCDA DEL CAMPUS"
+  subtitle: "EXPLORA \xB7 RESUELVE \xB7 AVANZA"
+  sections:
+  - "C\xF3mo jugar"
+  - Objetivos
+  - Iconos del juego
+  - Personajes
+  - Guardado
+  background: {fileID: 0}
+  panel: {r: 0.025, g: 0.04, b: 0.085, a: 1}
+  transition: 0.2
+  tutorialSeconds: 4
+  steps:
+  - title: "MU\xC9VETE"
+    body: "Usa {move} para moverte. Mant\xE9n {run} para correr."
+  - title: SALTA
+    body: "Pulsa {jump} para saltar. Las franjas luminosas se\xF1alan las plataformas
+      s\xF3lidas."
+  - title: ATACA
+    body: "Ataca con {attack}. Usa {ability} para activar tu poder. Revisa su energ\xEDa
+      antes de usarlo."
+  - title: "INTERACT\xDAA"
+    body: "Ac\xE9rcate y pulsa {interact} para hablar, activar un punto de regreso
+      o abrir una terminal."
+  - title: "RE\xDANE Y RESUELVE"
+    body: "Re\xFAne tres fragmentos. En la terminal, elige la respuesta con las direcciones
+      y confirma con {confirm}."
+  - title: "CONTIN\xDAA"
+    body: "Vence al jefe si lo hay. Ac\xE9rcate al portal y pulsa {interact} para
+      completar el nivel."
+  questions:
+  - title: "\xBFCU\xC1NDO SE GUARDA EL AVANCE?"
+    body: "El avance se guarda al completar un nivel. En Configuraci\xF3n y Controles,
+      pulsa Guardar cambios o Aplicar."
+  - title: "\xBFPARA QU\xC9 SIRVE EL PUNTO DE REGRESO?"
+    body: "Act\xEDvalo con {interact} para regresar cerca si caes. Funciona durante
+      la partida actual; no guarda el punto al cerrar el juego."
+  - title: "\xBFD\xD3NDE CAMBIO MIS BOTONES?"
+    body: "Abre Controles. Elige tus teclas y botones, pru\xE9balos y pulsa Aplicar."
+  - title: "\xBFC\xD3MO ABRO NUEVOS CAMINOS?"
+    body: Completa el nivel anterior. N02 abre la variante morada; N05, el subsuelo.
+      Los niveles principales entregan o mejoran poderes.

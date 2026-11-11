@@ -37,6 +37,7 @@ public partial class CGGame:MonoBehaviour {
         if(page==Page.Controls)BeginControls();
         if(page==Page.Credits)BeginCredits();
         if(page==Page.Settings)BeginSettings();
+        if(page==Page.Help)BeginHelp();
       }
     }
     void CreateLevel(){page=Page.Playing;chips=0;taken=new bool[3];terminalSolved=false;bossDead=string.IsNullOrEmpty(CGLevels.All[sceneLevel].boss);
@@ -50,6 +51,7 @@ public partial class CGGame:MonoBehaviour {
     void Update(){pointerMoved=Mouse.current!=null&&Mouse.current.delta.ReadValue().sqrMagnitude>1;
       if(page==Page.Controls){HandleControls();return;}
       if(page==Page.Settings){CGSettingsWorldView.Tick();HandleSettings();return;}
+      if(page==Page.Help){HandleHelp();return;}
       if(page==Page.Loading){if(loadingLevel&&(CGControl.Confirm()||CGTouch.AnyTap()))skipAccessAnimation=true;return;}
       if(page==Page.Map&&HandleMapShortcuts())return;
       if(page==Page.Customization){HandleCustomization();return;}
@@ -237,6 +239,7 @@ public partial class CGGame:MonoBehaviour {
         var image=(page==Page.Map?(design!=null?design.mapBackground:null):design!=null?design.menuBackground:null)??(page==Page.Map?Resources.Load<Texture2D>("CG/VisualV2/MapCampus"):null)??Resources.Load<Texture2D>("CG/VisualV2/MenuCampus")??CGCampusVisual.Background(0);
         if(page==Page.Credits&&CreditsDesign!=null&&CreditsDesign.background!=null)image=CreditsDesign.background;
         if(page==Page.Settings&&SettingsDesign!=null&&SettingsDesign.background!=null)image=SettingsDesign.background;
+        if(page==Page.Help&&HelpDesign!=null&&HelpDesign.background!=null)image=HelpDesign.background;
         float drift=CGSettingsRuntime.ReduceFlash?0:Mathf.Sin(CGMenuTheme.Clock*.16f)*(design!=null?design.backgroundDrift:5);
         if(image!=null)CGUIDraw.Texture(new Rect(-12+drift,-8,1304,736),image,ScaleMode.ScaleAndCrop);
         else RectColor(new Rect(0,0,1280,720),new Color(.02f,.045f,.08f,1));
@@ -250,7 +253,7 @@ public partial class CGGame:MonoBehaviour {
             RectColor(new Rect(x,y,3+(k%3),3+(k%3)),new Color(k%2==0?1f:.67f,.23f,k%2==0?.23f:1f,a));
           }
         }
-        if(page!=Page.Customization&&page!=Page.Controls&&page!=Page.Credits&&page!=Page.Settings){RectColor(new Rect(0,676,1280,44),new Color(.02f,.03f,.055f,.95f));
+        if(page!=Page.Customization&&page!=Page.Controls&&page!=Page.Credits&&page!=Page.Settings&&page!=Page.Help){RectColor(new Rect(0,676,1280,44),new Color(.02f,.03f,.055f,.95f));
         CGUIDraw.Text(new Rect(28,684,1235,28),page==Page.Map?"MOVER: DIRECCIONES / STICK   ·   A / ENTER: JUGAR   ·   Y / TAB: DETALLES   ·   LB / RB: NIVEL   ·   B / ESC: VOLVER":"MOVER: DIRECCIONES / STICK     ·     A / ENTER: ELEGIR     ·     B / ESC: VOLVER     ·     CAMPUS 2.5D",tinyStyle);}
       }
       float entry=editorMenuPreview?1:menuMotion.Entry(CGSettingsRuntime.ReduceFlash);
@@ -291,12 +294,7 @@ public partial class CGGame:MonoBehaviour {
       if(page==Page.Customization)DrawCustomization();
       if(page==Page.Settings)DrawSettings();
       if(page==Page.Controls)DrawControls();
-      if(page==Page.Help){Header("GUÍA DEL JUGADOR");Panel(new Rect(180,205,920,290));Label("Corre, salta, recupera 3 fragmentos y resuelve una terminal por nivel.",249);
-       Label("E / Y: hablar con NPC, activar checkpoint, terminal y portal de salida.",306);
-       Label("J / X: mordida; evita enemigos y derrota a los jefes de fase.",363);
-       Label("La skin morada llega tras el NIVEL 2; Subsuelo extra tras el NIVEL 5.",424);
-       if(Button("CONFIGURAR CONTROLES",0,325,530,630,55))OpenUIScreen("SC_Controls",Page.Controls);
-       if(Button("VOLVER",1,325,598,630,55))ToMain();}
+      if(page==Page.Help)DrawHelp();
       if(page==Page.Credits)DrawCredits();
       if(page==Page.Paused){Header("JUEGO EN PAUSA");if(Button("CONTINUAR",0,375,260,530,65))PauseChoice(0);
        if(Button("REINICIAR DESDE CHECKPOINT",1,375,342,530,65))PauseChoice(1);
@@ -313,7 +311,7 @@ public partial class CGGame:MonoBehaviour {
        if(Button("VOLVER AL MENÚ",1,390,583,500,55))ToMain();}
       if(page==Page.ConfirmReset){Header("¿BORRAR PROGRESO?");Label("Se eliminarán los niveles completados y las skins desbloqueadas.",311);
        if(Button("SÍ, BORRAR",0,320,431,300,58)){CGStore.Reset();ToMain();}if(Button("CANCELAR",1,660,431,300,58))ToMain();}
-      if(Time.unscaledTime<toastUntil && page!=Page.Playing&&page!=Page.Customization&&page!=Page.Controls&&page!=Page.Settings&&page!=Page.Credits&&page!=Page.Map){CGUIDraw.Text(new Rect(180,628,920,35),toast,tinyStyle);}
+      if(Time.unscaledTime<toastUntil && page!=Page.Playing&&page!=Page.Customization&&page!=Page.Controls&&page!=Page.Settings&&page!=Page.Credits&&page!=Page.Map&&page!=Page.Help){CGUIDraw.Text(new Rect(180,628,920,35),toast,tinyStyle);}
       CGUIDraw.Matrix=old;
       CGUIDraw.Color=oldColor;
     }

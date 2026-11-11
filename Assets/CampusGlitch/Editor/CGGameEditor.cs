@@ -5,8 +5,8 @@ using UnityEngine;
 namespace CampusGlitch.Editor {
 [CustomEditor(typeof(CGGame))]
 public class CGGameEditor:UnityEditor.Editor {
-    UnityEditor.Editor designEditor,creditsEditor,settingsEditor,mapEditor;bool expanded=true,creditsExpanded=true,settingsExpanded=true,mapExpanded=true;
-    void OnDisable(){if(designEditor!=null)DestroyImmediate(designEditor);if(creditsEditor!=null)DestroyImmediate(creditsEditor);if(settingsEditor!=null)DestroyImmediate(settingsEditor);if(mapEditor!=null)DestroyImmediate(mapEditor);}
+    UnityEditor.Editor designEditor,creditsEditor,settingsEditor,mapEditor,helpEditor;bool expanded=true,creditsExpanded=true,settingsExpanded=true,mapExpanded=true,helpExpanded=true;
+    void OnDisable(){if(designEditor!=null)DestroyImmediate(designEditor);if(creditsEditor!=null)DestroyImmediate(creditsEditor);if(settingsEditor!=null)DestroyImmediate(settingsEditor);if(mapEditor!=null)DestroyImmediate(mapEditor);if(helpEditor!=null)DestroyImmediate(helpEditor);}
     public override void OnInspectorGUI(){
         DrawDefaultInspector();var game=(CGGame)target;
         if(game.sceneLevel>=0){if(GUILayout.Button("Enfocar nivel actual en Scene"))CGEditorWorldPreview.FrameEntrance();return;}
@@ -35,6 +35,11 @@ public class CGGameEditor:UnityEditor.Editor {
             if(GUILayout.Button("Mostrar controles de mando")){game.PreviewControlsMode(true);CGEditorMenuPreview.Refresh();}
             if(GUILayout.Button("Mostrar mando Xbox")){game.PreviewControlsMode(true);game.PreviewControllerFamily(0);CGEditorMenuPreview.Refresh();}
             if(GUILayout.Button("Mostrar mando PlayStation")){game.PreviewControlsMode(true);game.PreviewControllerFamily(1);CGEditorMenuPreview.Refresh();}
+        }
+        if(game.initialPage=="Help"){
+            var help=Resources.Load<CGHelpDesign>("CG/Presentation/CampusHelp");EditorGUILayout.Space();helpExpanded=EditorGUILayout.Foldout(helpExpanded,"Contenido de Ayuda",true);
+            if(help!=null&&helpExpanded){CreateCachedEditor(help,null,ref helpEditor);EditorGUI.BeginChangeCheck();helpEditor.OnInspectorGUI();if(EditorGUI.EndChangeCheck()){EditorUtility.SetDirty(help);CGEditorMenuPreview.Refresh();}}
+            var chapters=new[]{"Cómo jugar","Objetivos","Iconos","Personajes","Guardado"};for(int i=0;i<chapters.Length;i++)if(GUILayout.Button("Mostrar "+chapters[i])){game.PreviewHelp(i);CGEditorMenuPreview.Refresh();}
         }
         if(game.initialPage=="Map"){
             var map=Resources.Load<CGMapDesign>("CG/Presentation/CampusMap");EditorGUILayout.Space();mapExpanded=EditorGUILayout.Foldout(mapExpanded,"Diseño del mapa y actividades",true);
