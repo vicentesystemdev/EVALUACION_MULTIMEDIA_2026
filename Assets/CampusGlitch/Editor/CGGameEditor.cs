@@ -5,8 +5,8 @@ using UnityEngine;
 namespace CampusGlitch.Editor {
 [CustomEditor(typeof(CGGame))]
 public class CGGameEditor:UnityEditor.Editor {
-    UnityEditor.Editor designEditor,creditsEditor;bool expanded=true,creditsExpanded=true;
-    void OnDisable(){if(designEditor!=null)DestroyImmediate(designEditor);if(creditsEditor!=null)DestroyImmediate(creditsEditor);}
+    UnityEditor.Editor designEditor,creditsEditor,settingsEditor;bool expanded=true,creditsExpanded=true,settingsExpanded=true;
+    void OnDisable(){if(designEditor!=null)DestroyImmediate(designEditor);if(creditsEditor!=null)DestroyImmediate(creditsEditor);if(settingsEditor!=null)DestroyImmediate(settingsEditor);}
     public override void OnInspectorGUI(){
         DrawDefaultInspector();var game=(CGGame)target;
         if(game.sceneLevel>=0){if(GUILayout.Button("Enfocar nivel actual en Scene"))CGEditorWorldPreview.FrameEntrance();return;}
@@ -35,6 +35,11 @@ public class CGGameEditor:UnityEditor.Editor {
             if(GUILayout.Button("Mostrar controles de mando")){game.PreviewControlsMode(true);CGEditorMenuPreview.Refresh();}
             if(GUILayout.Button("Mostrar mando Xbox")){game.PreviewControlsMode(true);game.PreviewControllerFamily(0);CGEditorMenuPreview.Refresh();}
             if(GUILayout.Button("Mostrar mando PlayStation")){game.PreviewControlsMode(true);game.PreviewControllerFamily(1);CGEditorMenuPreview.Refresh();}
+        }
+        if(game.initialPage=="Settings"){
+            var settings=Resources.Load<CGSettingsDesign>("CG/Presentation/CampusSettings");EditorGUILayout.Space();settingsExpanded=EditorGUILayout.Foldout(settingsExpanded,"Diseño de Configuración",true);
+            if(settings!=null&&settingsExpanded){CreateCachedEditor(settings,null,ref settingsEditor);EditorGUI.BeginChangeCheck();settingsEditor.OnInspectorGUI();if(EditorGUI.EndChangeCheck()){EditorUtility.SetDirty(settings);CGEditorMenuPreview.Refresh();}}
+            var sections=new[]{"Pantalla","Audio","Accesibilidad","Partida"};for(int i=0;i<sections.Length;i++)if(GUILayout.Button("Mostrar "+sections[i])){game.PreviewSettingsSection(i);CGEditorMenuPreview.Refresh();}
         }
         if(game.initialPage=="Credits"){
             var credits=Resources.Load<CGCreditsDesign>("CG/Presentation/CampusCredits");EditorGUILayout.Space();creditsExpanded=EditorGUILayout.Foldout(creditsExpanded,"Diseño y contenido de Créditos",true);

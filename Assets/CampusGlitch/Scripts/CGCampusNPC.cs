@@ -18,6 +18,6 @@ public class CGCampusNPC:MonoBehaviour {
         text.characterSize=.065f;text.fontSize=48;text.color=new Color(1,.8f,.4f);
         label.GetComponent<MeshRenderer>().sortingOrder=38;
     }
-    public void Speak(){talkingUntil=Time.time+3;world.game.Hint(role+": "+dialogue);}
+    public void Speak(){talkingUntil=Time.time+3;world.game.Hint(role+": "+dialogue,true);}
 }
 }
