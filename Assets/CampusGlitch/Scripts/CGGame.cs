@@ -218,7 +218,7 @@ public partial class CGGame:MonoBehaviour {
 #if UNITY_EDITOR
     public void DrawEditorMenu(bool entrance=false){
       var originalPage=page;int originalSelection=selection;float originalProgress=loadProgress,originalAccess=accessAnimationStarted;bool originalLevel=loadingLevel;
-      editorMenuPreview=true;Enum.TryParse(initialPage,true,out page);selection=0;
+      editorMenuPreview=true;Enum.TryParse(initialPage,true,out page);selection=page==Page.Map?mapSelection:0;
       if(entrance){page=Page.Loading;loadingLevel=true;loadProgress=Mathf.PingPong(CGMenuTheme.Clock*.22f,1);accessAnimationStarted=CGMenuTheme.Clock-loadProgress*(CGMenuTheme.Design!=null?CGMenuTheme.Design.entranceDuration:1.25f);}
       try{DrawInterface(1280,720);}finally{page=originalPage;selection=originalSelection;loadProgress=originalProgress;loadingLevel=originalLevel;accessAnimationStarted=originalAccess;editorMenuPreview=false;}
     }
@@ -313,7 +313,7 @@ public partial class CGGame:MonoBehaviour {
        if(Button("VOLVER AL MENÚ",1,390,583,500,55))ToMain();}
       if(page==Page.ConfirmReset){Header("¿BORRAR PROGRESO?");Label("Se eliminarán los niveles completados y las skins desbloqueadas.",311);
        if(Button("SÍ, BORRAR",0,320,431,300,58)){CGStore.Reset();ToMain();}if(Button("CANCELAR",1,660,431,300,58))ToMain();}
-      if(Time.unscaledTime<toastUntil && page!=Page.Playing&&page!=Page.Customization&&page!=Page.Controls&&page!=Page.Settings&&page!=Page.Credits){CGUIDraw.Text(new Rect(180,628,920,35),toast,tinyStyle);}
+      if(Time.unscaledTime<toastUntil && page!=Page.Playing&&page!=Page.Customization&&page!=Page.Controls&&page!=Page.Settings&&page!=Page.Credits&&page!=Page.Map){CGUIDraw.Text(new Rect(180,628,920,35),toast,tinyStyle);}
       CGUIDraw.Matrix=old;
       CGUIDraw.Color=oldColor;
     }
