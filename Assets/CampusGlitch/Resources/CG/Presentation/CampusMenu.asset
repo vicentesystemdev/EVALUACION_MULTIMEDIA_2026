@@ -1,0 +1,101 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f0c017ba175a4028a4d03192bae27366, type: 3}
+  m_Name: CampusMenu
+  m_EditorClassIdentifier: Assembly-CSharp::CampusGlitch.CGMenuDesign
+  title: CAMPUS GLITCH
+  campus: "UNIFRANZ LA PAZ \xB7 INNOVACI\xD3N \xB7 APRENDE HACIENDO"
+  menuBackground: {fileID: 2800000, guid: 06e12d70adc14728ac2831235db6930b, type: 3}
+  mapBackground: {fileID: 2800000, guid: d4552061434e4f1caf98912155414ae7, type: 3}
+  entranceBackground: {fileID: 2800000, guid: 59a6b1e136ff420aa67d538720e4e293, type: 3}
+  amber: {r: 1, g: 0.56, b: 0.12, a: 1}
+  cyan: {r: 0.3, g: 0.87, b: 1, a: 1}
+  ink: {r: 0.025, g: 0.04, b: 0.085, a: 0.96}
+  titleFont: {fileID: 12800000, guid: 0934fa54c0ca4c0b902740920f5bb831, type: 3}
+  buttonFont: {fileID: 12800000, guid: fecaf53a71234cdab98f2cfd989cd139, type: 3}
+  bodyFont: {fileID: 12800000, guid: 481b8108c11846058d7f5acfada2aaa1, type: 3}
+  titleSize: 42
+  buttonSize: 28
+  bodySize: 22
+  titleRect:
+    serializedVersion: 2
+    x: 32
+    y: 18
+    width: 620
+    height: 59
+  heroRect:
+    serializedVersion: 2
+    x: 86
+    y: 288
+    width: 298
+    height: 365
+  mainPanel:
+    serializedVersion: 2
+    x: 835
+    y: 133
+    width: 410
+    height: 480
+  firstButton: {x: 859, y: 150}
+  buttonSizePixels: {x: 375, y: 56}
+  buttonSpacing: 66
+  mainLabels:
+  - Jugar / Continuar
+  - Mapa del Campus
+  - "Personalizaci\xF3n"
+  - "Configuraci\xF3n"
+  - Ayuda y Controles
+  - "Cr\xE9ditos"
+  - Salir
+  mainIcons:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  mainDescriptions:
+  - Retoma tu recorrido por el campus.
+  - Explora ambientes, rutas y desbloqueos.
+  - "Elige la presentaci\xF3n de tu Guardi\xE1n."
+  - Adapta sonido, efectos y controles.
+  - Consulta las acciones antes de jugar.
+  - Conoce al equipo de Campus Glitch.
+  - "Hasta la pr\xF3xima aventura."
+  newGameLabel: Iniciar aventura
+  continueLabel: "Continuar \xB7 Nivel {0}"
+  showButtonIcons: 1
+  mainPanelOpacity: 0.06
+  buttonOpacity: 0.78
+  headerShade: 0.65
+  rightShade: 0.16
+  location: "UNIFRANZ \xB7 SEDE LA PAZ"
+  mainCaption: "EXPLORA \xB7 APRENDE \xB7 RESTAURA EL CAMPUS"
+  screenTransition: 0.22
+  focusSpeed: 8
+  backgroundDrift: 2
+  screenSlide: 16
+  campusEntrance: 1
+  entranceDoorRect:
+    serializedVersion: 2
+    x: 448
+    y: 300
+    width: 384
+    height: 240
+  entranceDuration: 1.25
+  glitchHighlights: 1
+  glitchIntensity: 0.72
+  glitchSpeed: 1.35
+  guardianGlitch: 1
+  cycleGuardianVariants: 1
+  guardianCycleSeconds: 6
+  guardianGlitchDuration: 0.6

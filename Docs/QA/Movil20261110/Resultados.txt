@@ -1,0 +1,68 @@
+PASS Abre Ayuda con la misma interfaz que Scene
+PASS Seis apartados sin Controles rápidos en el lateral
+PASS Seis pasos breves y cuatro respuestas editables
+PASS Accesos directos a Controles y Mapa sin etiquetas de vista previa
+PASS La guía muestra el mundo real del juego
+PASS El escenario ilustrativo actualiza sus animaciones
+PASS Consultar la ayuda no simula la partida ni mueve al jugador
+PASS Las instrucciones usan la tecla reasignada
+PASS Las instrucciones usan el botón de mando reasignado
+PASS Tab cambia de apartado y muestra teclado
+PASS LB vuelve al apartado anterior y muestra mando
+PASS LB recorre circularmente los seis apartados
+PASS RB vuelve al primer apartado
+PASS Flecha derecha recorre los pasos
+PASS Cruceta izquierda vuelve al paso anterior
+PASS Anterior vuelve al último paso desde el primero
+PASS Siguiente vuelve al primer paso desde el último
+PASS Destino 1: objetivo conectado a los datos reales del nivel
+PASS Destino 2: objetivo conectado a los datos reales del nivel
+PASS Destino 3: objetivo conectado a los datos reales del nivel
+PASS Destino 4: objetivo conectado a los datos reales del nivel
+PASS Destino 5: objetivo conectado a los datos reales del nivel
+PASS Destino 6: objetivo conectado a los datos reales del nivel
+PASS Destino 7: objetivo conectado a los datos reales del nivel
+PASS Destino 8: objetivo conectado a los datos reales del nivel
+PASS Destino 9: objetivo conectado a los datos reales del nivel
+PASS Destino 10: objetivo conectado a los datos reales del nivel
+PASS Los ocho personajes usan las imágenes del campus
+PASS Elegir personaje muestra su función en el juego
+PASS Fragmento, punto de regreso, terminal, portal y enemigo tienen imagen
+PASS Los poderes explican energía y activación
+PASS La guía distingue el punto temporal del avance guardado
+PASS Ver tutorial inicia el recorrido de seis pasos
+PASS El tutorial avanza automáticamente al siguiente paso
+PASS B detiene el tutorial conservando la ayuda
+PASS El tutorial termina en el último paso sin repetirse
+PASS Consultar apartados y tutorial conserva progreso y controles
+PASS Reducir destellos conserva toda la guía
+PASS Encuadre de ayuda completo en 1280x720
+PASS Encuadre de ayuda completo en 1024x768
+PASS Encuadre de ayuda completo en 2560x1080
+PASS El icono de Campus Glitch está conectado y tiene definición suficiente
+PASS USB distingue teléfono autorizado, pendiente y desconectado
+PASS Sin dispositivos no inventa teléfonos detectados
+PASS Versión móvil tiene su propio apartado lateral
+PASS La distribución móvil sigue guardar y enviar, sin acciones de tutorial ajenas
+PASS El selector abre la lista de teléfonos
+PASS Cancelar el selector conserva el teléfono elegido
+PASS Confirmar elige otro teléfono de la lista
+PASS No permite enviar a un teléfono sin autorización
+PASS La copia conserva exactamente el archivo seleccionado y su integridad
+PASS Una APK alterada se rechaza sin reemplazar la copia anterior
+PASS Ocho controles táctiles respetan márgenes y no se superponen en tres formatos
+PASS Deslizar arriba, lateral y tocar corresponden a salto, poder y ataque
+PASS Un movimiento corto y lento no activa un poder por accidente
+PASS Gestos se puede elegir y guardar
+PASS Botones se puede volver a elegir y guardar
+PASS Dos dedos mantienen movimiento y salto al mismo tiempo
+PASS Al reiniciar la entrada no quedan botones táctiles pegados
+PASS Un toque breve se conserva hasta leerlo y activa el salto una sola vez
+PASS Cruceta selecciona el acceso independiente a Controles
+PASS A abre la pantalla real de Controles
+PASS Salir de Ayuda libera el escenario ilustrativo
+PASS Abrir Controles no activa la entrada a los niveles
+PASS Enter abre el mapa real del campus
+PASS Volver devuelve al menú principal
+TOTAL PASS=66 FAIL=0
+Guardado original restaurado.

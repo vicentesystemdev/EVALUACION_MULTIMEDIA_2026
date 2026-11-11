@@ -1,0 +1,33 @@
+PASS Abre la escena de personalización
+PASS V selecciona instrucciones de mando
+PASS Y selecciona instrucciones de teclado
+PASS Ilustración de poder cargada 0
+PASS Ilustración de poder cargada 1
+PASS Ilustración de poder cargada 2
+PASS Ilustración de poder cargada 3
+PASS RB abre habilidades
+PASS Cruceta selecciona ráfaga glitch
+PASS Ráfaga bloqueada no se equipa
+PASS Escudo bloqueado no se equipa
+PASS X demuestra escudo sin desbloquearlo
+PASS Impacto consume la protección demostrada
+PASS T demuestra ráfaga y consume carga
+PASS La recarga evita disparar repetidamente en la demostración
+PASS Tab abre evolución sin categoría Efectos
+PASS N9 muestra el corte élite
+PASS RB recorre las tres categorías
+PASS Demostraciones e hitos futuros no modifican progreso
+PASS Observar y probar no escribe archivos de guardado
+PASS Variante bloqueada solo se observa
+PASS Elegir modelo mantiene cambios como borrador
+PASS Volver protege cambios con Seguir editando seleccionado
+PASS A conserva el borrador al seguir editando
+PASS Elegir poder no guarda automáticamente
+PASS Aplicar confirma el guardado
+PASS Poder equipado persiste al cargar el archivo real
+PASS Equipar usa el poder inspeccionado aunque no se pulsara la tarjeta
+PASS Ráfaga equipada persiste al cargar
+PASS Carga corrige un poder todavía bloqueado
+PASS Carga normaliza identificadores inválidos
+TOTAL PASS=31 FAIL=0
+Guardado original restaurado.

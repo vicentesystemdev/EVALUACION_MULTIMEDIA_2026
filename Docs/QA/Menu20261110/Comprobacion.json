@@ -1,0 +1,38 @@
+[
+  {
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\n  \"globalId\": \"GlobalObjectId_V1-1-d064d47cc7d3479c8d23a697a5c362db-102900000-0\",\n  \"assetPath\": \"Assets/CampusGlitch/Scenes/SC_MainMenu.unity\",\n  \"guid\": \"d064d47cc7d3479c8d23a697a5c362db\",\n  \"fileId\": 102900000,\n  \"instanceId\": null,\n  \"hierarchyPath\": null,\n  \"type\": \"SceneAsset\"\n}"
+        }
+      ]
+    },
+    "jsonrpc": "2.0",
+    "id": 10
+  },
+  {
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\n  \"status\": \"completed\",\n  \"failed\": false,\n  \"errors\": [],\n  \"compilationFailed\": false\n}"
+        }
+      ]
+    },
+    "jsonrpc": "2.0",
+    "id": 11
+  },
+  {
+    "result": {
+      "content": [
+        {
+          "type": "text",
+          "text": "{\n  \"output\": null,\n  \"diagnostics\": [],\n  \"success\": true,\n  \"result\": {\n    \"scene\": \"Assets/CampusGlitch/Scenes/SC_MainMenu.unity\",\n    \"noPreviewLabel\": true,\n    \"decorativeCodeGlyphs\": 0,\n    \"shaderSupported\": true,\n    \"shaderMessages\": 0,\n    \"sceneDirty\": false,\n    \"cameraSize\": 3.6\n  }\n}"
+        }
+      ]
+    },
+    "jsonrpc": "2.0",
+    "id": 12
+  }
+]

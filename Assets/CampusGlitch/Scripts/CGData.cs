@@ -12,11 +12,14 @@ namespace CampusGlitch {
     public bool purpleUnlocked=false;
     public bool purpleEquipped=false;
     public bool useOriginalWolf=false;
+    public int equippedAbility=0;
     public int dataVersion=2;
     public bool extraUnlocked=false;
     public float masterVolume=0.85f;
     public bool reduceFlash=false;
     public bool subtitles=true;
+    public bool touchGestures=false;
+    public CGSettingsOptions settings=new CGSettingsOptions();
     public string[] actionKeys={"A", "D", "Space", "LeftShift", "J", "E", "Q", "Escape"};
     public string[] padBindings={"dpadLeft","dpadRight","buttonSouth","rightTrigger","buttonWest","buttonNorth","rightShoulder","startButton"};
 }
@@ -31,13 +34,16 @@ public static class CGStore {
       if(Data.dataVersion<2){Data.useOriginalWolf=false;Data.dataVersion=2;}
       if(Data.actionKeys==null || Data.actionKeys.Length!=8)Data.actionKeys=new CGProgress().actionKeys;
       if(Data.padBindings==null || Data.padBindings.Length!=8)Data.padBindings=new CGProgress().padBindings;
+      if(Data.equippedAbility<0||Data.equippedAbility>3||!CGAbilities.Unlocked(Data,Data.equippedAbility))Data.equippedAbility=0;
+      CGSettingsRuntime.Normalize(Data);
     }
-    public static void Save(){Load();try{
+    public static bool Save(){Load();CGSettingsRuntime.Normalize(Data);try{
       string path=FileName; System.IO.Directory.CreateDirectory(System.IO.Path.GetDirectoryName(path));
       string tmp=path+".tmp";System.IO.File.WriteAllText(tmp,JsonUtility.ToJson(Data,true));
       if(System.IO.File.Exists(path)){System.IO.File.Copy(path,path+".bak",true);System.IO.File.Delete(path);}
       System.IO.File.Move(tmp,path);
-    }catch(Exception e){Debug.LogError("No se pudo guardar el progreso: "+e.Message);}}
+      return true;
+    }catch(Exception e){Debug.LogError("No se pudo guardar el progreso: "+e.Message);return false;}}
     public static void Reset(){Data=new CGProgress();Save();}
 }
 public static class CGControl {
@@ -55,28 +61,30 @@ public static class CGControl {
       case "leftShoulder":return p.leftShoulder.isPressed;case "rightShoulder":return p.rightShoulder.isPressed;
       case "startButton":return p.startButton.isPressed;case "selectButton":return p.selectButton.isPressed;
       case "leftStickButton":return p.leftStickButton.isPressed;case "rightStickButton":return p.rightStickButton.isPressed;
-      case "leftTrigger":return p.leftTrigger.ReadValue()>.65f;case "rightTrigger":return p.rightTrigger.ReadValue()>.65f;
+      case "leftTrigger":return p.leftTrigger.isPressed;case "rightTrigger":return p.rightTrigger.isPressed;
       default:return false;}}
     public static bool PadTapped(int n){CGStore.Load();var p=Gamepad.current;if(p==null)return false;
-      string name=CGStore.Data.padBindings[n];if(name=="leftTrigger"||name=="rightTrigger")return false;
+      string name=CGStore.Data.padBindings[n];
       ButtonControl b=PadButton(name);return b!=null&&b.wasPressedThisFrame;}
-    static ButtonControl PadButton(string n){var p=Gamepad.current;if(p==null)return null;
+    public static ButtonControl PadButton(string n){var p=Gamepad.current;if(p==null)return null;
       switch(n){case "dpadLeft":return p.dpad.left;case "dpadRight":return p.dpad.right;
       case "dpadUp":return p.dpad.up;case "dpadDown":return p.dpad.down;
       case "buttonSouth":return p.buttonSouth;case "buttonNorth":return p.buttonNorth;case "buttonWest":return p.buttonWest;
       case "buttonEast":return p.buttonEast;case "leftShoulder":return p.leftShoulder;case "rightShoulder":return p.rightShoulder;
       case "startButton":return p.startButton;case "selectButton":return p.selectButton;
       case "leftStickButton":return p.leftStickButton;case "rightStickButton":return p.rightStickButton;
+      case "leftTrigger":return p.leftTrigger;case "rightTrigger":return p.rightTrigger;
       default:return null;}}
-    public static string NextGamepadButton(){string[] names={"buttonSouth","buttonWest","buttonNorth","buttonEast","leftShoulder","rightShoulder","startButton","selectButton","dpadLeft","dpadRight","dpadUp","dpadDown","leftStickButton","rightStickButton"};
-      foreach(string n in names){ButtonControl b=PadButton(n);if(b!=null&&b.wasPressedThisFrame)return n;}return null;}
+    public static readonly string[] GamepadButtons={"buttonSouth","buttonWest","buttonNorth","buttonEast","leftShoulder","rightShoulder","startButton","selectButton","dpadLeft","dpadRight","dpadUp","dpadDown","leftStickButton","rightStickButton","leftTrigger","rightTrigger"};
+    public static string NextGamepadButton(){
+      foreach(string n in GamepadButtons){ButtonControl b=PadButton(n);if(b!=null&&b.wasPressedThisFrame)return n;}return null;}
     public static float Axis(){float x=(KeyHeld(1)?1:0)-(KeyHeld(0)?1:0);if(Gamepad.current!=null){float v=Gamepad.current.leftStick.ReadValue().x;if(Mathf.Abs(v)>0.22f)x=v; if(PadHeld(0))x=-1; if(PadHeld(1))x=1;}
-      if(CGTouch.Held(CGTouch.Left))x=-1; if(CGTouch.Held(CGTouch.Right))x=1;return x;}
-    public static bool HoldRun(){return KeyHeld(3) || PadHeld(3);}
+      if(CGTouch.Enabled&&Mathf.Abs(CGTouch.Axis)>.01f)x=CGTouch.Axis;return x;}
+    public static bool HoldRun(){return KeyHeld(3) || PadHeld(3) || CGTouch.Running;}
     public static bool Jump(){return KeyTap(2) || PadTapped(2) || CGTouch.Tapped(CGTouch.Jump);}
     public static bool Attack(){return KeyTap(4) || PadTapped(4) || CGTouch.Tapped(CGTouch.Attack);}
     public static bool Interact(){return KeyTap(5) || PadTapped(5) || CGTouch.Tapped(CGTouch.Interact);}
-    public static bool Ability(){return KeyTap(6) || PadTapped(6);}
+    public static bool Ability(){return KeyTap(6) || PadTapped(6) || CGTouch.Tapped(CGTouch.Ability);}
     public static bool Pause(){return KeyTap(7) || (Keyboard.current!=null&&Keyboard.current.escapeKey.wasPressedThisFrame) ||PadTapped(7) || CGTouch.Tapped(CGTouch.Pause);}
     public static bool Confirm(){return (Keyboard.current!=null&&(Keyboard.current.enterKey.wasPressedThisFrame||Keyboard.current.spaceKey.wasPressedThisFrame)) || (Gamepad.current!=null&&Gamepad.current.buttonSouth.wasPressedThisFrame);}
     public static bool Back(){return (Keyboard.current!=null&&Keyboard.current.escapeKey.wasPressedThisFrame)||(Gamepad.current!=null&&Gamepad.current.buttonEast.wasPressedThisFrame);}
@@ -112,7 +120,7 @@ public static class CGArt {
   // Three original pixel-art animations supplied by the team. Default is Classic.
   public static Sprite Player(bool purple,int frame,bool original){
     if(original)return Get("Playable/"+(purple?"ClassicPurple_":"Classic_")+Mathf.Clamp(frame,0,16).ToString("00"));
-    return Biped(purple,frame);
+    return CGGuardianArt.Preview(purple,frame) ?? Biped(purple,frame);
   }
   public static Sprite NPC(string kind,int f){return Get("02_Animados/NPCs/"+kind+"/"+(f<4?"IDLE_":"HABLAR_")+(f%4).ToString("00"));}
   public static Sprite Enemy(string kind,int f){if(kind=="Boss_Secuencias"||kind=="Boss_IF_ELSE"||kind=="Core_Glitch")return Get("02_Animados/Jefes/"+kind+"/IDLE_"+(f%4).ToString("00"));return Get("02_Animados/Enemigos/"+kind+"/IDLE_"+(f%4).ToString("00"));}

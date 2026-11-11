@@ -1,0 +1,14 @@
+Unity 6000.3.16f1
+Comando: CampusGlitch.Editor.CGBuildScenes.BuildWindows
+Escenas habilitadas: 18
+Resultado: Succeeded
+Errores del build: 0
+Salida del proceso de compilacion: 0
+Tamano de archivos: 169135554 bytes (161.3 MiB)
+Texturas informadas por Unity: 66.1 MiB
+Persisten advertencias preexistentes de componentes Missing.
+
+Arranque Windows x64 sin graficos: 25 segundos
+Proceso activo: True
+Cierre controlado de la instancia de prueba.
+No se encontraron Exception, NullReference, MissingReference ni Crash en el log del arranque de 25 s.

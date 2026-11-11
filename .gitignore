@@ -28,9 +28,23 @@
 .DS_Store
 Thumbs.db
 Desktop.ini
-# Configuracion local de Codex
-/.codex/
-
 # Configuraciones locales
 /.codex/
+/.claude/
+/.agents/
 /.vsconfig
+
+# Datos temporales generados al compilar pruebas
+/Assets/Resources/PerformanceTestRunInfo.json
+/Assets/Resources/PerformanceTestRunInfo.json.meta
+/Assets/Resources/PerformanceTestRunSettings.json
+/Assets/Resources/PerformanceTestRunSettings.json.meta
+
+# Paquetes Android y firmas locales
+*.apk
+*.aab
+*.keystore
+*.jks
+
+# Trabajo temporal del editor
+/.utmp/
