@@ -179,6 +179,9 @@ public static class CGFragmentRegression {
                     Record(game.Playing, label + " portal rechaza con jefe vivo");
                     // Exercise actual attack overlap and Hurt, rather than invoking BossDown.
                     for (int attacks = 0; attacks < 20 && world.boss != null && !Get<bool>(game, "bossDead"); attacks++) {
+                        // PR #31 combat only hits enemies in front of the wolf with a clear line: attack face to face.
+                        float bossX = world.boss.transform.position.x;
+                        Place(game.Hero, bossX - 1.2f); game.Hero.facesRight = true;
                         game.Attack(world.boss.transform.position);
                         yield return null;
                     }
