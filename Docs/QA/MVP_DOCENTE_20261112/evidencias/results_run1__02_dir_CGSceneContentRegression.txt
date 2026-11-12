@@ -1,0 +1,2 @@
+FAIL System.NullReferenceException: Object reference not set to an instance of an object
+  at CampusGlitch.Editor.CGSceneContentRegression.Run (System.String directory) [0x0012d] in D:\Unity\EVALUACION_MULTIMEDIA_2026_MVP\Assets\CampusGlitch\Editor\CGSceneContentRegression.cs:25 

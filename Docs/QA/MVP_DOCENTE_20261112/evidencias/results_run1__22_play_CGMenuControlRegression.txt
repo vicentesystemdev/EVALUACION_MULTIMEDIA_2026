@@ -1,0 +1,40 @@
+PASS Pantalla Main
+PASS Tres familias tipográficas cargadas
+PASS Cruceta mueve una opción por pulsación
+PASS Pantalla Map
+PASS Mapa: derecha selecciona la tarjeta contigua
+PASS Stick: arriba recorre la columna con envoltura
+PASS Repetición analógica controlada: pasos=4
+PASS Y abre detalle del nivel seleccionado
+PASS RB cambia el nivel desde detalle
+PASS B cierra detalle sin abandonar el mapa
+PASS Pantalla Main
+PASS Selección con cruceta 3
+PASS Pantalla Settings
+PASS Borrar avance abre con Cancelar seleccionado
+PASS Confirmar Cancelar conserva el progreso y vuelve a Configuración
+PASS Pantalla Main
+PASS Selección con cruceta 4
+PASS Pantalla Help
+PASS Selección con cruceta 6
+PASS Pantalla Controls
+PASS LB cambia a edición de mando
+PASS A inicia asignación del control elegido
+PASS B cancela asignación sin guardar otro botón
+PASS Pantalla Main
+PASS Selección con cruceta 5
+PASS Pantalla Credits
+PASS Pantalla Main
+PASS Pantalla Playing
+PASS Carga asíncrona muestra su transición real
+PASS Stick mueve al personaje a velocidad de caminar
+PASS Gatillo derecho activa carrera
+PASS Y habla con el NPC en su posición real
+PASS A ejecuta ascenso, caída y aterrizaje
+PASS X conecta con ataque y animación
+PASS Pantalla Paused
+PASS START pausa la simulación
+PASS Pantalla Playing
+PASS A reanuda sin salto involuntario
+TOTAL PASS=38 FAIL=0
+Guardado original restaurado.

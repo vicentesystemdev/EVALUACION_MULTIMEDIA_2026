@@ -1,0 +1,7 @@
+Campus Glitch MVP batch QA | Unity 6000.3.16f1 | 2026-11-12T15:31:55.2524337-04:00
+PASS edit:CGIntegrationQA | PASS CGIntegrationQA.RunAll sin excepciones
+PASS edit:CGMenuRegression | PASS CGMenuRegression.RunAll sin excepciones
+FAIL fragment | TOTAL PASS=276 FAIL=10
+PASS playsession | PASS: cinco escenarios terminados; guardado personal sin cambios.
+PASS play:CGHelpRegression | TOTAL PASS=66 FAIL=0
+FIN 2026-11-12T15:35:53.3116152-04:00

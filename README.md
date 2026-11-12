@@ -18,6 +18,13 @@
 >
 > **Corte de este README:** 2026-11-06, `develop` @ `4b729e3`. El código de juego (`Assets/`, `ProjectSettings/`, `Packages/`) es idéntico al auditado en `9257b4e`, por lo que los resultados de la auditoría siguen vigentes **hasta que se integren los PR de los Issues #13, #18, #20 y siguientes**.
 
+> ### 🟢 Candidata MVP docente — 2026-11-12
+> Rama `qa/mvp-docente-20261112`: integra #27 (Carla), #28 (Marcelo), #29/#30/#31 (Víctor). **Compila sin errores**, y los **9 niveles + Extra se completan de inicio a fin en recorridos automatizados** con teclado (N1 y N9 también con mando): fragmentos 289/289, Game Over → REINTENTAR verificado. Ejecutable Windows x64 generado (arranca con gráficos). **Las pruebas jugadas por una persona sobre esta candidata siguen pendientes.** Informe completo: [`Docs/QA/MVP_DOCENTE_20261112/INFORME_MVP_DOCENTE_2026-11-12.md`](Docs/QA/MVP_DOCENTE_20261112/INFORME_MVP_DOCENTE_2026-11-12.md).
+>
+> **Para el docente:** abrir el proyecto con Unity 6000.3.16f1, cargar `Assets/CampusGlitch/Scenes/SC_Bootstrap.unity` y pulsar Play (o ejecutar `CampusGlitch.exe`). Enter → *Iniciar aventura*. Controles: **A/D** mover · **Shift** correr · **Espacio** saltar · **J** atacar · **E** interactuar (NPC, checkpoint, terminal, portal) · **Q** poder · **Esc** pausa. En cada nivel: 3 fragmentos + terminal (+ jefe en N6, N8 y N9) → portal.
+>
+> *El estado descrito a continuación corresponde al corte del 2026-11-06 y se conserva como histórico.*
+
 <a id="estado"></a>
 ## 📊 Estado actual en una frase
 
