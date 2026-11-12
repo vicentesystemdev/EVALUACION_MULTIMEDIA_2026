@@ -69,7 +69,7 @@ public static class CGPlaySessionQA {
        case 1:Call(game,"GameOverChoice",0);Check(game.Playing&&Time.timeScale==1&&game.Hero.hearts==3&&Mathf.Abs(game.Hero.transform.position.x-35.5f)<.1f,"REINTENTAR no restaura checkpoint y corazones");break;
        case 2:Move(game,69);game.InteractNearPlayer();Check(game.Playing&&!(bool)Get(game,"terminalSolved"),"Portal no bloquea acceso incompleto");break;
        case 3:Move(game,14,.3f);break;
-       case 4:Check((int)Get(game,"chips")==1,"No se recoge fragmento 1 por collider");Move(game,31,2.55f);break;
+       case 4:Check((int)Get(game,"chips")==1,"No se recoge fragmento 1 por collider");var second=world.root.Find("Fragmento_Datos_2");Check(second!=null,"Falta fragmento 2");Move(game,second.position.x,second.position.y-.8f);break; // #18 moved it (y 1.10 en N1/N8, 3.35 resto)
        case 5:Check((int)Get(game,"chips")==2,"No se recoge fragmento 2 por collider");Move(game,48,.3f);break;
        case 6:Check((int)Get(game,"chips")==3,"No se recoge fragmento 3 por collider");Move(game,40);game.InteractNearPlayer();Check(Get(game,"page").ToString()=="Quiz"&&Time.timeScale==0,"Terminal no pausa");break;
        case 7:Set(game,"nextQuizAnswerTime",-1f);Call(game,"QuizAnswer",(world.spec.right+1)%3);Check(Get(game,"page").ToString()=="Quiz","Respuesta incorrecta cierra terminal");Set(game,"nextQuizAnswerTime",-1f);Call(game,"QuizAnswer",world.spec.right);Check(game.Playing&&Time.timeScale==1,"Respuesta correcta no restaura partida");break;

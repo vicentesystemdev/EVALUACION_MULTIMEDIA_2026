@@ -81,6 +81,8 @@ public static class CGIntegrationQA {
      var animator=heroObject.GetComponent<CGFrameAnimator>();
      foreach(bool originalWolf in new[]{false,true})foreach(bool purple in new[]{false,true}){
        CGStore.Data.useOriginalWolf=originalWolf;CGStore.Data.purpleEquipped=purple;
+       // PR #31: with the Guardian atlas available, CGGuardianVisual animates the alternative wolf (see CGAnimationPlayRegression).
+       if(!originalWolf&&CGGuardianArt.Available)continue;
        for(int state=0;state<7;state++){
          hero.Grounded=state<3||state>4;hero.moveInput=state==1||state==2?1:0;hero.running=state==2;
          hero.Body.linearVelocity=new Vector2(0,state==3?1:state==4?-1:0);hero.attackUntil=state==5?Time.time+1:-1;hero.hurtUntil=state==6?Time.time+1:-1;
@@ -89,7 +91,7 @@ public static class CGIntegrationQA {
        }
        CGStore.Data.reduceFlash=true;animator.Update();Assert(animator.view.color==Color.white,"Reducir destellos no evita tinte");CGStore.Data.reduceFlash=false;
      }
-     Debug.Log("[Carla integracion] OK: 28 combinaciones de estado/modelo/skin y reduccion de destellos.");
+     Debug.Log("[Carla integracion] OK: combinaciones de estado/skin del lobo original (bipedo: CGAnimationPlayRegression) y reduccion de destellos.");
      foreach(string prefix in new[]{"Classic_","ClassicPurple_","Red_","Purple_"}){
        int count=prefix.StartsWith("Classic")?17:21;
        for(int i=0;i<count;i++)Assert(Resources.Load<Sprite>("CG/Playable/"+prefix+i.ToString("00"))!=null,"Falta sprite "+prefix+i);
