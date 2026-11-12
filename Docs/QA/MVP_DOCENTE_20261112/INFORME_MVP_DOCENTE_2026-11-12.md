@@ -58,8 +58,8 @@ Decisiones de comportamiento:
 | `f1c613e` | test | Arneses de Carla: Game Over → REINTENTAR; borrado en Configuración |
 | `fc0e94d` | test | Arneses de Carla: animación del Guardián y posición real del fragmento 2 |
 | `6a65a55` | test | `CGMvpBatchQA`: ejecutor batch con guardado aislado |
-| (siguiente) | test | Regresión de fragmentos: atacar al jefe de frente (combate del PR #31) |
-| (siguiente) | docs | Este informe, evidencias y README |
+| `626632a` | test | Regresión de fragmentos: atacar al jefe de frente (combate del PR #31) |
+| `78cc26d` | docs | Este informe, evidencias y README |
 
 **No se modificó código de juego fuera del merge.** No se regeneraron escenas, no se usaron `reset --hard`, `clean` ni force push, y no se publicó nada en el remoto.
 
