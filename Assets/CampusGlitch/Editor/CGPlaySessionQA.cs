@@ -53,7 +53,7 @@ public static class CGPlaySessionQA {
    double now=EditorApplication.timeSinceStartup;if(now<next)return;
    try{
      if(now>deadline)throw new Exception("Tiempo agotado esperando etapa "+stage);
-     if(stage==10){
+     if(stage==11){
        string expected=index==0?"SC_Level02":levels[index]==8?"SC_Credits":"SC_MainMenu";
        if(SceneManager.GetActiveScene().name!=expected)return;
        Log("PASS N"+(levels[index]+1)+": transicion final a "+expected);
@@ -64,16 +64,18 @@ public static class CGPlaySessionQA {
      if(game==null||game.sceneLevel!=levels[index]||game.Hero==null)return;
      var world=(CGWorld)Get(game,"world");
      switch(stage){
-       case 0:Move(game,35);game.InteractNearPlayer();Check(world.checkpoint,"Checkpoint no se activa");game.Hero.hearts=1;game.KillHero();Check(game.Hero.hearts==3&&Mathf.Abs(game.Hero.transform.position.x-35.5f)<.1f,"Respawn no restaura checkpoint");break;
-       case 1:Move(game,69);game.InteractNearPlayer();Check(game.Playing&&!(bool)Get(game,"terminalSolved"),"Portal no bloquea acceso incompleto");break;
-       case 2:Move(game,14,.3f);break;
-       case 3:Check((int)Get(game,"chips")==1,"No se recoge fragmento 1 por collider");Move(game,31,2.55f);break;
-       case 4:Check((int)Get(game,"chips")==2,"No se recoge fragmento 2 por collider");Move(game,48,.3f);break;
-       case 5:Check((int)Get(game,"chips")==3,"No se recoge fragmento 3 por collider");Move(game,40);game.InteractNearPlayer();Check(Get(game,"page").ToString()=="Quiz"&&Time.timeScale==0,"Terminal no pausa");break;
-       case 6:Set(game,"nextQuizAnswerTime",-1f);Call(game,"QuizAnswer",(world.spec.right+1)%3);Check(Get(game,"page").ToString()=="Quiz","Respuesta incorrecta cierra terminal");Set(game,"nextQuizAnswerTime",-1f);Call(game,"QuizAnswer",world.spec.right);Check(game.Playing&&Time.timeScale==1,"Respuesta correcta no restaura partida");break;
-       case 7:Move(game,69);game.InteractNearPlayer();if(!string.IsNullOrEmpty(world.spec.boss)){Check(game.Playing,"Portal no exige jefe");game.BossDown();game.InteractNearPlayer();}Check(CGStore.Data.completed[levels[index]],"Victoria no guarda nivel completado");CGStore.Data=null;CGStore.Load();Check(CGStore.Data.completed[levels[index]],"Victoria no persiste tras recarga");break;
-       case 8:Check((string)Get(game,"toast")=="","Victoria conserva aviso anterior");Check(Get(game,"page").ToString()==(levels[index]==8?"Ending":"Victory"),"Pantalla final incorrecta");ScreenCapture.CaptureScreenshot(Output+"/N"+(levels[index]+1)+"_final.png");Log("PASS N"+(levels[index]+1)+": checkpoint, respawn, tres triggers de fragmentos, terminal incorrecta/correcta, puertas de acceso, victoria y recarga JSON temporal. Jefe liberado por callback de QA; no combate manual.");break;
-       case 9:if(index==0)Call(game,"AfterVictory");else if(levels[index]==8)Call(game,"OpenEndingCredits");else Call(game,"ToMain");break;
+       case 0:Move(game,35);game.InteractNearPlayer();Check(world.checkpoint,"Checkpoint no se activa");game.Hero.hearts=1;game.KillHero();
+         Check(Get(game,"page").ToString()=="GameOver"&&Time.timeScale==0&&game.Hero.hearts==0,"Ultima vida no abre Game Over");break;
+       case 1:Call(game,"GameOverChoice",0);Check(game.Playing&&Time.timeScale==1&&game.Hero.hearts==3&&Mathf.Abs(game.Hero.transform.position.x-35.5f)<.1f,"REINTENTAR no restaura checkpoint y corazones");break;
+       case 2:Move(game,69);game.InteractNearPlayer();Check(game.Playing&&!(bool)Get(game,"terminalSolved"),"Portal no bloquea acceso incompleto");break;
+       case 3:Move(game,14,.3f);break;
+       case 4:Check((int)Get(game,"chips")==1,"No se recoge fragmento 1 por collider");Move(game,31,2.55f);break;
+       case 5:Check((int)Get(game,"chips")==2,"No se recoge fragmento 2 por collider");Move(game,48,.3f);break;
+       case 6:Check((int)Get(game,"chips")==3,"No se recoge fragmento 3 por collider");Move(game,40);game.InteractNearPlayer();Check(Get(game,"page").ToString()=="Quiz"&&Time.timeScale==0,"Terminal no pausa");break;
+       case 7:Set(game,"nextQuizAnswerTime",-1f);Call(game,"QuizAnswer",(world.spec.right+1)%3);Check(Get(game,"page").ToString()=="Quiz","Respuesta incorrecta cierra terminal");Set(game,"nextQuizAnswerTime",-1f);Call(game,"QuizAnswer",world.spec.right);Check(game.Playing&&Time.timeScale==1,"Respuesta correcta no restaura partida");break;
+       case 8:Move(game,69);game.InteractNearPlayer();if(!string.IsNullOrEmpty(world.spec.boss)){Check(game.Playing,"Portal no exige jefe");game.BossDown();game.InteractNearPlayer();}Check(CGStore.Data.completed[levels[index]],"Victoria no guarda nivel completado");CGStore.Data=null;CGStore.Load();Check(CGStore.Data.completed[levels[index]],"Victoria no persiste tras recarga");break;
+       case 9:Check((string)Get(game,"toast")=="","Victoria conserva aviso anterior");Check(Get(game,"page").ToString()==(levels[index]==8?"Ending":"Victory"),"Pantalla final incorrecta");ScreenCapture.CaptureScreenshot(Output+"/N"+(levels[index]+1)+"_final.png");Log("PASS N"+(levels[index]+1)+": checkpoint, respawn, tres triggers de fragmentos, terminal incorrecta/correcta, puertas de acceso, victoria y recarga JSON temporal. Jefe liberado por callback de QA; no combate manual.");break;
+       case 10:if(index==0)Call(game,"AfterVictory");else if(levels[index]==8)Call(game,"OpenEndingCredits");else Call(game,"ToMain");break;
      }
      Advance();
    }catch(Exception e){Log("FAIL: "+e);ready=false;Time.timeScale=1;EditorApplication.isPlaying=false;}

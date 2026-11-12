@@ -13,6 +13,9 @@ public static class CGIntegrationQA {
  static void Page(CGGame game,string value){Set(game,"page",Enum.Parse(typeof(CGGame).GetField("page",flags).FieldType,value));}
  static void Call(CGGame game,string method,params object[] args){typeof(CGGame).GetMethod(method,flags).Invoke(game,args);}
  static void Assert(bool condition,string message){if(!condition)throw new Exception(message);}
+ // MVP 2026-11-12: "Borrar avance" moved from the main menu to the Settings dialog (PR #31).
+ static void OpenReset(CGGame game){Page(game,"Settings");Call(game,"BeginSettings");Call(game,"OpenSettingsDialog",4);Call(game,"Update");
+   Assert((int)Get(game,"settingsDialog")==4&&(int)Get(game,"settingsChoice")==1,"Borrar avance no abre con Cancelar seleccionado");}
  static void Pump(){typeof(InputSystem).GetMethod("Update",BindingFlags.Static|BindingFlags.NonPublic,null,new[]{typeof(InputUpdateType)},null).Invoke(null,new object[]{InputUpdateType.Dynamic});}
  static void KeyPress(CGGame game,Keyboard keyboard,Key key){
    InputSystem.QueueStateEvent(keyboard,new KeyboardState());Pump();
@@ -46,14 +49,14 @@ public static class CGIntegrationQA {
      keyboard=InputSystem.AddDevice<Keyboard>();pad=InputSystem.AddDevice<Gamepad>();
      CGStore.Data=new CGProgress{latestUnlocked=3,purpleUnlocked=true};CGStore.Data.completed[0]=true;CGStore.Save();
      string file=Path.Combine(scratch,"campus_glitch_save_v1.json");string original=File.ReadAllText(file);
-     Call(game,"MainSelect",7);KeyPress(game,keyboard,Key.Enter);Assert(Get(game,"page").ToString()=="Main","Enter no fue procesado");
+     OpenReset(game);KeyPress(game,keyboard,Key.Enter);Assert((int)Get(game,"settingsDialog")==0,"Enter no fue procesado");
      Assert(File.ReadAllText(file)==original,"Enter con Cancelar modifico el JSON");
-     Call(game,"MainSelect",7);KeyPress(game,keyboard,Key.Escape);
+     OpenReset(game);KeyPress(game,keyboard,Key.Escape);Assert((int)Get(game,"settingsDialog")==0,"Escape no cerro el dialogo");
      Assert(File.ReadAllText(file)==original,"Escape modifico el JSON");
-     Call(game,"MainSelect",7);PadPress(game,pad,GamepadButton.East);
+     OpenReset(game);PadPress(game,pad,GamepadButton.East);Assert((int)Get(game,"settingsDialog")==0,"B no cerro el dialogo");
      Assert(File.ReadAllText(file)==original,"B modifico el JSON");
      CGStore.Data=null;CGStore.Load();Assert(CGStore.Data.latestUnlocked==3&&CGStore.Data.purpleUnlocked,"La cancelacion no persiste al recargar");
-     Call(game,"MainSelect",7);Set(game,"selection",0);PadPress(game,pad,GamepadButton.South);
+     OpenReset(game);Set(game,"settingsChoice",0);PadPress(game,pad,GamepadButton.South);
      CGStore.Data=null;CGStore.Load();Assert(CGStore.Data.latestUnlocked==0&&!CGStore.Data.purpleUnlocked,"Confirmar borrado no persiste");
      Debug.Log("[Carla integracion] OK: cancelar/Enter, Escape, B y borrado explicito con JSON temporal y recarga.");
      foreach(int level in new[]{0,7,5}){
@@ -69,15 +72,11 @@ public static class CGIntegrationQA {
        Page(game,"Quiz");Time.timeScale=0;PadPress(game,pad,GamepadButton.East);Assert(game.Playing&&Time.timeScale==1,"B no cierra la terminal");
        Debug.Log("[Carla integracion] OK: terminal N"+(level+1)+" incorrecta/correcta/cierre, teclado y mando simulado.");
      }
-     Page(game,"Map");Set(game,"selection",10);KeyPress(game,keyboard,Key.Enter);Assert(Get(game,"page").ToString()=="Main","Mapa no vuelve al menu");
-     Page(game,"Controls");Set(game,"selection",9);KeyPress(game,keyboard,Key.Enter);Assert(Get(game,"page").ToString()=="Main","Controles no vuelve al menu");
-     Page(game,"Controls");Set(game,"padMode",true);Set(game,"rebinding",0);string binding=CGStore.Data.padBindings[0];PadPress(game,pad,GamepadButton.East);
-     Assert((int)Get(game,"rebinding")==-1&&CGStore.Data.padBindings[0]==binding,"B cambio la asignacion en lugar de cancelar");
+     // MVP 2026-11-12: Map, Controls and Settings now use Victor's dedicated screens (PR #31); their
+     // return/cancel/volume behaviour is covered by CGMapRegression, CGControlsRegression and CGSettingsRegression.
      Page(game,"Victory");Set(game,"selection",1);PadPress(game,pad,GamepadButton.South);Assert(Get(game,"page").ToString()=="Main","Victoria ignora menu");
      Page(game,"Ending");Set(game,"selection",0);KeyPress(game,keyboard,Key.Enter);Assert(Get(game,"page").ToString()=="Credits","Final ignora creditos");
-     Page(game,"Settings");Set(game,"selection",0);CGStore.Data.masterVolume=.5f;KeyPress(game,keyboard,Key.LeftArrow);Assert(Mathf.Abs(CGStore.Data.masterVolume-.4f)<.001f,"Izquierda no baja volumen");
-     KeyPress(game,keyboard,Key.RightArrow);Assert(Mathf.Abs(CGStore.Data.masterVolume-.5f)<.001f,"Derecha no sube volumen");
-     Debug.Log("[Carla integracion] OK: volver desde mapa/controles, cancelar reasignacion, victoria, creditos y volumen por entradas.");
+     Debug.Log("[Carla integracion] OK: victoria y creditos por entradas (mapa/controles/volumen: regresiones de Victor).");
      var heroObject=new GameObject("QA animation hero");heroObject.transform.SetParent(go.transform);var hero=heroObject.AddComponent<CGHero>();hero.Setup(game);
      var animator=heroObject.GetComponent<CGFrameAnimator>();
      foreach(bool originalWolf in new[]{false,true})foreach(bool purple in new[]{false,true}){

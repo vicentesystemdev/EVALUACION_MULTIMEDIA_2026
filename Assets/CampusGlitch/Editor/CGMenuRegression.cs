@@ -18,8 +18,9 @@ public static class CGMenuRegression {
         try{
             var game=go.AddComponent<CGGame>();
             var flags=System.Reflection.BindingFlags.Instance|System.Reflection.BindingFlags.NonPublic;
-            typeof(CGGame).GetMethod("MainSelect",flags).Invoke(game,new object[]{7});
-            int selected=(int)typeof(CGGame).GetField("selection",flags).GetValue(game);
+            // MVP 2026-11-12: "Borrar avance" lives in the Settings dialog after PR #31.
+            typeof(CGGame).GetMethod("OpenSettingsDialog",flags).Invoke(game,new object[]{4});
+            int selected=(int)typeof(CGGame).GetField("settingsChoice",flags).GetValue(game);
             if(selected!=1)throw new Exception("El borrado no abre con Cancelar seleccionado.");
             Debug.Log("[Campus Glitch QA] OK: abrir borrado selecciona Cancelar.");
         }finally{UnityEngine.Object.DestroyImmediate(go);}
