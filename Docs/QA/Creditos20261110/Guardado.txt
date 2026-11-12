@@ -1,0 +1,2 @@
+Archivos de progreso original y respaldo: CONSERVADOS
+Comprobacion por hash y presencia de los tres archivos: [True, True, True]

@@ -1,0 +1,58 @@
+Issue #19 | Unity 6000.3.16f1 | 2026-11-07T17:02:08.7164346-04:00
+PASS cae manteniendo direccion=-1 velocidad=3,5 y=1 -> -0,506816
+PASS conserva colision lateral direccion=-1 velocidad=3,5
+PASS cae manteniendo direccion=1 velocidad=3,5 y=1 -> -0,506816
+PASS conserva colision lateral direccion=1 velocidad=3,5
+PASS cae manteniendo direccion=-1 velocidad=5,8 y=1 -> -0,506816
+PASS conserva colision lateral direccion=-1 velocidad=5,8
+PASS cae manteniendo direccion=1 velocidad=5,8 y=1 -> -0,506816
+PASS conserva colision lateral direccion=1 velocidad=5,8
+PASS se detiene sobre suelo al soltar direccion, sin deslizar ni rebotar
+PASS aterriza desde=0 hasta=2,96 velocidad=3,5 pico=3,164025 final=(-0.87, 2.96)
+PASS aterriza desde=2,96 hasta=5,48 velocidad=3,5 pico=6,124102 final=(-0.59, 5.48)
+PASS aterriza desde=5,48 hasta=8,34 velocidad=3,5 pico=8,644025 final=(-0.80, 8.34)
+PASS aterriza desde=0 hasta=2,96 velocidad=5,8 pico=3,164025 final=(-0.34, 2.96)
+PASS aterriza desde=2,96 hasta=5,48 velocidad=5,8 pico=6,124102 final=(0.01, 5.48)
+PASS aterriza desde=5,48 hasta=8,34 velocidad=5,8 pico=8,644025 final=(-0.22, 8.34)
+PASS plataforma solida por debajo=2,96, golpea y vuelve al suelo sin quedarse pegado, pico=0,9951563
+PASS N1 todas las plataformas elevadas tienen colision solida (10)
+PASS N1 collider coincide con superficie visible
+PASS N1 barandales unidos a plataformas fisicas, sin apoyos flotantes falsos
+PASS N1 corredor de suelo y separacion vertical con espacio para el personaje
+PASS N2 todas las plataformas elevadas tienen colision solida (10)
+PASS N2 collider coincide con superficie visible
+PASS N2 barandales unidos a plataformas fisicas, sin apoyos flotantes falsos
+PASS N2 corredor de suelo y separacion vertical con espacio para el personaje
+PASS N3 todas las plataformas elevadas tienen colision solida (13)
+PASS N3 collider coincide con superficie visible
+PASS N3 barandales unidos a plataformas fisicas, sin apoyos flotantes falsos
+PASS N3 corredor de suelo y separacion vertical con espacio para el personaje
+PASS N4 todas las plataformas elevadas tienen colision solida (10)
+PASS N4 collider coincide con superficie visible
+PASS N4 barandales unidos a plataformas fisicas, sin apoyos flotantes falsos
+PASS N4 corredor de suelo y separacion vertical con espacio para el personaje
+PASS N5 todas las plataformas elevadas tienen colision solida (10)
+PASS N5 collider coincide con superficie visible
+PASS N5 barandales unidos a plataformas fisicas, sin apoyos flotantes falsos
+PASS N5 corredor de suelo y separacion vertical con espacio para el personaje
+PASS N6 todas las plataformas elevadas tienen colision solida (10)
+PASS N6 collider coincide con superficie visible
+PASS N6 barandales unidos a plataformas fisicas, sin apoyos flotantes falsos
+PASS N6 corredor de suelo y separacion vertical con espacio para el personaje
+PASS N7 todas las plataformas elevadas tienen colision solida (13)
+PASS N7 collider coincide con superficie visible
+PASS N7 barandales unidos a plataformas fisicas, sin apoyos flotantes falsos
+PASS N7 corredor de suelo y separacion vertical con espacio para el personaje
+PASS N8 todas las plataformas elevadas tienen colision solida (13)
+PASS N8 collider coincide con superficie visible
+PASS N8 barandales unidos a plataformas fisicas, sin apoyos flotantes falsos
+PASS N8 corredor de suelo y separacion vertical con espacio para el personaje
+PASS N9 todas las plataformas elevadas tienen colision solida (10)
+PASS N9 collider coincide con superficie visible
+PASS N9 barandales unidos a plataformas fisicas, sin apoyos flotantes falsos
+PASS N9 corredor de suelo y separacion vertical con espacio para el personaje
+PASS N10 todas las plataformas elevadas tienen colision solida (15)
+PASS N10 collider coincide con superficie visible
+PASS N10 barandales unidos a plataformas fisicas, sin apoyos flotantes falsos
+PASS N10 corredor de suelo y separacion vertical con espacio para el personaje
+TOTAL PASS=56 FAIL=0

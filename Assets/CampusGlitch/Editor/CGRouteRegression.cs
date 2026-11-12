@@ -12,13 +12,14 @@ using UnityEngine.InputSystem.LowLevel;
 using UnityEngine.SceneManagement;
 
 namespace CampusGlitch.Editor {
-// Exercises the real game through keyboard input. Never relocates the hero or grants objectives.
+// Exercises the real game through keyboard or gamepad input. Never relocates the hero or grants objectives.
 [InitializeOnLoad]
 public static class CGRouteRegression {
     const string Pending = "CampusGlitch.Route.Output";
     const BindingFlags Private = BindingFlags.NonPublic | BindingFlags.Instance;
     static readonly string[] SaveNames = { "campus_glitch_save_v1.json", "campus_glitch_save_v1.json.bak", "campus_glitch_save_v1.json.tmp" };
     static Keyboard keyboard;
+    static Gamepad gamepad;static bool useGamepad;
     static string output;
     static float started, jumpUntil, wonAt;
     static int lastChips;
@@ -32,7 +33,7 @@ public static class CGRouteRegression {
         Run(Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments), "CampusGlitchQA", "Ruta_" + DateTime.Now.ToString("yyyyMMdd_HHmmss")), 0);
     }
 
-    public static void Run(string directory, int level) {
+    public static void Run(string directory, int level,bool withGamepad=false) {
         if (level < 0 || level > 9 || EditorApplication.isPlayingOrWillChangePlaymode || EditorApplication.isCompiling)
             throw new InvalidOperationException("Seleccionar nivel 0..9 con Play detenido y scripts compilados.");
         for (int i = 0; i < SceneManager.sceneCount; i++) if (SceneManager.GetSceneAt(i).isDirty) throw new InvalidOperationException("Guardar las escenas antes de iniciar.");
@@ -45,6 +46,7 @@ public static class CGRouteRegression {
             if (File.Exists(source)) File.Copy(source, Path.Combine(output, name));
         }
         SessionState.SetString(Pending, output);
+        SessionState.SetBool(Pending+".Gamepad",withGamepad);
         SessionState.SetString(Pending + ".Scene", SceneManager.GetActiveScene().path);
         SessionState.SetInt(Pending + ".Background", (int)InputSystem.settings.backgroundBehavior);
         SessionState.SetBool(Pending + ".RunBackground", Application.runInBackground);
@@ -59,6 +61,8 @@ public static class CGRouteRegression {
         if (state == PlayModeStateChange.EnteredPlayMode) {
             CGStore.Data = new CGProgress();
             keyboard = InputSystem.AddDevice<Keyboard>();
+            gamepad=InputSystem.AddDevice<Gamepad>();useGamepad=SessionState.GetBool(Pending+".Gamepad",false);
+            Log("Entrada: "+(useGamepad?"mando":"teclado")+"; terminal mediante controles reales.");
             InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
             Application.runInBackground = true;
             started = Time.unscaledTime; jumpUntil = wonAt = -1; lastChips = 0; finished = false; dropGoal = float.NaN;
@@ -66,6 +70,7 @@ public static class CGRouteRegression {
         } else if (state == PlayModeStateChange.ExitingPlayMode) {
             InputSystem.onAfterUpdate -= Drive;
             if (keyboard != null) { InputSystem.RemoveDevice(keyboard); keyboard = null; }
+            if(gamepad!=null){InputSystem.RemoveDevice(gamepad);gamepad=null;}
             InputSystem.settings.backgroundBehavior = (InputSettings.BackgroundBehavior)SessionState.GetInt(Pending + ".Background", 0);
             Application.runInBackground = SessionState.GetBool(Pending + ".RunBackground", false);
         } else if (state == PlayModeStateChange.EnteredEditMode) {
@@ -106,9 +111,8 @@ public static class CGRouteRegression {
         }
         if (now - started > 120) { Finish(false, "tiempo agotado x=" + x + " datos=" + chips); return; }
         if (page == "Quiz") {
-            // The base branch's quiz UI is mouse-only (#21); invoke its existing correct-answer handler.
-            typeof(CGGame).GetMethod("QuizAnswer", Private).Invoke(game, new object[] { world.spec.right });
-            Log("Terminal respondida mediante su manejador existente."); SetKeys(); return;
+            if(now%.25f<.08f)SetKeys(Get<int>(game,"selection")==world.spec.right?Key.Enter:Key.DownArrow);
+            else SetKeys();return;
         }
         if (!game.Playing) { SetKeys(); return; }
         var keys = new List<Key>();
@@ -142,7 +146,19 @@ public static class CGRouteRegression {
         SetKeys(keys.ToArray());
     }
 
-    static void SetKeys(params Key[] keys) { keyboard.MakeCurrent(); InputState.Change(keyboard, new KeyboardState(keys)); }
+    static void SetKeys(params Key[] keys) {
+        keyboard.MakeCurrent();InputState.Change(keyboard,new KeyboardState(useGamepad?new Key[0]:keys));
+        if(gamepad==null)return;gamepad.MakeCurrent();var state=new GamepadState();
+        if(useGamepad){
+            state.leftStick=new Vector2((keys.Contains(Key.D)?1:0)-(keys.Contains(Key.A)?1:0),0);
+            state.rightTrigger=keys.Contains(Key.LeftShift)?1:0;
+            if(keys.Contains(Key.Space)||keys.Contains(Key.Enter))state=state.WithButton(GamepadButton.South);
+            if(keys.Contains(Key.J))state=state.WithButton(GamepadButton.West);
+            if(keys.Contains(Key.E))state=state.WithButton(GamepadButton.North);
+            if(keys.Contains(Key.DownArrow))state=state.WithButton(GamepadButton.DpadDown);
+        }
+        InputState.Change(gamepad,state);
+    }
     static T Get<T>(object target, string field) { return (T)target.GetType().GetField(field, Private).GetValue(target); }
     static void Log(string text) { File.AppendAllText(Path.Combine(output, "results.txt"), text + "\n"); }
     static void Finish(bool success, string reason) { finished = true; SetKeys(); Log((success ? "PASS " : "FAIL ") + reason); EditorApplication.isPlaying = false; }
