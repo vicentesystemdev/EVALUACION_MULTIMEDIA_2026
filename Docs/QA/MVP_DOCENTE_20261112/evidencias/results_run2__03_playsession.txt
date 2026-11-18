@@ -1,0 +1,12 @@
+Unity 6000.3.16f1 — escenarios controlados, no recorrido manual ni prueba fisica de mando/Android.
+PASS N1: checkpoint, respawn, tres triggers de fragmentos, terminal incorrecta/correcta, puertas de acceso, victoria y recarga JSON temporal. Jefe liberado por callback de QA; no combate manual.
+PASS N1: transicion final a SC_Level02
+PASS N8: checkpoint, respawn, tres triggers de fragmentos, terminal incorrecta/correcta, puertas de acceso, victoria y recarga JSON temporal. Jefe liberado por callback de QA; no combate manual.
+PASS N8: transicion final a SC_MainMenu
+PASS N6: checkpoint, respawn, tres triggers de fragmentos, terminal incorrecta/correcta, puertas de acceso, victoria y recarga JSON temporal. Jefe liberado por callback de QA; no combate manual.
+PASS N6: transicion final a SC_MainMenu
+PASS N9: checkpoint, respawn, tres triggers de fragmentos, terminal incorrecta/correcta, puertas de acceso, victoria y recarga JSON temporal. Jefe liberado por callback de QA; no combate manual.
+PASS N9: transicion final a SC_Credits
+PASS N10: checkpoint, respawn, tres triggers de fragmentos, terminal incorrecta/correcta, puertas de acceso, victoria y recarga JSON temporal. Jefe liberado por callback de QA; no combate manual.
+PASS N10: transicion final a SC_MainMenu
+PASS: cinco escenarios terminados; guardado personal sin cambios.

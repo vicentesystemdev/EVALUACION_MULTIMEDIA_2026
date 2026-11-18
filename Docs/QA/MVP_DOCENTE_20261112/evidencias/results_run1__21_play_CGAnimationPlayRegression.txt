@@ -1,0 +1,16 @@
+PASS Volver a Idle después de caminar, correr, saltar, atacar, daño y giro
+PASS Giro izquierdo del controlador reflejado en el sprite
+PASS Spawn sin salto automático ni Space: pico=0,0048
+PASS Idle avanza con entrada neutra: frames distintos=8
+PASS Estado observado: Idle
+PASS Estado observado: Caminar
+PASS Estado observado: Correr
+PASS Estado observado: Saltar
+PASS Estado observado: Caer / aterrizar
+PASS Estado observado: Atacar
+PASS Estado observado: Daño
+PASS Estado observado: Victoria
+PASS Atlas en Point, sin mipmaps ni filtrado anisotrópico
+PASS Geometría física del protagonista preservada
+PASS Preview temporal excluida de Play
+TOTAL PASS=15 FAIL=0
