@@ -1,0 +1,3 @@
+Unity 6000.3.16f1 — escenarios controlados, no recorrido manual ni prueba fisica de mando/Android.
+FAIL: System.Exception: No se recoge fragmento 2 por collider
+  at CampusGlitch.EditorQA.CGPlaySessionQA.Tick () [0x00338] in D:\Unity\EVALUACION_MULTIMEDIA_2026_MVP\Assets\CampusGlitch\Editor\CGPlaySessionQA.cs:73 

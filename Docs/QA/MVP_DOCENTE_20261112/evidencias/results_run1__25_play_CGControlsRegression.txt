@@ -1,0 +1,41 @@
+PASS Abre Controles
+PASS Xbox: botón inferior A
+PASS PlayStation: símbolos y gatillos correctos
+PASS A inicia captura de la acción seleccionada: captura=0, selección=0
+PASS Tecla se prepara en el borrador
+PASS Asignar no guarda automáticamente
+PASS Duplicado abre conflicto con Cancelar seleccionado
+PASS Cancelar conflicto conserva ambas asignaciones
+PASS Confirmar intercambia ambas teclas sin duplicarlas
+PASS Aplicar guarda borradores válidos
+PASS Teclas persisten al cargar el archivo real
+PASS Cancelar restauración mantiene el borrador
+PASS Restaurar prepara valores originales sin guardarlos
+PASS Aplicar restaura los valores originales
+PASS Tab selecciona mando
+PASS Gatillo analógico se puede asignar
+PASS Asignación de gatillo se guarda
+PASS Gatillo asignado responde mientras se mantiene
+PASS Pulsación enciende el gatillo en el esquema
+PASS Mantener gatillo no repite la activación de habilidad
+PASS Y dentro de prueba no edita ni abandona el diagnóstico
+PASS B termina la prueba
+PASS B cancela captura sin guardar otro botón
+PASS La captura caduca sin alterar controles
+PASS Guardar rechaza duplicados introducidos externamente
+PASS Salir con borrador selecciona Seguir editando
+PASS Seguir editando conserva el borrador
+PASS Mando PlayStation detectado cambia el esquema sin opción Auto
+PASS Mando Xbox detectado cambia el esquema
+PASS Tecla real anima su botón y conserva la acción
+PASS Animación de teclado decae al soltar
+PASS Elegir tecla en el esquema prepara un borrador
+PASS Escape del esquema cancela sin reasignar
+PASS Teclado carga carcasa, estados y distribución editable
+PASS Arte de carcasa y estados cargado en Unity
+PASS Lector oficial de Unity acepta el Aseprite
+PASS Aseprite conserva dimensiones y ocho estados
+PASS Aseprite contiene ocho capas editables y cels
+PASS Lector oficial acepta el teclado Aseprite y sus cuatro estados
+TOTAL PASS=39 FAIL=0
+Guardado original restaurado.

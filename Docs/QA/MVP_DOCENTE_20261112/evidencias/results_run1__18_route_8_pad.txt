@@ -1,0 +1,8 @@
+Ruta N9 | Unity 6000.3.16f1 | 2026-11-12T15:24:40.9588723-04:00
+Entrada: mando; terminal mediante controles reales.
+DATOS 1/3 t=2,54916 posicion=(13.13, 0.01, 0.00)
+DATOS 2/3 t=6,765745 posicion=(30.99, 1.26, 0.00)
+DATOS 3/3 t=10,42281 posicion=(47.17, 0.00, 0.00)
+Victoria real: datos=3 terminal=True jefe=True
+PASS recorrido desde spawn, portal y progreso
+Guardado original restaurado.

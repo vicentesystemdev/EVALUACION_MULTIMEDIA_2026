@@ -1,0 +1,12 @@
+[Carla integracion] OK: cancelar/Enter, Escape, B y borrado explicito con JSON temporal y recarga.
+[Carla integracion] OK: terminal N1 incorrecta/correcta/cierre, teclado y mando simulado.
+[Carla integracion] OK: terminal N8 incorrecta/correcta/cierre, teclado y mando simulado.
+[Carla integracion] OK: terminal N6 incorrecta/correcta/cierre, teclado y mando simulado.
+[Carla integracion] OK: volver desde mapa/controles, cancelar reasignacion, victoria, creditos y volumen por entradas.
+[Carla integracion] OK: 28 combinaciones de estado/modelo/skin y reduccion de destellos.
+[Carla integracion] OK: sprites de los cuatro modelos/skins, nueve audios y subtitulo de dano.
+[Campus Glitch QA] OK: respuestas y cierre accesibles con seleccion 0, 1, 2 y 3.
+[Campus Glitch QA] OK: cancelar conserva progreso; confirmar ejecuta el borrado.
+[Campus Glitch QA] OK: siguiente nivel, menu y creditos respetan seleccion.
+[Campus Glitch QA] OK: volumen sube, baja y conserva limites.
+[Campus Glitch QA] OK: abrir borrado selecciona Cancelar.

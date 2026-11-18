@@ -1,0 +1,40 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f3d59286959548443a41dc855100e549, type: 3}
+  m_Name: CampusSettings
+  m_EditorClassIdentifier: Assembly-CSharp::CampusGlitch.CGSettingsDesign
+  title: "CONFIGURACI\xD3N"
+  subtitle: AJUSTA EL CAMPUS A TU MANERA
+  sections:
+  - Pantalla
+  - Audio
+  - Accesibilidad
+  - Partida
+  background: {fileID: 0}
+  useCampusPalette: 1
+  accent: {r: 0.78, g: 0.35, b: 1, a: 1}
+  active: {r: 1, g: 0.56, b: 0.12, a: 1}
+  panel: {r: 0.035, g: 0.02, b: 0.09, a: 1}
+  sidebar:
+    serializedVersion: 2
+    x: 24
+    y: 147
+    width: 211
+    height: 471
+  content:
+    serializedVersion: 2
+    x: 251
+    y: 147
+    width: 1005
+    height: 471
+  sectionTransition: 0.2
+  animateFocus: 1

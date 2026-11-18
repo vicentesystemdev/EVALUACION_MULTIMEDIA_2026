@@ -1,0 +1,33 @@
+PASS Abre la escena de Créditos
+PASS Archivo editable contiene cuatro integrantes y dos agradecimientos
+PASS Los seis retratos son distintos y están conectados
+PASS Víctor conserva la temática arácnida junto con programación y animación
+PASS Insignia arácnida se genera y se conserva en caché
+PASS Enter abre el perfil de Víctor
+PASS RB cambia al siguiente integrante
+PASS LB vuelve al integrante anterior
+PASS Flecha izquierda recorre circularmente hasta Marcelo
+PASS B cierra el perfil y restaura el foco sin salir de Créditos
+PASS Flecha derecha selecciona a Carla
+PASS A abre el integrante seleccionado
+PASS Escape cierra solamente el perfil
+PASS Cruceta derecha mueve el foco una tarjeta
+PASS A abre Agradecimientos especiales
+PASS Confirmar cierra Agradecimientos y conserva la selección
+PASS Enter abre Arte y recursos
+PASS B cierra Recursos sin cambiar de escena
+PASS Navegación horizontal vuelve al inicio
+PASS Stick selecciona una tarjeta sin saltos repetidos
+PASS Scene usa los cuatro retratos del mismo menú de Play
+PASS Nombre de Marcelo se muestra en la tarjeta
+PASS El modal muestra ambos retratos de agradecimiento antes de Play
+PASS La opción de reducir destellos conserva la interacción
+PASS Recorrer perfiles y modales conserva la escena y no inicia el acceso a niveles
+PASS Los créditos no modifican el progreso ni los controles
+PASS Encuadre completo y proporcionado en 1280x720
+PASS Encuadre completo y proporcionado en 1024x768
+PASS Encuadre completo y proporcionado en 2560x1080
+PASS Volver al menú no abre la entrada de niveles
+PASS Escape desde Créditos devuelve al menú principal
+TOTAL PASS=31 FAIL=0
+Guardado original restaurado.

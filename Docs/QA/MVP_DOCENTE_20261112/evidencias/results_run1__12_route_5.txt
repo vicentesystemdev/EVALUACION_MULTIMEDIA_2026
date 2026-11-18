@@ -1,0 +1,8 @@
+Ruta N6 | Unity 6000.3.16f1 | 2026-11-12T15:22:03.2362377-04:00
+Entrada: teclado; terminal mediante controles reales.
+DATOS 1/3 t=2,553182 posicion=(13.13, 0.01, 0.00)
+DATOS 2/3 t=6,870275 posicion=(30.98, 1.26, 0.00)
+DATOS 3/3 t=11,8231 posicion=(48.81, 0.01, 0.00)
+Victoria real: datos=3 terminal=True jefe=True
+PASS recorrido desde spawn, portal y progreso
+Guardado original restaurado.

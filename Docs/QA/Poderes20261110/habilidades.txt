@@ -1,0 +1,68 @@
+PASS Diferentes acentos conservan las texturas anteriores para Scene
+PASS Botones reutilizan caché por acento
+PASS Dash disponible al inicio
+PASS Habilidad bloqueada al inicio 1
+PASS Habilidad bloqueada al inicio 2
+PASS Habilidad bloqueada al inicio 3
+PASS Identificadores inválidos rechazados
+PASS Hito real N1
+PASS Recompensa disponible al completar N1
+PASS Hito real N2
+PASS Recompensa disponible al completar N2
+PASS Hito real N3
+PASS Recompensa disponible al completar N3
+PASS Hito real N4
+PASS Recompensa disponible al completar N4
+PASS Hito real N5
+PASS Recompensa disponible al completar N5
+PASS Hito real N6
+PASS Recompensa disponible al completar N6
+PASS Hito real N7
+PASS Recompensa disponible al completar N7
+PASS Hito real N8
+PASS Recompensa disponible al completar N8
+PASS Hito real N9
+PASS Recompensa disponible al completar N9
+PASS Dash mejora velocidad y recarga
+PASS N7 mejora daño y alcance de la ráfaga
+PASS N5 amplía la protección
+PASS N6 y N9 mejoran daño y alcance
+PASS No activa poderes bloqueados
+PASS Dash se activa
+PASS Duración de dash limitada
+PASS Recarga impide spam
+PASS Recupera dash al terminar recarga
+PASS Escudo se activa
+PASS Escudo absorbe un único impacto
+PASS Escudo conserva recarga tras impacto
+PASS Cancelar no borra recargas
+PASS Poderes consumen sus puntos de carga
+PASS Carga insuficiente bloquea el poder sin gastar más energía
+PASS La regeneración espera tras utilizar un poder
+PASS La carga se recupera gradualmente
+PASS La carga tiene un máximo de 100
+PASS Guardado anterior conserva valores por defecto
+PASS Personalización y progreso conservados en serialización
+PASS Desbloquear N9 no equivale a haberlo completado
+PASS Controlador real activa dash
+PASS Dash avanza y se detiene ante collider sólido
+PASS Cápsula aprobada conservada
+PASS Controlador activa escudo
+PASS Cúpula visual envuelve la cápsula del lobo
+PASS Escudo evita pérdida de vida
+PASS El siguiente impacto consume vida
+PASS Controlador activa corte
+PASS Dos colliders no duplican daño del corte
+PASS Ataque no atraviesa obstáculos sólidos
+PASS Sin obstáculo el objetivo recibe daño
+PASS Corte frontal no golpea a espaldas del personaje
+PASS Controlador dispara la ráfaga real
+PASS Proyectil se detiene ante un obstáculo
+PASS Ráfaga consume 18 puntos de carga
+PASS Proyectil causa daño una vez aunque haya dos colliders
+PASS Ráfaga dispara hacia donde mira el lobo
+PASS Ráfaga mejorada aplica dos puntos de daño
+PASS Proyectil se detiene durante la pausa
+PASS Proyectil continúa al reanudar
+PASS Pausa bloquea activación de poderes
+TOTAL PASS=67 FAIL=0

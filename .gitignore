@@ -6,6 +6,7 @@
 /[Uu]ser[Ss]ettings/
 /[Bb]uild/
 /[Bb]uilds/
+/Build_Windows/
 /[Mm]emoryCaptures/
 /[Rr]ecordings/
 
@@ -27,9 +28,26 @@
 .DS_Store
 Thumbs.db
 Desktop.ini
-# Configuracion local de Codex
-/.codex/
-
 # Configuraciones locales
 /.codex/
+/.claude/
+/.agents/
 /.vsconfig
+
+
+# Mis herramientas y resultados temporales de QA por Issue
+/QA_Marcelo/
+# Datos temporales generados al compilar pruebas
+/Assets/Resources/PerformanceTestRunInfo.json
+/Assets/Resources/PerformanceTestRunInfo.json.meta
+/Assets/Resources/PerformanceTestRunSettings.json
+/Assets/Resources/PerformanceTestRunSettings.json.meta
+
+# Paquetes Android y firmas locales
+*.apk
+*.aab
+*.keystore
+*.jks
+
+# Trabajo temporal del editor
+/.utmp/

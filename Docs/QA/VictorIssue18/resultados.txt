@@ -1,0 +1,370 @@
+Issue #18 | Unity 6000.3.16f1 | 2026-11-07T15:17:16.6301173-04:00
+PASS Control del arnes: entrada D reconocida
+PASS N1 parado genera tres fragmentos
+PASS N1 parado portal rechaza sin fragmentos
+N1 parado intento 0 grounded=True pico=1,378183 final=(14.00, 0.00, 0.00)
+PASS N1 parado recoge fragmento 1 por trigger (+1 exacto)
+PASS N1 parado fragmento 1 no cuenta dos veces
+N1 parado fragmento2=(31.00, 1.10, 0.00) | plataformas=Center: (32.00, 2.04, 0.00), Extents: (1.30, 0.16, 0.00)
+N1 parado intento 0 grounded=True pico=0,2351563 final=(31.00, 0.00, 0.00)
+PASS N1 parado recoge fragmento 2 por trigger (+1 exacto)
+PASS N1 parado fragmento 2 no cuenta dos veces
+N1 parado intento 0 grounded=True pico=1,378183 final=(48.00, 0.00, 0.00)
+PASS N1 parado recoge fragmento 3 por trigger (+1 exacto)
+PASS N1 parado fragmento 3 no cuenta dos veces
+PASS N1 parado contador final 3/3
+PASS N1 parado portal rechaza sin terminal
+PASS N1 parado abre terminal
+PASS N1 parado respuesta correcta restaura terminal
+PASS N1 parado portal y progreso requieren objetivos reales
+PASS N1 parado desbloquea siguiente nivel
+PASS N1 carrera genera tres fragmentos
+PASS N1 carrera portal rechaza sin fragmentos
+N1 carrera intento -1,8 grounded=True pico=0,2504205 final=(18.40, 0.00, 0.00)
+PASS N1 carrera recoge fragmento 1 por trigger (+1 exacto)
+PASS N1 carrera fragmento 1 no cuenta dos veces
+N1 carrera fragmento2=(31.00, 1.10, 0.00) | plataformas=Center: (32.00, 2.04, 0.00), Extents: (1.30, 0.16, 0.00)
+N1 carrera intento -1,8 grounded=True pico=1,220247 final=(30.32, 1.22, 0.00)
+PASS N1 carrera recoge fragmento 2 por trigger (+1 exacto)
+PASS N1 carrera fragmento 2 no cuenta dos veces
+N1 carrera intento -1,8 grounded=True pico=1,378053 final=(48.32, 1.30, 0.00)
+PASS N1 carrera recoge fragmento 3 por trigger (+1 exacto)
+PASS N1 carrera fragmento 3 no cuenta dos veces
+PASS N1 carrera contador final 3/3
+PASS N1 carrera portal rechaza sin terminal
+PASS N1 carrera abre terminal
+PASS N1 carrera respuesta correcta restaura terminal
+PASS N1 carrera portal y progreso requieren objetivos reales
+PASS N1 carrera desbloquea siguiente nivel
+PASS N2 parado genera tres fragmentos
+PASS N2 parado portal rechaza sin fragmentos
+N2 parado intento 0 grounded=True pico=0,2351563 final=(14.00, 0.00, 0.00)
+PASS N2 parado recoge fragmento 1 por trigger (+1 exacto)
+PASS N2 parado fragmento 1 no cuenta dos veces
+N2 parado fragmento2=(31.00, 3.35, 0.00) | plataformas=Center: (29.00, 2.04, 0.00), Extents: (1.30, 0.16, 0.00)
+N2 parado intento 0 grounded=True pico=1,378183 final=(31.00, 0.00, 0.00)
+PASS N2 parado recoge fragmento 2 por trigger (+1 exacto)
+PASS N2 parado fragmento 2 no cuenta dos veces
+N2 parado intento 0 grounded=True pico=1,378183 final=(48.00, 0.00, 0.00)
+PASS N2 parado recoge fragmento 3 por trigger (+1 exacto)
+PASS N2 parado fragmento 3 no cuenta dos veces
+PASS N2 parado contador final 3/3
+PASS N2 parado portal rechaza sin terminal
+PASS N2 parado abre terminal
+PASS N2 parado respuesta correcta restaura terminal
+PASS N2 parado portal y progreso requieren objetivos reales
+PASS N2 parado desbloquea siguiente nivel
+PASS N2 carrera genera tres fragmentos
+PASS N2 carrera portal rechaza sin fragmentos
+N2 carrera intento -1,8 grounded=True pico=0,3511984 final=(18.45, 0.00, 0.00)
+PASS N2 carrera recoge fragmento 1 por trigger (+1 exacto)
+PASS N2 carrera fragmento 1 no cuenta dos veces
+N2 carrera fragmento2=(31.00, 3.35, 0.00) | plataformas=Center: (29.00, 2.04, 0.00), Extents: (1.30, 0.16, 0.00)
+N2 carrera intento -1,8 grounded=True pico=0,2351563 final=(34.43, 0.00, 0.00)
+N2 carrera intento 1,8 grounded=True pico=1,374431 final=(30.69, 1.24, 0.00)
+PASS N2 carrera recoge fragmento 2 por trigger (+1 exacto)
+PASS N2 carrera fragmento 2 no cuenta dos veces
+N2 carrera intento -1,8 grounded=True pico=1,378079 final=(52.76, 0.00, 0.00)
+PASS N2 carrera recoge fragmento 3 por trigger (+1 exacto)
+PASS N2 carrera fragmento 3 no cuenta dos veces
+PASS N2 carrera contador final 3/3
+PASS N2 carrera portal rechaza sin terminal
+PASS N2 carrera abre terminal
+PASS N2 carrera respuesta correcta restaura terminal
+PASS N2 carrera portal y progreso requieren objetivos reales
+PASS N2 carrera desbloquea siguiente nivel
+PASS N3 parado genera tres fragmentos
+PASS N3 parado portal rechaza sin fragmentos
+N3 parado intento 0 grounded=True pico=-0,0002381206 final=(14.00, 0.00, 0.00)
+PASS N3 parado recoge fragmento 1 por trigger (+1 exacto)
+PASS N3 parado fragmento 1 no cuenta dos veces
+N3 parado intento 0 grounded=True pico=1,378183 final=(31.00, 0.00, 0.00)
+PASS N3 parado recoge fragmento 2 por trigger (+1 exacto)
+PASS N3 parado fragmento 2 no cuenta dos veces
+N3 parado intento 0 grounded=True pico=1,378182 final=(48.00, 0.00, 0.00)
+PASS N3 parado recoge fragmento 3 por trigger (+1 exacto)
+PASS N3 parado fragmento 3 no cuenta dos veces
+PASS N3 parado contador final 3/3
+PASS N3 parado portal rechaza sin terminal
+PASS N3 parado abre terminal
+PASS N3 parado respuesta correcta restaura terminal
+PASS N3 parado portal y progreso requieren objetivos reales
+PASS N3 parado desbloquea siguiente nivel
+PASS N3 carrera genera tres fragmentos
+PASS N3 carrera portal rechaza sin fragmentos
+N3 carrera intento -1,8 grounded=True pico=1,220244 final=(13.32, 1.22, 0.00)
+PASS N3 carrera recoge fragmento 1 por trigger (+1 exacto)
+PASS N3 carrera fragmento 1 no cuenta dos veces
+N3 carrera intento -1,8 grounded=True pico=1,374372 final=(31.32, 1.30, 0.00)
+PASS N3 carrera recoge fragmento 2 por trigger (+1 exacto)
+PASS N3 carrera fragmento 2 no cuenta dos veces
+N3 carrera intento -1,8 grounded=True pico=1,378079 final=(49.32, 0.35, 0.00)
+PASS N3 carrera recoge fragmento 3 por trigger (+1 exacto)
+PASS N3 carrera fragmento 3 no cuenta dos veces
+PASS N3 carrera contador final 3/3
+PASS N3 carrera portal rechaza sin terminal
+PASS N3 carrera abre terminal
+PASS N3 carrera respuesta correcta restaura terminal
+PASS N3 carrera portal y progreso requieren objetivos reales
+PASS N3 carrera desbloquea siguiente nivel
+PASS N4 parado genera tres fragmentos
+PASS N4 parado portal rechaza sin fragmentos
+N4 parado intento 0 grounded=True pico=0,2351563 final=(14.00, 0.00, 0.00)
+PASS N4 parado recoge fragmento 1 por trigger (+1 exacto)
+PASS N4 parado fragmento 1 no cuenta dos veces
+N4 parado intento 0 grounded=True pico=1,378182 final=(31.00, 0.00, 0.00)
+PASS N4 parado recoge fragmento 2 por trigger (+1 exacto)
+PASS N4 parado fragmento 2 no cuenta dos veces
+N4 parado intento 0 grounded=True pico=1,374534 final=(48.00, 0.00, 0.00)
+PASS N4 parado recoge fragmento 3 por trigger (+1 exacto)
+PASS N4 parado fragmento 3 no cuenta dos veces
+PASS N4 parado contador final 3/3
+PASS N4 parado portal rechaza sin terminal
+PASS N4 parado abre terminal
+PASS N4 parado respuesta correcta restaura terminal
+PASS N4 parado portal y progreso requieren objetivos reales
+PASS N4 parado desbloquea siguiente nivel
+PASS N4 carrera genera tres fragmentos
+PASS N4 carrera portal rechaza sin fragmentos
+N4 carrera intento -1,8 grounded=True pico=0,3511984 final=(18.45, 0.00, 0.00)
+PASS N4 carrera recoge fragmento 1 por trigger (+1 exacto)
+PASS N4 carrera fragmento 1 no cuenta dos veces
+N4 carrera intento -1,8 grounded=True pico=1,378079 final=(35.54, 0.00, 0.00)
+PASS N4 carrera recoge fragmento 2 por trigger (+1 exacto)
+PASS N4 carrera fragmento 2 no cuenta dos veces
+N4 carrera intento -1,8 grounded=True pico=0,004999876 final=(52.56, 0.00, 0.00)
+PASS N4 carrera recoge fragmento 3 por trigger (+1 exacto)
+PASS N4 carrera fragmento 3 no cuenta dos veces
+PASS N4 carrera contador final 3/3
+PASS N4 carrera portal rechaza sin terminal
+PASS N4 carrera abre terminal
+PASS N4 carrera respuesta correcta restaura terminal
+PASS N4 carrera portal y progreso requieren objetivos reales
+PASS N4 carrera desbloquea siguiente nivel
+PASS N5 parado genera tres fragmentos
+PASS N5 parado portal rechaza sin fragmentos
+N5 parado intento 0 grounded=True pico=1,378183 final=(14.00, 0.00, 0.00)
+PASS N5 parado recoge fragmento 1 por trigger (+1 exacto)
+PASS N5 parado fragmento 1 no cuenta dos veces
+N5 parado intento 0 grounded=True pico=1,378183 final=(31.00, 0.00, 0.00)
+PASS N5 parado recoge fragmento 2 por trigger (+1 exacto)
+PASS N5 parado fragmento 2 no cuenta dos veces
+N5 parado intento 0 grounded=True pico=1,335559 final=(48.00, 0.00, 0.00)
+PASS N5 parado recoge fragmento 3 por trigger (+1 exacto)
+PASS N5 parado fragmento 3 no cuenta dos veces
+PASS N5 parado contador final 3/3
+PASS N5 parado portal rechaza sin terminal
+PASS N5 parado abre terminal
+PASS N5 parado respuesta correcta restaura terminal
+PASS N5 parado portal y progreso requieren objetivos reales
+PASS N5 parado desbloquea siguiente nivel
+PASS N5 carrera genera tres fragmentos
+PASS N5 carrera portal rechaza sin fragmentos
+N5 carrera intento -1,8 grounded=True pico=1,378053 final=(14.32, 1.30, 0.00)
+PASS N5 carrera recoge fragmento 1 por trigger (+1 exacto)
+PASS N5 carrera fragmento 1 no cuenta dos veces
+N5 carrera intento -1,8 grounded=True pico=1,378079 final=(35.35, 0.00, 0.00)
+PASS N5 carrera recoge fragmento 2 por trigger (+1 exacto)
+PASS N5 carrera fragmento 2 no cuenta dos veces
+N5 carrera intento -1,8 grounded=True pico=1,335551 final=(52.59, 0.00, 0.00)
+PASS N5 carrera recoge fragmento 3 por trigger (+1 exacto)
+PASS N5 carrera fragmento 3 no cuenta dos veces
+PASS N5 carrera contador final 3/3
+PASS N5 carrera portal rechaza sin terminal
+PASS N5 carrera abre terminal
+PASS N5 carrera respuesta correcta restaura terminal
+PASS N5 carrera portal y progreso requieren objetivos reales
+PASS N5 carrera desbloquea siguiente nivel
+PASS N6 parado genera tres fragmentos
+PASS N6 parado portal rechaza sin fragmentos
+N6 parado intento 0 grounded=True pico=1,378183 final=(14.00, 0.00, 0.00)
+PASS N6 parado recoge fragmento 1 por trigger (+1 exacto)
+PASS N6 parado fragmento 1 no cuenta dos veces
+N6 parado intento 0 grounded=True pico=1,378183 final=(31.00, 0.00, 0.00)
+PASS N6 parado recoge fragmento 2 por trigger (+1 exacto)
+PASS N6 parado fragmento 2 no cuenta dos veces
+N6 parado intento 0 grounded=True pico=-0,0002381206 final=(48.00, 0.00, 0.00)
+PASS N6 parado recoge fragmento 3 por trigger (+1 exacto)
+PASS N6 parado fragmento 3 no cuenta dos veces
+PASS N6 parado contador final 3/3
+PASS N6 parado portal rechaza sin terminal
+PASS N6 parado abre terminal
+PASS N6 parado respuesta correcta restaura terminal
+PASS N6 parado portal rechaza con jefe vivo
+PASS N6 parado ataques eliminan jefe
+PASS N6 parado portal y progreso requieren objetivos reales
+PASS N6 parado desbloquea siguiente nivel
+PASS N6 carrera genera tres fragmentos
+PASS N6 carrera portal rechaza sin fragmentos
+N6 carrera intento -1,8 grounded=True pico=-0,01700002 final=(12.77, -0.08, 0.00)
+N6 carrera intento 1,8 grounded=True pico=1,378053 final=(13.69, 1.24, 0.00)
+PASS N6 carrera recoge fragmento 1 por trigger (+1 exacto)
+PASS N6 carrera fragmento 1 no cuenta dos veces
+N6 carrera intento -1,8 grounded=True pico=0,2351563 final=(35.39, 0.01, 0.00)
+N6 carrera intento 1,8 grounded=True pico=1,374431 final=(30.69, 1.24, 0.00)
+PASS N6 carrera recoge fragmento 2 por trigger (+1 exacto)
+PASS N6 carrera fragmento 2 no cuenta dos veces
+N6 carrera intento -1,8 grounded=True pico=0,3036934 final=(46.32, 0.30, 0.00)
+N6 carrera intento 1,8 grounded=True pico=0,6374015 final=(49.68, 0.64, 0.00)
+N6 carrera intento -2,1 grounded=True pico=0,7847996 final=(46.32, 0.78, 0.00)
+N6 carrera intento 2,1 grounded=True pico=0,6681142 final=(49.68, 0.67, 0.00)
+N6 carrera intento -1,5 grounded=True pico=0,00498426 final=(46.43, 0.00, 0.00)
+N6 carrera intento 1,5 grounded=True pico=0,004985631 final=(49.57, 0.00, 0.00)
+N6 carrera intento -1,2 grounded=True pico=0,004981518 final=(46.43, 0.00, 0.00)
+N6 carrera intento 1,2 grounded=True pico=-0,08299989 final=(49.24, -0.08, 0.00)
+N6 carrera intento -0,9 grounded=True pico=-0,08299989 final=(47.29, -0.08, 0.00)
+PASS N6 carrera recoge fragmento 3 por trigger (+1 exacto)
+PASS N6 carrera fragmento 3 no cuenta dos veces
+PASS N6 carrera contador final 3/3
+PASS N6 carrera portal rechaza sin terminal
+PASS N6 carrera abre terminal
+PASS N6 carrera respuesta correcta restaura terminal
+PASS N6 carrera portal rechaza con jefe vivo
+PASS N6 carrera ataques eliminan jefe
+PASS N6 carrera portal y progreso requieren objetivos reales
+PASS N6 carrera desbloquea siguiente nivel
+PASS N7 parado genera tres fragmentos
+PASS N7 parado portal rechaza sin fragmentos
+N7 parado intento 0 grounded=True pico=0,2351563 final=(14.00, 0.00, 0.00)
+PASS N7 parado recoge fragmento 1 por trigger (+1 exacto)
+PASS N7 parado fragmento 1 no cuenta dos veces
+N7 parado intento 0 grounded=True pico=1,378183 final=(31.00, 0.00, 0.00)
+PASS N7 parado recoge fragmento 2 por trigger (+1 exacto)
+PASS N7 parado fragmento 2 no cuenta dos veces
+N7 parado intento 0 grounded=True pico=1,378182 final=(48.00, 0.00, 0.00)
+PASS N7 parado recoge fragmento 3 por trigger (+1 exacto)
+PASS N7 parado fragmento 3 no cuenta dos veces
+PASS N7 parado contador final 3/3
+PASS N7 parado portal rechaza sin terminal
+PASS N7 parado abre terminal
+PASS N7 parado respuesta correcta restaura terminal
+PASS N7 parado portal y progreso requieren objetivos reales
+PASS N7 parado desbloquea siguiente nivel
+PASS N7 carrera genera tres fragmentos
+PASS N7 carrera portal rechaza sin fragmentos
+N7 carrera intento -1,8 grounded=True pico=0,3504728 final=(18.23, 0.00, 0.00)
+PASS N7 carrera recoge fragmento 1 por trigger (+1 exacto)
+PASS N7 carrera fragmento 1 no cuenta dos veces
+N7 carrera intento -1,8 grounded=True pico=0,2225995 final=(35.39, 0.01, 0.00)
+N7 carrera intento 1,8 grounded=True pico=1,378079 final=(30.69, 1.24, 0.00)
+PASS N7 carrera recoge fragmento 2 por trigger (+1 exacto)
+PASS N7 carrera fragmento 2 no cuenta dos veces
+N7 carrera intento -1,8 grounded=True pico=0,06562507 final=(52.38, 0.01, 0.00)
+PASS N7 carrera recoge fragmento 3 por trigger (+1 exacto)
+PASS N7 carrera fragmento 3 no cuenta dos veces
+PASS N7 carrera contador final 3/3
+PASS N7 carrera portal rechaza sin terminal
+PASS N7 carrera abre terminal
+PASS N7 carrera respuesta correcta restaura terminal
+PASS N7 carrera portal y progreso requieren objetivos reales
+PASS N7 carrera desbloquea siguiente nivel
+PASS N8 parado genera tres fragmentos
+PASS N8 parado portal rechaza sin fragmentos
+N8 parado intento 0 grounded=True pico=-0,0002381206 final=(14.00, 0.00, 0.00)
+PASS N8 parado recoge fragmento 1 por trigger (+1 exacto)
+PASS N8 parado fragmento 1 no cuenta dos veces
+N8 parado fragmento2=(31.00, 1.10, 0.00) | plataformas=Center: (31.00, 1.87, 0.00), Extents: (1.30, 0.16, 0.00)
+N8 parado intento 0 grounded=True pico=0,06515634 final=(31.00, 0.00, 0.00)
+PASS N8 parado recoge fragmento 2 por trigger (+1 exacto)
+PASS N8 parado fragmento 2 no cuenta dos veces
+N8 parado intento 0 grounded=True pico=1,378183 final=(48.00, 0.00, 0.00)
+PASS N8 parado recoge fragmento 3 por trigger (+1 exacto)
+PASS N8 parado fragmento 3 no cuenta dos veces
+PASS N8 parado contador final 3/3
+PASS N8 parado portal rechaza sin terminal
+PASS N8 parado abre terminal
+PASS N8 parado respuesta correcta restaura terminal
+PASS N8 parado portal rechaza con jefe vivo
+PASS N8 parado ataques eliminan jefe
+PASS N8 parado portal y progreso requieren objetivos reales
+PASS N8 parado desbloquea siguiente nivel
+PASS N8 carrera genera tres fragmentos
+PASS N8 carrera portal rechaza sin fragmentos
+N8 carrera intento -1,8 grounded=True pico=1,22027 final=(13.32, 1.22, 0.00)
+PASS N8 carrera recoge fragmento 1 por trigger (+1 exacto)
+PASS N8 carrera fragmento 1 no cuenta dos veces
+N8 carrera fragmento2=(31.00, 1.10, 0.00) | plataformas=Center: (31.00, 1.87, 0.00), Extents: (1.30, 0.16, 0.00)
+N8 carrera intento -1,8 grounded=True pico=0,2686965 final=(35.22, 0.00, 0.00)
+PASS N8 carrera recoge fragmento 2 por trigger (+1 exacto)
+PASS N8 carrera fragmento 2 no cuenta dos veces
+N8 carrera intento -1,8 grounded=True pico=1,378053 final=(48.32, 1.30, 0.00)
+PASS N8 carrera recoge fragmento 3 por trigger (+1 exacto)
+PASS N8 carrera fragmento 3 no cuenta dos veces
+PASS N8 carrera contador final 3/3
+PASS N8 carrera portal rechaza sin terminal
+PASS N8 carrera abre terminal
+PASS N8 carrera respuesta correcta restaura terminal
+PASS N8 carrera portal rechaza con jefe vivo
+PASS N8 carrera ataques eliminan jefe
+PASS N8 carrera portal y progreso requieren objetivos reales
+PASS N8 carrera desbloquea siguiente nivel
+PASS N9 parado genera tres fragmentos
+PASS N9 parado portal rechaza sin fragmentos
+N9 parado intento 0 grounded=True pico=1,378183 final=(14.00, 0.00, 0.00)
+PASS N9 parado recoge fragmento 1 por trigger (+1 exacto)
+PASS N9 parado fragmento 1 no cuenta dos veces
+N9 parado intento 0 grounded=True pico=1,378183 final=(31.00, 0.00, 0.00)
+PASS N9 parado recoge fragmento 2 por trigger (+1 exacto)
+PASS N9 parado fragmento 2 no cuenta dos veces
+N9 parado intento 0 grounded=True pico=1,374534 final=(48.00, 0.00, 0.00)
+PASS N9 parado recoge fragmento 3 por trigger (+1 exacto)
+PASS N9 parado fragmento 3 no cuenta dos veces
+PASS N9 parado contador final 3/3
+PASS N9 parado portal rechaza sin terminal
+PASS N9 parado abre terminal
+PASS N9 parado respuesta correcta restaura terminal
+PASS N9 parado portal rechaza con jefe vivo
+PASS N9 parado ataques eliminan jefe
+PASS N9 parado portal y progreso requieren objetivos reales
+PASS N9 carrera genera tres fragmentos
+PASS N9 carrera portal rechaza sin fragmentos
+N9 carrera intento -1,8 grounded=True pico=0,2504313 final=(16.43, 0.00, 0.00)
+PASS N9 carrera recoge fragmento 1 por trigger (+1 exacto)
+PASS N9 carrera fragmento 1 no cuenta dos veces
+N9 carrera intento -1,8 grounded=True pico=1,378079 final=(34.43, 0.01, 0.00)
+PASS N9 carrera recoge fragmento 2 por trigger (+1 exacto)
+PASS N9 carrera fragmento 2 no cuenta dos veces
+N9 carrera intento -1,8 grounded=True pico=1,378053 final=(52.76, 0.00, 0.00)
+PASS N9 carrera recoge fragmento 3 por trigger (+1 exacto)
+PASS N9 carrera fragmento 3 no cuenta dos veces
+PASS N9 carrera contador final 3/3
+PASS N9 carrera portal rechaza sin terminal
+PASS N9 carrera abre terminal
+PASS N9 carrera respuesta correcta restaura terminal
+PASS N9 carrera portal rechaza con jefe vivo
+PASS N9 carrera ataques eliminan jefe
+PASS N9 carrera portal y progreso requieren objetivos reales
+PASS N10 parado genera tres fragmentos
+PASS N10 parado portal rechaza sin fragmentos
+N10 parado intento 0 grounded=True pico=1,378183 final=(14.00, 0.00, 0.00)
+PASS N10 parado recoge fragmento 1 por trigger (+1 exacto)
+PASS N10 parado fragmento 1 no cuenta dos veces
+N10 parado intento 0 grounded=True pico=1,378182 final=(31.00, 0.00, 0.00)
+PASS N10 parado recoge fragmento 2 por trigger (+1 exacto)
+PASS N10 parado fragmento 2 no cuenta dos veces
+N10 parado intento 0 grounded=True pico=1,335559 final=(48.00, 0.00, 0.00)
+PASS N10 parado recoge fragmento 3 por trigger (+1 exacto)
+PASS N10 parado fragmento 3 no cuenta dos veces
+PASS N10 parado contador final 3/3
+PASS N10 parado portal rechaza sin terminal
+PASS N10 parado abre terminal
+PASS N10 parado respuesta correcta restaura terminal
+PASS N10 parado portal y progreso requieren objetivos reales
+PASS N10 carrera genera tres fragmentos
+PASS N10 carrera portal rechaza sin fragmentos
+N10 carrera intento -1,8 grounded=True pico=1,378053 final=(18.87, 0.00, 0.00)
+PASS N10 carrera recoge fragmento 1 por trigger (+1 exacto)
+PASS N10 carrera fragmento 1 no cuenta dos veces
+N10 carrera intento -1,8 grounded=True pico=1,378053 final=(35.46, 0.00, 0.00)
+PASS N10 carrera recoge fragmento 2 por trigger (+1 exacto)
+PASS N10 carrera fragmento 2 no cuenta dos veces
+N10 carrera intento -1,8 grounded=True pico=1,335551 final=(52.59, 0.00, 0.00)
+PASS N10 carrera recoge fragmento 3 por trigger (+1 exacto)
+PASS N10 carrera fragmento 3 no cuenta dos veces
+PASS N10 carrera contador final 3/3
+PASS N10 carrera portal rechaza sin terminal
+PASS N10 carrera abre terminal
+PASS N10 carrera respuesta correcta restaura terminal
+PASS N10 carrera portal y progreso requieren objetivos reales
+TOTAL PASS=289 FAIL=0
+Guardado original restaurado.

@@ -1,0 +1,21 @@
+PASS N1 speed=3,5 plataformas=10 sin ruta=
+PASS N1 speed=5,8 plataformas=10 sin ruta=
+PASS N2 speed=3,5 plataformas=10 sin ruta=
+PASS N2 speed=5,8 plataformas=10 sin ruta=
+PASS N3 speed=3,5 plataformas=18 sin ruta=
+PASS N3 speed=5,8 plataformas=18 sin ruta=
+PASS N4 speed=3,5 plataformas=10 sin ruta=
+PASS N4 speed=5,8 plataformas=10 sin ruta=
+PASS N5 speed=3,5 plataformas=10 sin ruta=
+PASS N5 speed=5,8 plataformas=10 sin ruta=
+PASS N6 speed=3,5 plataformas=10 sin ruta=
+PASS N6 speed=5,8 plataformas=10 sin ruta=
+PASS N7 speed=3,5 plataformas=17 sin ruta=
+PASS N7 speed=5,8 plataformas=17 sin ruta=
+PASS N8 speed=3,5 plataformas=17 sin ruta=
+PASS N8 speed=5,8 plataformas=17 sin ruta=
+PASS N9 speed=3,5 plataformas=10 sin ruta=
+PASS N9 speed=5,8 plataformas=10 sin ruta=
+PASS N10 speed=3,5 plataformas=15 sin ruta=
+PASS N10 speed=5,8 plataformas=15 sin ruta=
+TOTAL PASS=20 FAIL=0

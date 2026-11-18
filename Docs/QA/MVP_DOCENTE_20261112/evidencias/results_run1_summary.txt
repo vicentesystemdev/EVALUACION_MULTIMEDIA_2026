@@ -1,0 +1,31 @@
+Campus Glitch MVP batch QA | Unity 6000.3.16f1 | 2026-11-12T15:10:23.2964489-04:00
+PASS edit:CGMenuRegression | PASS CGMenuRegression.RunAll sin excepciones
+FAIL edit:CGIntegrationQA (no inicia): Estado de animacion incorrecto 1
+FAIL dir:CGSceneContentRegression (no inicia): Scene file not found: ''.
+PASS dir:CGGuardianArtRegression | TOTAL PASS=23 FAIL=0
+PASS physics | TOTAL PASS=56 FAIL=0
+PASS play:CGPlatformRouteRegression | TOTAL PASS=20 FAIL=0
+FAIL fragment | TOTAL PASS=158 FAIL=80
+PASS route:0 | PASS recorrido desde spawn, portal y progreso
+PASS route:1 | PASS recorrido desde spawn, portal y progreso
+PASS route:2 | PASS recorrido desde spawn, portal y progreso
+PASS route:3 | PASS recorrido desde spawn, portal y progreso
+PASS route:4 | PASS recorrido desde spawn, portal y progreso
+PASS route:5 | PASS recorrido desde spawn, portal y progreso
+PASS route:6 | PASS recorrido desde spawn, portal y progreso
+PASS route:7 | PASS recorrido desde spawn, portal y progreso
+PASS route:8 | PASS recorrido desde spawn, portal y progreso
+PASS route:9 | PASS recorrido desde spawn, portal y progreso
+PASS route:0:pad | PASS recorrido desde spawn, portal y progreso
+PASS route:8:pad | PASS recorrido desde spawn, portal y progreso
+FAIL playsession | FAIL: System.Exception: No se recoge fragmento 2 por collider
+PASS play:CGAbilityRegression | TOTAL PASS=67 FAIL=0
+PASS play:CGAnimationPlayRegression | TOTAL PASS=15 FAIL=0
+PASS play:CGMenuControlRegression | TOTAL PASS=38 FAIL=0
+PASS play:CGMapRegression | TOTAL PASS=37 FAIL=0
+PASS play:CGSettingsRegression | TOTAL PASS=45 FAIL=0
+PASS play:CGControlsRegression | TOTAL PASS=39 FAIL=0
+FAIL play:CGHelpRegression | TOTAL PASS=64 FAIL=2
+PASS play:CGCreditsRegression | TOTAL PASS=31 FAIL=0
+PASS play:CGCustomizationRegression | TOTAL PASS=31 FAIL=0
+FIN 2026-11-12T15:28:12.4427240-04:00
