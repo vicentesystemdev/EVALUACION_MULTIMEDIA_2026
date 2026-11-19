@@ -377,7 +377,7 @@ public partial class CGGame:MonoBehaviour {
       CGUIDraw.Text(new Rect(24,44,600,27),"VIDAS "+Mathf.Max(0,Hero.hearts)+"/3   ·   DATOS "+chips+"/3   ·   "+(terminalSolved?"TERMINAL OK":"TERMINAL PENDIENTE"),tinyStyle);
       Panel(new Rect(12,91,340,53),new Color(.25f,.8f,1));CGUIDraw.Text(new Rect(24,94,315,23),CGAbilities.Names[CGStore.Data.equippedAbility]+" · "+Mathf.FloorToInt(Hero.Skills.Energy)+"/100",tinyStyle);RectColor(new Rect(24,126,315*Hero.Skills.Energy/100,6),new Color(.25f,.8f,1));
       Rect rr=new Rect(866,12,403,50);Panel(rr,new Color(.34f,.67f,1f,1));
-      CGUIDraw.Text(new Rect(876,19,383,33),"E / Y  INTERACTUAR   ·   ESC / START  PAUSA",tinyStyle);
+      CGUIDraw.Text(new Rect(876,19,383,33),CGTouch.Enabled?"TOCA USAR PARA INTERACTUAR":"E / Y  INTERACTUAR   ·   ESC / START  PAUSA",tinyStyle);
       if(world.boss!=null&&!bossDead){Panel(new Rect(390,97,500,52),new Color(1,.21f,.25f,1));CGUIDraw.Text(new Rect(404,106,474,36),"JEFE: "+world.boss.kind+"   |   VIDA: "+world.boss.hp,textStyle);}
     }
 }
