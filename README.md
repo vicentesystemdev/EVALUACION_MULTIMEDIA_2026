@@ -17,10 +17,12 @@
 <a id="descargas"></a>
 ## ⬇️ Descargas
 
-| Plataforma | Archivo | Enlace |
+### 📁 [Carpeta de descargas en Google Drive](https://drive.google.com/drive/folders/1nVOpTSSlp4lpx0nYZ7YXWbf2mHTCDe9P)
+
+| Plataforma | Contenido de la carpeta | Cómo jugar |
 |---|---|---|
-| **Windows** (x64) | `GAME_CAMPUS_GLITCH_WINDOWS.zip`: descomprimir y ejecutar `CampusGlitch.exe` | [Descargar ejecutable](ENLACE_DRIVE_WINDOWS) |
-| **Android** (7.1 o superior, ARM64) | `CampusGlitch.apk`: instalar permitiendo orígenes desconocidos | [Descargar APK](ENLACE_DRIVE_APK) |
+| **Windows** (x64) | `.zip` con el ejecutable | Descomprimir y ejecutar `CampusGlitch.exe` |
+| **Android** (7.1 o superior, ARM64) | `.zip` con el APK | Descomprimir en el teléfono e instalar el `.apk`, permitiendo la instalación desde orígenes desconocidos |
 
 Ambas versiones se generaron desde la rama `main` de este repositorio con Unity 6000.3.16f1.
 
@@ -51,8 +53,8 @@ El juego acompaña a los estudiantes de primer semestre mientras conocen los esp
 | Requisito | Cómo se cumple |
 |---|---|
 | **Enlace al repositorio GitHub** | Este repositorio. La rama `main` contiene la versión entregada |
-| **Ejecutable para Windows** | Ver [Descargas](#descargas) |
-| **APK para Android** | Ver [Descargas](#descargas) |
+| **Ejecutable para Windows** | [Carpeta de descargas](https://drive.google.com/drive/folders/1nVOpTSSlp4lpx0nYZ7YXWbf2mHTCDe9P) |
+| **APK para Android** | [Carpeta de descargas](https://drive.google.com/drive/folders/1nVOpTSSlp4lpx0nYZ7YXWbf2mHTCDe9P) |
 | **Completamente jugable** | Los 9 niveles y el nivel extra se completan de principio a fin: fragmentos, terminal, jefes, portal, victoria, Game Over y reintento |
 | **Introducción del contexto** | Al entrar al Nivel 1 se muestra una **introducción narrativa** de 4 pantallas: primer día en el campus, la anomalía digital, el Lobo Guardián y la misión. Se puede saltar con Esc / B |
 | **Tutorial básico** | *Ayuda y controles → Cómo jugar* tiene un **tutorial animado** de movimiento, carrera, salto, ataque, poder, interacción y objetivo, adaptado a teclado, mando o pantalla táctil. Durante el juego aparecen mensajes contextuales (checkpoint, portal bloqueado, terminal) |
