@@ -79,7 +79,7 @@ public class CGHero:MonoBehaviour {
    if(CGControl.Interact())game.InteractNearPlayer();
  }
  void FixedUpdate(){if(Body==null||game==null)return;
-    Grounded=false;groundHits.Clear();gameObject.scene.GetPhysicsScene2D().Raycast(transform.position+new Vector3(0,0.08f,0),Vector2.down,0.23f,new ContactFilter2D().NoFilter(),groundHits);
+    Grounded=false;groundHits.Clear();gameObject.scene.GetPhysicsScene2D().Raycast(transform.position+new Vector3(0,0.08f,0),Vector2.down,0.23f,ContactFilter2D.noFilter,groundHits);
     foreach(var hit in groundHits){if(hit.collider!=null&&!hit.collider.isTrigger&&hit.collider.GetComponent<CGSurface>()!=null){Grounded=true;break;}}
     if(!game.Playing)return;
     float speed=running?5.8f:3.5f;
