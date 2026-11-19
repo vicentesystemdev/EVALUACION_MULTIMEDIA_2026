@@ -8,7 +8,7 @@ public partial class CGGame:MonoBehaviour {
     public static bool ShowCreditsOnBoot=false;
     public string initialPage="Splash";
     public int sceneLevel=-1; // -1 = menu, 0..8 main, 9 = extra
-    enum Page{Splash,Main,Map,Customization,Settings,Controls,Help,Credits,Playing,Paused,Quiz,Victory,Ending,ConfirmReset,Loading,GameOver}
+    enum Page{Splash,Main,Map,Customization,Settings,Controls,Help,Credits,Playing,Paused,Quiz,Victory,Ending,ConfirmReset,Loading,GameOver,Intro}
     Page page=Page.Splash;
     CGWorld world;int selection=0,mapSelection=0,chips=0;bool[] taken=new bool[3];bool terminalSolved=false,bossDead=true;string toast="",message="";float toastUntil=0;bool toastCritical;
     int rebinding=-1;bool padMode=false;float nextQuizAnswerTime=0;
@@ -43,6 +43,7 @@ public partial class CGGame:MonoBehaviour {
     }
     void CreateLevel(){page=Page.Playing;chips=0;taken=new bool[3];terminalSolved=false;bossDead=string.IsNullOrEmpty(CGLevels.All[sceneLevel].boss);
       GameObject root=new GameObject("LEVEL_"+(sceneLevel+1));world=root.AddComponent<CGWorld>();world.Setup(this,sceneLevel);levelEntered=Time.unscaledTime;Hint(CGLevels.All[sceneLevel].objective);
+      if(IntroPending())BeginIntro();
     }
     void LateUpdate(){
       if(lastMenuPage!=(int)page){menuNavigation.Reset();lastMenuPage=(int)page;lastMenuSelection=selection;}
@@ -50,6 +51,7 @@ public partial class CGGame:MonoBehaviour {
       menuMotion.Tick((int)page,selection,CGStore.Data!=null&&CGSettingsRuntime.ReduceFlash);
     }
     void Update(){CGTouch.UpdateInput();pointerMoved=Mouse.current!=null&&Mouse.current.delta.ReadValue().sqrMagnitude>1;
+      if(page==Page.Intro){HandleIntro();return;}
       if(page==Page.Controls){HandleControls();return;}
       if(page==Page.Settings){CGSettingsWorldView.Tick();HandleSettings();return;}
       if(page==Page.Help){HandleHelp();return;}
@@ -111,7 +113,7 @@ public partial class CGGame:MonoBehaviour {
        else page=fallback;
     }
     void ChooseLevel(int i){if(i<9&&i>CGStore.Data.latestUnlocked){Hint("Nivel bloqueado");return;}if(i==9&&!CGStore.Data.extraUnlocked){Hint("Se desbloquea después del nivel 5");return;}
-      Time.timeScale=1;string name=CGLevels.Scene(i);
+      Time.timeScale=1;string name=CGLevels.Scene(i);levelEnteredFromMenu=true;
       if(Application.CanStreamedLevelBeLoaded(name))StartCoroutine(TransitionToScene(name,true));
       else{sceneLevel=i;CreateLevel();}}
     IEnumerator TransitionToScene(string next,bool levelEntry=false){
@@ -293,7 +295,7 @@ public partial class CGGame:MonoBehaviour {
             RectColor(new Rect(x,y,3+(k%3),3+(k%3)),new Color(k%2==0?1f:.67f,.23f,k%2==0?.23f:1f,a));
           }
         }
-        if(page!=Page.Customization&&page!=Page.Controls&&page!=Page.Credits&&page!=Page.Settings&&page!=Page.Help){RectColor(new Rect(0,676,1280,44),new Color(.02f,.03f,.055f,.95f));
+        if(page!=Page.Customization&&page!=Page.Controls&&page!=Page.Credits&&page!=Page.Settings&&page!=Page.Help&&page!=Page.Intro){RectColor(new Rect(0,676,1280,44),new Color(.02f,.03f,.055f,.95f));
         CGUIDraw.Text(new Rect(28,684,1235,28),page==Page.Map?"MOVER: DIRECCIONES / STICK   ·   A / ENTER: JUGAR   ·   Y / TAB: DETALLES   ·   LB / RB: NIVEL   ·   B / ESC: VOLVER":"MOVER: DIRECCIONES / STICK     ·     A / ENTER: ELEGIR     ·     B / ESC: VOLVER     ·     CAMPUS 2.5D",tinyStyle);}
       }
       float entry=editorMenuPreview?1:menuMotion.Entry(CGSettingsRuntime.ReduceFlash);
@@ -330,6 +332,7 @@ public partial class CGGame:MonoBehaviour {
         CGUIDraw.Text(new Rect(913,79,287,30),design!=null?design.location:"UNIFRANZ · SEDE LA PAZ",new GUIStyle(tinyStyle){font=CGMenuTheme.Interface,fontSize=19,alignment=TextAnchor.MiddleLeft});
         if(design!=null&&design.mainDescriptions!=null&&selection<design.mainDescriptions.Length)CGUIDraw.Text(new Rect(start.x,632,size.x,37),design.mainDescriptions[selection],tinyStyle);
       }
+      if(page==Page.Intro)DrawIntro();
       if(page==Page.Map)DrawCampusMap();
       if(page==Page.Customization)DrawCustomization();
       if(page==Page.Settings)DrawSettings();
