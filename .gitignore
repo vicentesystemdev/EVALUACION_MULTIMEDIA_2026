@@ -51,3 +51,7 @@ Desktop.ini
 
 # Trabajo temporal del editor
 /.utmp/
+
+# Paquetes de entrega y simbolos de depuracion generados al compilar
+/*_BurstDebugInformation_DoNotShip/
+/*.zip
