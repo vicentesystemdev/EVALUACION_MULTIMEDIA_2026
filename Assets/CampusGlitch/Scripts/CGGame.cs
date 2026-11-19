@@ -132,7 +132,7 @@ public partial class CGGame:MonoBehaviour {
     readonly System.Collections.Generic.List<RaycastHit2D> attackObstacles=new System.Collections.Generic.List<RaycastHit2D>();
     readonly System.Collections.Generic.HashSet<CGEnemy> attacked=new System.Collections.Generic.HashSet<CGEnemy>();
     public void AttackPulse(Vector3 pos,float radius,int damage){if(!Playing)return;
-      var physics=gameObject.scene.GetPhysicsScene2D();var filter=new ContactFilter2D().NoFilter();attackTargets.Clear();attacked.Clear();physics.OverlapCircle(pos,radius,filter,attackTargets);
+      var physics=gameObject.scene.GetPhysicsScene2D();var filter=ContactFilter2D.noFilter;attackTargets.Clear();attacked.Clear();physics.OverlapCircle(pos,radius,filter,attackTargets);
       Vector2 origin=Hero!=null?(Hero.Body!=null?Hero.Body.position:(Vector2)Hero.transform.position)+Vector2.up*.8f:(Vector2)pos;
       foreach(var c in attackTargets){
         var e=c.GetComponentInParent<CGEnemy>();if(e==null||!attacked.Add(e))continue;
