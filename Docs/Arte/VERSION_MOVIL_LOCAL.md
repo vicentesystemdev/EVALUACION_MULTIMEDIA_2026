@@ -21,6 +21,14 @@ Las aportaciones de otras ramas llegan a la app cuando se integran en esta copia
 
 ## Controles del teléfono
 
+### Actualización del 19 de noviembre de 2026
+
+La rama de Víctor incorpora `main` en `03392d5`, incluida la introducción narrativa de Vicente (`f2b6c9a`, PR #35). Al entrar al Nivel 1 desde el menú o el mapa se muestran las cuatro pantallas de historia una vez por apertura del juego, también en Android. Tocar avanza o completa el texto; **Saltar intro** permite comenzar directamente. Continuar una partida en otro nivel no reproduce la introducción.
+
+Los controles de juego usan biseles circulares y símbolos propios, conservando las ocho acciones y sus áreas táctiles seguras. Movimiento e interacción usan cian; salto y carrera, naranja; ataque, rojo; y poder, violeta. Mantener pulsado ilumina el botón y un toque breve conserva una respuesta visual. Correr y Pausa mantienen un formato ancho. En modo Gestos solo se muestran Usar, Pausa y la indicación para mover/correr. El HUD móvil muestra la instrucción táctil, mientras el escritorio conserva las teclas.
+
+El dibujo se genera y se almacena en memoria una vez por estilo/estado, sin descargar imágenes ni añadir dependencias. La lógica de movimiento, gestos y multitáctil se conserva.
+
 En Ayuda → Versión móvil se puede elegir **Botones** o **Gestos**; la preferencia se guarda en ese dispositivo.
 
 | Modo | Acciones |

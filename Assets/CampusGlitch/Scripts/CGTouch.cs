@@ -55,8 +55,8 @@ public static class CGTouch {
     static GUIStyle style;
     public static void Draw(){
         if(!Enabled)return;if(style==null){style=new GUIStyle(GUI.skin.label){alignment=TextAnchor.MiddleCenter,wordWrap=true};style.normal.textColor=Color.white;}style.font=CGMenuTheme.Interface;style.fontSize=Mathf.Max(12,Mathf.RoundToInt(20*Unit));CGStore.Load();
-        var color=GUI.color;for(int b=0;b<Labels.Length;b++){if(CGStore.Data.touchGestures&&b!=Interact&&b!=Pause)continue;Rect r=ButtonRect(b);GUI.color=Held(b)?new Color(1,.5f,.12f,.8f):new Color(.02f,.035f,.075f,.65f);GUI.DrawTexture(r,CGMenuArtwork.Button(Held(b),new Color(1,.5f,.12f)));GUI.color=color;GUI.Label(r,Labels[b],style);}
-        if(CGStore.Data.touchGestures){var r=ButtonRect(Run);GUI.color=new Color(1,.6f,.18f,.65f);GUI.DrawTexture(r,CGMenuArtwork.Button(false,new Color(1,.5f,.12f)));GUI.color=color;GUI.Label(r,"ARRASTRA PARA MOVER",style);}
+        var color=GUI.color;for(int b=0;b<Labels.Length;b++){if(CGStore.Data.touchGestures&&b!=Interact&&b!=Pause)continue;CGTouchArt.Draw(ButtonRect(b),b,Held(b)||Time.unscaledTime<expires[b],Labels[b],style);}
+        if(CGStore.Data.touchGestures)CGTouchArt.Draw(ButtonRect(Run),Run,Running,"DESLIZA\nMOVER / CORRER",style);
         GUI.color=color;
     }
 }
