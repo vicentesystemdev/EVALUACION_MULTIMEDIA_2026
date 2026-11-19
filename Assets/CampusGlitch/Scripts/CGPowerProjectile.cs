@@ -16,7 +16,7 @@ public sealed class CGPowerProjectile:MonoBehaviour {
     void Update(){Advance(Time.deltaTime);}
     public void Advance(float seconds){
         if(Finished||game==null||!game.Playing||seconds<=0)return;
-        float distance=Mathf.Min(stats.speed*seconds,stats.range-travelled);hits.Clear();gameObject.scene.GetPhysicsScene2D().CircleCast(transform.position,.16f,direction,distance,new ContactFilter2D().NoFilter(),hits);
+        float distance=Mathf.Min(stats.speed*seconds,stats.range-travelled);hits.Clear();gameObject.scene.GetPhysicsScene2D().CircleCast(transform.position,.16f,direction,distance,ContactFilter2D.noFilter,hits);
         foreach(var hit in hits){
             if(hit.collider==null||hit.collider.GetComponentInParent<CGHero>()==owner)continue;
             var enemy=hit.collider.GetComponentInParent<CGEnemy>();bool wall=!hit.collider.isTrigger&&hit.collider.GetComponent<CGSurface>()!=null;
